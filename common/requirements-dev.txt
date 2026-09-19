@@ -1,0 +1,5 @@
+-r requirements.txt
+ipykernel>=6,<8
+
+# Solo para material docente/experimentos; no se importa en runtime común.
+rank-bm25==0.2.2

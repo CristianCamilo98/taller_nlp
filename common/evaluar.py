@@ -1,117 +1,249 @@
-"""Función evaluar(ruta_jsonl) — corre el agente sobre un golden set."""
+"""Runner reproducible del benchmark; importar este módulo no llama a APIs."""
+
+from __future__ import annotations
+
+import hashlib
 import json
-import sys
+import subprocess
 import time
-import traceback
+import uuid
+from datetime import datetime, timezone
 from pathlib import Path
+from typing import Callable
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-
-from responder import responder
-from eval.evaluador_cifra import evaluar_cifra
-from eval.evaluador_cita import evaluar_cita
-from eval.evaluador_trayectoria import evaluar_trayectoria
+from common.benchmark_config import BENCHMARK
+from common.config import get_dataset_paths
 
 
-def cargar_golden(ruta: str) -> list[dict]:
-    return [json.loads(l) for l in open(ruta, encoding="utf-8") if l.strip()]
+def cargar_golden(ruta: str | Path) -> list[dict]:
+    with Path(ruta).open(encoding="utf-8") as stream:
+        return [json.loads(line) for line in stream if line.strip()]
 
 
-def _invocar_con_reintentos(pregunta: str, max_intentos: int = 3) -> dict:
-    """Invoca responder() con reintentos exponenciales si hay rate limit."""
-    for intento in range(max_intentos):
+def _sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        for block in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
+def _commit_sha() -> str | None:
+    try:
+        return subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            cwd=Path(__file__).resolve().parents[1],
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout.strip()
+    except (OSError, subprocess.SubprocessError):
+        return None
+
+
+def _artifact_hashes() -> dict[str, str]:
+    paths = get_dataset_paths()
+    return {name: _sha256(path) for name, path in paths.required_files().items()}
+
+
+def _is_rate_limit(error: Exception) -> bool:
+    text = str(error).lower()
+    status = getattr(error, "status_code", None)
+    return status == 429 or "429" in text or "rate limit" in text
+
+
+class InvocationFailed(RuntimeError):
+    def __init__(self, cause: Exception, metadata: dict):
+        super().__init__(str(cause))
+        self.cause = cause
+        self.metadata = metadata
+
+
+def _invocar_con_reintentos(
+    pregunta: str,
+    *,
+    responder_fn: Callable[[str], dict] | None = None,
+    max_intentos: int | None = None,
+    sleep_fn: Callable[[float], None] = time.sleep,
+) -> tuple[dict, dict]:
+    """Reintenta solo 429 y separa tiempo activo de backoff."""
+    if responder_fn is None:
+        from common.responder import responder as responder_fn
+    attempts = max_intentos or BENCHMARK.rate_limit_attempts
+    retry_count = 0
+    rate_limited = False
+    backoff_s = 0.0
+    active_s = 0.0
+    for attempt in range(attempts):
+        started = time.perf_counter()
         try:
-            return responder(pregunta)
-        except Exception as e:
-            msg = str(e).lower()
-            es_rate_limit = "429" in str(e) or "rate limit" in msg
-            if es_rate_limit and intento < max_intentos - 1:
-                espera = 30 * (2 ** intento)  # 30s, 60s, ...
-                print(f"    ⏸ Rate limit. Esperando {espera}s antes de reintentar...")
-                time.sleep(espera)
+            response = responder_fn(pregunta)
+            active_s += time.perf_counter() - started
+            return response, {
+                "retry_count": retry_count,
+                "rate_limited": rate_limited,
+                "backoff_s": backoff_s,
+                "latencia_activa_s": active_s,
+            }
+        except Exception as error:
+            active_s += time.perf_counter() - started
+            if _is_rate_limit(error) and attempt < attempts - 1:
+                rate_limited = True
+                retry_count += 1
+                wait = BENCHMARK.rate_limit_initial_backoff_s * (2 ** attempt)
+                backoff_s += wait
+                sleep_fn(wait)
                 continue
-            raise
-    raise RuntimeError("Máximo de reintentos alcanzado")
+            metadata = {
+                "retry_count": retry_count,
+                "rate_limited": rate_limited or _is_rate_limit(error),
+                "backoff_s": backoff_s,
+                "latencia_activa_s": active_s,
+            }
+            raise InvocationFailed(error, metadata) from error
+    raise AssertionError("bucle de reintentos inalcanzable")
 
 
 def evaluar(ruta_jsonl: str, guardar_en: str | None = None,
-            pausa_entre_preguntas: float = 5.0) -> list[dict]:
-    """Corre responder() sobre cada pregunta y devuelve los resultados.
+            pausa_entre_preguntas: float | None = None) -> list[dict]:
+    """Ejecuta el golden y registra métricas y provenance explícitos."""
+    from common.eval.evaluador_cifra import evaluar_cifra_detallada
+    from common.eval.evaluador_cita import evaluar_cita_detallada
+    from common.eval.evaluador_trayectoria import evaluar_trayectoria_detallada
 
-    Args:
-        ruta_jsonl: ruta al golden set.
-        guardar_en: ruta opcional para guardar los resultados en JSONL.
-        pausa_entre_preguntas: segundos de espera entre preguntas para
-            evitar el rate limit de OpenRouter (cuenta nueva).
-    """
-    preguntas = cargar_golden(ruta_jsonl)
-    resultados = []
+    golden_path = Path(ruta_jsonl).resolve()
+    questions = cargar_golden(golden_path)
+    pause = (BENCHMARK.pause_between_questions_s
+             if pausa_entre_preguntas is None else pausa_entre_preguntas)
+    run_id = f"run-{uuid.uuid4().hex}"
+    timestamp = datetime.now(timezone.utc).isoformat()
+    commit_sha = _commit_sha()
+    golden_hash = _sha256(golden_path)
+    artifact_hashes = _artifact_hashes()
+    results = []
 
-    for p in preguntas:
-        print(f"[{p['id']}] {p['pregunta'][:80]}...")
-
-        t0 = time.time()
+    for index, question in enumerate(questions):
+        wall_start = time.perf_counter()
+        retry_meta = {"retry_count": 0, "rate_limited": False,
+                      "backoff_s": 0.0, "latencia_activa_s": 0.0}
         try:
-            respuesta = _invocar_con_reintentos(p["pregunta"])
+            response, retry_meta = _invocar_con_reintentos(question["pregunta"])
             error = None
-        except Exception as e:
-            respuesta = {}
-            error = f"{type(e).__name__}: {e}"
-        latencia = time.time() - t0
-
-        # Detectar respuesta vacía como error
-        if not error and not respuesta.get("respuesta"):
+        except InvocationFailed as failure:
+            response = {}
+            retry_meta = failure.metadata
+            error = f"{type(failure.cause).__name__}: {failure.cause}"
+        wall_latency = time.perf_counter() - wall_start
+        if not error and not response.get("respuesta"):
             error = "Respuesta vacía del agente"
 
-        fila = {
-            "id": p["id"],
-            "familia": p["familia"],
-            "pregunta": p["pregunta"],
-            "respuesta_agente": respuesta.get("respuesta"),
-            "cifra_agente": respuesta.get("cifra"),
-            "unidad_agente": respuesta.get("unidad"),
-            "fuente_agente": respuesta.get("fuente"),
-            "cita_agente": respuesta.get("cita"),
-            "chunk_id_agente": respuesta.get("chunk_id"),
-            "tool_calls_agente": respuesta.get("tool_calls_agente"),
-            "tool_calls_detallado": respuesta.get("tool_calls_detallado"),
-            "latencia_s": round(latencia, 2),
+        telemetry = response.get("_telemetria") or {}
+        public_response = {key: value for key, value in response.items()
+                           if not key.startswith("_")}
+        row = {
+            "run_id": run_id,
+            "timestamp": timestamp,
+            "commit_sha": commit_sha,
+            "question_id": question["id"],
+            "id": question["id"],
+            "familia": question["familia"],
+            "pregunta": question["pregunta"],
+            "respuesta": public_response or None,
+            "respuesta_agente": response.get("respuesta"),
+            "cifra_agente": response.get("cifra"),
+            "unidad_agente": response.get("unidad"),
+            "ticker_agente": response.get("ticker"),
+            "ejercicio_agente": response.get("ejercicio"),
+            "concepto_xbrl_agente": response.get("concepto_xbrl"),
+            "ejercicio_inicial_agente": response.get("ejercicio_inicial"),
+            "ejercicio_final_agente": response.get("ejercicio_final"),
+            "valor_inicial_agente": response.get("valor_inicial"),
+            "valor_final_agente": response.get("valor_final"),
+            "delta_agente": response.get("delta"),
+            "porcentaje_agente": response.get("porcentaje"),
+            "fuente_agente": response.get("fuente"),
+            "cita_agente": response.get("cita"),
+            "chunk_id_agente": response.get("chunk_id"),
+            "tool_calls": response.get("tool_calls_agente") or [],
+            "tool_calls_agente": response.get("tool_calls_agente") or [],
+            "tool_calls_detallado": response.get("tool_calls_detallado") or [],
+            "tool_call_count": len(response.get("tool_calls_detallado") or []),
+            "latencia_s": round(wall_latency, 6),
+            "latencia_activa_s": round(retry_meta["latencia_activa_s"], 6),
+            "backoff_s": retry_meta["backoff_s"],
+            "retry_count": retry_meta["retry_count"],
+            "guardrail_retry_count": response.get("guardrail_retry_count", 0),
+            "rate_limited": retry_meta["rate_limited"],
             "error": error,
-            "respuesta_esperada": p.get("respuesta_esperada"),
-            "cifra_esperada": p.get("cifra_esperada"),
+            "provider_solicitado": BENCHMARK.provider,
+            "model_solicitado": BENCHMARK.model,
+            "model_efectivo": telemetry.get("model_effective"),
+            "provider_efectivo": telemetry.get("provider_effective"),
+            "temperature": BENCHMARK.temperature,
+            "input_tokens": telemetry.get("input_tokens"),
+            "output_tokens": telemetry.get("output_tokens"),
+            "total_tokens": telemetry.get("total_tokens"),
+            "llm_calls": telemetry.get("llm_calls"),
+            "coste": telemetry.get("coste"),
+            "retrieval_config": {
+                "tipo": "dense_faiss_con_postfiltrado_metadata",
+                "embedding": BENCHMARK.embedding_model,
+                "query_prefix": BENCHMARK.embedding_query_prefix,
+                "normalizado": BENCHMARK.embedding_normalize,
+                "index_type": BENCHMARK.faiss_index_type,
+                "k": BENCHMARK.retrieval_k,
+                "query_rewriting": False,
+                "bm25": False,
+                "reranking": False,
+            },
+            "embedding": BENCHMARK.embedding_model,
+            "k": BENCHMARK.retrieval_k,
+            "prompt_version": BENCHMARK.prompt_version,
+            "hash_golden": golden_hash,
+            "hashes_dataset_indice": artifact_hashes,
+            "respuesta_esperada": question.get("respuesta_esperada"),
+            "cifra_esperada": question.get("cifra_esperada"),
         }
-
-        # Aplicar los 3 evaluadores (si hubo error, cuenta como fallo)
         if error:
-            fila["acierto_cifra"] = (
-                False if p["familia"] in {"numerica", "comparativa"} else None
-            )
-            fila["acierto_cita"] = False if p.get("ancla_texto") else None
-            fila["acierto_trayectoria"] = False
+            numeric = question["familia"] in {"numerica", "comparativa"}
+            qualitative = bool(question.get("ancla_texto"))
+            number_detail = {"aplica": numeric, "acierto_cifra":
+                             False if numeric else None, "errores": ["error_run"]}
+            citation_detail = {"aplica": qualitative, "acierto_cita":
+                               False if qualitative else None}
+            trajectory_detail = {"aplica": True, "acierto_trayectoria": False,
+                                 "errores": ["error_run"]}
         else:
-            fila["acierto_cifra"] = evaluar_cifra(fila, p)
-            fila["acierto_cita"] = evaluar_cita(fila, p)
-            fila["acierto_trayectoria"] = evaluar_trayectoria(fila, p)
-
-        resultados.append(fila)
-
-        # Pausa entre preguntas para evitar rate limit
-        if pausa_entre_preguntas > 0:
-            time.sleep(pausa_entre_preguntas)
+            number_detail = evaluar_cifra_detallada(row, question)
+            citation_detail = evaluar_cita_detallada(row, question)
+            trajectory_detail = evaluar_trayectoria_detallada(row, question)
+        row["metricas"] = {
+            "cifra": number_detail,
+            "cita": citation_detail,
+            "trayectoria": trajectory_detail,
+        }
+        row["acierto_cifra"] = number_detail.get("acierto_cifra")
+        row["acierto_cita"] = citation_detail.get("acierto_cita")
+        row["acierto_trayectoria"] = trajectory_detail.get(
+            "acierto_trayectoria")
+        results.append(row)
+        if index < len(questions) - 1 and pause > 0:
+            time.sleep(pause)
 
     if guardar_en:
-        Path(guardar_en).parent.mkdir(parents=True, exist_ok=True)
-        with open(guardar_en, "w", encoding="utf-8", newline="\n") as f:
-            for r in resultados:
-                f.write(json.dumps(r, ensure_ascii=False) + "\n")
-        print(f"\nGuardado en {guardar_en}")
-
-    return resultados
+        destination = Path(guardar_en)
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        with destination.open("w", encoding="utf-8", newline="\n") as stream:
+            for result in results:
+                stream.write(json.dumps(result, ensure_ascii=False) + "\n")
+    return results
 
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print("Uso: python evaluar.py <ruta_al_golden.jsonl> [salida.jsonl]")
-        sys.exit(1)
-    salida = sys.argv[2] if len(sys.argv) > 2 else None
-    evaluar(sys.argv[1], salida)
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("golden")
+    parser.add_argument("output", nargs="?")
+    args = parser.parse_args()
+    evaluar(args.golden, args.output)
