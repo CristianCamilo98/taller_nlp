@@ -27,30 +27,52 @@ def _get_agente():
     return _agente
 
 
-def responder(pregunta: str) -> dict:
+
+
+
+from agent.middleware_xbrl import verificar_cifra
+
+
+def responder(pregunta: str, max_reintentos: int = 1) -> dict:
     """Responde a una pregunta sobre los 10-K del corpus.
 
-    Devuelve un dict con los campos de RespuestaFinanciera y la lista de
-    herramientas llamadas (tool_calls_agente).
+    Aplica el guardrail XBRL: si la cifra no coincide con el corpus, hace
+    un reintento pasándole el desajuste al modelo.
     """
     agente = _get_agente()
+
+    # Primera invocación
     config = {"configurable": {"thread_id": "default"}}
     resultado = agente.invoke(
         {"messages": [{"role": "user", "content": pregunta}]},
         config=config,
     )
 
-    # Extraer la lista de tool calls de los mensajes
     tool_calls = []
     for msg in resultado["messages"]:
         for tc in (getattr(msg, "tool_calls", None) or []):
-            tool_calls.append(tc["name"])
+            if tc["name"] != "RespuestaFinanciera":
+                tool_calls.append(tc["name"])
 
     e = resultado["structured_response"]
-    salida = e.model_dump()
-    salida["tool_calls_agente"] = tool_calls
-    return salida
+    respuesta = e.model_dump()
+    respuesta["tool_calls_agente"] = tool_calls
 
+    # Guardrail XBRL
+    ticker = respuesta.get("ticker")
+    ejercicio = respuesta.get("ejercicio")
+    if ticker and ejercicio:
+        ok, mensaje = verificar_cifra(respuesta, ticker, ejercicio)
+        if not ok and max_reintentos > 0:
+            print(f">>> Guardrail XBRL: {mensaje}")
+            # Reintento con el desajuste
+            pregunta_corregida = (
+                f"{pregunta}\n\n"
+                f"AVISO DEL SISTEMA: {mensaje}"
+            )
+            return responder(pregunta_corregida, max_reintentos - 1)
+
+    return respuesta
 
 if __name__ == "__main__":
     try:

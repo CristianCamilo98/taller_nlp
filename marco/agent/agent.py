@@ -45,5 +45,5 @@ def crear_agente():
     system_prompt=SYSTEM,
     response_format=RespuestaFinanciera,
     checkpointer=InMemorySaver(),
-    middleware=[ToolCallLimitMiddleware(run_limit=15)],  
+    middleware=[ToolCallLimitMiddleware(run_limit=10)],  
     )   
