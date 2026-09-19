@@ -33,6 +33,10 @@ def evaluar(ruta_jsonl: str, guardar_en: str | None = None) -> list[dict]:
             error = f"{type(e).__name__}: {e}"
         latencia = time.time() - t0
 
+        # Detectar respuesta vacía como error
+        if not error and not respuesta.get("respuesta"):
+            error = "Respuesta vacía del agente"
+
         fila = {
             "id": p["id"],
             "familia": p["familia"],
@@ -50,10 +54,17 @@ def evaluar(ruta_jsonl: str, guardar_en: str | None = None) -> list[dict]:
             "cifra_esperada": p.get("cifra_esperada"),
         }
 
-        # Aplicar los 3 evaluadores
-        fila["acierto_cifra"] = evaluar_cifra(fila, p)
-        fila["acierto_cita"] = evaluar_cita(fila, p)
-        fila["acierto_trayectoria"] = evaluar_trayectoria(fila, p)
+        # Aplicar los 3 evaluadores (si hubo error, cuenta como fallo)
+        if error:
+            fila["acierto_cifra"] = (
+                False if p["familia"] in {"numerica", "comparativa"} else None
+            )
+            fila["acierto_cita"] = False if p.get("ancla_texto") else None
+            fila["acierto_trayectoria"] = False
+        else:
+            fila["acierto_cifra"] = evaluar_cifra(fila, p)
+            fila["acierto_cita"] = evaluar_cita(fila, p)
+            fila["acierto_trayectoria"] = evaluar_trayectoria(fila, p)
 
         resultados.append(fila)
 

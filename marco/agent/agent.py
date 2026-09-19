@@ -4,6 +4,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 from langchain.agents import create_agent
+from langchain.agents.middleware import ToolCallLimitMiddleware
 from langgraph.checkpoint.memory import InMemorySaver
 
 from .schema import RespuestaFinanciera
@@ -39,9 +40,10 @@ def crear_agente():
     herramientas = [list_available, get_xbrl_fact, search_filings, read_section]
 
     return create_agent(
-        model=MODELO,
-        tools=herramientas,
-        system_prompt=SYSTEM,
-        response_format=RespuestaFinanciera,
-        checkpointer=InMemorySaver(),
-    )
+    model=MODELO,
+    tools=herramientas,
+    system_prompt=SYSTEM,
+    response_format=RespuestaFinanciera,
+    checkpointer=InMemorySaver(),
+    middleware=[ToolCallLimitMiddleware(run_limit=15)],  
+    )   

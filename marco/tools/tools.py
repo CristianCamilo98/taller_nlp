@@ -133,6 +133,7 @@ def get_xbrl_fact(ticker: str, fiscal_year: int, concept: str) -> str:
 # ---------------------------------------------------------------------------
 # 3. search_filings
 # ---------------------------------------------------------------------------
+
 @tool
 def search_filings(query: str, ticker: str | None = None,
                    fiscal_year: int | None = None,
@@ -158,8 +159,6 @@ def search_filings(query: str, ticker: str | None = None,
         miax_s1.buscar(query, ticker=ticker, fiscal_year=fiscal_year,
                        item=item, k=k)
     )
-
-
 # ---------------------------------------------------------------------------
 # 4. read_section
 # ---------------------------------------------------------------------------
