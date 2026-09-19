@@ -95,6 +95,20 @@ def list_available() -> str:
 # ---------------------------------------------------------------------------
 # 2. get_xbrl_fact
 # ---------------------------------------------------------------------------
+def _formato_valor(valor: float, unidad: str) -> str:
+    """Formatea el valor según su magnitud y unidad.
+
+    - Si la unidad incluye 'shares' (EPS), siempre con 2 decimales.
+    - Si el valor es pequeño (< 100), con 2 decimales.
+    - Si no, entero con separador de miles.
+    """
+    if "shares" in unidad.lower():
+        return f"{valor:.2f}"
+    if abs(valor) < 100:
+        return f"{valor:.2f}"
+    return f"{valor:,.0f}"
+
+
 @tool
 def get_xbrl_fact(ticker: str, fiscal_year: int, concept: str) -> str:
     """Devuelve el valor EXACTO de una magnitud financiera tal y como la
@@ -126,7 +140,8 @@ def get_xbrl_fact(ticker: str, fiscal_year: int, concept: str) -> str:
         return (f"{ticker} no reportó '{concept}' en FY{fiscal_year}. "
                 f"Conceptos disponibles: {', '.join(disponibles)}")
     f = filas.iloc[0]
-    return (f"{ticker} FY{fiscal_year} · {concept} = {f.value:,.0f} {f.unit} "
+    return (f"{ticker} FY{fiscal_year} · {concept} = "
+            f"{_formato_valor(f.value, f.unit)} {f.unit} "
             f"(cierre de ejercicio {f.period_end}, según el {f.form})")
 
 

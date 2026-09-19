@@ -1,9 +1,11 @@
-"""Evaluador de cita.
+"""Evaluador de cita estricto.
 
-Criterio: la cita respalda la respuesta si el chunk citado (o un chunk
-adyacente) contiene el ancla_texto del golden set. Esto verifica que
-el agente encontró la información correcta en el corpus, independientemente
-de si su cita literal es idéntica a la frase completa o solo parcial.
+Regla doble:
+1. La cita del agente debe aparecer literalmente en el chunk citado.
+2. El ancla_texto del golden set debe aparecer en el MISMO chunk citado
+   (no en vecinos).
+
+Si no se cumplen ambas condiciones, es fallo.
 """
 import json
 import re
@@ -13,7 +15,9 @@ from pathlib import Path
 import pandas as pd
 
 _raiz = Path(__file__).resolve().parents[2]
-chunks_meta = pd.read_parquet(_raiz / "corpus" / "indice" / "chunks_meta.parquet")
+chunks_meta = pd.read_parquet(
+    _raiz / "corpus" / "indice" / "chunks_meta.parquet"
+)
 
 
 def _normalizar(texto: str) -> str:
@@ -38,57 +42,55 @@ def _texto_del_chunk(chunk_id: str) -> str | None:
     return fila.iloc[0].texto
 
 
-def _chunks_adyacentes(chunk_id: str, radio: int = 2) -> list[str]:
-    """Devuelve el chunk y sus vecinos ±radio."""
-    if not chunk_id:
-        return []
-    m = re.match(r"(.+)-(\d+)$", chunk_id)
-    if not m:
-        return [chunk_id]
-    base = m.group(1)
-    n = int(m.group(2))
-    ancho = len(m.group(2))
-    return [
-        f"{base}-{i:0{ancho}d}"
-        for i in range(n - radio, n + radio + 1)
-        if i >= 0
-    ]
-
-
 def evaluar_cita(resultado: dict, pregunta: dict) -> bool | None:
-    """Comprueba que la cita respalda la respuesta.
+    """Comprueba que:
+    1. La cita del agente aparece literalmente en el chunk citado.
+    2. El ancla del golden set aparece en el MISMO chunk citado.
 
     Devuelve None si la pregunta no lleva componente cualitativo.
     """
     if not pregunta.get("ancla_texto"):
         return None
 
-    chunk_id = resultado.get("chunk_id_agente")
     cita = resultado.get("cita_agente")
-    ancla = pregunta.get("ancla_texto")
-    ancla_norm = _normalizar(ancla)
+    chunk_id = resultado.get("chunk_id_agente")
 
-    # Criterio 1 (principal): el chunk citado o un adyacente contiene el ancla
-    if chunk_id:
-        for cid in _chunks_adyacentes(chunk_id, radio=2):
-            texto = _texto_del_chunk(cid)
-            if texto and ancla_norm in _normalizar(texto):
-                return True
+    if not chunk_id:
+        return False
 
-    # Criterio 2 (fallback): la cita del agente contiene el ancla
+    texto = _texto_del_chunk(chunk_id)
+    if texto is None:
+        return False  # chunk_id inventado o no existe
+
+    texto_norm = _normalizar(texto)
+
+    # Condición 1: la cita existe en el chunk citado
     if cita:
         cita_norm = _normalizar(cita)
-        if ancla_norm in cita_norm or cita_norm in ancla_norm:
-            return True
+        if cita_norm and cita_norm not in texto_norm:
+            return False  # cita alucinada o mal referenciada
 
-    return False
+    # Condición 2: el ancla del golden set está en el MISMO chunk
+    ancla_norm = _normalizar(pregunta["ancla_texto"])
+    if ancla_norm not in texto_norm:
+        return False
+
+    return True
 
 
 if __name__ == "__main__":
-    # Test 1: chunk adyacente contiene ancla
+    # Test 1: chunk exacto contiene ancla y cita coherente
     print("Test 1:",
           evaluar_cita(
-              {"chunk_id_agente": "NVDA-2025-1A-0037", "cita_agente": "x"},
+              {"chunk_id_agente": "MSFT-2024-7A-0000",
+               "cita_agente": "Certain forecasted transactions, assets, and liabilities are exposed to foreign currency risk."},
               {"familia": "extractiva",
-               "ancla_texto": "As a result, excessive or shifting export controls may negatively impact demand for our products and services not only in China, but also in other markets"}))
-    # Esperado: True (0038 está en el radio 1)
+               "ancla_texto": "Certain forecasted transactions, assets, and liabilities are exposed to foreign currency risk."}))
+
+    # Test 2: chunk NO contiene el ancla (debería ser False)
+    print("Test 2 (esperado False):",
+          evaluar_cita(
+              {"chunk_id_agente": "MSFT-2024-7A-0001",
+               "cita_agente": "texto cualquiera"},
+              {"familia": "extractiva",
+               "ancla_texto": "Certain forecasted transactions, assets, and liabilities are exposed to foreign currency risk."}))
