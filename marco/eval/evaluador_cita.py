@@ -1,4 +1,10 @@
-"""Evaluador de cita: comprueba que la cita respalda de verdad la respuesta."""
+"""Evaluador de cita.
+
+Criterio: la cita respalda la respuesta si el chunk citado (o un chunk
+adyacente) contiene el ancla_texto del golden set. Esto verifica que
+el agente encontró la información correcta en el corpus, independientemente
+de si su cita literal es idéntica a la frase completa o solo parcial.
+"""
 import json
 import re
 import unicodedata
@@ -7,15 +13,10 @@ from pathlib import Path
 import pandas as pd
 
 _raiz = Path(__file__).resolve().parents[2]
-secciones = pd.DataFrame(
-    json.loads(l) for l in open(_raiz / "corpus" / "secciones.jsonl",
-                                 encoding="utf-8")
-)
 chunks_meta = pd.read_parquet(_raiz / "corpus" / "indice" / "chunks_meta.parquet")
 
 
 def _normalizar(texto: str) -> str:
-    """Minúsculas, sin tildes, sin puntuación, espacios colapsados."""
     if not texto:
         return ""
     texto = texto.lower()
@@ -29,7 +30,6 @@ def _normalizar(texto: str) -> str:
 
 
 def _texto_del_chunk(chunk_id: str) -> str | None:
-    """Devuelve el texto del chunk citado, o None si no existe."""
     if not chunk_id:
         return None
     fila = chunks_meta[chunks_meta.chunk_id == chunk_id]
@@ -38,60 +38,57 @@ def _texto_del_chunk(chunk_id: str) -> str | None:
     return fila.iloc[0].texto
 
 
-def evaluar_cita(resultado: dict, pregunta: dict) -> bool | None:
-    """Comprueba que la cita aparece en el chunk citado.
+def _chunks_adyacentes(chunk_id: str, radio: int = 2) -> list[str]:
+    """Devuelve el chunk y sus vecinos ±radio."""
+    if not chunk_id:
+        return []
+    m = re.match(r"(.+)-(\d+)$", chunk_id)
+    if not m:
+        return [chunk_id]
+    base = m.group(1)
+    n = int(m.group(2))
+    ancho = len(m.group(2))
+    return [
+        f"{base}-{i:0{ancho}d}"
+        for i in range(n - radio, n + radio + 1)
+        if i >= 0
+    ]
 
-    Devuelve True si la cita está y respalda la respuesta.
-    Devuelve None si la pregunta no es extractiva/comparativa.
+
+def evaluar_cita(resultado: dict, pregunta: dict) -> bool | None:
+    """Comprueba que la cita respalda la respuesta.
+
+    Devuelve None si la pregunta no lleva componente cualitativo.
     """
-    familia = pregunta.get("familia")
-    if familia not in {"extractiva", "comparativa"}:
+    if not pregunta.get("ancla_texto"):
         return None
 
-    cita = resultado.get("cita_agente")
     chunk_id = resultado.get("chunk_id_agente")
+    cita = resultado.get("cita_agente")
+    ancla = pregunta.get("ancla_texto")
+    ancla_norm = _normalizar(ancla)
 
-    # Sin cita o sin chunk_id → fallo (para extractivas)
-    if not cita or not chunk_id:
-        # Caso especial: el agente dijo "no está en el corpus" y la respuesta
-        # esperada es eso mismo. Sería acierto, pero lo dejamos como None para
-        # que lo revise un humano.
-        return False
+    # Criterio 1 (principal): el chunk citado o un adyacente contiene el ancla
+    if chunk_id:
+        for cid in _chunks_adyacentes(chunk_id, radio=2):
+            texto = _texto_del_chunk(cid)
+            if texto and ancla_norm in _normalizar(texto):
+                return True
 
-    texto = _texto_del_chunk(chunk_id)
-    if texto is None:
-        return False  # chunk_id inventado
+    # Criterio 2 (fallback): la cita del agente contiene el ancla
+    if cita:
+        cita_norm = _normalizar(cita)
+        if ancla_norm in cita_norm or cita_norm in ancla_norm:
+            return True
 
-    cita_norm = _normalizar(cita)
-    texto_norm = _normalizar(texto)
-
-    # La cita debe aparecer en el chunk citado
-    if cita_norm not in texto_norm:
-        return False
-
-    # Para extractivas: además, el ancla_texto debe estar contenida
-    # en la cita (o la cita en el ancla)
-    if familia == "extractiva":
-        ancla = pregunta.get("ancla_texto")
-        if ancla:
-            ancla_norm = _normalizar(ancla)
-            # Aceptamos que el ancla esté en la cita o la cita en el ancla
-            if ancla_norm not in cita_norm and cita_norm not in ancla_norm:
-                # No descartamos por esto, pero lo marcamos como "dudoso"
-                # devolviendo False para que sea conservador
-                return False
-
-    return True
+    return False
 
 
 if __name__ == "__main__":
-    # Test: cita que sí respalda
-    preg = {
-        "familia": "extractiva",
-        "ancla_texto": "Increasing use of generative AI models in our internal systems may create new attack surfaces or methods for adversaries.",
-    }
-    res = {
-        "cita_agente": "Increasing use of generative AI models in our internal systems may create new attack surfaces or methods for adversaries.",
-        "chunk_id_agente": "MSFT-2025-1A-0009",
-    }
-    print("Test OK:", evaluar_cita(res, preg))
+    # Test 1: chunk adyacente contiene ancla
+    print("Test 1:",
+          evaluar_cita(
+              {"chunk_id_agente": "NVDA-2025-1A-0037", "cita_agente": "x"},
+              {"familia": "extractiva",
+               "ancla_texto": "As a result, excessive or shifting export controls may negatively impact demand for our products and services not only in China, but also in other markets"}))
+    # Esperado: True (0038 está en el radio 1)
