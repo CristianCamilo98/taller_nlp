@@ -1,1 +1,9 @@
 dataset/
+
+# Corpus y backups (no subir a GitHub)
+corpus/
+dataset/
+dataset_backup/
+*.zip
+*.rar
+.env
