@@ -1,96 +1,108 @@
-"""Evaluador de cita estricto.
+"""Evaluación separada de existencia, ancla y soporte de una cita."""
 
-Regla doble:
-1. La cita del agente debe aparecer literalmente en el chunk citado.
-2. El ancla_texto del golden set debe aparecer en el MISMO chunk citado
-   (no en vecinos).
+from __future__ import annotations
 
-Si no se cumplen ambas condiciones, es fallo.
-"""
-import json
 import re
 import unicodedata
-from pathlib import Path
+from functools import lru_cache
 
-import pandas as pd
-
-_raiz = Path(__file__).resolve().parents[2]
-chunks_meta = pd.read_parquet(
-    _raiz / "corpus" / "indice" / "chunks_meta.parquet"
-)
+from common.config import get_dataset_paths
 
 
-def _normalizar(texto: str) -> str:
-    if not texto:
+def _normalizar(text: str | None) -> str:
+    if not text:
         return ""
-    texto = texto.lower()
-    texto = "".join(
-        c for c in unicodedata.normalize("NFD", texto)
-        if unicodedata.category(c) != "Mn"
-    )
-    texto = re.sub(r"[^\w\s]", " ", texto)
-    texto = re.sub(r"\s+", " ", texto).strip()
-    return texto
+    value = "".join(char for char in unicodedata.normalize("NFD", str(text))
+                    if unicodedata.category(char) != "Mn").lower()
+    value = re.sub(r"[^\w\s]", " ", value)
+    return re.sub(r"\s+", " ", value).strip()
 
 
-def _texto_del_chunk(chunk_id: str) -> str | None:
+@lru_cache(maxsize=1)
+def _chunks():
+    import pandas as pd
+
+    return pd.read_parquet(get_dataset_paths().chunks_meta)
+
+
+def _fragments(citation: str) -> list[str]:
+    return [part for part in (_normalizar(p) for p in
+            re.split(r"\s*(?:\.\.\.|…)+\s*", citation)) if part]
+
+
+def _evidence_in_text(evidence: str, text: str) -> bool:
+    pieces = _fragments(evidence)
+    return bool(pieces) and all(piece in text for piece in pieces)
+
+
+def evaluar_cita_detallada(resultado: dict, pregunta: dict) -> dict:
+    anchor = pregunta.get("ancla_texto")
+    alternatives = pregunta.get("anclas_alternativas") or []
+    if not anchor and not alternatives:
+        return {
+            "aplica": False,
+            "citation_exists": None,
+            "chunk_exists": None,
+            "metadata_matches": None,
+            "golden_anchor_hit": None,
+            "citation_supports": None,
+            "support_deterministic": None,
+            "citation_metric": None,
+            "acierto_cita_literal_anchor": None,
+            "acierto_cita": None,
+        }
+
+    citation = resultado.get("cita_agente") or resultado.get("cita")
+    chunk_id = resultado.get("chunk_id_agente") or resultado.get("chunk_id")
+    provided = bool(citation and str(citation).strip())
+    details = {
+        "aplica": True,
+        "citation_exists": False,
+        "chunk_exists": False,
+        "metadata_matches": False,
+        "golden_anchor_hit": False,
+        "citation_supports": None,
+        "support_deterministic": False,
+        "citation_metric": "literal_citation_and_golden_anchor_in_same_chunk",
+        "acierto_cita_literal_anchor": False,
+        "acierto_cita": False,
+    }
     if not chunk_id:
-        return None
-    fila = chunks_meta[chunks_meta.chunk_id == chunk_id]
-    if fila.empty:
-        return None
-    return fila.iloc[0].texto
+        return details
+
+    rows = _chunks()[_chunks()["chunk_id"] == chunk_id]
+    if rows.empty:
+        return details
+    details["chunk_exists"] = True
+    row = rows.iloc[0]
+    text = _normalizar(str(row["texto"]))
+    pieces = _fragments(str(citation)) if provided else []
+    literal = bool(pieces) and all(piece in text for piece in pieces)
+    details["citation_exists"] = literal
+    accepted = [candidate for candidate in [anchor, *alternatives] if candidate]
+    accepted_hit = any(_evidence_in_text(str(candidate), text)
+                       for candidate in accepted)
+    details["golden_anchor_hit"] = accepted_hit
+
+    try:
+        metadata_matches = (
+            str(row["ticker"]).upper() == str(pregunta["ticker"]).upper()
+            and int(row["fiscal_year"]) == int(pregunta["fiscal_year"])
+            and str(row["item"]) == str(
+                pregunta.get("item", pregunta.get("item_esperado")))
+        )
+    except (KeyError, TypeError, ValueError):
+        metadata_matches = False
+    details["metadata_matches"] = metadata_matches
+    if not metadata_matches:
+        return details
+    aggregate = literal and accepted_hit and metadata_matches
+    details["acierto_cita_literal_anchor"] = aggregate
+    details["acierto_cita"] = aggregate
+    # No se infiere soporte semántico. Una cita literal y un anchor pueden
+    # aparecer en zonas distintas del mismo chunk.
+    return details
 
 
 def evaluar_cita(resultado: dict, pregunta: dict) -> bool | None:
-    """Comprueba que:
-    1. La cita del agente aparece literalmente en el chunk citado.
-    2. El ancla del golden set aparece en el MISMO chunk citado.
-
-    Devuelve None si la pregunta no lleva componente cualitativo.
-    """
-    if not pregunta.get("ancla_texto"):
-        return None
-
-    cita = resultado.get("cita_agente")
-    chunk_id = resultado.get("chunk_id_agente")
-
-    if not chunk_id:
-        return False
-
-    texto = _texto_del_chunk(chunk_id)
-    if texto is None:
-        return False  # chunk_id inventado o no existe
-
-    texto_norm = _normalizar(texto)
-
-    # Condición 1: la cita existe en el chunk citado
-    if cita:
-        cita_norm = _normalizar(cita)
-        if cita_norm and cita_norm not in texto_norm:
-            return False  # cita alucinada o mal referenciada
-
-    # Condición 2: el ancla del golden set está en el MISMO chunk
-    ancla_norm = _normalizar(pregunta["ancla_texto"])
-    if ancla_norm not in texto_norm:
-        return False
-
-    return True
-
-
-if __name__ == "__main__":
-    # Test 1: chunk exacto contiene ancla y cita coherente
-    print("Test 1:",
-          evaluar_cita(
-              {"chunk_id_agente": "MSFT-2024-7A-0000",
-               "cita_agente": "Certain forecasted transactions, assets, and liabilities are exposed to foreign currency risk."},
-              {"familia": "extractiva",
-               "ancla_texto": "Certain forecasted transactions, assets, and liabilities are exposed to foreign currency risk."}))
-
-    # Test 2: chunk NO contiene el ancla (debería ser False)
-    print("Test 2 (esperado False):",
-          evaluar_cita(
-              {"chunk_id_agente": "MSFT-2024-7A-0001",
-               "cita_agente": "texto cualquiera"},
-              {"familia": "extractiva",
-               "ancla_texto": "Certain forecasted transactions, assets, and liabilities are exposed to foreign currency risk."}))
+    return evaluar_cita_detallada(resultado, pregunta)["acierto_cita"]
