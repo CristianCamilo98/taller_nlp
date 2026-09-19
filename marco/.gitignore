@@ -1,0 +1,7 @@
+﻿.env
+data/*.zip
+data/corpus_miax_2026/
+data/indice_faiss/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
