@@ -1,4 +1,4 @@
-"""Contrato de embeddings e implementación exclusiva de BGE-small para E0."""
+"""Adaptadores mínimos para las familias de embeddings evaluadas."""
 
 from __future__ import annotations
 
@@ -21,11 +21,15 @@ class EmbeddingAdapter(Protocol):
 
     def encode_documents(self, texts: Sequence[str]) -> FloatMatrix: ...
 
+    def load(self) -> float: ...
+
+    def token_lengths(self, texts: Sequence[str]) -> list[int]: ...
+
     def metadata(self) -> dict[str, Any]: ...
 
 
-class BgeV15Adapter:
-    """BGE v1.5: prefijo solo en queries y embeddings L2-normalizados."""
+class _SentenceTransformerAdapter:
+    """Mecánica compartida; cada familia define su propio formato textual."""
 
     def __init__(self, config: ExperimentConfig, encoder: Any | None = None):
         self.config = config
@@ -39,11 +43,10 @@ class BgeV15Adapter:
         return float(self._model_load_s or 0.0)
 
     def format_query(self, text: str) -> str:
-        return f"{self.config.query_prefix}{text}"
+        raise NotImplementedError
 
-    @staticmethod
-    def format_documents(texts: Sequence[str]) -> list[str]:
-        return list(texts)
+    def format_documents(self, texts: Sequence[str]) -> list[str]:
+        raise NotImplementedError
 
     def encode_query(self, text: str) -> FloatMatrix:
         vectors = self._encode([self.format_query(text)])
@@ -66,7 +69,7 @@ class BgeV15Adapter:
             except (AttributeError, IndexError, KeyError, TypeError) as exc:
                 raise RuntimeError("El tokenizer efectivo no está disponible") from exc
         encoded = tokenizer(
-            list(texts),
+            self.format_documents(texts),
             add_special_tokens=True,
             truncation=False,
             padding=False,
@@ -172,3 +175,39 @@ class BgeV15Adapter:
             norms = np.linalg.norm(matrix, axis=1)
             if not np.allclose(norms, 1.0, rtol=1e-4, atol=1e-5):
                 raise ValueError("Los embeddings no están normalizados en L2")
+
+
+class BgeV15Adapter(_SentenceTransformerAdapter):
+    """BGE v1.5: prefijo solo en queries y documentos sin prefijo."""
+
+    def format_query(self, text: str) -> str:
+        return f"{self.config.query_prefix}{text}"
+
+    def format_documents(self, texts: Sequence[str]) -> list[str]:
+        return list(texts)
+
+
+class E5LargeV2Adapter(_SentenceTransformerAdapter):
+    """E5: formatos asimétricos ``query:`` y ``passage:`` sin duplicarlos."""
+
+    @staticmethod
+    def _prefix_once(text: str, prefix: str) -> str:
+        return text if text.startswith(prefix) else f"{prefix}{text}"
+
+    def format_query(self, text: str) -> str:
+        return self._prefix_once(text, self.config.query_prefix)
+
+    def format_documents(self, texts: Sequence[str]) -> list[str]:
+        return [
+            self._prefix_once(text, self.config.document_prefix)
+            for text in texts
+        ]
+
+
+def adapter_for_config(config: ExperimentConfig) -> EmbeddingAdapter:
+    """Selecciona explícitamente entre las dos familias implementadas."""
+    if config.model_name.startswith("BAAI/bge-"):
+        return BgeV15Adapter(config)
+    if config.model_name == "intfloat/e5-large-v2":
+        return E5LargeV2Adapter(config)
+    raise ValueError(f"Modelo sin adaptador experimental: {config.model_name}")

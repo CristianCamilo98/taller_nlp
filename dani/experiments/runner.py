@@ -22,8 +22,9 @@ from dani.experiments.config import (
     EXPECTED_E0_METRICS,
     ExperimentConfig,
     e1_bge_large_config,
+    e2_e5_large_v2_config,
 )
-from dani.experiments.embeddings import BgeV15Adapter
+from dani.experiments.embeddings import adapter_for_config
 from dani.experiments.evaluation import RetrievalEvaluator
 from dani.experiments.retriever import DenseFaissRetriever
 
@@ -158,7 +159,7 @@ class ExperimentRunner:
         chunks = self._load_chunks(paths.chunks)
         metadata = pd.read_parquet(paths.chunks_meta)
         self._validate_alignment(chunks, metadata)
-        adapter = BgeV15Adapter(self.config)
+        adapter = adapter_for_config(self.config)
 
         total_build_start = perf_counter()
         model_load_s = adapter.load()
@@ -341,9 +342,11 @@ def default_output_path(config: ExperimentConfig) -> Path:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Reconstruye y evalúa E0 offline")
+    parser = argparse.ArgumentParser(
+        description="Construye y evalúa una ablación de embeddings offline"
+    )
     parser.add_argument(
-        "--experiment", choices=("e0", "e1"), default="e0"
+        "--experiment", choices=("e0", "e1", "e2"), default="e0"
     )
     parser.add_argument(
         "--output",
@@ -355,7 +358,12 @@ def main() -> None:
         default=EXPERIMENT_ROOT / "artifacts",
     )
     args = parser.parse_args()
-    config = ExperimentConfig() if args.experiment == "e0" else e1_bge_large_config()
+    configs = {
+        "e0": ExperimentConfig,
+        "e1": e1_bge_large_config,
+        "e2": e2_e5_large_v2_config,
+    }
+    config = configs[args.experiment]()
     expected_metrics = EXPECTED_E0_METRICS if args.experiment == "e0" else None
     output_path = args.output or default_output_path(config)
     result = ExperimentRunner(config, expected_metrics=expected_metrics).run(

@@ -1,4 +1,4 @@
-"""Tests offline de la ablación controlada BGE-small frente a BGE-large."""
+"""Tests offline de las ablaciones controladas de embeddings."""
 
 from __future__ import annotations
 
@@ -9,13 +9,21 @@ import unittest
 
 import numpy as np
 
-from dani.experiments.config import ExperimentConfig, e1_bge_large_config
-from dani.experiments.embeddings import BgeV15Adapter
+from dani.experiments.config import (
+    ExperimentConfig,
+    e1_bge_large_config,
+    e2_e5_large_v2_config,
+)
+from dani.experiments.embeddings import BgeV15Adapter, E5LargeV2Adapter
 from dani.experiments.runner import default_output_path
 
 
 class FakeTokenizer:
+    def __init__(self) -> None:
+        self.calls: list[list[str]] = []
+
     def __call__(self, texts: Sequence[str], **kwargs: Any) -> dict[str, Any]:
+        self.calls.append(list(texts))
         return {"length": [len(text.split()) + 2 for text in texts]}
 
 
@@ -78,11 +86,84 @@ class EmbeddingAblationConfigTests(unittest.TestCase):
         self.assertEqual(ExperimentConfig().evidence_path,
                          e1_bge_large_config().evidence_path)
 
+    def test_e2_configuration_and_canonical_formatting(self) -> None:
+        config = e2_e5_large_v2_config()
+        encoder = FakeEncoder(1024)
+        adapter = E5LargeV2Adapter(config, encoder=encoder)
+        adapter.load()
+        query = adapter.encode_query("test")
+        documents = adapter.encode_documents(["test"])
+
+        self.assertEqual(config.model_name, "intfloat/e5-large-v2")
+        self.assertEqual(config.expected_dimension, 1024)
+        self.assertEqual(config.query_prefix, "query: ")
+        self.assertEqual(config.document_prefix, "passage: ")
+        self.assertTrue(config.normalize_embeddings)
+        self.assertEqual(query.shape, (1, 1024))
+        self.assertEqual(documents.shape, (1, 1024))
+        self.assertEqual(encoder.calls, [["query: test"], ["passage: test"]])
+
+    def test_e5_prefixes_are_not_duplicated(self) -> None:
+        encoder = FakeEncoder(1024)
+        adapter = E5LargeV2Adapter(e2_e5_large_v2_config(), encoder=encoder)
+        adapter.encode_query("query: test")
+        adapter.encode_documents(["passage: test", "raw"])
+        self.assertEqual(
+            encoder.calls,
+            [["query: test"], ["passage: test", "passage: raw"]],
+        )
+
+    def test_bge_formatting_regression(self) -> None:
+        for config in (ExperimentConfig(), e1_bge_large_config()):
+            adapter = BgeV15Adapter(
+                config, encoder=FakeEncoder(config.expected_dimension)
+            )
+            self.assertEqual(
+                adapter.format_query("test"), f"{config.query_prefix}test"
+            )
+            self.assertEqual(adapter.format_documents(["test"]), ["test"])
+
+    def test_e0_e1_e2_share_non_embedding_configuration(self) -> None:
+        configurations = [
+            asdict(ExperimentConfig()),
+            asdict(e1_bge_large_config()),
+            asdict(e2_e5_large_v2_config()),
+        ]
+        allowed = {
+            "experiment_id",
+            "model_name",
+            "query_prefix",
+            "document_prefix",
+            "document_format",
+            "expected_dimension",
+        }
+        for candidate in configurations[1:]:
+            differences = {
+                key
+                for key in configurations[0]
+                if configurations[0][key] != candidate[key]
+            }
+            self.assertLessEqual(differences, allowed)
+        self.assertEqual(
+            {
+                key
+                for key in configurations[0]
+                if configurations[0][key] != configurations[2][key]
+            },
+            allowed,
+        )
+
     def test_token_lengths_are_measured_before_truncation(self) -> None:
         adapter = BgeV15Adapter(
             e1_bge_large_config(), encoder=FakeEncoder(1024)
         )
         self.assertEqual(adapter.token_lengths(["one two", "three"]), [4, 3])
+
+    def test_e5_token_lengths_use_passage_format(self) -> None:
+        encoder = FakeEncoder(1024)
+        adapter = E5LargeV2Adapter(e2_e5_large_v2_config(), encoder=encoder)
+        adapter.token_lengths(["one two"])
+        self.assertEqual(encoder.tokenizer.calls, [["passage: one two"]])
 
     def test_effective_model_metadata_mismatch_fails(self) -> None:
         adapter = BgeV15Adapter(

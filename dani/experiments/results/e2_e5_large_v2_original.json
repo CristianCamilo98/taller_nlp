@@ -1,0 +1,685 @@
+{
+  "manifest": {
+    "identity": {
+      "experiment_id": "e2_e5_large_v2_original",
+      "timestamp_utc": "2026-09-20T17:17:08.580032+00:00",
+      "commit": "047ca1821c5ff4afa1596b78d333f6e81cae4591",
+      "branch": "experiment/dani-embeddings-chunking",
+      "dirty_worktree": true
+    },
+    "config": {
+      "experiment_id": "e2_e5_large_v2_original",
+      "model_name": "intfloat/e5-large-v2",
+      "query_prefix": "query: ",
+      "document_prefix": "passage: ",
+      "document_format": "passage_prefix_plus_raw_chunk_text",
+      "normalize_embeddings": true,
+      "expected_dimension": 1024,
+      "expected_max_sequence_length": 512,
+      "index_type": "IndexFlatIP",
+      "metadata_policy": "global_dense_ranking_then_metadata_postfilter",
+      "k_values": [
+        1,
+        3,
+        5,
+        10
+      ],
+      "chunk_source": "dataset://corpus_miax_2026/chunks.jsonl",
+      "golden_path": "C:\\Users\\dgall\\OneDrive\\Desktop\\MASTER_MIAX\\Taller_Agentes\\taller_nlp\\common\\golden_set\\golden_set_grupo3.jsonl",
+      "evidence_path": "C:\\Users\\dgall\\OneDrive\\Desktop\\MASTER_MIAX\\Taller_Agentes\\taller_nlp\\dani\\experiments\\results\\evidence_ground_truth_v1.json",
+      "requested_device": "cpu",
+      "embedding_batch_size": 32
+    },
+    "inputs": {
+      "logical_paths": {
+        "chunks": "dataset://corpus_miax_2026/chunks.jsonl",
+        "chunks_metadata": "dataset://indice_faiss/chunks_meta.parquet",
+        "golden": "repo://common/golden_set/golden_set_grupo3.jsonl",
+        "evidence_ground_truth": "repo://dani/experiments/results/evidence_ground_truth_v1.json"
+      },
+      "sha256": {
+        "chunks_jsonl": "388ff3671742c2248e8f5cb1c75afbc786edfa0dc6f72a62d1fadf2310ec82b2",
+        "chunks_meta_parquet": "fbd22360e517e5da250b18f0c95dbc9ad704b41902cedb1154747fde0be16fd9",
+        "golden_jsonl": "023554dc53608eb4c56b4dd64e6e06d02ac8306540014d5e83609e76431893c9",
+        "evidence_ground_truth_json": "6a036d5300d1ce1cc3f6033028be1c498ed974f2c15e02313811bf45ec40c663"
+      },
+      "n_chunks": 1749,
+      "n_questions": 6
+    },
+    "embedding": {
+      "model_name": "intfloat/e5-large-v2",
+      "model_revision": "f169b11e22de13617baa190a028a32f3493550b6",
+      "dimension": 1024,
+      "normalize": true,
+      "query_formatting": "query: <query>",
+      "document_formatting": "passage_prefix_plus_raw_chunk_text",
+      "max_sequence_length": 512,
+      "requested_device": "cpu",
+      "effective_device": "cpu",
+      "batch_size": 32,
+      "model_load_s": 9.344460599997547,
+      "token_length_diagnostics": {
+        "mean": 386.2607204116638,
+        "median": 409.0,
+        "p95": 528.0,
+        "min": 61.0,
+        "max": 565.0,
+        "max_sequence_length": 512,
+        "potentially_truncated_chunks": 383
+      }
+    },
+    "index": {
+      "type": "IndexFlatIP",
+      "d": 1024,
+      "ntotal": 1749,
+      "sha256": "0853afb51d90b5750807ba0665f30a27918b1d9dfeaa9184d74662d7390a21d1",
+      "file_size_bytes": 7163949,
+      "contains_nan_or_inf": false
+    },
+    "software": {
+      "python": "3.12.13 (main, Jun 23 2026, 15:23:43) [MSC v.1944 64 bit (AMD64)]",
+      "sentence_transformers": "6.0.1",
+      "torch": "2.14.0",
+      "numpy": "2.5.3",
+      "faiss": "1.15.0",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "machine": "ARM64",
+      "processor": "ARMv8 (64-bit) Family 8 Model 1 Revision 201, Qualcomm Technologies Inc"
+    },
+    "timings_s": {
+      "model_load": 9.344460599997547,
+      "tokenization_diagnostic": 0.400770599997486,
+      "document_embedding_s": 3490.1789513999975,
+      "index_build_s": 0.0036877999955322593,
+      "total_build": 3499.979817200001,
+      "evaluation_total": 3.6128605999983847,
+      "query_total_latency": {
+        "mean": 0.5706471166655925,
+        "median": 0.5723749999961001,
+        "p95": 0.7599173499984317,
+        "min": 0.336348500000895,
+        "max": 0.8090576999966288
+      },
+      "query_embedding_latency": {
+        "mean": 0.48505094999806414,
+        "median": 0.4510569500052952,
+        "p95": 0.731031899991649,
+        "min": 0.3284864000015659,
+        "max": 0.8033617999899434
+      }
+    },
+    "chunk_statistics": {
+      "n_chunks": 1749,
+      "n_tokens": {
+        "mean": 401.7524299599771,
+        "median": 460.0,
+        "p95": 500.0,
+        "min": 60.0,
+        "max": 547.0
+      },
+      "chunks_by_item": {
+        "1A": 533,
+        "7": 307,
+        "7A": 37,
+        "8": 872
+      },
+      "chunks_by_ticker_year": {
+        "AAPL-FY2024": 90,
+        "AAPL-FY2025": 89,
+        "AMZN-FY2024": 141,
+        "AMZN-FY2025": 136,
+        "GOOGL-FY2024": 156,
+        "GOOGL-FY2025": 157,
+        "META-FY2024": 195,
+        "META-FY2025": 214,
+        "MSFT-FY2024": 139,
+        "MSFT-FY2025": 134,
+        "NVDA-FY2024": 150,
+        "NVDA-FY2025": 148
+      }
+    },
+    "parity": {
+      "passed": null,
+      "checks": {},
+      "reference": null
+    }
+  },
+  "metrics": {
+    "recall@1": 0.3333333333333333,
+    "recall@3": 0.5,
+    "recall@5": 0.6666666666666666,
+    "recall@10": 0.6666666666666666,
+    "mrr@10": 0.45,
+    "n_questions": 6
+  },
+  "per_question": [
+    {
+      "question_id": "g3-008",
+      "query": "¿Qué riesgo relacionado con los controles a la exportación menciona NVIDIA en sus factores de riesgo de FY2025?",
+      "ticker": "NVDA",
+      "fiscal_year": 2025,
+      "item": "1A",
+      "relevant_chunk_ids": [
+        "NVDA-2025-1A-0038"
+      ],
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "NVDA-2025-1A-0031",
+          "score": 0.8728506565093994,
+          "ticker": "NVDA",
+          "fiscal_year": 2025,
+          "item": "1A",
+          "posicion": 31
+        },
+        {
+          "rank": 2,
+          "chunk_id": "NVDA-2025-1A-0037",
+          "score": 0.8661308288574219,
+          "ticker": "NVDA",
+          "fiscal_year": 2025,
+          "item": "1A",
+          "posicion": 37
+        },
+        {
+          "rank": 3,
+          "chunk_id": "NVDA-2025-1A-0032",
+          "score": 0.8655086755752563,
+          "ticker": "NVDA",
+          "fiscal_year": 2025,
+          "item": "1A",
+          "posicion": 32
+        },
+        {
+          "rank": 4,
+          "chunk_id": "NVDA-2025-1A-0036",
+          "score": 0.857999861240387,
+          "ticker": "NVDA",
+          "fiscal_year": 2025,
+          "item": "1A",
+          "posicion": 36
+        },
+        {
+          "rank": 5,
+          "chunk_id": "NVDA-2025-1A-0038",
+          "score": 0.8540396690368652,
+          "ticker": "NVDA",
+          "fiscal_year": 2025,
+          "item": "1A",
+          "posicion": 38
+        },
+        {
+          "rank": 6,
+          "chunk_id": "NVDA-2025-1A-0034",
+          "score": 0.8480889797210693,
+          "ticker": "NVDA",
+          "fiscal_year": 2025,
+          "item": "1A",
+          "posicion": 34
+        },
+        {
+          "rank": 7,
+          "chunk_id": "NVDA-2025-1A-0029",
+          "score": 0.8469059467315674,
+          "ticker": "NVDA",
+          "fiscal_year": 2025,
+          "item": "1A",
+          "posicion": 29
+        },
+        {
+          "rank": 8,
+          "chunk_id": "NVDA-2025-1A-0033",
+          "score": 0.8459888100624084,
+          "ticker": "NVDA",
+          "fiscal_year": 2025,
+          "item": "1A",
+          "posicion": 33
+        },
+        {
+          "rank": 9,
+          "chunk_id": "NVDA-2025-1A-0030",
+          "score": 0.8459653854370117,
+          "ticker": "NVDA",
+          "fiscal_year": 2025,
+          "item": "1A",
+          "posicion": 30
+        },
+        {
+          "rank": 10,
+          "chunk_id": "NVDA-2025-1A-0028",
+          "score": 0.8393847942352295,
+          "ticker": "NVDA",
+          "fiscal_year": 2025,
+          "item": "1A",
+          "posicion": 28
+        }
+      ],
+      "first_relevant_rank": 5,
+      "latency_s": {
+        "query_embedding": 0.8033617999899434,
+        "index_search": 0.0017366999963996932,
+        "postfilter": 0.0039434999926015735,
+        "total": 0.8090576999966288
+      }
+    },
+    {
+      "question_id": "g3-009",
+      "query": "¿Qué dice Microsoft sobre su exposición al riesgo de tipo de cambio en el apartado de riesgo de mercado de FY2024?",
+      "ticker": "MSFT",
+      "fiscal_year": 2024,
+      "item": "7A",
+      "relevant_chunk_ids": [
+        "MSFT-2024-7A-0000"
+      ],
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "MSFT-2024-7A-0000",
+          "score": 0.7765852212905884,
+          "ticker": "MSFT",
+          "fiscal_year": 2024,
+          "item": "7A",
+          "posicion": 0
+        }
+      ],
+      "first_relevant_rank": 1,
+      "latency_s": {
+        "query_embedding": 0.36230139998951927,
+        "index_search": 0.0007906999962870032,
+        "postfilter": 0.1910016000038013,
+        "total": 0.5541043999983231
+      }
+    },
+    {
+      "question_id": "g3-010",
+      "query": "¿Qué explica Apple sobre la evolución de sus ingresos por servicios en la discusión de la dirección de FY2025?",
+      "ticker": "AAPL",
+      "fiscal_year": 2025,
+      "item": "7",
+      "relevant_chunk_ids": [
+        "AAPL-2025-7-0003"
+      ],
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "AAPL-2025-7-0000",
+          "score": 0.8187738656997681,
+          "ticker": "AAPL",
+          "fiscal_year": 2025,
+          "item": "7",
+          "posicion": 0
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AAPL-2025-7-0003",
+          "score": 0.8186076879501343,
+          "ticker": "AAPL",
+          "fiscal_year": 2025,
+          "item": "7",
+          "posicion": 3
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AAPL-2025-7-0002",
+          "score": 0.8096596002578735,
+          "ticker": "AAPL",
+          "fiscal_year": 2025,
+          "item": "7",
+          "posicion": 2
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AAPL-2025-7-0008",
+          "score": 0.805874228477478,
+          "ticker": "AAPL",
+          "fiscal_year": 2025,
+          "item": "7",
+          "posicion": 8
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AAPL-2025-7-0005",
+          "score": 0.8048416376113892,
+          "ticker": "AAPL",
+          "fiscal_year": 2025,
+          "item": "7",
+          "posicion": 5
+        },
+        {
+          "rank": 6,
+          "chunk_id": "AAPL-2025-7-0010",
+          "score": 0.7973853349685669,
+          "ticker": "AAPL",
+          "fiscal_year": 2025,
+          "item": "7",
+          "posicion": 10
+        },
+        {
+          "rank": 7,
+          "chunk_id": "AAPL-2025-7-0004",
+          "score": 0.7946791648864746,
+          "ticker": "AAPL",
+          "fiscal_year": 2025,
+          "item": "7",
+          "posicion": 4
+        },
+        {
+          "rank": 8,
+          "chunk_id": "AAPL-2025-7-0001",
+          "score": 0.7921655774116516,
+          "ticker": "AAPL",
+          "fiscal_year": 2025,
+          "item": "7",
+          "posicion": 1
+        },
+        {
+          "rank": 9,
+          "chunk_id": "AAPL-2025-7-0007",
+          "score": 0.7903043031692505,
+          "ticker": "AAPL",
+          "fiscal_year": 2025,
+          "item": "7",
+          "posicion": 7
+        },
+        {
+          "rank": 10,
+          "chunk_id": "AAPL-2025-7-0009",
+          "score": 0.7754290103912354,
+          "ticker": "AAPL",
+          "fiscal_year": 2025,
+          "item": "7",
+          "posicion": 9
+        }
+      ],
+      "first_relevant_rank": 2,
+      "latency_s": {
+        "query_embedding": 0.47656940000888426,
+        "index_search": 0.0007170000026235357,
+        "postfilter": 0.11335269999108277,
+        "total": 0.5906455999938771
+      }
+    },
+    {
+      "question_id": "g3-011",
+      "query": "¿Qué riesgo regulatorio relacionado con privacidad de datos menciona Meta en sus factores de riesgo de FY2024?",
+      "ticker": "META",
+      "fiscal_year": 2024,
+      "item": "1A",
+      "relevant_chunk_ids": [
+        "META-2024-1A-0057"
+      ],
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "META-2024-1A-0078",
+          "score": 0.8084205389022827,
+          "ticker": "META",
+          "fiscal_year": 2024,
+          "item": "1A",
+          "posicion": 78
+        },
+        {
+          "rank": 2,
+          "chunk_id": "META-2024-1A-0016",
+          "score": 0.8043045997619629,
+          "ticker": "META",
+          "fiscal_year": 2024,
+          "item": "1A",
+          "posicion": 16
+        },
+        {
+          "rank": 3,
+          "chunk_id": "META-2024-1A-0054",
+          "score": 0.8039901852607727,
+          "ticker": "META",
+          "fiscal_year": 2024,
+          "item": "1A",
+          "posicion": 54
+        },
+        {
+          "rank": 4,
+          "chunk_id": "META-2024-1A-0030",
+          "score": 0.803585410118103,
+          "ticker": "META",
+          "fiscal_year": 2024,
+          "item": "1A",
+          "posicion": 30
+        },
+        {
+          "rank": 5,
+          "chunk_id": "META-2024-1A-0000",
+          "score": 0.8010722994804382,
+          "ticker": "META",
+          "fiscal_year": 2024,
+          "item": "1A",
+          "posicion": 0
+        },
+        {
+          "rank": 6,
+          "chunk_id": "META-2024-1A-0045",
+          "score": 0.8009179830551147,
+          "ticker": "META",
+          "fiscal_year": 2024,
+          "item": "1A",
+          "posicion": 45
+        },
+        {
+          "rank": 7,
+          "chunk_id": "META-2024-1A-0019",
+          "score": 0.7994132041931152,
+          "ticker": "META",
+          "fiscal_year": 2024,
+          "item": "1A",
+          "posicion": 19
+        },
+        {
+          "rank": 8,
+          "chunk_id": "META-2024-1A-0025",
+          "score": 0.7984285354614258,
+          "ticker": "META",
+          "fiscal_year": 2024,
+          "item": "1A",
+          "posicion": 25
+        },
+        {
+          "rank": 9,
+          "chunk_id": "META-2024-1A-0055",
+          "score": 0.7981499433517456,
+          "ticker": "META",
+          "fiscal_year": 2024,
+          "item": "1A",
+          "posicion": 55
+        },
+        {
+          "rank": 10,
+          "chunk_id": "META-2024-1A-0029",
+          "score": 0.7979538440704346,
+          "ticker": "META",
+          "fiscal_year": 2024,
+          "item": "1A",
+          "posicion": 29
+        }
+      ],
+      "first_relevant_rank": null,
+      "latency_s": {
+        "query_embedding": 0.3284864000015659,
+        "index_search": 0.0005830000009154901,
+        "postfilter": 0.007272900009411387,
+        "total": 0.336348500000895
+      }
+    },
+    {
+      "question_id": "g3-012",
+      "query": "¿Qué dice Alphabet sobre su exposición al riesgo de divisa extranjera en el apartado de riesgo de mercado de FY2025?",
+      "ticker": "GOOGL",
+      "fiscal_year": 2025,
+      "item": "7A",
+      "relevant_chunk_ids": [
+        "GOOGL-2025-7A-0000"
+      ],
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "GOOGL-2025-7A-0000",
+          "score": 0.805816650390625,
+          "ticker": "GOOGL",
+          "fiscal_year": 2025,
+          "item": "7A",
+          "posicion": 0
+        },
+        {
+          "rank": 2,
+          "chunk_id": "GOOGL-2025-7A-0003",
+          "score": 0.7890684604644775,
+          "ticker": "GOOGL",
+          "fiscal_year": 2025,
+          "item": "7A",
+          "posicion": 3
+        },
+        {
+          "rank": 3,
+          "chunk_id": "GOOGL-2025-7A-0004",
+          "score": 0.7809882164001465,
+          "ticker": "GOOGL",
+          "fiscal_year": 2025,
+          "item": "7A",
+          "posicion": 4
+        },
+        {
+          "rank": 4,
+          "chunk_id": "GOOGL-2025-7A-0001",
+          "score": 0.7726118564605713,
+          "ticker": "GOOGL",
+          "fiscal_year": 2025,
+          "item": "7A",
+          "posicion": 1
+        },
+        {
+          "rank": 5,
+          "chunk_id": "GOOGL-2025-7A-0002",
+          "score": 0.7675282955169678,
+          "ticker": "GOOGL",
+          "fiscal_year": 2025,
+          "item": "7A",
+          "posicion": 2
+        }
+      ],
+      "first_relevant_rank": 1,
+      "latency_s": {
+        "query_embedding": 0.4255445000017062,
+        "index_search": 0.0007125999982235953,
+        "postfilter": 0.18623209999350365,
+        "total": 0.6124963000038406
+      }
+    },
+    {
+      "question_id": "g3-013",
+      "query": "¿Qué enfoque utiliza Amazon para reconocer y medir las posiciones inciertas en el impuesto sobre la renta (income tax contingencies) en FY2024?",
+      "ticker": "AMZN",
+      "fiscal_year": 2024,
+      "item": "8",
+      "relevant_chunk_ids": [
+        "AMZN-2024-8-0023"
+      ],
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "AMZN-2024-8-0003",
+          "score": 0.8267323970794678,
+          "ticker": "AMZN",
+          "fiscal_year": 2024,
+          "item": "8",
+          "posicion": 3
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AMZN-2024-8-0070",
+          "score": 0.8259618282318115,
+          "ticker": "AMZN",
+          "fiscal_year": 2024,
+          "item": "8",
+          "posicion": 70
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AMZN-2024-8-0016",
+          "score": 0.824968695640564,
+          "ticker": "AMZN",
+          "fiscal_year": 2024,
+          "item": "8",
+          "posicion": 16
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AMZN-2024-8-0067",
+          "score": 0.8235591650009155,
+          "ticker": "AMZN",
+          "fiscal_year": 2024,
+          "item": "8",
+          "posicion": 67
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AMZN-2024-8-0055",
+          "score": 0.823439359664917,
+          "ticker": "AMZN",
+          "fiscal_year": 2024,
+          "item": "8",
+          "posicion": 55
+        },
+        {
+          "rank": 6,
+          "chunk_id": "AMZN-2024-8-0002",
+          "score": 0.8216058611869812,
+          "ticker": "AMZN",
+          "fiscal_year": 2024,
+          "item": "8",
+          "posicion": 2
+        },
+        {
+          "rank": 7,
+          "chunk_id": "AMZN-2024-8-0000",
+          "score": 0.8213618993759155,
+          "ticker": "AMZN",
+          "fiscal_year": 2024,
+          "item": "8",
+          "posicion": 0
+        },
+        {
+          "rank": 8,
+          "chunk_id": "AMZN-2024-8-0037",
+          "score": 0.8191749453544617,
+          "ticker": "AMZN",
+          "fiscal_year": 2024,
+          "item": "8",
+          "posicion": 37
+        },
+        {
+          "rank": 9,
+          "chunk_id": "AMZN-2024-8-0014",
+          "score": 0.8133309483528137,
+          "ticker": "AMZN",
+          "fiscal_year": 2024,
+          "item": "8",
+          "posicion": 14
+        },
+        {
+          "rank": 10,
+          "chunk_id": "AMZN-2024-8-0034",
+          "score": 0.8121129870414734,
+          "ticker": "AMZN",
+          "fiscal_year": 2024,
+          "item": "8",
+          "posicion": 34
+        }
+      ],
+      "first_relevant_rank": null,
+      "latency_s": {
+        "query_embedding": 0.5140421999967657,
+        "index_search": 0.0007254999945871532,
+        "postfilter": 0.006456499992054887,
+        "total": 0.5212301999999909
+      }
+    }
+  ]
+}

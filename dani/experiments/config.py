@@ -1,4 +1,4 @@
-"""Configuración inmutable del experimento E0."""
+"""Configuración inmutable de las ablaciones de embeddings."""
 
 from __future__ import annotations
 
@@ -19,6 +19,7 @@ class ExperimentConfig:
     query_prefix: str = (
         "Represent this sentence for searching relevant passages: "
     )
+    document_prefix: str = ""
     document_format: str = "raw_chunk_text_without_prefix"
     normalize_embeddings: bool = True
     expected_dimension: int = 384
@@ -55,6 +56,19 @@ def e1_bge_large_config() -> ExperimentConfig:
         ExperimentConfig(),
         experiment_id="e1_bge_large_original",
         model_name="BAAI/bge-large-en-v1.5",
+        expected_dimension=1024,
+    )
+
+
+def e2_e5_large_v2_config() -> ExperimentConfig:
+    """E2 cambia a E5-large-v2 y aplica su formato canónico asimétrico."""
+    return replace(
+        ExperimentConfig(),
+        experiment_id="e2_e5_large_v2_original",
+        model_name="intfloat/e5-large-v2",
+        query_prefix="query: ",
+        document_prefix="passage: ",
+        document_format="passage_prefix_plus_raw_chunk_text",
         expected_dimension=1024,
     )
 

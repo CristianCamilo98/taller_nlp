@@ -1,10 +1,11 @@
-# Experimento de retrieval de Dani — Bloques 1 y 2
+# Experimento de retrieval de Dani — Bloques 1 a 4
 
 ## Pregunta de investigación
 
 El trabajo estudiará embeddings y chunking mediante ablaciones controladas.
 El Bloque 1 construyó la infraestructura mínima y reprodujo E0. El Bloque 2
-define la evidencia sobre el texto fuente antes de probar cualquier candidato.
+define la evidencia sobre el texto fuente. Los Bloques 3 y 4 comparan familias
+de embeddings manteniendo congelado todo el resto del retrieval.
 
 ## Control E0
 
@@ -93,13 +94,16 @@ python -B -m dani.experiments.evidence
 El comando regenera `results/evidence_ground_truth_v1.json`. No modifica el
 golden, las secciones ni los chunks comunes.
 
-## Siguiente bloque
+## Ablaciones de embeddings
 
-El Bloque 3 compara BGE-small y BGE-large cambiando exclusivamente el modelo y
-la dimensión del embedding. E1 se ejecuta offline con:
+El Bloque 3 compara BGE-small y BGE-large. El Bloque 4 añade E5-large-v2 con
+su formato canónico: `query: ` para consultas y `passage: ` para documentos.
+Ambos se ejecutan offline:
 
 ```powershell
 python -B -m dani.experiments.runner --experiment e1
+python -B -m dani.experiments.runner --experiment e2
 ```
 
-No se han implementado otros embeddings ni cambios de chunking.
+El resultado E2 se guarda en `results/e2_e5_large_v2_original.json`. No se han
+implementado Qwen, nuevos chunkers, BM25, reranking ni query rewriting.
