@@ -1,0 +1,5 @@
+# El índice es regenerable y no debe versionarse.
+artifacts/
+__pycache__/
+*.pyc
+

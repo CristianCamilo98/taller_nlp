@@ -1,0 +1,127 @@
+"""Contrato de embeddings e implementación exclusiva de BGE-small para E0."""
+
+from __future__ import annotations
+
+from time import perf_counter
+from typing import Any, Protocol, Sequence, runtime_checkable
+
+import numpy as np
+from numpy.typing import NDArray
+
+from dani.experiments.config import ExperimentConfig
+
+FloatMatrix = NDArray[np.float32]
+
+
+@runtime_checkable
+class EmbeddingAdapter(Protocol):
+    """Aísla el formato específico de query/documento de cada familia."""
+
+    def encode_query(self, text: str) -> FloatMatrix: ...
+
+    def encode_documents(self, texts: Sequence[str]) -> FloatMatrix: ...
+
+    def metadata(self) -> dict[str, Any]: ...
+
+
+class BgeV15Adapter:
+    """BGE v1.5: prefijo solo en queries y embeddings L2-normalizados."""
+
+    def __init__(self, config: ExperimentConfig, encoder: Any | None = None):
+        self.config = config
+        self._encoder = encoder
+        self._model_load_s = 0.0 if encoder is not None else None
+
+    def load(self) -> float:
+        """Carga solo desde caché local; nunca descarga el modelo."""
+        self._ensure_encoder()
+        return float(self._model_load_s or 0.0)
+
+    def format_query(self, text: str) -> str:
+        return f"{self.config.query_prefix}{text}"
+
+    @staticmethod
+    def format_documents(texts: Sequence[str]) -> list[str]:
+        return list(texts)
+
+    def encode_query(self, text: str) -> FloatMatrix:
+        vectors = self._encode([self.format_query(text)])
+        if vectors.shape[0] != 1:
+            raise ValueError("La codificación de una query debe producir una fila")
+        return vectors
+
+    def encode_documents(self, texts: Sequence[str]) -> FloatMatrix:
+        if not texts:
+            raise ValueError("No se puede construir un índice sin documentos")
+        return self._encode(self.format_documents(texts))
+
+    def metadata(self) -> dict[str, Any]:
+        encoder = self._encoder
+        model_config = None
+        if encoder is not None:
+            try:
+                model_config = encoder[0].auto_model.config
+            except (AttributeError, IndexError, KeyError, TypeError):
+                model_config = None
+        revision = getattr(model_config, "_commit_hash", None)
+        max_length = getattr(encoder, "max_seq_length", None)
+        device = getattr(encoder, "device", None)
+        return {
+            "model_name": self.config.model_name,
+            "model_revision": revision,
+            "dimension": self.config.expected_dimension,
+            "normalize": self.config.normalize_embeddings,
+            "query_formatting": f"{self.config.query_prefix}<query>",
+            "document_formatting": self.config.document_format,
+            "max_sequence_length": max_length,
+            "requested_device": self.config.requested_device,
+            "effective_device": str(device) if device is not None else None,
+            "batch_size": self.config.embedding_batch_size,
+            "model_load_s": self._model_load_s,
+        }
+
+    def _ensure_encoder(self) -> Any:
+        if self._encoder is None:
+            start = perf_counter()
+            from sentence_transformers import SentenceTransformer
+
+            try:
+                self._encoder = SentenceTransformer(
+                    self.config.model_name,
+                    device=self.config.requested_device,
+                    local_files_only=True,
+                )
+            except Exception as exc:
+                raise RuntimeError(
+                    f"El modelo {self.config.model_name!r} no está disponible "
+                    "completamente en la caché local"
+                ) from exc
+            self._model_load_s = perf_counter() - start
+        return self._encoder
+
+    def _encode(self, texts: Sequence[str]) -> FloatMatrix:
+        encoder = self._ensure_encoder()
+        vectors = encoder.encode(
+            list(texts),
+            batch_size=self.config.embedding_batch_size,
+            normalize_embeddings=self.config.normalize_embeddings,
+            convert_to_numpy=True,
+            show_progress_bar=False,
+        )
+        matrix = np.asarray(vectors, dtype=np.float32)
+        self._validate(matrix, expected_rows=len(texts))
+        return matrix
+
+    def _validate(self, matrix: FloatMatrix, expected_rows: int) -> None:
+        expected_shape = (expected_rows, self.config.expected_dimension)
+        if matrix.shape != expected_shape:
+            raise ValueError(
+                f"Shape de embeddings {matrix.shape}; esperado {expected_shape}"
+            )
+        if not np.isfinite(matrix).all():
+            raise ValueError("Los embeddings contienen NaN o infinito")
+        if self.config.normalize_embeddings:
+            norms = np.linalg.norm(matrix, axis=1)
+            if not np.allclose(norms, 1.0, rtol=1e-4, atol=1e-5):
+                raise ValueError("Los embeddings no están normalizados en L2")
+
