@@ -1,10 +1,10 @@
-# Experimento de retrieval de Dani — Bloque 1
+# Experimento de retrieval de Dani — Bloques 1 y 2
 
 ## Pregunta de investigación
 
-El trabajo estudiará embeddings y chunking mediante ablaciones controladas. Este
-bloque construye solamente la infraestructura mínima y demuestra que reproduce
-el control E0 antes de probar cualquier candidato.
+El trabajo estudiará embeddings y chunking mediante ablaciones controladas.
+El Bloque 1 construyó la infraestructura mínima y reprodujo E0. El Bloque 2
+define la evidencia sobre el texto fuente antes de probar cualquier candidato.
 
 ## Control E0
 
@@ -70,8 +70,27 @@ El bloque pasa únicamente con seis preguntas y estas métricas:
 Una diferencia produce `E0ParityError`; no se ajustan parámetros para forzar
 el resultado.
 
+## Ground truth independiente del chunking
+
+Un `chunk_id` no puede ser la verdad permanente: los IDs y límites cambiarán
+con cada chunker. `evidence.py` resuelve cada ancla sobre su sección original y
+la representa como un intervalo de caracteres. Los offsets usan slices Python:
+inicio inclusivo y final exclusivo, de modo que
+`source_text[char_start:char_end]` devuelve la evidencia.
+
+La resolución intenta primero coincidencia literal y, solo si falla, colapsa
+whitespace manteniendo un mapa hacia los offsets originales. No hay fuzzy
+matching. Un chunk es relevante cuando contiene por completo el span; los
+overlaps parciales se registran, pero no cuentan como evidencia recuperable.
+
+```powershell
+python -B -m dani.experiments.evidence
+```
+
+El comando regenera `results/evidence_ground_truth_v1.json`. No modifica el
+golden, las secciones ni los chunks comunes.
+
 ## Siguiente bloque
 
-La ablación con BGE-large es el siguiente bloque previsto, pero **no está
-implementada** aquí.
-
+El siguiente bloque previsto es una ablación de embeddings, no de chunking,
+pero **no está implementado** aquí.
