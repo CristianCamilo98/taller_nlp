@@ -18,7 +18,11 @@ from typing import Any, Sequence
 import numpy as np
 
 from common.config import get_dataset_paths
-from dani.experiments.config import EXPECTED_E0_METRICS, ExperimentConfig
+from dani.experiments.config import (
+    EXPECTED_E0_METRICS,
+    ExperimentConfig,
+    e1_bge_large_config,
+)
 from dani.experiments.embeddings import BgeV15Adapter
 from dani.experiments.evaluation import RetrievalEvaluator
 from dani.experiments.retriever import DenseFaissRetriever
@@ -84,6 +88,9 @@ def _logical_paths(config: ExperimentConfig) -> dict[str, str]:
         "chunks": config.chunk_source,
         "chunks_metadata": "dataset://indice_faiss/chunks_meta.parquet",
         "golden": "repo://common/golden_set/golden_set_grupo3.jsonl",
+        "evidence_ground_truth": (
+            "repo://dani/experiments/results/evidence_ground_truth_v1.json"
+        ),
     }
 
 
@@ -134,8 +141,13 @@ def create_manifest(
 class ExperimentRunner:
     """Ensambla E0 sin alterar ninguna variable del retrieval baseline."""
 
-    def __init__(self, config: ExperimentConfig):
+    def __init__(
+        self,
+        config: ExperimentConfig,
+        expected_metrics: dict[str, float | int] | None = EXPECTED_E0_METRICS,
+    ):
         self.config = config
+        self.expected_metrics = expected_metrics
 
     def run(self, output_path: Path, artifact_dir: Path) -> dict[str, Any]:
         from datetime import datetime, timezone
@@ -150,6 +162,11 @@ class ExperimentRunner:
 
         total_build_start = perf_counter()
         model_load_s = adapter.load()
+        tokenization_start = perf_counter()
+        model_token_lengths = adapter.token_lengths(
+            [str(chunk["texto"]) for chunk in chunks]
+        )
+        tokenization_s = perf_counter() - tokenization_start
         retriever, build_timings = DenseFaissRetriever.build(
             [str(chunk["texto"]) for chunk in chunks],
             metadata,
@@ -163,10 +180,15 @@ class ExperimentRunner:
         evaluator = RetrievalEvaluator(
             self.config.golden_path, metadata, max_k=self.config.max_k
         )
+        self._validate_evidence_ground_truth(evaluator)
         evaluation_start = perf_counter()
         metrics, per_question = evaluator.evaluate(retriever)
         evaluation_s = perf_counter() - evaluation_start
-        parity = self._parity(metrics)
+        parity = (
+            self._parity(metrics, self.expected_metrics)
+            if self.expected_metrics is not None
+            else {"passed": None, "checks": {}, "reference": None}
+        )
 
         total_latencies = [
             float(row["latency_s"]["total"]) for row in per_question
@@ -177,6 +199,7 @@ class ExperimentRunner:
         ]
         timings = {
             "model_load": model_load_s,
+            "tokenization_diagnostic": tokenization_s,
             **build_timings,
             "total_build": total_build_s,
             "evaluation_total": evaluation_s,
@@ -192,10 +215,23 @@ class ExperimentRunner:
                 "chunks_jsonl": sha256_file(paths.chunks),
                 "chunks_meta_parquet": sha256_file(paths.chunks_meta),
                 "golden_jsonl": sha256_file(self.config.golden_path),
+                "evidence_ground_truth_json": sha256_file(
+                    self.config.evidence_path
+                ),
             },
             n_chunks=len(chunks),
             n_questions=len(evaluator.questions),
-            embedding_metadata=adapter.metadata(),
+            embedding_metadata={
+                **adapter.metadata(),
+                "token_length_diagnostics": {
+                    **numeric_summary(model_token_lengths),
+                    "max_sequence_length": self.config.expected_max_sequence_length,
+                    "potentially_truncated_chunks": sum(
+                        length > self.config.expected_max_sequence_length
+                        for length in model_token_lengths
+                    ),
+                },
+            },
             index_metadata={
                 "type": type(retriever.index).__name__,
                 "d": int(retriever.index.d),
@@ -217,7 +253,7 @@ class ExperimentRunner:
         output_path.write_text(
             json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8"
         )
-        if not parity["passed"]:
+        if parity["passed"] is False:
             raise E0ParityError(
                 f"E0 no reproduce el baseline; diagnóstico: {parity['checks']}"
             )
@@ -259,11 +295,31 @@ class ExperimentRunner:
             },
         }
 
+    def _validate_evidence_ground_truth(
+        self, evaluator: RetrievalEvaluator
+    ) -> None:
+        artifact = json.loads(self.config.evidence_path.read_text(encoding="utf-8"))
+        expected = {
+            row["question_id"]: set(row["original_relevant_chunk_ids"])
+            for row in artifact["evidence"]
+        }
+        if set(expected) != {question["id"] for question in evaluator.questions}:
+            raise ValueError("El evidence ground truth no cubre las preguntas retrieval")
+        for question in evaluator.questions:
+            actual = set(evaluator.relevant_chunk_ids(question))
+            if actual != expected[question["id"]]:
+                raise ValueError(
+                    f"{question['id']}: golden y evidence ground truth divergen"
+                )
+
     @staticmethod
-    def _parity(metrics: dict[str, Any]) -> dict[str, Any]:
+    def _parity(
+        metrics: dict[str, Any],
+        expected_metrics: dict[str, float | int] = EXPECTED_E0_METRICS,
+    ) -> dict[str, Any]:
         checks: dict[str, dict[str, Any]] = {}
         passed = True
-        for name, expected in EXPECTED_E0_METRICS.items():
+        for name, expected in expected_metrics.items():
             actual = metrics.get(name)
             if isinstance(expected, int):
                 matches = actual == expected
@@ -280,12 +336,18 @@ class ExperimentRunner:
         return {"passed": passed, "checks": checks}
 
 
+def default_output_path(config: ExperimentConfig) -> Path:
+    return EXPERIMENT_ROOT / "results" / f"{config.experiment_id}.json"
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Reconstruye y evalúa E0 offline")
     parser.add_argument(
+        "--experiment", choices=("e0", "e1"), default="e0"
+    )
+    parser.add_argument(
         "--output",
         type=Path,
-        default=EXPERIMENT_ROOT / "results" / "e0_bge_small_original.json",
     )
     parser.add_argument(
         "--artifact-dir",
@@ -293,16 +355,18 @@ def main() -> None:
         default=EXPERIMENT_ROOT / "artifacts",
     )
     args = parser.parse_args()
-    result = ExperimentRunner(ExperimentConfig()).run(
-        args.output.resolve(), args.artifact_dir.resolve()
+    config = ExperimentConfig() if args.experiment == "e0" else e1_bge_large_config()
+    expected_metrics = EXPECTED_E0_METRICS if args.experiment == "e0" else None
+    output_path = args.output or default_output_path(config)
+    result = ExperimentRunner(config, expected_metrics=expected_metrics).run(
+        output_path.resolve(), args.artifact_dir.resolve()
     )
     print(json.dumps({
         "metrics": result["metrics"],
         "parity": result["manifest"]["parity"]["passed"],
-        "result": str(args.output.resolve()),
+        "result": str(output_path.resolve()),
     }, indent=2))
 
 
 if __name__ == "__main__":
     main()
-

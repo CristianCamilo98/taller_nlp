@@ -55,6 +55,9 @@ Se genera un índice regenerable en `artifacts/e0_bge_small_original/` y una
 fuente de verdad legible en `results/e0_bge_small_original.json`, con manifest,
 métricas y ranking por pregunta. El índice pesado está ignorado por Git.
 
+El tiempo de document embedding de la primera ejecución E0 quedó contaminado
+por una suspensión del equipo. No debe utilizarse como benchmark de velocidad.
+
 ## PASS/FAIL
 
 El bloque pasa únicamente con seis preguntas y estas métricas:
@@ -92,5 +95,11 @@ golden, las secciones ni los chunks comunes.
 
 ## Siguiente bloque
 
-El siguiente bloque previsto es una ablación de embeddings, no de chunking,
-pero **no está implementado** aquí.
+El Bloque 3 compara BGE-small y BGE-large cambiando exclusivamente el modelo y
+la dimensión del embedding. E1 se ejecuta offline con:
+
+```powershell
+python -B -m dani.experiments.runner --experiment e1
+```
+
+No se han implementado otros embeddings ni cambios de chunking.

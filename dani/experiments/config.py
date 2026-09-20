@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, replace
 from pathlib import Path
 from typing import Any
 
@@ -22,12 +22,17 @@ class ExperimentConfig:
     document_format: str = "raw_chunk_text_without_prefix"
     normalize_embeddings: bool = True
     expected_dimension: int = 384
+    expected_max_sequence_length: int = 512
     index_type: str = "IndexFlatIP"
     metadata_policy: str = "global_dense_ranking_then_metadata_postfilter"
     k_values: tuple[int, ...] = (1, 3, 5, 10)
     chunk_source: str = "dataset://corpus_miax_2026/chunks.jsonl"
     golden_path: Path = (
         REPO_ROOT / "common" / "golden_set" / "golden_set_grupo3.jsonl"
+    )
+    evidence_path: Path = (
+        REPO_ROOT / "dani" / "experiments" / "results"
+        / "evidence_ground_truth_v1.json"
     )
     requested_device: str | None = "cpu"
     embedding_batch_size: int = 32
@@ -39,8 +44,19 @@ class ExperimentConfig:
     def to_dict(self) -> dict[str, Any]:
         result = asdict(self)
         result["golden_path"] = str(self.golden_path)
+        result["evidence_path"] = str(self.evidence_path)
         result["k_values"] = list(self.k_values)
         return result
+
+
+def e1_bge_large_config() -> ExperimentConfig:
+    """E1 cambia exclusivamente identidad, modelo y dimensión del embedding."""
+    return replace(
+        ExperimentConfig(),
+        experiment_id="e1_bge_large_original",
+        model_name="BAAI/bge-large-en-v1.5",
+        expected_dimension=1024,
+    )
 
 
 EXPECTED_E0_METRICS: dict[str, float | int] = {
@@ -51,4 +67,3 @@ EXPECTED_E0_METRICS: dict[str, float | int] = {
     "mrr@10": 0.3611111111111111,
     "n_questions": 6,
 }
-

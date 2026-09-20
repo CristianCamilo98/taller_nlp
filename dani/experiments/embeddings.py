@@ -34,7 +34,8 @@ class BgeV15Adapter:
 
     def load(self) -> float:
         """Carga solo desde caché local; nunca descarga el modelo."""
-        self._ensure_encoder()
+        encoder = self._ensure_encoder()
+        self._validate_model_metadata(encoder)
         return float(self._model_load_s or 0.0)
 
     def format_query(self, text: str) -> str:
@@ -55,6 +56,27 @@ class BgeV15Adapter:
             raise ValueError("No se puede construir un índice sin documentos")
         return self._encode(self.format_documents(texts))
 
+    def token_lengths(self, texts: Sequence[str]) -> list[int]:
+        """Longitudes con tokens especiales antes de cualquier truncation."""
+        encoder = self._ensure_encoder()
+        tokenizer = getattr(encoder, "tokenizer", None)
+        if tokenizer is None:
+            try:
+                tokenizer = encoder[0].tokenizer
+            except (AttributeError, IndexError, KeyError, TypeError) as exc:
+                raise RuntimeError("El tokenizer efectivo no está disponible") from exc
+        encoded = tokenizer(
+            list(texts),
+            add_special_tokens=True,
+            truncation=False,
+            padding=False,
+            return_length=True,
+        )
+        lengths = encoded.get("length")
+        if lengths is None:
+            lengths = [len(token_ids) for token_ids in encoded["input_ids"]]
+        return [int(length) for length in lengths]
+
     def metadata(self) -> dict[str, Any]:
         encoder = self._encoder
         model_config = None
@@ -66,10 +88,11 @@ class BgeV15Adapter:
         revision = getattr(model_config, "_commit_hash", None)
         max_length = getattr(encoder, "max_seq_length", None)
         device = getattr(encoder, "device", None)
+        effective_dimension = self._effective_dimension(encoder)
         return {
             "model_name": self.config.model_name,
             "model_revision": revision,
-            "dimension": self.config.expected_dimension,
+            "dimension": effective_dimension,
             "normalize": self.config.normalize_embeddings,
             "query_formatting": f"{self.config.query_prefix}<query>",
             "document_formatting": self.config.document_format,
@@ -79,6 +102,31 @@ class BgeV15Adapter:
             "batch_size": self.config.embedding_batch_size,
             "model_load_s": self._model_load_s,
         }
+
+    def _validate_model_metadata(self, encoder: Any) -> None:
+        dimension = self._effective_dimension(encoder)
+        if dimension != self.config.expected_dimension:
+            raise ValueError(
+                f"Dimensión efectiva {dimension}; esperada "
+                f"{self.config.expected_dimension}"
+            )
+        max_length = getattr(encoder, "max_seq_length", None)
+        if max_length != self.config.expected_max_sequence_length:
+            raise ValueError(
+                f"max_seq_length efectivo {max_length}; esperado "
+                f"{self.config.expected_max_sequence_length}"
+            )
+
+    def _effective_dimension(self, encoder: Any | None) -> int:
+        if encoder is None:
+            return self.config.expected_dimension
+        getter = getattr(encoder, "get_embedding_dimension", None)
+        if getter is None:
+            getter = getattr(encoder, "get_sentence_embedding_dimension", None)
+        if getter is None:
+            return self.config.expected_dimension
+        dimension = getter()
+        return int(dimension) if dimension is not None else self.config.expected_dimension
 
     def _ensure_encoder(self) -> Any:
         if self._encoder is None:
@@ -124,4 +172,3 @@ class BgeV15Adapter:
             norms = np.linalg.norm(matrix, axis=1)
             if not np.allclose(norms, 1.0, rtol=1e-4, atol=1e-5):
                 raise ValueError("Los embeddings no están normalizados en L2")
-
