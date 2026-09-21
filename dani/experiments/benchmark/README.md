@@ -51,6 +51,17 @@ Las evaluaciones futuras reportarán siempre:
 No se establecerán ganadores ni umbrales a partir de una inspección previa de
 resultados de modelos.
 
+### Prioridad de lectura congelada
+
+Antes de ejecutar E1/E2 sobre benchmark v2 se fija como métrica operacional
+primaria **NON-7A-36 Recall@5**, porque el agente común usa `retrieval_k=5` y
+NON-7A reduce el fuerte efecto de candidate pools casi triviales de Item 7A.
+La métrica secundaria es **NON-7A-36 MRR@10**.
+
+Se reportarán siempre, además, ALL-48 Recall@1/3/5/10 y MRR@10, las vistas
+ITEM-1A-12, ITEM-7-12, ITEM-7A-12 e ITEM-8-12, y la vista NON-7A-36 completa.
+Esta prioridad no implementa selección automática ni declara un ganador.
+
 ## Política cross-lingual
 
 Esta es una decisión experimental congelada, no un accidente:

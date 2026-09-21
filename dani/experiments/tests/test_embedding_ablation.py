@@ -68,6 +68,10 @@ class EmbeddingAblationConfigTests(unittest.TestCase):
         documents = adapter.encode_documents(["document"])
 
         self.assertEqual(config.model_name, "BAAI/bge-large-en-v1.5")
+        self.assertEqual(
+            config.model_revision,
+            "d4aa6901d3a41ba39fb536a557fa166f842b0e09",
+        )
         self.assertEqual(config.expected_dimension, 1024)
         self.assertTrue(config.normalize_embeddings)
         self.assertEqual(query.shape, (1, 1024))
@@ -83,7 +87,10 @@ class EmbeddingAblationConfigTests(unittest.TestCase):
         differences = {key for key in e0 if e0[key] != e1[key]}
         self.assertEqual(
             differences,
-            {"experiment_id", "model_name", "expected_dimension"},
+            {
+                "experiment_id", "model_name", "model_revision",
+                "expected_dimension",
+            },
         )
         self.assertNotEqual(default_output_path(ExperimentConfig()),
                             default_output_path(e1_bge_large_config()))
@@ -101,6 +108,10 @@ class EmbeddingAblationConfigTests(unittest.TestCase):
         documents = adapter.encode_documents(["test"])
 
         self.assertEqual(config.model_name, "intfloat/e5-large-v2")
+        self.assertEqual(
+            config.model_revision,
+            "f169b11e22de13617baa190a028a32f3493550b6",
+        )
         self.assertEqual(config.expected_dimension, 1024)
         self.assertEqual(config.query_prefix, "query: ")
         self.assertEqual(config.document_prefix, "passage: ")
@@ -193,7 +204,6 @@ class EmbeddingAblationConfigTests(unittest.TestCase):
                 if configurations[0][key] != configurations[2][key]
             },
             allowed - {
-                "model_revision",
                 "expected_max_sequence_length",
                 "requested_device",
             },

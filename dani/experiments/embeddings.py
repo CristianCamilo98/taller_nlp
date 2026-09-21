@@ -137,9 +137,16 @@ class _SentenceTransformerAdapter:
             from sentence_transformers import SentenceTransformer
 
             try:
+                model_source = self._model_source()
+                revision = (
+                    self.config.model_revision
+                    if model_source == self.config.model_name
+                    else None
+                )
                 self._encoder = SentenceTransformer(
-                    self._model_source(),
+                    model_source,
                     device=self.config.requested_device,
+                    revision=revision,
                     local_files_only=True,
                 )
             except Exception as exc:

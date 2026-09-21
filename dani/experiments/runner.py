@@ -7,8 +7,10 @@ import hashlib
 import json
 import math
 import platform
+import re
 import subprocess
 import sys
+from dataclasses import replace
 from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
 from statistics import mean, median
@@ -25,6 +27,7 @@ from dani.experiments.benchmark.benchmark_v2 import (
 )
 from dani.experiments.config import (
     EXPECTED_E0_METRICS,
+    GPU_PARITY_REFERENCES,
     ExperimentConfig,
     e1_bge_large_config,
     e2_e5_large_v2_config,
@@ -42,10 +45,15 @@ EXPERIMENT_ROOT = Path(__file__).resolve().parent
 PILOT = "pilot"
 BENCHMARK_V2 = "v2"
 QUESTION_SETS = (PILOT, BENCHMARK_V2)
+RUN_LABEL_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_-]*$")
 
 
 class E0ParityError(RuntimeError):
     """Las métricas reconstruidas no coinciden con el control congelado."""
+
+
+class GpuParityError(RuntimeError):
+    """El run GPU no reproduce rangos y métricas CPU congelados."""
 
 
 class IndexProvenanceError(ValueError):
@@ -58,6 +66,59 @@ def sha256_file(path: Path) -> str:
         for block in iter(lambda: stream.read(1024 * 1024), b""):
             digest.update(block)
     return digest.hexdigest()
+
+
+def validate_run_label(run_label: str | None) -> str | None:
+    """Limita el label a un sufijo seguro para nombres de artefacto."""
+    if run_label is not None and not RUN_LABEL_PATTERN.fullmatch(run_label):
+        raise ValueError(
+            "run-label debe usar solo letras, números, guion o underscore"
+        )
+    return run_label
+
+
+def validate_runtime_options(
+    device_override: str | None, run_label: str | None
+) -> None:
+    validate_run_label(run_label)
+    if device_override not in {None, "cpu", "cuda"}:
+        raise ValueError(f"device override no soportado: {device_override}")
+    if device_override is not None and run_label is None:
+        raise ValueError("--device requiere --run-label para evitar colisiones")
+
+
+def run_name(config: ExperimentConfig, run_label: str | None = None) -> str:
+    label = validate_run_label(run_label)
+    return f"{config.experiment_id}_{label}" if label else config.experiment_id
+
+
+def runtime_config(
+    config: ExperimentConfig, device_override: str | None = None
+) -> ExperimentConfig:
+    """Copia efímera que cambia solo la infraestructura de ejecución."""
+    return (
+        replace(config, requested_device=device_override)
+        if device_override is not None
+        else config
+    )
+
+
+def execution_provenance(
+    *,
+    base_config: ExperimentConfig,
+    runtime: ExperimentConfig,
+    run_label: str | None,
+    device_override: str | None,
+    effective_device: str | None,
+) -> dict[str, Any]:
+    return {
+        "base_experiment_id": base_config.experiment_id,
+        "run_label": run_label,
+        "configured_device": base_config.requested_device,
+        "runtime_device_override": device_override,
+        "runtime_requested_device": runtime.requested_device,
+        "effective_device": effective_device,
+    }
 
 
 def validate_index_options(
@@ -297,6 +358,7 @@ def create_manifest(
     parity: dict[str, Any],
     question_set: str = PILOT,
     benchmark_metadata: dict[str, Any] | None = None,
+    execution_metadata: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     manifest = {
         "identity": {
@@ -329,6 +391,8 @@ def create_manifest(
     }
     if benchmark_metadata is not None:
         manifest["benchmark"] = benchmark_metadata
+    if execution_metadata is not None:
+        manifest["execution"] = execution_metadata
     return manifest
 
 
@@ -341,13 +405,21 @@ class ExperimentRunner:
         expected_metrics: dict[str, float | int] | None = EXPECTED_E0_METRICS,
         question_set: str = PILOT,
         benchmark_path: Path = BENCHMARK_PATH,
+        device_override: str | None = None,
+        run_label: str | None = None,
+        expected_first_relevant_ranks: dict[str, int | None] | None = None,
     ):
         if question_set not in QUESTION_SETS:
             raise ValueError(f"Question set desconocido: {question_set}")
+        validate_runtime_options(device_override, run_label)
         self.config = config
         self.expected_metrics = expected_metrics
         self.question_set = question_set
         self.benchmark_path = benchmark_path
+        self.device_override = device_override
+        self.run_label = validate_run_label(run_label)
+        self.runtime_config = runtime_config(config, device_override)
+        self.expected_first_relevant_ranks = expected_first_relevant_ranks
 
     def run(
         self,
@@ -376,7 +448,7 @@ class ExperimentRunner:
                 chunks_meta_path=paths.chunks_meta,
                 n_chunks=len(chunks),
             )
-        adapter = adapter_for_config(self.config)
+        adapter = adapter_for_config(self.runtime_config)
 
         total_build_start = perf_counter()
         model_load_s = adapter.load()
@@ -387,18 +459,20 @@ class ExperimentRunner:
         tokenization_s = perf_counter() - tokenization_start
         reused_index = index_path is not None
         if index_path is None:
-            index_path = artifact_dir / self.config.experiment_id / "corpus.faiss"
+            index_path = default_index_path(
+                artifact_dir, self.config, self.run_label
+            )
             retriever, build_timings = DenseFaissRetriever.build(
                 [str(chunk["texto"]) for chunk in chunks],
                 metadata,
                 adapter,
-                self.config,
+                self.runtime_config,
             )
             retriever.save(index_path)
         else:
             index_load_start = perf_counter()
             retriever = DenseFaissRetriever.load(
-                index_path, metadata, adapter, self.config
+                index_path, metadata, adapter, self.runtime_config
             )
             build_timings = {
                 "document_embedding_s": None,
@@ -411,7 +485,12 @@ class ExperimentRunner:
         metrics, per_question = evaluator.evaluate(retriever)
         evaluation_s = perf_counter() - evaluation_start
         parity = (
-            self._parity(metrics, self.expected_metrics)
+            self._parity(
+                metrics,
+                self.expected_metrics,
+                per_question,
+                self.expected_first_relevant_ranks,
+            )
             if self.question_set == PILOT and self.expected_metrics is not None
             else {"passed": None, "checks": {}, "reference": None}
         )
@@ -466,6 +545,7 @@ class ExperimentRunner:
                     self.config.evidence_path
                 ),
             })
+        embedding_metadata = adapter.metadata()
         index_metadata = {
             "type": type(retriever.index).__name__,
             "d": int(retriever.index.d),
@@ -485,7 +565,7 @@ class ExperimentRunner:
             n_chunks=len(chunks),
             n_questions=len(evaluator.questions),
             embedding_metadata={
-                **adapter.metadata(),
+                **embedding_metadata,
                 "token_length_diagnostics": {
                     **numeric_summary(model_token_lengths),
                     "max_sequence_length": self.config.expected_max_sequence_length,
@@ -501,6 +581,13 @@ class ExperimentRunner:
             parity=parity,
             question_set=self.question_set,
             benchmark_metadata=benchmark_metadata,
+            execution_metadata=execution_provenance(
+                base_config=self.config,
+                runtime=self.runtime_config,
+                run_label=self.run_label,
+                device_override=self.device_override,
+                effective_device=embedding_metadata.get("effective_device"),
+            ),
         )
         result = {
             "manifest": manifest,
@@ -512,9 +599,12 @@ class ExperimentRunner:
             json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8"
         )
         if parity["passed"] is False:
-            raise E0ParityError(
-                f"E0 no reproduce el baseline; diagnóstico: {parity['checks']}"
+            error_type = (
+                GpuParityError
+                if self.expected_first_relevant_ranks is not None
+                else E0ParityError
             )
+            raise error_type(f"Paridad fallida: {parity['checks']}")
         return result
 
     def _build_evaluator(self, metadata: Any) -> Any:
@@ -586,6 +676,8 @@ class ExperimentRunner:
     def _parity(
         metrics: dict[str, Any],
         expected_metrics: dict[str, float | int] = EXPECTED_E0_METRICS,
+        per_question: list[dict[str, Any]] | None = None,
+        expected_first_relevant_ranks: dict[str, int | None] | None = None,
     ) -> dict[str, Any]:
         checks: dict[str, dict[str, Any]] = {}
         passed = True
@@ -603,14 +695,45 @@ class ExperimentRunner:
                 "passed": matches,
             }
             passed = passed and matches
-        return {"passed": passed, "checks": checks}
+        if expected_first_relevant_ranks is not None:
+            actual_ranks = {
+                row["question_id"]: row.get("first_relevant_rank")
+                for row in (per_question or [])
+            }
+            for question_id, expected_rank in expected_first_relevant_ranks.items():
+                actual_rank = actual_ranks.get(question_id)
+                matches = actual_rank == expected_rank
+                checks[f"first_relevant_rank.{question_id}"] = {
+                    "expected": expected_rank,
+                    "actual": actual_rank,
+                    "passed": matches,
+                }
+                passed = passed and matches
+        return {
+            "passed": passed,
+            "checks": checks,
+            "reference": {
+                "metrics": expected_metrics,
+                "first_relevant_rank": expected_first_relevant_ranks,
+            },
+        }
 
 
 def default_output_path(
-    config: ExperimentConfig, question_set: str = PILOT
+    config: ExperimentConfig,
+    question_set: str = PILOT,
+    run_label: str | None = None,
 ) -> Path:
     suffix = "_benchmark_v2" if question_set == BENCHMARK_V2 else ""
-    return EXPERIMENT_ROOT / "results" / f"{config.experiment_id}{suffix}.json"
+    return EXPERIMENT_ROOT / "results" / f"{run_name(config, run_label)}{suffix}.json"
+
+
+def default_index_path(
+    artifact_dir: Path,
+    config: ExperimentConfig,
+    run_label: str | None = None,
+) -> Path:
+    return artifact_dir / run_name(config, run_label) / "corpus.faiss"
 
 
 def main() -> None:
@@ -623,6 +746,14 @@ def main() -> None:
     parser.add_argument(
         "--benchmark", choices=QUESTION_SETS, default=PILOT,
         help="Question set explícito: piloto original o benchmark v2 congelado",
+    )
+    parser.add_argument(
+        "--device", choices=("cpu", "cuda"),
+        help="Override operacional; no modifica la configuración científica",
+    )
+    parser.add_argument(
+        "--run-label",
+        help="Sufijo seguro para aislar resultado y directorio de artefactos",
     )
     parser.add_argument(
         "--output",
@@ -645,6 +776,10 @@ def main() -> None:
     )
     args = parser.parse_args()
     try:
+        validate_runtime_options(args.device, args.run_label)
+    except ValueError as exc:
+        parser.error(str(exc))
+    try:
         validate_index_options(args.index, args.index_manifest)
     except IndexProvenanceError as exc:
         parser.error(str(exc))
@@ -655,16 +790,32 @@ def main() -> None:
         "e3": e3_qwen3_embedding_06b_config,
     }
     config = configs[args.experiment]()
+    parity_reference = (
+        GPU_PARITY_REFERENCES.get(config.experiment_id)
+        if args.benchmark == PILOT and args.run_label == "gpu_parity"
+        else None
+    )
     expected_metrics = (
-        EXPECTED_E0_METRICS
+        parity_reference["metrics"]
+        if parity_reference is not None
+        else EXPECTED_E0_METRICS
         if args.experiment == "e0" and args.benchmark == PILOT
         else None
     )
-    output_path = args.output or default_output_path(config, args.benchmark)
+    output_path = args.output or default_output_path(
+        config, args.benchmark, args.run_label
+    )
     result = ExperimentRunner(
         config,
         expected_metrics=expected_metrics,
         question_set=args.benchmark,
+        device_override=args.device,
+        run_label=args.run_label,
+        expected_first_relevant_ranks=(
+            parity_reference["first_relevant_rank"]
+            if parity_reference is not None
+            else None
+        ),
     ).run(
         output_path.resolve(),
         args.artifact_dir.resolve(),

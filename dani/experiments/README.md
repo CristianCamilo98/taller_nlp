@@ -148,3 +148,41 @@ decisiones de provenance.
 
 La política cross-lingual permanece congelada: queries en español, corpus SEC
 en inglés, sin traducción, query rewriting, BM25 ni reranking.
+
+## E1/E2 GPU parity
+
+`--device` es un override operacional y no reescribe la configuración
+científica. `--run-label gpu_parity` aísla tanto el JSON como el directorio del
+índice. El manifest conserva `config.requested_device=cpu` y registra por
+separado `configured_device`, `runtime_device_override`,
+`runtime_requested_device` y `effective_device` bajo `execution`.
+Por seguridad, proporcionar `--device` sin `--run-label` falla antes de cargar
+el modelo, evitando seleccionar accidentalmente el resultado histórico.
+
+E1 queda fijado a la revisión
+`d4aa6901d3a41ba39fb536a557fa166f842b0e09`; E2, a
+`f169b11e22de13617baa190a028a32f3493550b6`. CUDA no cambia modelo, tokenizer,
+longitud máxima, pooling, dimensión, formatos, normalización, batch, corpus,
+orden, índice ni evaluator.
+
+Los runs etiquetados generan:
+
+- `results/e1_bge_large_original_gpu_parity.json` y
+  `artifacts/e1_bge_large_original_gpu_parity/corpus.faiss`;
+- `results/e2_e5_large_v2_original_gpu_parity.json` y
+  `artifacts/e2_e5_large_v2_original_gpu_parity/corpus.faiss`.
+
+La paridad se evaluará sin exigir igualdad de similarity scores. Deben
+coincidir los seis `first_relevant_rank` y todas las métricas agregadas:
+
+| Experimento | g3-008 | g3-009 | g3-010 | g3-011 | g3-012 | g3-013 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| E1 CPU | 5 | 1 | 1 | >10 | 1 | >10 |
+| E2 CPU | 5 | 1 | 2 | >10 | 1 | >10 |
+
+| Experimento | R@1 | R@3 | R@5 | R@10 | MRR@10 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| E1 CPU | 0.5 | 0.5 | 0.6666666666666666 | 0.6666666666666666 | 0.5333333333333333 |
+| E2 CPU | 0.3333333333333333 | 0.5 | 0.6666666666666666 | 0.6666666666666666 | 0.45 |
+
+Una divergencia detiene la comparación; no autoriza ajustar parámetros.

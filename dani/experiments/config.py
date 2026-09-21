@@ -57,6 +57,7 @@ def e1_bge_large_config() -> ExperimentConfig:
         ExperimentConfig(),
         experiment_id="e1_bge_large_original",
         model_name="BAAI/bge-large-en-v1.5",
+        model_revision="d4aa6901d3a41ba39fb536a557fa166f842b0e09",
         expected_dimension=1024,
     )
 
@@ -67,6 +68,7 @@ def e2_e5_large_v2_config() -> ExperimentConfig:
         ExperimentConfig(),
         experiment_id="e2_e5_large_v2_original",
         model_name="intfloat/e5-large-v2",
+        model_revision="f169b11e22de13617baa190a028a32f3493550b6",
         query_prefix="query: ",
         document_prefix="passage: ",
         document_format="passage_prefix_plus_raw_chunk_text",
@@ -102,4 +104,36 @@ EXPECTED_E0_METRICS: dict[str, float | int] = {
     "recall@10": 0.8333333333333334,
     "mrr@10": 0.3611111111111111,
     "n_questions": 6,
+}
+
+
+GPU_PARITY_REFERENCES: dict[str, dict[str, Any]] = {
+    "e1_bge_large_original": {
+        "first_relevant_rank": {
+            "g3-008": 5, "g3-009": 1, "g3-010": 1,
+            "g3-011": None, "g3-012": 1, "g3-013": None,
+        },
+        "metrics": {
+            "recall@1": 0.5,
+            "recall@3": 0.5,
+            "recall@5": 0.6666666666666666,
+            "recall@10": 0.6666666666666666,
+            "mrr@10": 0.5333333333333333,
+            "n_questions": 6,
+        },
+    },
+    "e2_e5_large_v2_original": {
+        "first_relevant_rank": {
+            "g3-008": 5, "g3-009": 1, "g3-010": 2,
+            "g3-011": None, "g3-012": 1, "g3-013": None,
+        },
+        "metrics": {
+            "recall@1": 0.3333333333333333,
+            "recall@3": 0.5,
+            "recall@5": 0.6666666666666666,
+            "recall@10": 0.6666666666666666,
+            "mrr@10": 0.45,
+            "n_questions": 6,
+        },
+    },
 }
