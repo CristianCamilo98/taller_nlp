@@ -10,6 +10,7 @@ Punto de partida: tag `baseline-comun-v2`.
 | `common/` | Baseline congelado (tools, agente, eval, `responder`/`evaluar`) |
 | `cristian/experiments/` | Mejoras y ablations de este experimento |
 | `cristian/experiments/results/` | Métricas JSON regenerables |
+| `cristian/experiments/results_viewer/` | Dashboard HTML para comparar runs |
 | `cristian/experiments/artifacts/` | Índices/cachés locales (gitignored) |
 
 ## Cómo comparar
@@ -36,10 +37,28 @@ python -m unittest discover -s common/tests -v
 | Fichero | Rol |
 | --- | --- |
 | `miax_s1.py` | Retrieval denso (FAISS + BGE). Punto de partida a mejorar. |
-| `agent.py` | Agente experimental (OpenRouter + tools locales). |
-| `tools.py` | Las 4 tools (contrato de la práctica); `search_filings` → `miax_s1`. |
-| `schema.py` / `config.py` / `xbrl.py` | Copia experimental autónoma (no importa `common`). |
+| `agent.py` | Agente experimental + CLI interactiva. |
+| `responder.py` | `responder(pregunta)` → dict evaluable. |
+| `evaluar.py` | Corre golden + métricas cifra/cita/trayectoria. |
+| `tools.py` | Las 4 tools; `search_filings` → `miax_s1`. |
+| `schema.py` / `config.py` / `xbrl.py` | Runtime experimental autónomo. |
+| `results_viewer/` | Dashboard HTML para comparar `results/*.jsonl`. |
 | `../../.env` | Claves locales (`OPENROUTER_API_KEY`, `HF_TOKEN`, `MIAX_DATASET_DIR`). |
+
+```bash
+# Evaluación (consume OpenRouter; pausa entre preguntas)
+python -m cristian.experiments.evaluar \
+  common/golden_set/golden_set_grupo3.jsonl \
+  cristian/experiments/results/run.jsonl
+
+# Comparar resultados (HTML local; relee todos los *.jsonl de results/)
+python -m cristian.experiments.results_viewer
+```
+
+Los tres evaluadores se importan de `common.eval` a propósito: misma rúbrica
+que el baseline, para que el delta sea comparable.
+
+Ver también `results_viewer/README.md`.
 
 ```bash
 cp .env.example .env   # si aún no existe

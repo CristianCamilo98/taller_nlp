@@ -1,0 +1,3 @@
+# Visor de resultados JSONL (stdlib). Regenera HTML al ejecutar:
+#   python -m cristian.experiments.results_viewer
+dashboard.html

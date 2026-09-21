@@ -38,9 +38,11 @@ class DatasetPaths:
 class AgentSettings:
     """Parámetros del LLM y del runner de evaluación."""
 
-    model: str = "openrouter:openai/gpt-3.5-turbo-0613"
+    model: str = "openrouter:nex-agi/nex-n2.5-mini:free"
     # Openai fast model openrouter:openai/gpt-3.5-turbo-0613
     # Gemini 3.8 openrouter:google/gemini-3.8-flash
+    # Nex AGI FREE  openrouter:nex-agi/nex-n2.5-mini:free
+    # MISTRAL (CHEAP) openrouter:mistralai/mistral-nemo
     temperature: float = 0.0
     tool_call_run_limit: int = 10
     guardrail_retries: int = 1
