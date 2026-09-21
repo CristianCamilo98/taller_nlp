@@ -80,44 +80,42 @@ def crear_agente():
 
 
 def responder(pregunta: str):
-    """Invoca el agente y devuelve el resultado completo de LangGraph."""
-    import uuid
+    """Atajo al ``responder`` público (dict evaluable, no resultado crudo)."""
+    from cristian.experiments.responder import responder as _responder
 
-    agente = crear_agente()
-    return agente.invoke(
-        {"messages": [{"role": "user", "content": pregunta}]},
-        config={"configurable": {"thread_id": str(uuid.uuid4())}},
-    )
+    return _responder(pregunta)
 
 
-def _imprimir_respuesta(resultado) -> None:
-    """Muestra la respuesta estructurada si existe; si no, el resultado crudo."""
-    estructurada = resultado.get("structured_response")
-    if estructurada is not None:
-        print("\n--- RESPUESTA ---")
-        print(estructurada.respuesta)
-        print(f"fuente: {estructurada.fuente}")
-        if estructurada.cifra is not None:
-            print(f"cifra:  {estructurada.cifra} {estructurada.unidad or ''}".rstrip())
-        if estructurada.ticker:
-            print(f"ticker: {estructurada.ticker}  ejercicio: {estructurada.ejercicio}")
-        if estructurada.chunk_id:
-            print(f"chunk:  {estructurada.chunk_id}")
-        if estructurada.cita:
-            cita = estructurada.cita
-            print(f"cita:   {cita[:300]}{'…' if len(cita) > 300 else ''}")
-        return
-    print(resultado)
+def _imprimir_respuesta(answer: dict) -> None:
+    """Muestra la respuesta estructurada del dict de ``responder``."""
+    print("\n--- RESPUESTA ---")
+    print(answer.get("respuesta"))
+    print(f"fuente: {answer.get('fuente')}")
+    if answer.get("cifra") is not None:
+        print(
+            f"cifra:  {answer.get('cifra')} {answer.get('unidad') or ''}".rstrip()
+        )
+    if answer.get("ticker"):
+        print(
+            f"ticker: {answer.get('ticker')}  "
+            f"ejercicio: {answer.get('ejercicio')}"
+        )
+    if answer.get("chunk_id"):
+        print(f"chunk:  {answer.get('chunk_id')}")
+    if answer.get("cita"):
+        cita = answer["cita"]
+        print(f"cita:   {cita[:300]}{'…' if len(cita) > 300 else ''}")
+    tools = answer.get("tool_calls_agente") or []
+    if tools:
+        print(f"tools:  {tools}")
 
 
 if __name__ == "__main__":
     # Modo interactivo: gasta API (OpenRouter) en cada pregunta.
     pregunta_cli = " ".join(sys.argv[1:]).strip()
     print(f"modelo:  {SETTINGS.model}")
-    print(f"dataset: {env_path().parent / 'cristian' / 'dataset'}")
     print("Escribe una pregunta (vacío o 'salir' para terminar).\n")
 
-    agente = None
     while True:
         if pregunta_cli:
             pregunta = pregunta_cli
@@ -132,15 +130,7 @@ if __name__ == "__main__":
             break
 
         try:
-            if agente is None:
-                agente = crear_agente()
-            import uuid
-
-            resultado = agente.invoke(
-                {"messages": [{"role": "user", "content": pregunta}]},
-                config={"configurable": {"thread_id": str(uuid.uuid4())}},
-            )
-            _imprimir_respuesta(resultado)
+            _imprimir_respuesta(responder(pregunta))
         except Exception as exc:
             print(f"\nError: {type(exc).__name__}: {exc}")
         print()

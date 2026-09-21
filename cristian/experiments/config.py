@@ -24,14 +24,36 @@ class DatasetPaths:
     faiss_index: Path
     chunks_meta: Path
 
+    def required_files(self) -> dict[str, Path]:
+        return {
+            "secciones.jsonl": self.sections,
+            "chunks.jsonl": self.chunks,
+            "xbrl_facts.parquet": self.xbrl_facts,
+            "corpus.faiss": self.faiss_index,
+            "chunks_meta.parquet": self.chunks_meta,
+        }
+
 
 @dataclass(frozen=True)
 class AgentSettings:
-    """Parámetros del LLM; se pueden cambiar aquí sin tocar common."""
+    """Parámetros del LLM y del runner de evaluación."""
 
-    model: str = "openrouter:google/gemini-3.8-flash"
+    model: str = "openrouter:openai/gpt-3.5-turbo-0613"
+    # Openai fast model openrouter:openai/gpt-3.5-turbo-0613
+    # Gemini 3.8 openrouter:google/gemini-3.8-flash
     temperature: float = 0.0
     tool_call_run_limit: int = 10
+    guardrail_retries: int = 1
+    rate_limit_attempts: int = 3
+    rate_limit_initial_backoff_s: float = 5.0
+    pause_between_questions_s: float = 1.0
+    retrieval_k: int = 5
+    prompt_version: str = "cristian-exp-v0"
+    embedding_model: str = "BAAI/bge-small-en-v1.5"
+    embedding_query_prefix: str = (
+        "Represent this sentence for searching relevant passages: "
+    )
+    provider: str = "openrouter"
 
 
 SETTINGS = AgentSettings()

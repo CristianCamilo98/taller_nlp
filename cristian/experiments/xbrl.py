@@ -19,3 +19,12 @@ def format_xbrl_value(value: float, unit: str) -> str:
     if number.is_integer():
         return f"{number:,.0f}"
     return f"{number:,.15g}"
+
+
+def find_xbrl_fact(ticker: str, fiscal_year: int, concept: str):
+    facts = load_xbrl()
+    return facts[
+        (facts["ticker"].astype(str).str.upper() == ticker.strip().upper())
+        & (facts["fiscal_year"].astype(int) == int(fiscal_year))
+        & (facts["concept"] == concept)
+    ]
