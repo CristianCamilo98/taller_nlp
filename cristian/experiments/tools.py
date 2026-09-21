@@ -45,6 +45,8 @@ def list_available() -> str:
         lines.append(
             f"- {ticker} ({company}): ejercicios {years}, items {items}"
         )
+
+    print("\n".join(lines))
     return "\n".join(lines)
 
 

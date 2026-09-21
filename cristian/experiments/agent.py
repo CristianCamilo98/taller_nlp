@@ -45,6 +45,7 @@ def crear_agente():
     from dotenv import load_dotenv
     from langchain.agents import create_agent
     from langchain.agents.middleware import ToolCallLimitMiddleware
+    from langchain.agents.structured_output import ToolStrategy
     from langchain.chat_models import init_chat_model
     from langgraph.checkpoint.memory import InMemorySaver
 
@@ -67,11 +68,14 @@ def crear_agente():
         SETTINGS.model,
         temperature=SETTINGS.temperature,
     )
+    # ToolStrategy: muchos modelos de OpenRouter (p. ej. Qwen) no rellenan
+    # structured_response con la estrategia nativa del proveedor → None y luego
+    # TypeError al convertir la respuesta. Forzamos tool-calling del esquema.
     return create_agent(
         model=model,
         tools=[list_available, get_xbrl_fact, search_filings, read_section],
         system_prompt=SYSTEM,
-        response_format=RespuestaFinanciera,
+        response_format=ToolStrategy(RespuestaFinanciera),
         checkpointer=InMemorySaver(),
         middleware=[
             ToolCallLimitMiddleware(run_limit=SETTINGS.tool_call_run_limit),
@@ -132,5 +136,8 @@ if __name__ == "__main__":
         try:
             _imprimir_respuesta(responder(pregunta))
         except Exception as exc:
+            import traceback
+
             print(f"\nError: {type(exc).__name__}: {exc}")
+            traceback.print_exc()
         print()

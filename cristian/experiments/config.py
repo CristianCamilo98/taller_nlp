@@ -38,11 +38,13 @@ class DatasetPaths:
 class AgentSettings:
     """Parámetros del LLM y del runner de evaluación."""
 
-    model: str = "openrouter:nex-agi/nex-n2.5-mini:free"
+    model: str = "openrouter:deepseek/deepseek-v4-flash"
     # Openai fast model openrouter:openai/gpt-3.5-turbo-0613
     # Gemini 3.8 openrouter:google/gemini-3.8-flash
     # Nex AGI FREE  openrouter:nex-agi/nex-n2.5-mini:free
     # MISTRAL (CHEAP) openrouter:mistralai/mistral-nemo
+    # QWEN (CHEAP) openrouter:qwen/qwen3.7-flash (siempre falla por que devuelve los datos no estructurados)
+    # META LLAMA (CHEAP) openrouter:meta-llama/llama-3.1-8b-instruct
     temperature: float = 0.0
     tool_call_run_limit: int = 10
     guardrail_retries: int = 1

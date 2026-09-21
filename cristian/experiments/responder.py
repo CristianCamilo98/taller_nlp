@@ -24,14 +24,22 @@ def _get_agente():
 
 def _extract_tool_calls(messages) -> list[dict]:
     calls = []
-    for message in messages:
-        for call in getattr(message, "tool_calls", None) or []:
-            if call.get("name") == "RespuestaFinanciera":
+    for message in messages or []:
+        raw_calls = getattr(message, "tool_calls", None) or []
+        for call in raw_calls:
+            if call is None:
                 continue
-            calls.append({
-                "name": call.get("name"),
-                "args": call.get("args") or {},
-            })
+            if isinstance(call, dict):
+                name = call.get("name")
+                args = call.get("args") or {}
+            else:
+                name = getattr(call, "name", None)
+                args = getattr(call, "args", None) or {}
+            if name == "RespuestaFinanciera":
+                continue
+            if not name:
+                continue
+            calls.append({"name": name, "args": args})
     return calls
 
 
@@ -42,7 +50,7 @@ def _extract_telemetry(messages) -> dict:
     models: list[str] = []
     providers: list[str] = []
     reported_costs: list[float] = []
-    for message in messages:
+    for message in messages or []:
         usage = getattr(message, "usage_metadata", None) or {}
         if usage:
             token_data_seen = True
@@ -73,6 +81,27 @@ def _extract_telemetry(messages) -> dict:
     }
 
 
+def _coerce_structured(structured):
+    """Convierte structured_response a dict; error claro si el modelo no la dio."""
+    if structured is None:
+        raise RuntimeError(
+            "El agente devolvió structured_response=None. "
+            "El modelo no generó la salida estructurada (RespuestaFinanciera). "
+            "Prueba otro modelo en config.SETTINGS.model o confirma que "
+            "create_agent usa ToolStrategy(RespuestaFinanciera)."
+        )
+    if hasattr(structured, "model_dump"):
+        return structured.model_dump()
+    if isinstance(structured, dict):
+        return dict(structured)
+    try:
+        return dict(structured)
+    except TypeError as exc:
+        raise RuntimeError(
+            f"structured_response no convertible a dict: {type(structured)!r}"
+        ) from exc
+
+
 def responder(
     pregunta: str,
     max_reintentos: int | None = None,
@@ -95,12 +124,7 @@ def responder(
     )
     messages = result.get("messages") or []
     calls = _extract_tool_calls(messages)
-    structured = result["structured_response"]
-    answer = (
-        structured.model_dump()
-        if hasattr(structured, "model_dump")
-        else dict(structured)
-    )
+    answer = _coerce_structured(result.get("structured_response"))
     answer["tool_calls_agente"] = [call["name"] for call in calls]
     answer["tool_calls_detallado"] = calls
     answer["thread_id"] = thread_id
