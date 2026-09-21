@@ -110,3 +110,41 @@ python -B -m dani.experiments.runner --experiment e3
 E3 usa dimensión nativa 1024 y guarda un único resultado en
 `results/e3_qwen3_embedding_06b_original.json`. No se han implementado nuevos
 chunkers, BM25, reranking, query rewriting ni ablaciones MRL.
+
+## Benchmark v2 congelado
+
+El runner mantiene dos question sets explícitos. `--benchmark pilot` (valor
+por defecto) conserva las seis preguntas y los nombres de resultado originales.
+`--benchmark v2` usa las 48 preguntas de
+`benchmark/retrieval_benchmark_v2.jsonl` y verifica su SHA-256 congelado antes
+de cargar el modelo. Un byte distinto, o una pregunta cuyo EvidenceSpan no
+quede contenido por ningún chunk, aborta la evaluación.
+
+La relevancia v2 se deriva en cada ejecución: se filtran chunks por
+ticker/ejercicio/item y se conservan todos los que cumplen
+`inicio_car <= char_start` y `fin_car >= char_end`. Los IDs derivados aparecen
+solo en el resultado, nunca en el benchmark. Se calculan Recall@1/3/5/10 y
+MRR@10 para `ALL-48`, cada uno de los cuatro items y `NON-7A-36`.
+
+Los resultados v2 usan el sufijo `_benchmark_v2.json`, por ejemplo
+`e0_bge_small_original_benchmark_v2.json`, por lo que no colisionan con el
+piloto. Un índice existente del mismo experimento, corpus y chunking puede
+cargarse con `--index` solo si se aporta también, de forma explícita, el result
+JSON que lo certifica mediante `--index-manifest`. Si ambos se omiten, se
+conserva el comportamiento anterior de construir el índice:
+
+```powershell
+python -B -m dani.experiments.runner --experiment e0 --benchmark pilot
+python -B -m dani.experiments.runner --experiment e3 --benchmark v2 `
+  --index C:\ruta\al\corpus.faiss `
+  --index-manifest C:\ruta\al\e3_qwen3_embedding_06b_original.json
+```
+
+La reutilización falla si no coinciden el SHA-256, tipo, dimensión o `ntotal`
+del FAISS; la identidad, modelo, revisión, dimensión efectiva, normalización o
+formato documental del experimento; o los hashes y número de chunks del
+corpus. Las métricas y rankings del result JSON no participan en estas
+decisiones de provenance.
+
+La política cross-lingual permanece congelada: queries en español, corpus SEC
+en inglés, sin traducción, query rewriting, BM25 ni reranking.

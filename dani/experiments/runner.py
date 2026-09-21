@@ -1,4 +1,4 @@
-"""Orquestador reproducible del experimento E0."""
+"""Orquestador reproducible de las ablaciones y sus question sets."""
 
 from __future__ import annotations
 
@@ -18,6 +18,11 @@ from typing import Any, Sequence
 import numpy as np
 
 from common.config import get_dataset_paths
+from dani.experiments.benchmark.benchmark_v2 import (
+    BENCHMARK_NAME,
+    BENCHMARK_PATH,
+    FROZEN_SHA256,
+)
 from dani.experiments.config import (
     EXPECTED_E0_METRICS,
     ExperimentConfig,
@@ -26,14 +31,25 @@ from dani.experiments.config import (
     e3_qwen3_embedding_06b_config,
 )
 from dani.experiments.embeddings import adapter_for_config
-from dani.experiments.evaluation import RetrievalEvaluator
+from dani.experiments.evaluation import (
+    EVALUATION_VIEWS,
+    BenchmarkV2Evaluator,
+    RetrievalEvaluator,
+)
 from dani.experiments.retriever import DenseFaissRetriever
 
 EXPERIMENT_ROOT = Path(__file__).resolve().parent
+PILOT = "pilot"
+BENCHMARK_V2 = "v2"
+QUESTION_SETS = (PILOT, BENCHMARK_V2)
 
 
 class E0ParityError(RuntimeError):
     """Las métricas reconstruidas no coinciden con el control congelado."""
+
+
+class IndexProvenanceError(ValueError):
+    """El índice reutilizado no coincide con su manifest o experimento."""
 
 
 def sha256_file(path: Path) -> str:
@@ -42,6 +58,169 @@ def sha256_file(path: Path) -> str:
         for block in iter(lambda: stream.read(1024 * 1024), b""):
             digest.update(block)
     return digest.hexdigest()
+
+
+def validate_index_options(
+    index_path: Path | None, index_manifest_path: Path | None
+) -> None:
+    """Exige que índice y manifest se proporcionen siempre juntos."""
+    if (index_path is None) != (index_manifest_path is None):
+        raise IndexProvenanceError(
+            "--index y --index-manifest deben proporcionarse juntos"
+        )
+
+
+def _logical_path(path: Path) -> str:
+    """Evita rutas de máquina cuando el archivo pertenece al repo/dataset."""
+    resolved = path.resolve()
+    repo_root = EXPERIMENT_ROOT.parents[1]
+    try:
+        return "repo://" + resolved.relative_to(repo_root).as_posix()
+    except ValueError:
+        pass
+    try:
+        dataset_root = get_dataset_paths().dataset_dir
+        return "dataset://" + resolved.relative_to(dataset_root).as_posix()
+    except ValueError:
+        return str(resolved)
+
+
+def validate_reused_index(
+    *,
+    index_path: Path,
+    index_manifest_path: Path,
+    config: ExperimentConfig,
+    chunks_path: Path,
+    chunks_meta_path: Path,
+    n_chunks: int,
+) -> dict[str, Any]:
+    """Valida fail-closed el origen de un FAISS sin usar resultados científicos."""
+    import faiss
+
+    if not index_path.is_file():
+        raise IndexProvenanceError(f"Índice inexistente: {index_path}")
+    if not index_manifest_path.is_file():
+        raise IndexProvenanceError(
+            f"Manifest de índice inexistente: {index_manifest_path}"
+        )
+    try:
+        payload = json.loads(index_manifest_path.read_text(encoding="utf-8"))
+        source = payload["manifest"]
+        identity = source["identity"]
+        source_config = source["config"]
+        embedding = source["embedding"]
+        manifest_index = source["index"]
+        inputs = source["inputs"]
+        input_hashes = inputs["sha256"]
+    except (KeyError, TypeError, json.JSONDecodeError) as exc:
+        raise IndexProvenanceError(
+            "El result JSON no contiene un manifest de provenance válido"
+        ) from exc
+
+    try:
+        index = faiss.read_index(str(index_path))
+    except Exception as exc:
+        raise IndexProvenanceError(f"No se puede leer el índice: {index_path}") from exc
+
+    actual_index_sha = sha256_file(index_path)
+    actual_chunks_sha = sha256_file(chunks_path)
+    actual_meta_sha = sha256_file(chunks_meta_path)
+    actual_index = {
+        "sha256": actual_index_sha,
+        "type": type(index).__name__,
+        "d": int(index.d),
+        "ntotal": int(index.ntotal),
+    }
+    expected = {
+        "identity.experiment_id": config.experiment_id,
+        "config.experiment_id": config.experiment_id,
+        "config.model_name": config.model_name,
+        "config.model_revision": config.model_revision,
+        "config.expected_dimension": config.expected_dimension,
+        "config.normalize_embeddings": config.normalize_embeddings,
+        "config.document_format": config.document_format,
+        "config.document_prefix": config.document_prefix,
+        "config.index_type": config.index_type,
+        "embedding.model_name": config.model_name,
+        "embedding.dimension": config.expected_dimension,
+        "embedding.normalize": config.normalize_embeddings,
+        "embedding.document_formatting": config.document_format,
+        "index.sha256": actual_index_sha,
+        "index.type": actual_index["type"],
+        "index.d": actual_index["d"],
+        "index.ntotal": actual_index["ntotal"],
+        "inputs.sha256.chunks_jsonl": actual_chunks_sha,
+        "inputs.sha256.chunks_meta_parquet": actual_meta_sha,
+        "inputs.n_chunks": n_chunks,
+    }
+    observed = {
+        "identity.experiment_id": identity.get("experiment_id"),
+        "config.experiment_id": source_config.get("experiment_id"),
+        "config.model_name": source_config.get("model_name"),
+        "config.model_revision": source_config.get("model_revision"),
+        "config.expected_dimension": source_config.get("expected_dimension"),
+        "config.normalize_embeddings": source_config.get(
+            "normalize_embeddings"
+        ),
+        "config.document_format": source_config.get("document_format"),
+        "config.document_prefix": source_config.get("document_prefix"),
+        "config.index_type": source_config.get("index_type"),
+        "embedding.model_name": embedding.get("model_name"),
+        "embedding.dimension": embedding.get("dimension"),
+        "embedding.normalize": embedding.get("normalize"),
+        "embedding.document_formatting": embedding.get(
+            "document_formatting"
+        ),
+        "index.sha256": str(manifest_index.get("sha256", "")).lower(),
+        "index.type": manifest_index.get("type"),
+        "index.d": manifest_index.get("d"),
+        "index.ntotal": manifest_index.get("ntotal"),
+        "inputs.sha256.chunks_jsonl": str(
+            input_hashes.get("chunks_jsonl", "")
+        ).lower(),
+        "inputs.sha256.chunks_meta_parquet": str(
+            input_hashes.get("chunks_meta_parquet", "")
+        ).lower(),
+        "inputs.n_chunks": inputs.get("n_chunks"),
+    }
+    if config.model_revision is not None:
+        expected["embedding.model_revision"] = config.model_revision
+        observed["embedding.model_revision"] = embedding.get("model_revision")
+
+    errors = [
+        f"{field}: manifest={observed[field]!r}, esperado={value!r}"
+        for field, value in expected.items()
+        if observed.get(field) != value
+    ]
+    if actual_index["ntotal"] != n_chunks:
+        errors.append(
+            f"index.ntotal real={actual_index['ntotal']!r}, corpus={n_chunks!r}"
+        )
+    if actual_index["d"] != config.expected_dimension:
+        errors.append(
+            f"index.d real={actual_index['d']!r}, "
+            f"experimento={config.expected_dimension!r}"
+        )
+    if actual_index["type"] != config.index_type:
+        errors.append(
+            f"index.type real={actual_index['type']!r}, "
+            f"experimento={config.index_type!r}"
+        )
+    if errors:
+        raise IndexProvenanceError(
+            "Provenance de índice incompatible: " + "; ".join(errors)
+        )
+
+    return {
+        "index_path": _logical_path(index_path),
+        "index_sha256": actual_index_sha,
+        "source_manifest": _logical_path(index_manifest_path),
+        "source_experiment_id": identity["experiment_id"],
+        "source_model_name": embedding["model_name"],
+        "source_model_revision": embedding.get("model_revision"),
+        "chunks_jsonl_sha256": actual_chunks_sha,
+        "chunks_meta_parquet_sha256": actual_meta_sha,
+    }
 
 
 def numeric_summary(values: Sequence[float]) -> dict[str, float | None]:
@@ -85,15 +264,23 @@ def git_provenance() -> dict[str, Any]:
     }
 
 
-def _logical_paths(config: ExperimentConfig) -> dict[str, str]:
-    return {
+def _logical_paths(
+    config: ExperimentConfig, question_set: str = PILOT
+) -> dict[str, str]:
+    paths = {
         "chunks": config.chunk_source,
         "chunks_metadata": "dataset://indice_faiss/chunks_meta.parquet",
-        "golden": "repo://common/golden_set/golden_set_grupo3.jsonl",
-        "evidence_ground_truth": (
-            "repo://dani/experiments/results/evidence_ground_truth_v1.json"
-        ),
     }
+    if question_set == BENCHMARK_V2:
+        paths["benchmark"] = (
+            "repo://dani/experiments/benchmark/retrieval_benchmark_v2.jsonl"
+        )
+    else:
+        paths["golden"] = "repo://common/golden_set/golden_set_grupo3.jsonl"
+        paths["evidence_ground_truth"] = (
+            "repo://dani/experiments/results/evidence_ground_truth_v1.json"
+        )
+    return paths
 
 
 def create_manifest(
@@ -108,8 +295,10 @@ def create_manifest(
     timings: dict[str, Any],
     chunk_statistics: dict[str, Any],
     parity: dict[str, Any],
+    question_set: str = PILOT,
+    benchmark_metadata: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    return {
+    manifest = {
         "identity": {
             "experiment_id": config.experiment_id,
             "timestamp_utc": timestamp_utc,
@@ -117,7 +306,7 @@ def create_manifest(
         },
         "config": config.to_dict(),
         "inputs": {
-            "logical_paths": _logical_paths(config),
+            "logical_paths": _logical_paths(config, question_set),
             "sha256": input_hashes,
             "n_chunks": n_chunks,
             "n_questions": n_questions,
@@ -138,28 +327,55 @@ def create_manifest(
         "chunk_statistics": chunk_statistics,
         "parity": parity,
     }
+    if benchmark_metadata is not None:
+        manifest["benchmark"] = benchmark_metadata
+    return manifest
 
 
 class ExperimentRunner:
-    """Ensambla E0 sin alterar ninguna variable del retrieval baseline."""
+    """Ensambla una ablación sin alterar las variables del retrieval."""
 
     def __init__(
         self,
         config: ExperimentConfig,
         expected_metrics: dict[str, float | int] | None = EXPECTED_E0_METRICS,
+        question_set: str = PILOT,
+        benchmark_path: Path = BENCHMARK_PATH,
     ):
+        if question_set not in QUESTION_SETS:
+            raise ValueError(f"Question set desconocido: {question_set}")
         self.config = config
         self.expected_metrics = expected_metrics
+        self.question_set = question_set
+        self.benchmark_path = benchmark_path
 
-    def run(self, output_path: Path, artifact_dir: Path) -> dict[str, Any]:
+    def run(
+        self,
+        output_path: Path,
+        artifact_dir: Path,
+        index_path: Path | None = None,
+        index_manifest_path: Path | None = None,
+    ) -> dict[str, Any]:
         from datetime import datetime, timezone
 
         import pandas as pd
 
+        validate_index_options(index_path, index_manifest_path)
         paths = get_dataset_paths()
         chunks = self._load_chunks(paths.chunks)
         metadata = pd.read_parquet(paths.chunks_meta)
         self._validate_alignment(chunks, metadata)
+        evaluator = self._build_evaluator(metadata)
+        reused_index_provenance = None
+        if index_path is not None and index_manifest_path is not None:
+            reused_index_provenance = validate_reused_index(
+                index_path=index_path,
+                index_manifest_path=index_manifest_path,
+                config=self.config,
+                chunks_path=paths.chunks,
+                chunks_meta_path=paths.chunks_meta,
+                n_chunks=len(chunks),
+            )
         adapter = adapter_for_config(self.config)
 
         total_build_start = perf_counter()
@@ -169,26 +385,34 @@ class ExperimentRunner:
             [str(chunk["texto"]) for chunk in chunks]
         )
         tokenization_s = perf_counter() - tokenization_start
-        retriever, build_timings = DenseFaissRetriever.build(
-            [str(chunk["texto"]) for chunk in chunks],
-            metadata,
-            adapter,
-            self.config,
-        )
-        index_path = artifact_dir / self.config.experiment_id / "corpus.faiss"
-        retriever.save(index_path)
+        reused_index = index_path is not None
+        if index_path is None:
+            index_path = artifact_dir / self.config.experiment_id / "corpus.faiss"
+            retriever, build_timings = DenseFaissRetriever.build(
+                [str(chunk["texto"]) for chunk in chunks],
+                metadata,
+                adapter,
+                self.config,
+            )
+            retriever.save(index_path)
+        else:
+            index_load_start = perf_counter()
+            retriever = DenseFaissRetriever.load(
+                index_path, metadata, adapter, self.config
+            )
+            build_timings = {
+                "document_embedding_s": None,
+                "index_build_s": None,
+                "index_load_s": perf_counter() - index_load_start,
+            }
         total_build_s = perf_counter() - total_build_start
 
-        evaluator = RetrievalEvaluator(
-            self.config.golden_path, metadata, max_k=self.config.max_k
-        )
-        self._validate_evidence_ground_truth(evaluator)
         evaluation_start = perf_counter()
         metrics, per_question = evaluator.evaluate(retriever)
         evaluation_s = perf_counter() - evaluation_start
         parity = (
             self._parity(metrics, self.expected_metrics)
-            if self.expected_metrics is not None
+            if self.question_set == PILOT and self.expected_metrics is not None
             else {"passed": None, "checks": {}, "reference": None}
         )
 
@@ -210,17 +434,54 @@ class ExperimentRunner:
                 query_embedding_latencies
             ),
         }
-        manifest = create_manifest(
-            config=self.config,
-            timestamp_utc=datetime.now(timezone.utc).isoformat(),
-            input_hashes={
-                "chunks_jsonl": sha256_file(paths.chunks),
-                "chunks_meta_parquet": sha256_file(paths.chunks_meta),
+        input_hashes = {
+            "chunks_jsonl": sha256_file(paths.chunks),
+            "chunks_meta_parquet": sha256_file(paths.chunks_meta),
+        }
+        benchmark_metadata = None
+        if self.question_set == BENCHMARK_V2:
+            benchmark_sha256 = sha256_file(self.benchmark_path).upper()
+            if benchmark_sha256 != FROZEN_SHA256:
+                raise ValueError(
+                    "El benchmark cambió durante la evaluación; "
+                    f"SHA-256 observado: {benchmark_sha256}"
+                )
+            input_hashes["benchmark_jsonl"] = benchmark_sha256
+            benchmark_metadata = {
+                "benchmark_name": BENCHMARK_NAME,
+                "benchmark_sha256": benchmark_sha256,
+                "n_questions": 48,
+                "evaluation_views": list(EVALUATION_VIEWS),
+                "queries_language": "es",
+                "corpus_language": "en",
+                "query_translation": False,
+                "query_rewriting": False,
+                "corpus_translation": False,
+                "ground_truth": "EvidenceSpan_full_containment",
+            }
+        else:
+            input_hashes.update({
                 "golden_jsonl": sha256_file(self.config.golden_path),
                 "evidence_ground_truth_json": sha256_file(
                     self.config.evidence_path
                 ),
-            },
+            })
+        index_metadata = {
+            "type": type(retriever.index).__name__,
+            "d": int(retriever.index.d),
+            "ntotal": int(retriever.index.ntotal),
+            "sha256": sha256_file(index_path),
+            "file_size_bytes": index_path.stat().st_size,
+            "contains_nan_or_inf": False,
+            "reused_index": reused_index,
+            "path": _logical_path(index_path),
+        }
+        if reused_index_provenance is not None:
+            index_metadata["provenance"] = reused_index_provenance
+        manifest = create_manifest(
+            config=self.config,
+            timestamp_utc=datetime.now(timezone.utc).isoformat(),
+            input_hashes=input_hashes,
             n_chunks=len(chunks),
             n_questions=len(evaluator.questions),
             embedding_metadata={
@@ -234,17 +495,12 @@ class ExperimentRunner:
                     ),
                 },
             },
-            index_metadata={
-                "type": type(retriever.index).__name__,
-                "d": int(retriever.index.d),
-                "ntotal": int(retriever.index.ntotal),
-                "sha256": sha256_file(index_path),
-                "file_size_bytes": index_path.stat().st_size,
-                "contains_nan_or_inf": False,
-            },
+            index_metadata=index_metadata,
             timings=timings,
             chunk_statistics=self._chunk_statistics(metadata),
             parity=parity,
+            question_set=self.question_set,
+            benchmark_metadata=benchmark_metadata,
         )
         result = {
             "manifest": manifest,
@@ -260,6 +516,18 @@ class ExperimentRunner:
                 f"E0 no reproduce el baseline; diagnóstico: {parity['checks']}"
             )
         return result
+
+    def _build_evaluator(self, metadata: Any) -> Any:
+        """Valida por completo el question set antes de cargar el modelo."""
+        if self.question_set == BENCHMARK_V2:
+            return BenchmarkV2Evaluator(
+                metadata, self.benchmark_path, max_k=self.config.max_k
+            )
+        evaluator = RetrievalEvaluator(
+            self.config.golden_path, metadata, max_k=self.config.max_k
+        )
+        self._validate_evidence_ground_truth(evaluator)
+        return evaluator
 
     @staticmethod
     def _load_chunks(path: Path) -> list[dict[str, Any]]:
@@ -338,8 +606,11 @@ class ExperimentRunner:
         return {"passed": passed, "checks": checks}
 
 
-def default_output_path(config: ExperimentConfig) -> Path:
-    return EXPERIMENT_ROOT / "results" / f"{config.experiment_id}.json"
+def default_output_path(
+    config: ExperimentConfig, question_set: str = PILOT
+) -> Path:
+    suffix = "_benchmark_v2" if question_set == BENCHMARK_V2 else ""
+    return EXPERIMENT_ROOT / "results" / f"{config.experiment_id}{suffix}.json"
 
 
 def main() -> None:
@@ -350,6 +621,10 @@ def main() -> None:
         "--experiment", choices=("e0", "e1", "e2", "e3"), default="e0"
     )
     parser.add_argument(
+        "--benchmark", choices=QUESTION_SETS, default=PILOT,
+        help="Question set explícito: piloto original o benchmark v2 congelado",
+    )
+    parser.add_argument(
         "--output",
         type=Path,
     )
@@ -358,7 +633,21 @@ def main() -> None:
         type=Path,
         default=EXPERIMENT_ROOT / "artifacts",
     )
+    parser.add_argument(
+        "--index",
+        type=Path,
+        help="Reutiliza un IndexFlatIP existente; no regenera embeddings",
+    )
+    parser.add_argument(
+        "--index-manifest",
+        type=Path,
+        help="Result JSON que certifica explícitamente el índice reutilizado",
+    )
     args = parser.parse_args()
+    try:
+        validate_index_options(args.index, args.index_manifest)
+    except IndexProvenanceError as exc:
+        parser.error(str(exc))
     configs = {
         "e0": ExperimentConfig,
         "e1": e1_bge_large_config,
@@ -366,10 +655,21 @@ def main() -> None:
         "e3": e3_qwen3_embedding_06b_config,
     }
     config = configs[args.experiment]()
-    expected_metrics = EXPECTED_E0_METRICS if args.experiment == "e0" else None
-    output_path = args.output or default_output_path(config)
-    result = ExperimentRunner(config, expected_metrics=expected_metrics).run(
-        output_path.resolve(), args.artifact_dir.resolve()
+    expected_metrics = (
+        EXPECTED_E0_METRICS
+        if args.experiment == "e0" and args.benchmark == PILOT
+        else None
+    )
+    output_path = args.output or default_output_path(config, args.benchmark)
+    result = ExperimentRunner(
+        config,
+        expected_metrics=expected_metrics,
+        question_set=args.benchmark,
+    ).run(
+        output_path.resolve(),
+        args.artifact_dir.resolve(),
+        args.index.resolve() if args.index else None,
+        args.index_manifest.resolve() if args.index_manifest else None,
     )
     print(json.dumps({
         "metrics": result["metrics"],
