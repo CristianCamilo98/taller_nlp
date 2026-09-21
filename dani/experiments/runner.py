@@ -23,6 +23,7 @@ from dani.experiments.config import (
     ExperimentConfig,
     e1_bge_large_config,
     e2_e5_large_v2_config,
+    e3_qwen3_embedding_06b_config,
 )
 from dani.experiments.embeddings import adapter_for_config
 from dani.experiments.evaluation import RetrievalEvaluator
@@ -346,7 +347,7 @@ def main() -> None:
         description="Construye y evalúa una ablación de embeddings offline"
     )
     parser.add_argument(
-        "--experiment", choices=("e0", "e1", "e2"), default="e0"
+        "--experiment", choices=("e0", "e1", "e2", "e3"), default="e0"
     )
     parser.add_argument(
         "--output",
@@ -362,6 +363,7 @@ def main() -> None:
         "e0": ExperimentConfig,
         "e1": e1_bge_large_config,
         "e2": e2_e5_large_v2_config,
+        "e3": e3_qwen3_embedding_06b_config,
     }
     config = configs[args.experiment]()
     expected_metrics = EXPECTED_E0_METRICS if args.experiment == "e0" else None

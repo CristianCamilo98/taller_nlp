@@ -16,6 +16,7 @@ class ExperimentConfig:
 
     experiment_id: str = "e0_bge_small_original"
     model_name: str = "BAAI/bge-small-en-v1.5"
+    model_revision: str | None = None
     query_prefix: str = (
         "Represent this sentence for searching relevant passages: "
     )
@@ -70,6 +71,27 @@ def e2_e5_large_v2_config() -> ExperimentConfig:
         document_prefix="passage: ",
         document_format="passage_prefix_plus_raw_chunk_text",
         expected_dimension=1024,
+    )
+
+
+QWEN3_TASK_DESCRIPTION = (
+    "Given a financial question, retrieve relevant passages from SEC 10-K "
+    "filings that answer the question."
+)
+
+
+def e3_qwen3_embedding_06b_config() -> ExperimentConfig:
+    """E3 usa Qwen3 0.6B en dimensión nativa y con instrucción congelada."""
+    return replace(
+        ExperimentConfig(),
+        experiment_id="e3_qwen3_embedding_06b_original",
+        model_name="Qwen/Qwen3-Embedding-0.6B",
+        model_revision="97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+        query_prefix=f"Instruct: {QWEN3_TASK_DESCRIPTION}\nQuery:",
+        document_format="raw_chunk_text_without_prefix",
+        expected_dimension=1024,
+        expected_max_sequence_length=32768,
+        requested_device="cuda",
     )
 
 

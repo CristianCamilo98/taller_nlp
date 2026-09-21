@@ -11,10 +11,16 @@ import numpy as np
 
 from dani.experiments.config import (
     ExperimentConfig,
+    QWEN3_TASK_DESCRIPTION,
     e1_bge_large_config,
     e2_e5_large_v2_config,
+    e3_qwen3_embedding_06b_config,
 )
-from dani.experiments.embeddings import BgeV15Adapter, E5LargeV2Adapter
+from dani.experiments.embeddings import (
+    BgeV15Adapter,
+    E5LargeV2Adapter,
+    Qwen3EmbeddingAdapter,
+)
 from dani.experiments.runner import default_output_path
 
 
@@ -113,6 +119,38 @@ class EmbeddingAblationConfigTests(unittest.TestCase):
             [["query: test"], ["passage: test", "passage: raw"]],
         )
 
+    def test_e3_configuration_and_exact_query_formatting(self) -> None:
+        config = e3_qwen3_embedding_06b_config()
+        encoder = FakeEncoder(1024, max_seq_length=32768)
+        adapter = Qwen3EmbeddingAdapter(config, encoder=encoder)
+        adapter.load()
+        adapter.encode_query("abc")
+        adapter.encode_documents(["abc"])
+
+        expected_query = (
+            "Instruct: Given a financial question, retrieve relevant passages "
+            "from SEC 10-K filings that answer the question.\nQuery:abc"
+        )
+        self.assertEqual(config.model_name, "Qwen/Qwen3-Embedding-0.6B")
+        self.assertEqual(config.expected_dimension, 1024)
+        self.assertEqual(config.expected_max_sequence_length, 32768)
+        self.assertEqual(config.requested_device, "cuda")
+        self.assertTrue(config.normalize_embeddings)
+        self.assertEqual(config.query_prefix, f"Instruct: {QWEN3_TASK_DESCRIPTION}\nQuery:")
+        self.assertEqual(encoder.calls, [[expected_query], ["abc"]])
+
+    def test_qwen_instruction_is_not_duplicated_and_documents_are_raw(self) -> None:
+        config = e3_qwen3_embedding_06b_config()
+        encoder = FakeEncoder(1024, max_seq_length=32768)
+        adapter = Qwen3EmbeddingAdapter(config, encoder=encoder)
+        formatted = f"{config.query_prefix}abc"
+        adapter.encode_query(formatted)
+        adapter.encode_documents(["abc", formatted])
+        self.assertEqual(encoder.calls[0], [formatted])
+        self.assertEqual(encoder.calls[1], ["abc", formatted])
+        self.assertEqual(encoder.calls[0][0].count("Instruct:"), 1)
+        self.assertEqual(encoder.calls[0][0].count("Query:"), 1)
+
     def test_bge_formatting_regression(self) -> None:
         for config in (ExperimentConfig(), e1_bge_large_config()):
             adapter = BgeV15Adapter(
@@ -123,19 +161,23 @@ class EmbeddingAblationConfigTests(unittest.TestCase):
             )
             self.assertEqual(adapter.format_documents(["test"]), ["test"])
 
-    def test_e0_e1_e2_share_non_embedding_configuration(self) -> None:
+    def test_e0_e1_e2_e3_share_non_embedding_configuration(self) -> None:
         configurations = [
             asdict(ExperimentConfig()),
             asdict(e1_bge_large_config()),
             asdict(e2_e5_large_v2_config()),
+            asdict(e3_qwen3_embedding_06b_config()),
         ]
         allowed = {
             "experiment_id",
             "model_name",
+            "model_revision",
             "query_prefix",
             "document_prefix",
             "document_format",
             "expected_dimension",
+            "expected_max_sequence_length",
+            "requested_device",
         }
         for candidate in configurations[1:]:
             differences = {
@@ -150,7 +192,11 @@ class EmbeddingAblationConfigTests(unittest.TestCase):
                 for key in configurations[0]
                 if configurations[0][key] != configurations[2][key]
             },
-            allowed,
+            allowed - {
+                "model_revision",
+                "expected_max_sequence_length",
+                "requested_device",
+            },
         )
 
     def test_token_lengths_are_measured_before_truncation(self) -> None:

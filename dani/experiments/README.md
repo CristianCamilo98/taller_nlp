@@ -1,4 +1,4 @@
-# Experimento de retrieval de Dani — Bloques 1 a 4
+# Experimento de retrieval de Dani — Bloques 1 a 5
 
 ## Pregunta de investigación
 
@@ -98,12 +98,15 @@ golden, las secciones ni los chunks comunes.
 
 El Bloque 3 compara BGE-small y BGE-large. El Bloque 4 añade E5-large-v2 con
 su formato canónico: `query: ` para consultas y `passage: ` para documentos.
-Ambos se ejecutan offline:
+El Bloque 5 añade Qwen3-Embedding-0.6B, con su instrucción congelada solo en
+la query y documentos originales. Se ejecutan offline:
 
 ```powershell
 python -B -m dani.experiments.runner --experiment e1
 python -B -m dani.experiments.runner --experiment e2
+python -B -m dani.experiments.runner --experiment e3
 ```
 
-El resultado E2 se guarda en `results/e2_e5_large_v2_original.json`. No se han
-implementado Qwen, nuevos chunkers, BM25, reranking ni query rewriting.
+E3 usa dimensión nativa 1024 y guarda un único resultado en
+`results/e3_qwen3_embedding_06b_original.json`. No se han implementado nuevos
+chunkers, BM25, reranking, query rewriting ni ablaciones MRL.
