@@ -26,6 +26,7 @@ from __future__ import annotations
 
 import functools
 import json
+import threading
 from pathlib import Path
 
 from cristian.experiments.config import get_dataset_paths
@@ -40,18 +41,15 @@ PREFIJO_CONSULTA_BGE = (
 
 RUTA_TRAZA_DEMO = Path(__file__).resolve().parent / "demo_traza.json"
 
+_indice_lock = threading.Lock()
+
 
 # ---------------------------------------------------------------------------
 # Búsqueda densa — el cuerpo de `search_filings`
 # ---------------------------------------------------------------------------
 @functools.lru_cache(maxsize=1)
-def _indice():
-    """Índice, metadatos y codificador. Se cargan una sola vez.
-
-    El modelo de embeddings tarda unos segundos en cargar la primera vez.
-    Por eso va aquí dentro y no en el import: importar el módulo tiene que
-    ser instantáneo.
-    """
+def _cargar_indice():
+    """Carga real del índice FAISS + BGE (una sola vez en el proceso)."""
     import faiss
     import pandas as pd
     from sentence_transformers import SentenceTransformer
@@ -69,6 +67,22 @@ def _indice():
 
     codificador = SentenceTransformer(MODELO_EMBEDDINGS)
     return indice, meta, codificador
+
+
+def _indice():
+    """Índice, metadatos y codificador compartidos entre hilos.
+
+    ``lru_cache`` solo memoiza el resultado: si 5 workers entran a la vez
+    antes de que termine la primera carga, todos cargarían pesos. El lock
+    serializa esa primera carga.
+    """
+    with _indice_lock:
+        return _cargar_indice()
+
+
+def precargar_retrieval() -> None:
+    """Fuerza la carga de FAISS/BGE en el hilo principal (antes del pool)."""
+    _indice()
 
 
 def buscar(

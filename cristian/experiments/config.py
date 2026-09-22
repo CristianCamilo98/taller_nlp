@@ -52,6 +52,7 @@ class AgentSettings:
     rate_limit_attempts: int = 3
     rate_limit_initial_backoff_s: float = 5.0
     pause_between_questions_s: float = 1.0
+    eval_max_workers: int = 5  # preguntas en paralelo en evaluar()
     retrieval_k: int = 5
     prompt_version: str = "cristian-exp-v0"
     embedding_model: str = "BAAI/bge-small-en-v1.5"

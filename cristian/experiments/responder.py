@@ -6,20 +6,23 @@ tool_calls + telemetría). Importar este módulo no llama a la API.
 
 from __future__ import annotations
 
+import threading
 import uuid
 
 from cristian.experiments.config import SETTINGS
 
-_agente = None
+# Un agente por hilo: invoke concurrente sobre el mismo grafo no es seguro.
+_thread_local = threading.local()
 
 
 def _get_agente():
-    global _agente
-    if _agente is None:
+    agente = getattr(_thread_local, "agente", None)
+    if agente is None:
         from cristian.experiments.agent import crear_agente
 
-        _agente = crear_agente()
-    return _agente
+        agente = crear_agente()
+        _thread_local.agente = agente
+    return agente
 
 
 def _extract_tool_calls(messages) -> list[dict]:
