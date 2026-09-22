@@ -47,6 +47,7 @@ class AgentSettings:
     # META LLAMA (CHEAP) openrouter:meta-llama/llama-3.1-8b-instruct
     temperature: float = 0.0
     tool_call_run_limit: int = 10
+    llm_call_run_limit: int = 10  # tope de requests OpenRouter por pregunta
     guardrail_retries: int = 1
     rate_limit_attempts: int = 3
     rate_limit_initial_backoff_s: float = 5.0

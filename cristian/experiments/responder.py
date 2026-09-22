@@ -81,25 +81,59 @@ def _extract_telemetry(messages) -> dict:
     }
 
 
-def _coerce_structured(structured):
+def _coerce_structured(structured, messages=None):
     """Convierte structured_response a dict; error claro si el modelo no la dio."""
-    if structured is None:
-        raise RuntimeError(
-            "El agente devolvió structured_response=None. "
-            "El modelo no generó la salida estructurada (RespuestaFinanciera). "
-            "Prueba otro modelo en config.SETTINGS.model o confirma que "
-            "create_agent usa ToolStrategy(RespuestaFinanciera)."
-        )
-    if hasattr(structured, "model_dump"):
-        return structured.model_dump()
-    if isinstance(structured, dict):
-        return dict(structured)
-    try:
-        return dict(structured)
-    except TypeError as exc:
-        raise RuntimeError(
-            f"structured_response no convertible a dict: {type(structured)!r}"
-        ) from exc
+    if structured is not None:
+        if hasattr(structured, "model_dump"):
+            return structured.model_dump()
+        if isinstance(structured, dict):
+            return dict(structured)
+        try:
+            return dict(structured)
+        except TypeError as exc:
+            raise RuntimeError(
+                f"structured_response no convertible a dict: {type(structured)!r}"
+            ) from exc
+
+    # Límite de LLM/tools puede cortar antes de emitir RespuestaFinanciera.
+    last_text = None
+    for message in reversed(messages or []):
+        content = getattr(message, "content", None)
+        if isinstance(content, str) and content.strip():
+            last_text = content.strip()
+            break
+        if isinstance(content, list):
+            parts = [
+                block.get("text", "")
+                for block in content
+                if isinstance(block, dict) and block.get("type") == "text"
+            ]
+            joined = "\n".join(p for p in parts if p).strip()
+            if joined:
+                last_text = joined
+                break
+    return {
+        "respuesta": (
+            last_text
+            or "No se pudo completar la respuesta estructurada "
+            f"(límite de {SETTINGS.llm_call_run_limit} llamadas al modelo)."
+        ),
+        "cifra": None,
+        "unidad": None,
+        "ticker": None,
+        "ejercicio": None,
+        "fuente": "ninguna",
+        "cita": None,
+        "chunk_id": None,
+        "concepto_xbrl": None,
+        "ejercicio_inicial": None,
+        "ejercicio_final": None,
+        "valor_inicial": None,
+        "valor_final": None,
+        "delta": None,
+        "porcentaje": None,
+        "limit_alcanzado": True,
+    }
 
 
 def responder(
@@ -124,7 +158,7 @@ def responder(
     )
     messages = result.get("messages") or []
     calls = _extract_tool_calls(messages)
-    answer = _coerce_structured(result.get("structured_response"))
+    answer = _coerce_structured(result.get("structured_response"), messages)
     answer["tool_calls_agente"] = [call["name"] for call in calls]
     answer["tool_calls_detallado"] = calls
     answer["thread_id"] = thread_id

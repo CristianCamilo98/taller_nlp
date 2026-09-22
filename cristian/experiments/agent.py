@@ -33,10 +33,13 @@ Reglas:
 - En comparativas numéricas consulta get_xbrl_fact para AMBOS ejercicios.
 - Para riesgos, estrategia o comentarios de dirección, usa search_filings.
 - Usa read_section solo como último recurso.
-- Si dudas de la cobertura, empieza por list_available.
+- Si dudas de la cobertura, empieza por list_available (como mucho una vez).
 - El corpus está en inglés: formula las consultas de búsqueda en inglés.
 - Cita chunk_id y un fragmento literal.
 - Si el dato no está en el corpus, dilo. No lo estimes.
+- NO entres en bucles: no repitas la misma herramienta con los mismos
+  argumentos. Máximo 2–3 búsquedas. Si tras eso no hay evidencia suficiente,
+  responde con lo que tengas o declara que no está en el corpus.
 """
 
 
@@ -44,7 +47,10 @@ def crear_agente():
     """Construye el agente (lazy): carga SDK y credenciales solo al llamar."""
     from dotenv import load_dotenv
     from langchain.agents import create_agent
-    from langchain.agents.middleware import ToolCallLimitMiddleware
+    from langchain.agents.middleware import (
+        ModelCallLimitMiddleware,
+        ToolCallLimitMiddleware,
+    )
     from langchain.agents.structured_output import ToolStrategy
     from langchain.chat_models import init_chat_model
     from langgraph.checkpoint.memory import InMemorySaver
@@ -78,7 +84,14 @@ def crear_agente():
         response_format=ToolStrategy(RespuestaFinanciera),
         checkpointer=InMemorySaver(),
         middleware=[
-            ToolCallLimitMiddleware(run_limit=SETTINGS.tool_call_run_limit),
+            ModelCallLimitMiddleware(
+                run_limit=SETTINGS.llm_call_run_limit,
+                exit_behavior="end",
+            ),
+            ToolCallLimitMiddleware(
+                run_limit=SETTINGS.tool_call_run_limit,
+                exit_behavior="end",
+            ),
         ],
     )
 
