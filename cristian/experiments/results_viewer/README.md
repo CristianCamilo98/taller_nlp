@@ -31,7 +31,8 @@ comando: el dashboard se regenera desde disco (sin datos inventados).
 ## Qué muestra
 
 - **Resumen por run**: % acierto cifra / cita / trayectoria (solo donde aplica),
-  latencia media, coste total/medio, tool calls medios, errores, prompt, commit.
+  latencia media, coste total/medio, **LLM total/medios** (OpenRouter),
+  tools total/medios, errores, prompt, commit.
 - **Desglose por familia** (`numerica` / `extractiva` / `comparativa`).
 - **Heatmap pregunta × run** (✓ / ✗ / —) con selector de métrica.
 - **Drill-down**: clic en una fila → side-by-side `respuesta_agente` vs esperada,

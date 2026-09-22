@@ -58,6 +58,9 @@ class RunSummary:
     coste_total: float
     coste_medio: float | None
     tool_calls_medios: float | None
+    tool_calls_total: int
+    llm_calls_medios: float | None
+    llm_calls_total: int
     n_errores: int
     por_familia: dict[str, dict[str, Any]] = field(default_factory=dict)
 
@@ -136,6 +139,11 @@ def resumen_run(uid: str, filas: list[dict[str, Any]]) -> RunSummary:
         for r in filas
         if r.get("tool_call_count") is not None
     ]
+    llm_calls = [
+        float(r["llm_calls"])
+        for r in filas
+        if r.get("llm_calls") is not None
+    ]
     n_errores = sum(1 for r in filas if r.get("error"))
 
     por_familia: dict[str, dict[str, Any]] = {}
@@ -146,6 +154,16 @@ def resumen_run(uid: str, filas: list[dict[str, Any]]) -> RunSummary:
         pc, nc = _pct_acierto(subset, "cifra")
         pi, ni = _pct_acierto(subset, "cita")
         pt, nt = _pct_acierto(subset, "trayectoria")
+        fam_llm = [
+            float(r["llm_calls"])
+            for r in subset
+            if r.get("llm_calls") is not None
+        ]
+        fam_tools = [
+            float(r["tool_call_count"])
+            for r in subset
+            if r.get("tool_call_count") is not None
+        ]
         por_familia[fam] = {
             "n": len(subset),
             "pct_cifra": pc,
@@ -157,6 +175,9 @@ def resumen_run(uid: str, filas: list[dict[str, Any]]) -> RunSummary:
             "latencia_media_s": _mean(
                 [float(r["latencia_s"]) for r in subset if r.get("latencia_s") is not None]
             ),
+            "llm_calls_medios": _mean(fam_llm),
+            "llm_calls_total": int(sum(fam_llm)) if fam_llm else 0,
+            "tool_calls_medios": _mean(fam_tools),
             "n_errores": sum(1 for r in subset if r.get("error")),
         }
 
@@ -181,6 +202,9 @@ def resumen_run(uid: str, filas: list[dict[str, Any]]) -> RunSummary:
         coste_total=sum(costes),
         coste_medio=_mean(costes),
         tool_calls_medios=_mean(tools),
+        tool_calls_total=int(sum(tools)) if tools else 0,
+        llm_calls_medios=_mean(llm_calls),
+        llm_calls_total=int(sum(llm_calls)) if llm_calls else 0,
         n_errores=n_errores,
         por_familia=por_familia,
     )
@@ -268,6 +292,8 @@ def fila_drilldown(row: dict[str, Any]) -> dict[str, Any]:
         "tool_calls_agente": row.get("tool_calls_agente") or row.get("tool_calls"),
         "tool_calls_detallado": row.get("tool_calls_detallado"),
         "tool_call_count": row.get("tool_call_count"),
+        "llm_calls": row.get("llm_calls"),
+        "guardrail_retry_count": row.get("guardrail_retry_count"),
         "latencia_s": row.get("latencia_s"),
         "coste": row.get("coste"),
         "error": row.get("error"),

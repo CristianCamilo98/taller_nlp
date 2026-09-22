@@ -381,7 +381,8 @@ function renderSummary() {{
   let html = "<table><thead><tr>" +
     "<th>Run</th><th>n</th><th>cifra</th><th>cita</th><th>trayectoria</th>" +
     "<th>latencia media (s)</th><th>coste total</th><th>coste medio</th>" +
-    "<th>tools medios</th><th>errores</th><th>prompt</th><th>commit</th>" +
+    "<th>LLM total</th><th>LLM medios</th>" +
+    "<th>tools total</th><th>tools medios</th><th>errores</th><th>prompt</th><th>commit</th>" +
     "</tr></thead><tbody>";
   runs.forEach(r => {{
     html += "<tr>" +
@@ -394,6 +395,9 @@ function renderSummary() {{
       "<td class='num'>" + fmtNum(r.latencia_media_s, 2) + "</td>" +
       "<td class='num'>" + fmtCost(r.coste_total) + "</td>" +
       "<td class='num'>" + fmtCost(r.coste_medio) + "</td>" +
+      "<td class='num'>" + (r.llm_calls_total ?? 0) + "</td>" +
+      "<td class='num'>" + fmtNum(r.llm_calls_medios, 2) + "</td>" +
+      "<td class='num'>" + (r.tool_calls_total ?? 0) + "</td>" +
       "<td class='num'>" + fmtNum(r.tool_calls_medios, 2) + "</td>" +
       "<td class='num'>" + r.n_errores + "</td>" +
       "<td>" + escapeHtml(r.prompt_version || "—") + "</td>" +
@@ -415,7 +419,8 @@ function renderFamilia() {{
   runs.forEach(r => Object.keys(r.por_familia || {{}}).forEach(f => familias.add(f)));
   const fams = Array.from(familias).sort();
   let html = "<table><thead><tr><th>Familia</th><th>Run</th><th>n</th>" +
-    "<th>cifra</th><th>cita</th><th>trayectoria</th><th>latencia media (s)</th><th>errores</th>" +
+    "<th>cifra</th><th>cita</th><th>trayectoria</th>" +
+    "<th>LLM medios</th><th>LLM total</th><th>latencia media (s)</th><th>errores</th>" +
     "</tr></thead><tbody>";
   fams.forEach(fam => {{
     runs.forEach(r => {{
@@ -428,6 +433,8 @@ function renderFamilia() {{
         "<td class='num'>" + fmtPct(s.pct_cifra, s.n_cifra) + "</td>" +
         "<td class='num'>" + fmtPct(s.pct_cita, s.n_cita) + "</td>" +
         "<td class='num'>" + fmtPct(s.pct_trayectoria, s.n_trayectoria) + "</td>" +
+        "<td class='num'>" + fmtNum(s.llm_calls_medios, 2) + "</td>" +
+        "<td class='num'>" + (s.llm_calls_total ?? 0) + "</td>" +
         "<td class='num'>" + fmtNum(s.latencia_media_s, 2) + "</td>" +
         "<td class='num'>" + s.n_errores + "</td>" +
         "</tr>";
@@ -497,6 +504,9 @@ function renderDrill() {{
         "<dt>trayectoria</dt><dd>" + aciertoPill(d.acierto_trayectoria) + "</dd>" +
         "<dt>tools</dt><dd>" + escapeHtml(JSON.stringify(d.tool_calls_agente || [])) +
         " (n=" + escapeHtml(String(d.tool_call_count ?? "—")) + ")</dd>" +
+        "<dt>LLM calls</dt><dd>" + escapeHtml(String(d.llm_calls ?? "—")) +
+        " (OpenRouter / vueltas al modelo)</dd>" +
+        "<dt>guardrail retries</dt><dd>" + escapeHtml(String(d.guardrail_retry_count ?? "—")) + "</dd>" +
         "<dt>latencia</dt><dd>" + fmtNum(d.latencia_s, 2) + " s</dd>" +
         "<dt>coste</dt><dd>" + fmtCost(d.coste) + "</dd>" +
         "<dt>error</dt><dd>" + escapeHtml(d.error || "—") + "</dd>" +
