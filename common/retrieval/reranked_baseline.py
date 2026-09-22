@@ -5,18 +5,26 @@ import functools
 
 from common.retrieval.dense_baseline import buscar as buscar_denso
 
-MODELO_RERANK = "cross-encoder/ms-marco-MiniLM-L-6-v2"
+# R0 (MiniLM)
+#MODELO_RERANK = "cross-encoder/ms-marco-MiniLM-L-6-v2"
+#MODELO_RERANK_REVISION = "233902d25c440f23af6f7d6e94d2946bac0bee0a"
+
+MODELO_RERANK = "BAAI/bge-reranker-v2-m3"
+MODELO_RERANK_REVISION = "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e"
 
 
 @functools.lru_cache(maxsize=1)
 def _modelo():
     from sentence_transformers import CrossEncoder
-    return CrossEncoder(MODELO_RERANK)
-
+    return CrossEncoder(
+        MODELO_RERANK,
+        revision=MODELO_RERANK_REVISION,
+        trust_remote_code=True,
+    )
 
 def buscar(query: str, ticker: str | None = None,
            fiscal_year: int | None = None, item: str | None = None,
-           k: int = 5, n_candidatos: int = 20) -> list[dict]:
+           k: int = 20, n_candidatos: int = 20) -> list[dict]:
     if int(k) <= 0:
         raise ValueError("k debe ser un entero positivo")
     if n_candidatos < k:
