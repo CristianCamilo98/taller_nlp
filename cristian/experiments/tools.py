@@ -29,12 +29,13 @@ def _load_sections():
 def list_available() -> str:
     """Lista cobertura del corpus textual y de los hechos XBRL.
 
-    Incluye compañías, ejercicios, secciones 10-K y los conceptos US-GAAP
-    disponibles en ``xbrl_facts`` (globales y por ticker: no todas las
-    empresas reportan los mismos conceptos).
+    Incluye compañías, ejercicios, secciones 10-K (``1A``, ``7``, ``7A``,
+    ``8``) y los conceptos US-GAAP disponibles en ``xbrl_facts`` (globales
+    y por ticker: no todas las empresas reportan los mismos conceptos).
 
-    Úsala antes de afirmar que un dato no existe y cuando no conozcas la
-    cobertura del corpus o qué ``concept`` pasar a ``get_xbrl_fact``.
+    Úsala antes de afirmar que un dato no existe, cuando no conozcas la
+    cobertura del corpus, qué ``concept`` pasar a ``get_xbrl_fact``, o qué
+    ``item`` pasar a ``search_filings``. Como mucho una vez por pregunta.
     """
     sections = _load_sections()
     facts = load_xbrl()
@@ -188,31 +189,47 @@ def get_xbrl_fact(ticker: str, fiscal_year: int, concept: str) -> str:
 @tool
 def search_filings(
     query: str,
-    ticker: str | None = None,
-    fiscal_year: int | None = None,
-    item: str | None = None,
+    ticker: str,
+    fiscal_year: int,
+    item: str,
     k: int = 5,
 ) -> str:
-    """Busca fragmentos relevantes de los informes 10-K.
+    """Busca fragmentos de un 10-K filtrados por compañía, ejercicio y sección.
+
+    ``item`` es obligatorio. No llames a esta herramienta sin uno de estos
+    códigos: ``1A`` factores de riesgo, ``7`` MD&A, ``7A`` riesgo de mercado,
+    ``8`` estados financieros y notas. Si la pregunta no permite elegir el
+    código, llama antes a ``list_available`` (una sola vez) y reintenta con
+    el item que devuelva. No repitas esta llamada sin item.
 
     Args:
         query: Consulta semántica en inglés.
-        ticker: Filtro opcional por compañía.
-        fiscal_year: Filtro opcional por ejercicio.
-        item: Filtro opcional: ``1A``, ``7``, ``7A`` u ``8``.
-        k: Número positivo de fragmentos solicitados; por defecto 5.
+        ticker: Símbolo bursátil, por ejemplo ``META``.
+        fiscal_year: Ejercicio fiscal, por ejemplo ``2024``.
+        item: Sección obligatoria: ``1A``, ``7``, ``7A`` u ``8``.
+        k: Número positivo de fragmentos; por defecto 5.
 
     Úsala para evidencia narrativa, no para cifras.
     """
     if int(k) <= 0:
         raise ValueError("k debe ser un entero positivo")
+    item_code = str(item).strip().upper() if item is not None else ""
+    if item_code not in {"1A", "7", "7A", "8"}:
+        return (
+            "search_filings no se ha ejecutado: falta un item válido "
+            "(1A factores de riesgo, 7 MD&A, 7A riesgo de mercado, "
+            "8 estados financieros). "
+            "Si no puedes deducirlo de la pregunta, llama a list_available "
+            "una vez y vuelve a buscar con ese item. "
+            "No repitas esta llamada sin item."
+        )
     from cristian.experiments.miax_s1 import buscar, formatear_fragmentos
 
     fragments = buscar(
         query,
         ticker=ticker.strip().upper() if ticker else None,
         fiscal_year=int(fiscal_year) if fiscal_year is not None else None,
-        item=str(item) if item is not None else None,
+        item=item_code,
         k=int(k),
     )
     return formatear_fragmentos(fragments)
