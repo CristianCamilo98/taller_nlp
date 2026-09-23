@@ -7,6 +7,8 @@ from dataclasses import dataclass
 from functools import lru_cache
 from pathlib import Path
 
+from common.retrieval.profiles import get_embedding_profile
+
 DATASET_ENV_VAR = "MIAX_DATASET_DIR"
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
@@ -25,15 +27,19 @@ class DatasetPaths:
     xbrl_facts: Path
     faiss_index: Path
     chunks_meta: Path
+    index_manifest: Path | None = None
 
     def required_files(self) -> dict[str, Path]:
-        return {
+        files = {
             "secciones.jsonl": self.sections,
             "chunks.jsonl": self.chunks,
             "xbrl_facts.parquet": self.xbrl_facts,
             "corpus.faiss": self.faiss_index,
             "chunks_meta.parquet": self.chunks_meta,
         }
+        if self.index_manifest is not None:
+            files["index_manifest.json"] = self.index_manifest
+        return files
 
 
 def dataset_candidates() -> tuple[Path, ...]:
@@ -44,10 +50,11 @@ def dataset_candidates() -> tuple[Path, ...]:
     return (REPO_ROOT / "dataset", REPO_ROOT.parent / "dataset")
 
 
-def _build_paths(dataset_dir: Path) -> DatasetPaths:
+def _build_paths(dataset_dir: Path, profile_name: str) -> DatasetPaths:
     root = dataset_dir.resolve()
     corpus = root / "corpus_miax_2026"
-    index = root / "indice_faiss"
+    profile = get_embedding_profile(profile_name)
+    index = root / profile.index_dirname
     return DatasetPaths(
         dataset_dir=root,
         corpus_dir=corpus,
@@ -57,11 +64,14 @@ def _build_paths(dataset_dir: Path) -> DatasetPaths:
         xbrl_facts=corpus / "xbrl_facts.parquet",
         faiss_index=index / "corpus.faiss",
         chunks_meta=index / "chunks_meta.parquet",
+        index_manifest=(
+            index / "index_manifest.json" if profile.manifest_required else None
+        ),
     )
 
 
-@lru_cache(maxsize=1)
-def get_dataset_paths() -> DatasetPaths:
+@lru_cache(maxsize=None)
+def _get_dataset_paths_for_profile(profile_name: str) -> DatasetPaths:
     """Resuelve y valida los cinco artefactos obligatorios del dataset.
 
     Si ``MIAX_DATASET_DIR`` está definida, esa ruta es autoritativa: un error
@@ -70,7 +80,7 @@ def get_dataset_paths() -> DatasetPaths:
     """
     diagnostics: list[str] = []
     for candidate in dataset_candidates():
-        paths = _build_paths(candidate)
+        paths = _build_paths(candidate, profile_name)
         missing = [str(path) for path in paths.required_files().values()
                    if not path.is_file()]
         if not missing:
@@ -84,6 +94,12 @@ def get_dataset_paths() -> DatasetPaths:
     )
 
 
+def get_dataset_paths(profile_name: str | None = None) -> DatasetPaths:
+    """Resuelve dataset e índice separados para el perfil seleccionado."""
+    profile = get_embedding_profile(profile_name)
+    return _get_dataset_paths_for_profile(profile.name)
+
+
 def clear_dataset_path_cache() -> None:
     """Limpia la caché; útil para tests que cambian la variable de entorno."""
-    get_dataset_paths.cache_clear()
+    _get_dataset_paths_for_profile.cache_clear()

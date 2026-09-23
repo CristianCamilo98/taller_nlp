@@ -1,0 +1,4501 @@
+{
+  "purpose": "runtime integration validation",
+  "generated_at_utc": "2026-09-23T16:57:58.264655+00:00",
+  "identity": {
+    "base_commit": "83f80393ab1d13b3b0b42369a7adeb3134337530",
+    "branch": "integration/common-qwen",
+    "dirty_worktree": true
+  },
+  "benchmark": {
+    "logical_path": "dani/experiments/benchmark/retrieval_benchmark_v2.jsonl",
+    "sha256": "6BD044EF3135686942B42CC9A654019D43675C1ACB2629ACE4B11274FFD80B8C",
+    "n_questions": 48,
+    "ground_truth": "EvidenceSpan full containment [start,end)"
+  },
+  "runtime": {
+    "profile": "qwen3-06b",
+    "model_name": "Qwen/Qwen3-Embedding-0.6B",
+    "model_revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+    "effective_device": "cuda:0",
+    "metadata_policy": "global_dense_ranking_then_metadata_postfilter"
+  },
+  "bundle": {
+    "faiss_path": "dataset://indice_faiss_qwen3_06b/corpus.faiss",
+    "faiss_sha256": "f2180a18b804b1e767e34d1ad84bed3cb3af07c9206e488f3fd6d3cfd872d2de",
+    "chunks_path": "dataset://corpus_miax_2026/chunks.jsonl",
+    "chunks_sha256": "388ff3671742c2248e8f5cb1c75afbc786edfa0dc6f72a62d1fadf2310ec82b2",
+    "chunks_meta_path": "dataset://indice_faiss_qwen3_06b/chunks_meta.parquet",
+    "chunks_meta_sha256": "fbd22360e517e5da250b18f0c95dbc9ad704b41902cedb1154747fde0be16fd9",
+    "manifest": {
+      "schema_version": 1,
+      "profile": "qwen3-06b",
+      "model_name": "Qwen/Qwen3-Embedding-0.6B",
+      "model_revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+      "embedding_dimension": 1024,
+      "pooling": "lasttoken",
+      "include_prompt": true,
+      "normalize": true,
+      "document_format": "raw",
+      "query_template": "Instruct: Given a financial question, retrieve relevant passages from SEC 10-K filings that answer the question.\nQuery:{query}",
+      "index_type": "IndexFlatIP",
+      "ntotal": 1749,
+      "faiss_sha256": "f2180a18b804b1e767e34d1ad84bed3cb3af07c9206e488f3fd6d3cfd872d2de",
+      "chunks_sha256": "388ff3671742c2248e8f5cb1c75afbc786edfa0dc6f72a62d1fadf2310ec82b2",
+      "chunks_meta_sha256": "fbd22360e517e5da250b18f0c95dbc9ad704b41902cedb1154747fde0be16fd9"
+    }
+  },
+  "metrics": {
+    "ALL-48": {
+      "Recall@1": 0.4583333333333333,
+      "Recall@3": 0.7083333333333334,
+      "Recall@5": 0.8125,
+      "Recall@10": 0.875,
+      "MRR@10": 0.5973048941798942,
+      "n_questions": 48
+    },
+    "ITEM-1A-12": {
+      "Recall@1": 0.25,
+      "Recall@3": 0.5833333333333334,
+      "Recall@5": 0.75,
+      "Recall@10": 0.9166666666666666,
+      "MRR@10": 0.44246031746031744,
+      "n_questions": 12
+    },
+    "ITEM-7-12": {
+      "Recall@1": 0.5833333333333334,
+      "Recall@3": 0.8333333333333334,
+      "Recall@5": 1.0,
+      "Recall@10": 1.0,
+      "MRR@10": 0.7361111111111112,
+      "n_questions": 12
+    },
+    "ITEM-7A-12": {
+      "Recall@1": 0.75,
+      "Recall@3": 1.0,
+      "Recall@5": 1.0,
+      "Recall@10": 1.0,
+      "MRR@10": 0.875,
+      "n_questions": 12
+    },
+    "ITEM-8-12": {
+      "Recall@1": 0.25,
+      "Recall@3": 0.4166666666666667,
+      "Recall@5": 0.5,
+      "Recall@10": 0.5833333333333334,
+      "MRR@10": 0.33564814814814814,
+      "n_questions": 12
+    },
+    "NON-7A-36": {
+      "Recall@1": 0.3611111111111111,
+      "Recall@3": 0.6111111111111112,
+      "Recall@5": 0.75,
+      "Recall@10": 0.8333333333333334,
+      "MRR@10": 0.5047398589065256,
+      "n_questions": 36
+    }
+  },
+  "comparison_with_frozen_e3": {
+    "n_questions": 48,
+    "relevant_chunk_ids_exact_matches": 48,
+    "first_relevant_rank_exact_matches": 48,
+    "top10_chunk_id_exact_matches": 48,
+    "metrics_match_frozen": true,
+    "differences": []
+  },
+  "public_tool_smoke": {
+    "search_filings": true
+  },
+  "timings": {
+    "evaluation_total_s": 10.019150300009642
+  },
+  "software": {
+    "python": "3.12.10",
+    "torch": "2.14.0+cu130",
+    "sentence_transformers": "6.0.1",
+    "transformers": "5.17.0",
+    "faiss_cpu": "1.15.0",
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "cuda_available": true,
+    "cuda_device": "NVIDIA GeForce RTX 5070 Ti"
+  },
+  "per_question": [
+    {
+      "question_id": "dani-b6-001",
+      "query": "¿Qué consecuencias contempla Apple si ocurre un accidente industrial en las instalaciones de uno de sus proveedores?",
+      "ticker": "AAPL",
+      "fiscal_year": 2024,
+      "item": "1A",
+      "evidence_type": "prose",
+      "evidence_span": {
+        "char_start": 7339,
+        "char_end": 7600,
+        "evidence_text": "While the Company’s suppliers are required to maintain safe working environments and operations, an industrial accident could occur and could result in serious injuries or loss of life, disruption to the Company’s business, and harm to the Company’s reputation.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 34,
+      "relevant_chunk_ids": [
+        "AAPL-2024-1A-0003"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "AAPL-2024-1A-0002",
+          "score": 0.6496,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AAPL-2024-1A-0011",
+          "score": 0.6468,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AAPL-2024-1A-0024",
+          "score": 0.574,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AAPL-2024-1A-0008",
+          "score": 0.5705,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AAPL-2024-1A-0003",
+          "score": 0.5659,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "AAPL-2024-1A-0019",
+          "score": 0.5516,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "AAPL-2024-1A-0020",
+          "score": 0.5253,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "AAPL-2024-1A-0027",
+          "score": 0.5195,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "AAPL-2024-1A-0030",
+          "score": 0.4735,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "AAPL-2024-1A-0014",
+          "score": 0.4678,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "1A"
+        }
+      ],
+      "first_relevant_rank": 5,
+      "latency_s": {
+        "total": 6.451043300010497
+      }
+    },
+    {
+      "question_id": "dani-b6-002",
+      "query": "¿Qué combinación de modelos explicó principalmente la caída de las ventas de iPad de Apple en FY2024?",
+      "ticker": "AAPL",
+      "fiscal_year": 2024,
+      "item": "7",
+      "evidence_type": "prose",
+      "evidence_span": {
+        "char_start": 4480,
+        "char_end": 4667,
+        "evidence_text": "iPad\n\niPad net sales decreased during 2024 compared to 2023 due primarily to lower net sales of iPad Pro and the entry-level iPad models, partially offset by higher net sales of iPad Air.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 10,
+      "relevant_chunk_ids": [
+        "AAPL-2024-7-0002"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "AAPL-2024-7-0002",
+          "score": 0.7129,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AAPL-2024-7-0001",
+          "score": 0.6431,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AAPL-2024-7-0000",
+          "score": 0.6211,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AAPL-2024-7-0004",
+          "score": 0.4809,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AAPL-2024-7-0003",
+          "score": 0.3953,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "AAPL-2024-7-0005",
+          "score": 0.3737,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "AAPL-2024-7-0006",
+          "score": 0.3624,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "AAPL-2024-7-0007",
+          "score": 0.3113,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "AAPL-2024-7-0009",
+          "score": 0.307,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "AAPL-2024-7-0008",
+          "score": 0.2834,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "7"
+        }
+      ],
+      "first_relevant_rank": 1,
+      "latency_s": {
+        "total": 0.060142000002088025
+      }
+    },
+    {
+      "question_id": "dani-b6-003",
+      "query": "¿Cómo afectaría una subida de los tipos de interés a la cartera de inversión y a la deuda a plazo de Apple?",
+      "ticker": "AAPL",
+      "fiscal_year": 2024,
+      "item": "7A",
+      "evidence_type": "prose",
+      "evidence_span": {
+        "char_start": 459,
+        "char_end": 624,
+        "evidence_text": "Increases in interest rates will negatively affect the fair value of the Company’s investment portfolio and increase the interest expense on the Company’s term debt.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 2,
+      "relevant_chunk_ids": [
+        "AAPL-2024-7A-0000"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "AAPL-2024-7A-0000",
+          "score": 0.521,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "7A"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AAPL-2024-7A-0001",
+          "score": 0.4136,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "7A"
+        }
+      ],
+      "first_relevant_rank": 1,
+      "latency_s": {
+        "total": 0.09031160001177341
+      }
+    },
+    {
+      "question_id": "dani-b6-004",
+      "query": "¿Qué método emplea Apple para depreciar su propiedad, planta y equipo?",
+      "ticker": "AAPL",
+      "fiscal_year": 2024,
+      "item": "8",
+      "evidence_type": "prose",
+      "evidence_span": {
+        "char_start": 11027,
+        "char_end": 11143,
+        "evidence_text": "Property, Plant and Equipment\n\nDepreciation on property, plant and equipment is recognized on a straight-line basis.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 44,
+      "relevant_chunk_ids": [
+        "AAPL-2024-8-0008"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "AAPL-2024-8-0008",
+          "score": 0.6595,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AAPL-2024-8-0015",
+          "score": 0.5646,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AAPL-2024-8-0002",
+          "score": 0.5444,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AAPL-2024-8-0005",
+          "score": 0.5289,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AAPL-2024-8-0025",
+          "score": 0.5223,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "AAPL-2024-8-0004",
+          "score": 0.5207,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "AAPL-2024-8-0022",
+          "score": 0.5171,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "AAPL-2024-8-0001",
+          "score": 0.5165,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "AAPL-2024-8-0039",
+          "score": 0.5155,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "AAPL-2024-8-0020",
+          "score": 0.5101,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "8"
+        }
+      ],
+      "first_relevant_rank": 1,
+      "latency_s": {
+        "total": 0.03679450001800433
+      }
+    },
+    {
+      "question_id": "dani-b6-005",
+      "query": "¿Qué obstáculos podrían impedir que Apple complete una inversión o adquisición y obtenga los beneficios previstos?",
+      "ticker": "AAPL",
+      "fiscal_year": 2025,
+      "item": "1A",
+      "evidence_type": "prose",
+      "evidence_span": {
+        "char_start": 39704,
+        "char_end": 40156,
+        "evidence_text": "Some transactions, including investments and acquisitions, are exposed to additional risks, including failing to obtain required regulatory approvals on a timely basis or at all, a counterparty’s failure to perform or deliver as anticipated, or the imposition of onerous conditions that could delay or prevent the Company from completing a transaction or otherwise limit the Company’s ability to fully realize the anticipated benefits of a transaction.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 33,
+      "relevant_chunk_ids": [
+        "AAPL-2025-1A-0018"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "AAPL-2025-1A-0032",
+          "score": 0.5506,
+          "ticker": "AAPL",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AAPL-2025-1A-0018",
+          "score": 0.5368,
+          "ticker": "AAPL",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AAPL-2025-1A-0005",
+          "score": 0.5336,
+          "ticker": "AAPL",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AAPL-2025-1A-0020",
+          "score": 0.5185,
+          "ticker": "AAPL",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AAPL-2025-1A-0002",
+          "score": 0.5139,
+          "ticker": "AAPL",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "AAPL-2025-1A-0010",
+          "score": 0.5107,
+          "ticker": "AAPL",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "AAPL-2025-1A-0023",
+          "score": 0.5026,
+          "ticker": "AAPL",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "AAPL-2025-1A-0013",
+          "score": 0.5007,
+          "ticker": "AAPL",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "AAPL-2025-1A-0016",
+          "score": 0.4855,
+          "ticker": "AAPL",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "AAPL-2025-1A-0006",
+          "score": 0.4306,
+          "ticker": "AAPL",
+          "fiscal_year": 2025,
+          "item": "1A"
+        }
+      ],
+      "first_relevant_rank": 2,
+      "latency_s": {
+        "total": 0.03723600000375882
+      }
+    },
+    {
+      "question_id": "dani-b6-006",
+      "query": "¿Cuáles fueron las ventas netas totales de Apple en FY2025 y qué variación porcentual registraron frente a FY2024?",
+      "ticker": "AAPL",
+      "fiscal_year": 2025,
+      "item": "7",
+      "evidence_type": "table_adjacent",
+      "evidence_span": {
+        "char_start": 3915,
+        "char_end": 4363,
+        "evidence_text": "The following table shows net sales by reportable segment for 2025, 2024 and 2023 (dollars in millions):\n\n2025\t\tChange\t\t2024\t\tChange\t\t2023\nAmericas\t$\t178,353\t\t\t7\t%\t\t$\t167,045\t\t\t3\t%\t\t$\t162,560\nEurope\t111,032\t\t\t10\t%\t\t101,328\t\t\t7\t%\t\t94,294\nGreater China\t64,377\t\t\t(4)\t%\t\t66,952\t\t\t(8)\t%\t\t72,559\nJapan\t28,703\t\t\t15\t%\t\t25,052\t\t\t3\t%\t\t24,257\nRest of Asia Pacific\t33,696\t\t\t10\t%\t\t30,658\t\t\t4\t%\t\t29,615\nTotal net sales\t$\t416,161\t\t\t6\t%\t\t$\t391,035\t\t\t2\t%\t\t$\t383,285",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 11,
+      "relevant_chunk_ids": [
+        "AAPL-2025-7-0002"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "AAPL-2025-7-0002",
+          "score": 0.7152,
+          "ticker": "AAPL",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AAPL-2025-7-0003",
+          "score": 0.7012,
+          "ticker": "AAPL",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AAPL-2025-7-0000",
+          "score": 0.6671,
+          "ticker": "AAPL",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AAPL-2025-7-0005",
+          "score": 0.587,
+          "ticker": "AAPL",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AAPL-2025-7-0007",
+          "score": 0.4587,
+          "ticker": "AAPL",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "AAPL-2025-7-0004",
+          "score": 0.4459,
+          "ticker": "AAPL",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "AAPL-2025-7-0008",
+          "score": 0.4362,
+          "ticker": "AAPL",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "AAPL-2025-7-0006",
+          "score": 0.424,
+          "ticker": "AAPL",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "AAPL-2025-7-0010",
+          "score": 0.3392,
+          "ticker": "AAPL",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "AAPL-2025-7-0001",
+          "score": 0.3205,
+          "ticker": "AAPL",
+          "fiscal_year": 2025,
+          "item": "7"
+        }
+      ],
+      "first_relevant_rank": 1,
+      "latency_s": {
+        "total": 0.048699500010116026
+      }
+    },
+    {
+      "question_id": "dani-b6-007",
+      "query": "¿Qué metodología utilizó Apple para estimar el impacto potencial de movimientos en los tipos de cambio sobre sus derivados de divisas?",
+      "ticker": "AAPL",
+      "fiscal_year": 2025,
+      "item": "7A",
+      "evidence_type": "prose",
+      "evidence_span": {
+        "char_start": 2221,
+        "char_end": 2381,
+        "evidence_text": "The Company applied a value-at-risk (“VAR”) model to its foreign currency derivative positions to assess the potential impact of fluctuations in exchange rates.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 2,
+      "relevant_chunk_ids": [
+        "AAPL-2025-7A-0001"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "AAPL-2025-7A-0001",
+          "score": 0.6537,
+          "ticker": "AAPL",
+          "fiscal_year": 2025,
+          "item": "7A"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AAPL-2025-7A-0000",
+          "score": 0.4486,
+          "ticker": "AAPL",
+          "fiscal_year": 2025,
+          "item": "7A"
+        }
+      ],
+      "first_relevant_rank": 1,
+      "latency_s": {
+        "total": 0.090746300003957
+      }
+    },
+    {
+      "question_id": "dani-b6-008",
+      "query": "¿Dónde reconoce Apple las ganancias y pérdidas de derivados que no están designados como coberturas contables?",
+      "ticker": "AAPL",
+      "fiscal_year": 2025,
+      "item": "8",
+      "evidence_type": "prose",
+      "evidence_span": {
+        "char_start": 24767,
+        "char_end": 24955,
+        "evidence_text": "Gains and losses arising from changes in the fair values of derivative instruments that are not designated as accounting hedges are recognized in the Consolidated Statements of Operations.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 43,
+      "relevant_chunk_ids": [
+        "AAPL-2025-8-0018"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "AAPL-2025-8-0002",
+          "score": 0.6097,
+          "ticker": "AAPL",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AAPL-2025-8-0008",
+          "score": 0.5506,
+          "ticker": "AAPL",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AAPL-2025-8-0019",
+          "score": 0.5019,
+          "ticker": "AAPL",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AAPL-2025-8-0023",
+          "score": 0.4933,
+          "ticker": "AAPL",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AAPL-2025-8-0000",
+          "score": 0.4845,
+          "ticker": "AAPL",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "AAPL-2025-8-0004",
+          "score": 0.4709,
+          "ticker": "AAPL",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "AAPL-2025-8-0001",
+          "score": 0.4628,
+          "ticker": "AAPL",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "AAPL-2025-8-0017",
+          "score": 0.4623,
+          "ticker": "AAPL",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "AAPL-2025-8-0005",
+          "score": 0.4552,
+          "ticker": "AAPL",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "AAPL-2025-8-0021",
+          "score": 0.4543,
+          "ticker": "AAPL",
+          "fiscal_year": 2025,
+          "item": "8"
+        }
+      ],
+      "first_relevant_rank": null,
+      "latency_s": {
+        "total": 0.03759839999838732
+      }
+    },
+    {
+      "question_id": "dani-b6-009",
+      "query": "¿Qué tipo de reclamaciones puede aumentar el desarrollo y uso de inteligencia artificial por Amazon y sus clientes?",
+      "ticker": "AMZN",
+      "fiscal_year": 2024,
+      "item": "1A",
+      "evidence_type": "prose",
+      "evidence_span": {
+        "char_start": 16872,
+        "char_end": 17098,
+        "evidence_text": "In addition, our and our customers’ development and use of artificial intelligence may result in increased claims of infringement or other claims, including those based on unauthorized use of third-party technology or content.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 30,
+      "relevant_chunk_ids": [
+        "AMZN-2024-1A-0008"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "AMZN-2024-1A-0025",
+          "score": 0.5307,
+          "ticker": "AMZN",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AMZN-2024-1A-0004",
+          "score": 0.4507,
+          "ticker": "AMZN",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AMZN-2024-1A-0024",
+          "score": 0.4482,
+          "ticker": "AMZN",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AMZN-2024-1A-0011",
+          "score": 0.4473,
+          "ticker": "AMZN",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AMZN-2024-1A-0008",
+          "score": 0.429,
+          "ticker": "AMZN",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "AMZN-2024-1A-0014",
+          "score": 0.4262,
+          "ticker": "AMZN",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "AMZN-2024-1A-0026",
+          "score": 0.4113,
+          "ticker": "AMZN",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "AMZN-2024-1A-0017",
+          "score": 0.404,
+          "ticker": "AMZN",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "AMZN-2024-1A-0007",
+          "score": 0.4022,
+          "ticker": "AMZN",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "AMZN-2024-1A-0021",
+          "score": 0.3994,
+          "ticker": "AMZN",
+          "fiscal_year": 2024,
+          "item": "1A"
+        }
+      ],
+      "first_relevant_rank": 5,
+      "latency_s": {
+        "total": 0.04883320000953972
+      }
+    },
+    {
+      "question_id": "dani-b6-010",
+      "query": "¿Qué factores impulsaron y cuáles compensaron parcialmente el aumento del resultado operativo de Amazon en Norteamérica en FY2024?",
+      "ticker": "AMZN",
+      "fiscal_year": 2024,
+      "item": "7",
+      "evidence_type": "prose",
+      "evidence_span": {
+        "char_start": 36119,
+        "char_end": 36338,
+        "evidence_text": "The increase in North America operating income in 2024, compared to the prior year, is primarily due to increased unit sales and increased advertising sales, partially offset by increased fulfillment and shipping costs.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 28,
+      "relevant_chunk_ids": [
+        "AMZN-2024-7-0019"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "AMZN-2024-7-0019",
+          "score": 0.6121,
+          "ticker": "AMZN",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AMZN-2024-7-0026",
+          "score": 0.5702,
+          "ticker": "AMZN",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AMZN-2024-7-0012",
+          "score": 0.5473,
+          "ticker": "AMZN",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AMZN-2024-7-0013",
+          "score": 0.5205,
+          "ticker": "AMZN",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AMZN-2024-7-0011",
+          "score": 0.4852,
+          "ticker": "AMZN",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "AMZN-2024-7-0000",
+          "score": 0.4687,
+          "ticker": "AMZN",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "AMZN-2024-7-0018",
+          "score": 0.4578,
+          "ticker": "AMZN",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "AMZN-2024-7-0016",
+          "score": 0.4359,
+          "ticker": "AMZN",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "AMZN-2024-7-0015",
+          "score": 0.4231,
+          "ticker": "AMZN",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "AMZN-2024-7-0003",
+          "score": 0.4138,
+          "ticker": "AMZN",
+          "fiscal_year": 2024,
+          "item": "7"
+        }
+      ],
+      "first_relevant_rank": 1,
+      "latency_s": {
+        "total": 0.04019619998871349
+      }
+    },
+    {
+      "question_id": "dani-b6-011",
+      "query": "¿Qué riesgo afrontan los títulos de deuda a tipo fijo de Amazon si suben los tipos de interés y la empresa debe venderlos?",
+      "ticker": "AMZN",
+      "fiscal_year": 2024,
+      "item": "7A",
+      "evidence_type": "prose",
+      "evidence_span": {
+        "char_start": 1150,
+        "char_end": 1423,
+        "evidence_text": "Marketable debt securities with fixed interest rates may have their fair market value adversely affected due to a rise in interest rates, and we may suffer losses in principal if forced to sell securities that have declined in market value due to changes in interest rates.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 5,
+      "relevant_chunk_ids": [
+        "AMZN-2024-7A-0001"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "AMZN-2024-7A-0001",
+          "score": 0.4542,
+          "ticker": "AMZN",
+          "fiscal_year": 2024,
+          "item": "7A"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AMZN-2024-7A-0002",
+          "score": 0.3426,
+          "ticker": "AMZN",
+          "fiscal_year": 2024,
+          "item": "7A"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AMZN-2024-7A-0000",
+          "score": 0.3363,
+          "ticker": "AMZN",
+          "fiscal_year": 2024,
+          "item": "7A"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AMZN-2024-7A-0003",
+          "score": 0.279,
+          "ticker": "AMZN",
+          "fiscal_year": 2024,
+          "item": "7A"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AMZN-2024-7A-0004",
+          "score": 0.2158,
+          "ticker": "AMZN",
+          "fiscal_year": 2024,
+          "item": "7A"
+        }
+      ],
+      "first_relevant_rank": 1,
+      "latency_s": {
+        "total": 0.09151790000032634
+      }
+    },
+    {
+      "question_id": "dani-b6-012",
+      "query": "¿Cómo mide y durante qué periodo reconoce Amazon el coste de las adjudicaciones de acciones clasificadas como patrimonio?",
+      "ticker": "AMZN",
+      "fiscal_year": 2024,
+      "item": "8",
+      "evidence_type": "prose",
+      "evidence_span": {
+        "char_start": 31403,
+        "char_end": 31589,
+        "evidence_text": "Stock-Based Compensation\n\nCompensation cost for all equity-classified stock awards expected to vest is measured at fair value on the date of grant and recognized over the service period.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 78,
+      "relevant_chunk_ids": [
+        "AMZN-2024-8-0020"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "AMZN-2024-8-0005",
+          "score": 0.5234,
+          "ticker": "AMZN",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AMZN-2024-8-0003",
+          "score": 0.5228,
+          "ticker": "AMZN",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AMZN-2024-8-0060",
+          "score": 0.5191,
+          "ticker": "AMZN",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AMZN-2024-8-0009",
+          "score": 0.5109,
+          "ticker": "AMZN",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AMZN-2024-8-0007",
+          "score": 0.5083,
+          "ticker": "AMZN",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "AMZN-2024-8-0011",
+          "score": 0.5044,
+          "ticker": "AMZN",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "AMZN-2024-8-0059",
+          "score": 0.4945,
+          "ticker": "AMZN",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "AMZN-2024-8-0008",
+          "score": 0.4916,
+          "ticker": "AMZN",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "AMZN-2024-8-0000",
+          "score": 0.4811,
+          "ticker": "AMZN",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "AMZN-2024-8-0057",
+          "score": 0.4759,
+          "ticker": "AMZN",
+          "fiscal_year": 2024,
+          "item": "8"
+        }
+      ],
+      "first_relevant_rank": null,
+      "latency_s": {
+        "total": 0.03589820000343025
+      }
+    },
+    {
+      "question_id": "dani-b6-013",
+      "query": "¿Qué efectos podría tener para Amazon una previsión deficiente de la demanda de almacenamiento de los vendedores?",
+      "ticker": "AMZN",
+      "fiscal_year": 2025,
+      "item": "1A",
+      "evidence_type": "prose",
+      "evidence_span": {
+        "char_start": 26679,
+        "char_end": 27095,
+        "evidence_text": "Our failure to adequately predict seller demand for storage or to properly handle such inventory or the inability of the other businesses on whose behalf we perform inventory fulfillment services to accurately forecast product demand may result in us being unable to secure sufficient storage space or to optimize our fulfillment network or cause other unexpected costs and other harm to our business and reputation.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 30,
+      "relevant_chunk_ids": [
+        "AMZN-2025-1A-0012"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "AMZN-2025-1A-0006",
+          "score": 0.4664,
+          "ticker": "AMZN",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AMZN-2025-1A-0012",
+          "score": 0.4489,
+          "ticker": "AMZN",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AMZN-2025-1A-0013",
+          "score": 0.4174,
+          "ticker": "AMZN",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AMZN-2025-1A-0020",
+          "score": 0.3905,
+          "ticker": "AMZN",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AMZN-2025-1A-0017",
+          "score": 0.383,
+          "ticker": "AMZN",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "AMZN-2025-1A-0004",
+          "score": 0.3815,
+          "ticker": "AMZN",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "AMZN-2025-1A-0014",
+          "score": 0.3763,
+          "ticker": "AMZN",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "AMZN-2025-1A-0010",
+          "score": 0.3727,
+          "ticker": "AMZN",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "AMZN-2025-1A-0011",
+          "score": 0.3684,
+          "ticker": "AMZN",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "AMZN-2025-1A-0024",
+          "score": 0.3504,
+          "ticker": "AMZN",
+          "fiscal_year": 2025,
+          "item": "1A"
+        }
+      ],
+      "first_relevant_rank": 2,
+      "latency_s": {
+        "total": 0.04105040000285953
+      }
+    },
+    {
+      "question_id": "dani-b6-014",
+      "query": "¿Qué importes de flujo de efectivo por actividades operativas, de inversión y de financiación reportó Amazon en 2025?",
+      "ticker": "AMZN",
+      "fiscal_year": 2025,
+      "item": "7",
+      "evidence_type": "table_adjacent",
+      "evidence_span": {
+        "char_start": 15881,
+        "char_end": 16118,
+        "evidence_text": "Cash flow information is as follows (in millions):\n\nYear Ended December 31,\n2024\t\t2025\nCash provided by (used in):\nOperating activities\t$\t115,877\t\t\t$\t139,514\nInvesting activities\t(94,342)\t\t\t(142,545)\nFinancing activities\t(11,812)\t\t\t9,661",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 25,
+      "relevant_chunk_ids": [
+        "AMZN-2025-7-0007"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "AMZN-2025-7-0024",
+          "score": 0.619,
+          "ticker": "AMZN",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AMZN-2025-7-0019",
+          "score": 0.5629,
+          "ticker": "AMZN",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AMZN-2025-7-0008",
+          "score": 0.5481,
+          "ticker": "AMZN",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AMZN-2025-7-0007",
+          "score": 0.4902,
+          "ticker": "AMZN",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AMZN-2025-7-0013",
+          "score": 0.4848,
+          "ticker": "AMZN",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "AMZN-2025-7-0018",
+          "score": 0.4786,
+          "ticker": "AMZN",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "AMZN-2025-7-0012",
+          "score": 0.4758,
+          "ticker": "AMZN",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "AMZN-2025-7-0000",
+          "score": 0.4461,
+          "ticker": "AMZN",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "AMZN-2025-7-0003",
+          "score": 0.4169,
+          "ticker": "AMZN",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "AMZN-2025-7-0009",
+          "score": 0.4161,
+          "ticker": "AMZN",
+          "fiscal_year": 2025,
+          "item": "7"
+        }
+      ],
+      "first_relevant_rank": 4,
+      "latency_s": {
+        "total": 0.04071940001449548
+      }
+    },
+    {
+      "question_id": "dani-b6-015",
+      "query": "¿Por qué las variaciones de tipos de interés no afectan a los estados financieros de la deuda a largo plazo de Amazon?",
+      "ticker": "AMZN",
+      "fiscal_year": 2025,
+      "item": "7A",
+      "evidence_type": "prose",
+      "evidence_span": {
+        "char_start": 614,
+        "char_end": 749,
+        "evidence_text": "Our long-term debt is carried at amortized cost and fluctuations in interest rates do not impact our consolidated financial statements.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 5,
+      "relevant_chunk_ids": [
+        "AMZN-2025-7A-0001"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "AMZN-2025-7A-0001",
+          "score": 0.4877,
+          "ticker": "AMZN",
+          "fiscal_year": 2025,
+          "item": "7A"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AMZN-2025-7A-0002",
+          "score": 0.4247,
+          "ticker": "AMZN",
+          "fiscal_year": 2025,
+          "item": "7A"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AMZN-2025-7A-0000",
+          "score": 0.3278,
+          "ticker": "AMZN",
+          "fiscal_year": 2025,
+          "item": "7A"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AMZN-2025-7A-0003",
+          "score": 0.2589,
+          "ticker": "AMZN",
+          "fiscal_year": 2025,
+          "item": "7A"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AMZN-2025-7A-0004",
+          "score": 0.241,
+          "ticker": "AMZN",
+          "fiscal_year": 2025,
+          "item": "7A"
+        }
+      ],
+      "first_relevant_rank": 1,
+      "latency_s": {
+        "total": 0.08999609999591485
+      }
+    },
+    {
+      "question_id": "dani-b6-016",
+      "query": "¿Qué importe de deterioros de activos registró Amazon en FY2025 y con qué activos se relacionó principalmente?",
+      "ticker": "AMZN",
+      "fiscal_year": 2025,
+      "item": "8",
+      "evidence_type": "numeric",
+      "evidence_span": {
+        "char_start": 19303,
+        "char_end": 19556,
+        "evidence_text": "For the year ended December 31, 2025, we recorded approximately $1.3 billion of asset impairments, of which $610 million was recorded in the fourth quarter, primarily consisting of property and equipment and operating leases related to\n\nphysical stores.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 76,
+      "relevant_chunk_ids": [
+        "AMZN-2025-8-0013"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "AMZN-2025-8-0010",
+          "score": 0.5906,
+          "ticker": "AMZN",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AMZN-2025-8-0007",
+          "score": 0.5726,
+          "ticker": "AMZN",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AMZN-2025-8-0008",
+          "score": 0.5718,
+          "ticker": "AMZN",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AMZN-2025-8-0000",
+          "score": 0.566,
+          "ticker": "AMZN",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AMZN-2025-8-0044",
+          "score": 0.5521,
+          "ticker": "AMZN",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "AMZN-2025-8-0074",
+          "score": 0.5237,
+          "ticker": "AMZN",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "AMZN-2025-8-0004",
+          "score": 0.504,
+          "ticker": "AMZN",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "AMZN-2025-8-0012",
+          "score": 0.4922,
+          "ticker": "AMZN",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "AMZN-2025-8-0006",
+          "score": 0.4838,
+          "ticker": "AMZN",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "AMZN-2025-8-0071",
+          "score": 0.4738,
+          "ticker": "AMZN",
+          "fiscal_year": 2025,
+          "item": "8"
+        }
+      ],
+      "first_relevant_rank": null,
+      "latency_s": {
+        "total": 0.03890060001867823
+      }
+    },
+    {
+      "question_id": "dani-b6-017",
+      "query": "¿Qué consecuencias sociales y empresariales asocia Alphabet con usos o adaptaciones no previstos de sus sistemas de IA?",
+      "ticker": "GOOGL",
+      "fiscal_year": 2024,
+      "item": "1A",
+      "evidence_type": "prose",
+      "evidence_span": {
+        "char_start": 31254,
+        "char_end": 31595,
+        "evidence_text": "Unintended consequences, uses, or customization of our AI tools and systems may negatively affect human rights, privacy, employment, or other social concerns, which may result in claims, lawsuits, brand or reputational harm, and increased regulatory scrutiny, any of which could harm our business, financial condition, and operating results.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 38,
+      "relevant_chunk_ids": [
+        "GOOGL-2024-1A-0014"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "GOOGL-2024-1A-0014",
+          "score": 0.5642,
+          "ticker": "GOOGL",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "GOOGL-2024-1A-0018",
+          "score": 0.5583,
+          "ticker": "GOOGL",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "GOOGL-2024-1A-0015",
+          "score": 0.5496,
+          "ticker": "GOOGL",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "GOOGL-2024-1A-0013",
+          "score": 0.5361,
+          "ticker": "GOOGL",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "GOOGL-2024-1A-0026",
+          "score": 0.5282,
+          "ticker": "GOOGL",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "GOOGL-2024-1A-0036",
+          "score": 0.505,
+          "ticker": "GOOGL",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "GOOGL-2024-1A-0003",
+          "score": 0.4699,
+          "ticker": "GOOGL",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "GOOGL-2024-1A-0033",
+          "score": 0.4691,
+          "ticker": "GOOGL",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "GOOGL-2024-1A-0037",
+          "score": 0.4585,
+          "ticker": "GOOGL",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "GOOGL-2024-1A-0005",
+          "score": 0.4519,
+          "ticker": "GOOGL",
+          "fiscal_year": 2024,
+          "item": "1A"
+        }
+      ],
+      "first_relevant_rank": 1,
+      "latency_s": {
+        "total": 0.04133179999189451
+      }
+    },
+    {
+      "question_id": "dani-b6-018",
+      "query": "¿Qué componentes impulsaron principalmente el crecimiento interanual del coste de ingresos de Alphabet en FY2024?",
+      "ticker": "GOOGL",
+      "fiscal_year": 2024,
+      "item": "7",
+      "evidence_type": "numeric",
+      "evidence_span": {
+        "char_start": 20728,
+        "char_end": 20891,
+        "evidence_text": "•Cost of revenues was $146.3 billion, an increase of 10% year over year, primarily driven by increases in content acquisition costs, TAC, and depreciation expense.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 31,
+      "relevant_chunk_ids": [
+        "GOOGL-2024-7-0009",
+        "GOOGL-2024-7-0010"
+      ],
+      "n_relevant_chunks": 2,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "GOOGL-2024-7-0010",
+          "score": 0.6958,
+          "ticker": "GOOGL",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "GOOGL-2024-7-0000",
+          "score": 0.6245,
+          "ticker": "GOOGL",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "GOOGL-2024-7-0017",
+          "score": 0.6111,
+          "ticker": "GOOGL",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "GOOGL-2024-7-0025",
+          "score": 0.5811,
+          "ticker": "GOOGL",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "GOOGL-2024-7-0016",
+          "score": 0.5793,
+          "ticker": "GOOGL",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "GOOGL-2024-7-0019",
+          "score": 0.5725,
+          "ticker": "GOOGL",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "GOOGL-2024-7-0011",
+          "score": 0.5563,
+          "ticker": "GOOGL",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "GOOGL-2024-7-0015",
+          "score": 0.5267,
+          "ticker": "GOOGL",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "GOOGL-2024-7-0009",
+          "score": 0.4933,
+          "ticker": "GOOGL",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "GOOGL-2024-7-0012",
+          "score": 0.4853,
+          "ticker": "GOOGL",
+          "fiscal_year": 2024,
+          "item": "7"
+        }
+      ],
+      "first_relevant_rank": 1,
+      "latency_s": {
+        "total": 0.042410199996083975
+      }
+    },
+    {
+      "question_id": "dani-b6-019",
+      "query": "¿Qué efecto adverso sobre el resultado antes de impuestos habría tenido para Alphabet un movimiento del 10 % en los tipos de cambio al 31 de diciembre de 2024?",
+      "ticker": "GOOGL",
+      "fiscal_year": 2024,
+      "item": "7A",
+      "evidence_type": "numeric",
+      "evidence_span": {
+        "char_start": 1471,
+        "char_end": 1971,
+        "evidence_text": "If an adverse 10% foreign currency exchange rate change was applied to net monetary assets, liabilities, and commitments denominated in currencies other than the functional currencies at the balance sheet date, it would have resulted in an adverse effect on income before income taxes of approximately $503 million and $135 million as of December 31, 2023 and 2024, respectively, after consideration of the effect of foreign exchange contracts in place for the years ended December 31, 2023 and 2024.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 5,
+      "relevant_chunk_ids": [
+        "GOOGL-2024-7A-0000"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "GOOGL-2024-7A-0001",
+          "score": 0.4938,
+          "ticker": "GOOGL",
+          "fiscal_year": 2024,
+          "item": "7A"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "GOOGL-2024-7A-0000",
+          "score": 0.4575,
+          "ticker": "GOOGL",
+          "fiscal_year": 2024,
+          "item": "7A"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "GOOGL-2024-7A-0004",
+          "score": 0.4093,
+          "ticker": "GOOGL",
+          "fiscal_year": 2024,
+          "item": "7A"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "GOOGL-2024-7A-0003",
+          "score": 0.3621,
+          "ticker": "GOOGL",
+          "fiscal_year": 2024,
+          "item": "7A"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "GOOGL-2024-7A-0002",
+          "score": 0.2849,
+          "ticker": "GOOGL",
+          "fiscal_year": 2024,
+          "item": "7A"
+        }
+      ],
+      "first_relevant_rank": 2,
+      "latency_s": {
+        "total": 0.11683250000351109
+      }
+    },
+    {
+      "question_id": "dani-b6-020",
+      "query": "¿En qué condiciones reconoce Alphabet los ingresos por bienes o servicios prometidos a sus clientes?",
+      "ticker": "GOOGL",
+      "fiscal_year": 2024,
+      "item": "8",
+      "evidence_type": "prose",
+      "evidence_span": {
+        "char_start": 20137,
+        "char_end": 20365,
+        "evidence_text": "Revenue Recognition\n\nRevenues are recognized when control of the promised goods or services is transferred to our customers, and the collectibility of an amount that we expect in exchange for those goods or services is probable.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 82,
+      "relevant_chunk_ids": [
+        "GOOGL-2024-8-0013"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "GOOGL-2024-8-0013",
+          "score": 0.5924,
+          "ticker": "GOOGL",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "GOOGL-2024-8-0000",
+          "score": 0.5551,
+          "ticker": "GOOGL",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "GOOGL-2024-8-0078",
+          "score": 0.5481,
+          "ticker": "GOOGL",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "GOOGL-2024-8-0007",
+          "score": 0.5467,
+          "ticker": "GOOGL",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "GOOGL-2024-8-0010",
+          "score": 0.532,
+          "ticker": "GOOGL",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "GOOGL-2024-8-0012",
+          "score": 0.5202,
+          "ticker": "GOOGL",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "GOOGL-2024-8-0065",
+          "score": 0.5173,
+          "ticker": "GOOGL",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "GOOGL-2024-8-0057",
+          "score": 0.5071,
+          "ticker": "GOOGL",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "GOOGL-2024-8-0079",
+          "score": 0.4967,
+          "ticker": "GOOGL",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "GOOGL-2024-8-0006",
+          "score": 0.4931,
+          "ticker": "GOOGL",
+          "fiscal_year": 2024,
+          "item": "8"
+        }
+      ],
+      "first_relevant_rank": 1,
+      "latency_s": {
+        "total": 0.04036790001555346
+      }
+    },
+    {
+      "question_id": "dani-b6-021",
+      "query": "¿Cómo podría una dificultad para obtener financiación futura o manejar el endeudamiento afectar a Alphabet?",
+      "ticker": "GOOGL",
+      "fiscal_year": 2025,
+      "item": "1A",
+      "evidence_type": "prose",
+      "evidence_span": {
+        "char_start": 28127,
+        "char_end": 28300,
+        "evidence_text": "Disruptions in our ability to access future financing or manage our indebtedness could adversely affect our ability to execute our strategy and harm our financial condition.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 39,
+      "relevant_chunk_ids": [
+        "GOOGL-2025-1A-0012"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "GOOGL-2025-1A-0033",
+          "score": 0.5341,
+          "ticker": "GOOGL",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "GOOGL-2025-1A-0034",
+          "score": 0.5179,
+          "ticker": "GOOGL",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "GOOGL-2025-1A-0036",
+          "score": 0.4941,
+          "ticker": "GOOGL",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "GOOGL-2025-1A-0025",
+          "score": 0.4906,
+          "ticker": "GOOGL",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "GOOGL-2025-1A-0002",
+          "score": 0.4819,
+          "ticker": "GOOGL",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "GOOGL-2025-1A-0010",
+          "score": 0.4787,
+          "ticker": "GOOGL",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "GOOGL-2025-1A-0015",
+          "score": 0.439,
+          "ticker": "GOOGL",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "GOOGL-2025-1A-0038",
+          "score": 0.4329,
+          "ticker": "GOOGL",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "GOOGL-2025-1A-0020",
+          "score": 0.4321,
+          "ticker": "GOOGL",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "GOOGL-2025-1A-0012",
+          "score": 0.4153,
+          "ticker": "GOOGL",
+          "fiscal_year": 2025,
+          "item": "1A"
+        }
+      ],
+      "first_relevant_rank": 10,
+      "latency_s": {
+        "total": 0.03978429999551736
+      }
+    },
+    {
+      "question_id": "dani-b6-022",
+      "query": "¿Con qué objetivo relacionado con la IA está ampliando Alphabet sus inversiones en infraestructura técnica?",
+      "ticker": "GOOGL",
+      "fiscal_year": 2025,
+      "item": "7",
+      "evidence_type": "prose",
+      "evidence_span": {
+        "char_start": 3164,
+        "char_end": 3416,
+        "evidence_text": "Increased Investment in Technical Infrastructure: We continue to invest in capital expenditures as we scale our technical infrastructure, in particular for AI, to meet the demand of our users and enterprise customers and to support research internally.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 29,
+      "relevant_chunk_ids": [
+        "GOOGL-2025-7-0001"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "GOOGL-2025-7-0002",
+          "score": 0.596,
+          "ticker": "GOOGL",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "GOOGL-2025-7-0010",
+          "score": 0.5876,
+          "ticker": "GOOGL",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "GOOGL-2025-7-0000",
+          "score": 0.5604,
+          "ticker": "GOOGL",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "GOOGL-2025-7-0001",
+          "score": 0.4857,
+          "ticker": "GOOGL",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "GOOGL-2025-7-0018",
+          "score": 0.483,
+          "ticker": "GOOGL",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "GOOGL-2025-7-0009",
+          "score": 0.4497,
+          "ticker": "GOOGL",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "GOOGL-2025-7-0015",
+          "score": 0.4434,
+          "ticker": "GOOGL",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "GOOGL-2025-7-0019",
+          "score": 0.4114,
+          "ticker": "GOOGL",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "GOOGL-2025-7-0016",
+          "score": 0.378,
+          "ticker": "GOOGL",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "GOOGL-2025-7-0026",
+          "score": 0.3757,
+          "ticker": "GOOGL",
+          "fiscal_year": 2025,
+          "item": "7"
+        }
+      ],
+      "first_relevant_rank": 4,
+      "latency_s": {
+        "total": 0.04372779998811893
+      }
+    },
+    {
+      "question_id": "dani-b6-023",
+      "query": "¿Cuánto habría reducido una caída hipotética del 10 % el valor de los títulos de renta variable negociables de Alphabet al cierre de 2025?",
+      "ticker": "GOOGL",
+      "fiscal_year": 2025,
+      "item": "7A",
+      "evidence_type": "numeric",
+      "evidence_span": {
+        "char_start": 5485,
+        "char_end": 5639,
+        "evidence_text": "A hypothetical adverse price change of 10% on our December 31, 2025 balance would decrease the fair value of marketable equity securities by $631 million.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 5,
+      "relevant_chunk_ids": [
+        "GOOGL-2025-7A-0003"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "GOOGL-2025-7A-0004",
+          "score": 0.4659,
+          "ticker": "GOOGL",
+          "fiscal_year": 2025,
+          "item": "7A"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "GOOGL-2025-7A-0003",
+          "score": 0.4643,
+          "ticker": "GOOGL",
+          "fiscal_year": 2025,
+          "item": "7A"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "GOOGL-2025-7A-0000",
+          "score": 0.4316,
+          "ticker": "GOOGL",
+          "fiscal_year": 2025,
+          "item": "7A"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "GOOGL-2025-7A-0002",
+          "score": 0.3644,
+          "ticker": "GOOGL",
+          "fiscal_year": 2025,
+          "item": "7A"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "GOOGL-2025-7A-0001",
+          "score": 0.3534,
+          "ticker": "GOOGL",
+          "fiscal_year": 2025,
+          "item": "7A"
+        }
+      ],
+      "first_relevant_rank": 2,
+      "latency_s": {
+        "total": 0.10469239999656565
+      }
+    },
+    {
+      "question_id": "dani-b6-024",
+      "query": "¿Cómo contabiliza Alphabet el gasto y los intereses de sus arrendamientos financieros?",
+      "ticker": "GOOGL",
+      "fiscal_year": 2025,
+      "item": "8",
+      "evidence_type": "prose",
+      "evidence_span": {
+        "char_start": 44425,
+        "char_end": 44629,
+        "evidence_text": "Finance lease expense is recognized on a straight-line basis over the shorter of the lease term or the useful life of the asset, and interest expense is recognized based on the incremental borrowing rate.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 84,
+      "relevant_chunk_ids": [
+        "GOOGL-2025-8-0022"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "GOOGL-2025-8-0011",
+          "score": 0.5585,
+          "ticker": "GOOGL",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "GOOGL-2025-8-0044",
+          "score": 0.5206,
+          "ticker": "GOOGL",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "GOOGL-2025-8-0009",
+          "score": 0.5196,
+          "ticker": "GOOGL",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "GOOGL-2025-8-0006",
+          "score": 0.5168,
+          "ticker": "GOOGL",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "GOOGL-2025-8-0012",
+          "score": 0.5123,
+          "ticker": "GOOGL",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "GOOGL-2025-8-0043",
+          "score": 0.5122,
+          "ticker": "GOOGL",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "GOOGL-2025-8-0000",
+          "score": 0.4964,
+          "ticker": "GOOGL",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "GOOGL-2025-8-0007",
+          "score": 0.4951,
+          "ticker": "GOOGL",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "GOOGL-2025-8-0022",
+          "score": 0.4911,
+          "ticker": "GOOGL",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "GOOGL-2025-8-0080",
+          "score": 0.4904,
+          "ticker": "GOOGL",
+          "fiscal_year": 2025,
+          "item": "8"
+        }
+      ],
+      "first_relevant_rank": 9,
+      "latency_s": {
+        "total": 0.04272530000889674
+      }
+    },
+    {
+      "question_id": "dani-b6-025",
+      "query": "¿Qué efectos prevé Meta si sus productos no están disponibles o cargan más lentamente de lo esperado?",
+      "ticker": "META",
+      "fiscal_year": 2024,
+      "item": "1A",
+      "evidence_type": "prose",
+      "evidence_span": {
+        "char_start": 69326,
+        "char_end": 69652,
+        "evidence_text": "If our products or services are unavailable when users attempt to access them, or if they do not load as quickly as expected, users may not use our products or services as often in the future, or at all, and our ability to serve ads may be disrupted, any of which could adversely affect our business and financial performance.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 82,
+      "relevant_chunk_ids": [
+        "META-2024-1A-0030"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "META-2024-1A-0017",
+          "score": 0.4757,
+          "ticker": "META",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "META-2024-1A-0033",
+          "score": 0.4538,
+          "ticker": "META",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "META-2024-1A-0030",
+          "score": 0.4481,
+          "ticker": "META",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "META-2024-1A-0055",
+          "score": 0.4402,
+          "ticker": "META",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "META-2024-1A-0013",
+          "score": 0.4377,
+          "ticker": "META",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "META-2024-1A-0041",
+          "score": 0.4207,
+          "ticker": "META",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "META-2024-1A-0026",
+          "score": 0.4117,
+          "ticker": "META",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "META-2024-1A-0056",
+          "score": 0.4086,
+          "ticker": "META",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "META-2024-1A-0042",
+          "score": 0.399,
+          "ticker": "META",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "META-2024-1A-0031",
+          "score": 0.3966,
+          "ticker": "META",
+          "fiscal_year": 2024,
+          "item": "1A"
+        }
+      ],
+      "first_relevant_rank": 3,
+      "latency_s": {
+        "total": 0.04156459998921491
+      }
+    },
+    {
+      "question_id": "dani-b6-026",
+      "query": "¿Por qué Meta obtiene relativamente más ingresos en Estados Unidos, Canadá y Europa que en otras regiones?",
+      "ticker": "META",
+      "fiscal_year": 2024,
+      "item": "7",
+      "evidence_type": "prose",
+      "evidence_span": {
+        "char_start": 15798,
+        "char_end": 16093,
+        "evidence_text": "Our revenue in regions such as United States & Canada and Europe is relatively higher primarily due to the size and maturity of those online and mobile advertising markets, and ad impression growth is primarily in geographies that monetize at lower rates, such as Asia-Pacific and Rest of World.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 34,
+      "relevant_chunk_ids": [
+        "META-2024-7-0009"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "META-2024-7-0009",
+          "score": 0.5406,
+          "ticker": "META",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "META-2024-7-0011",
+          "score": 0.398,
+          "ticker": "META",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "META-2024-7-0007",
+          "score": 0.3929,
+          "ticker": "META",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "META-2024-7-0018",
+          "score": 0.3912,
+          "ticker": "META",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "META-2024-7-0005",
+          "score": 0.3795,
+          "ticker": "META",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "META-2024-7-0002",
+          "score": 0.3658,
+          "ticker": "META",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "META-2024-7-0022",
+          "score": 0.3579,
+          "ticker": "META",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "META-2024-7-0000",
+          "score": 0.3527,
+          "ticker": "META",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "META-2024-7-0023",
+          "score": 0.35,
+          "ticker": "META",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "META-2024-7-0004",
+          "score": 0.3446,
+          "ticker": "META",
+          "fiscal_year": 2024,
+          "item": "7"
+        }
+      ],
+      "first_relevant_rank": 1,
+      "latency_s": {
+        "total": 0.04437570000300184
+      }
+    },
+    {
+      "question_id": "dani-b6-027",
+      "query": "¿Qué reducción de valor habría provocado en Meta una subida hipotética de 100 puntos básicos en los tipos al cierre de 2024?",
+      "ticker": "META",
+      "fiscal_year": 2024,
+      "item": "7A",
+      "evidence_type": "numeric",
+      "evidence_span": {
+        "char_start": 2266,
+        "char_end": 2528,
+        "evidence_text": "A hypothetical 100 basis point increase in market interest rates would have resulted in a decrease of $680 million and $355 million in the market value of our available-for-sale debt securities and cash equivalents as of December 31, 2024 and 2023, respectively.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 4,
+      "relevant_chunk_ids": [
+        "META-2024-7A-0001"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "META-2024-7A-0002",
+          "score": 0.3998,
+          "ticker": "META",
+          "fiscal_year": 2024,
+          "item": "7A"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "META-2024-7A-0001",
+          "score": 0.372,
+          "ticker": "META",
+          "fiscal_year": 2024,
+          "item": "7A"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "META-2024-7A-0003",
+          "score": 0.3003,
+          "ticker": "META",
+          "fiscal_year": 2024,
+          "item": "7A"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "META-2024-7A-0000",
+          "score": 0.2922,
+          "ticker": "META",
+          "fiscal_year": 2024,
+          "item": "7A"
+        }
+      ],
+      "first_relevant_rank": 2,
+      "latency_s": {
+        "total": 0.09558550000656396
+      }
+    },
+    {
+      "question_id": "dani-b6-028",
+      "query": "¿Qué umbral aplica Meta para reconocer beneficios derivados de posiciones fiscales inciertas?",
+      "ticker": "META",
+      "fiscal_year": 2024,
+      "item": "8",
+      "evidence_type": "prose",
+      "evidence_span": {
+        "char_start": 32241,
+        "char_end": 32474,
+        "evidence_text": "We recognize tax benefits from uncertain tax positions only if we believe that it is more likely than not that the tax position will be sustained on examination by the taxing authorities based on the technical merits of the position.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 75,
+      "relevant_chunk_ids": [
+        "META-2024-8-0018"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "META-2024-8-0003",
+          "score": 0.5617,
+          "ticker": "META",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "META-2024-8-0071",
+          "score": 0.5437,
+          "ticker": "META",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "META-2024-8-0009",
+          "score": 0.5046,
+          "ticker": "META",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "META-2024-8-0053",
+          "score": 0.4954,
+          "ticker": "META",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "META-2024-8-0000",
+          "score": 0.4794,
+          "ticker": "META",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "META-2024-8-0057",
+          "score": 0.4755,
+          "ticker": "META",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "META-2024-8-0014",
+          "score": 0.4736,
+          "ticker": "META",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "META-2024-8-0007",
+          "score": 0.4531,
+          "ticker": "META",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "META-2024-8-0011",
+          "score": 0.4476,
+          "ticker": "META",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "META-2024-8-0013",
+          "score": 0.4457,
+          "ticker": "META",
+          "fiscal_year": 2024,
+          "item": "8"
+        }
+      ],
+      "first_relevant_rank": null,
+      "latency_s": {
+        "total": 0.04100800000014715
+      }
+    },
+    {
+      "question_id": "dani-b6-029",
+      "query": "¿De qué recursos dependen las iniciativas de IA de Meta y qué riesgos afectan a su disponibilidad?",
+      "ticker": "META",
+      "fiscal_year": 2025,
+      "item": "1A",
+      "evidence_type": "prose",
+      "evidence_span": {
+        "char_start": 35986,
+        "char_end": 36312,
+        "evidence_text": "Our AI initiatives also depend on our access to data to effectively train our models, which is subject to risks related to the availability or costs of data, regulatory or other legal developments, or other factors, as well as our ability to attract and retain specialized personnel in a limited and competitive talent market.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 85,
+      "relevant_chunk_ids": [
+        "META-2025-1A-0015"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "META-2025-1A-0018",
+          "score": 0.5148,
+          "ticker": "META",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "META-2025-1A-0031",
+          "score": 0.4891,
+          "ticker": "META",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "META-2025-1A-0057",
+          "score": 0.4785,
+          "ticker": "META",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "META-2025-1A-0014",
+          "score": 0.478,
+          "ticker": "META",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "META-2025-1A-0016",
+          "score": 0.4648,
+          "ticker": "META",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "META-2025-1A-0073",
+          "score": 0.4585,
+          "ticker": "META",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "META-2025-1A-0013",
+          "score": 0.4548,
+          "ticker": "META",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "META-2025-1A-0027",
+          "score": 0.4443,
+          "ticker": "META",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "META-2025-1A-0048",
+          "score": 0.4289,
+          "ticker": "META",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "META-2025-1A-0045",
+          "score": 0.4188,
+          "ticker": "META",
+          "fiscal_year": 2025,
+          "item": "1A"
+        }
+      ],
+      "first_relevant_rank": null,
+      "latency_s": {
+        "total": 0.036763800017070025
+      }
+    },
+    {
+      "question_id": "dani-b6-030",
+      "query": "¿Qué patrón mostraron los ingresos totales de Meta entre Q3 y Q4 y entre Q4 y el primer trimestre siguiente en los tres ciclos comparados en FY2025?",
+      "ticker": "META",
+      "fiscal_year": 2025,
+      "item": "7",
+      "evidence_type": "numeric",
+      "evidence_span": {
+        "char_start": 39766,
+        "char_end": 40066,
+        "evidence_text": "For instance, our total revenue increased 17%, 19%, and 17% between the third and fourth quarters of 2025, 2024, and 2023, respectively, while total revenue for the first quarters of 2025, 2024, and 2023 declined 13%, 9%, and 11% compared to the fourth quarters of 2024, 2023, and 2022, respectively.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 36,
+      "relevant_chunk_ids": [
+        "META-2025-7-0023"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "META-2025-7-0001",
+          "score": 0.4942,
+          "ticker": "META",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "META-2025-7-0023",
+          "score": 0.4904,
+          "ticker": "META",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "META-2025-7-0026",
+          "score": 0.4587,
+          "ticker": "META",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "META-2025-7-0021",
+          "score": 0.4519,
+          "ticker": "META",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "META-2025-7-0027",
+          "score": 0.4516,
+          "ticker": "META",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "META-2025-7-0002",
+          "score": 0.4516,
+          "ticker": "META",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "META-2025-7-0031",
+          "score": 0.4435,
+          "ticker": "META",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "META-2025-7-0022",
+          "score": 0.4424,
+          "ticker": "META",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "META-2025-7-0019",
+          "score": 0.4393,
+          "ticker": "META",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "META-2025-7-0004",
+          "score": 0.4288,
+          "ticker": "META",
+          "fiscal_year": 2025,
+          "item": "7"
+        }
+      ],
+      "first_relevant_rank": 2,
+      "latency_s": {
+        "total": 0.042748099978780374
+      }
+    },
+    {
+      "question_id": "dani-b6-031",
+      "query": "¿Qué instrumento comenzó a utilizar Meta en 2025 para reducir el efecto cambiario de las conversiones de efectivo?",
+      "ticker": "META",
+      "fiscal_year": 2025,
+      "item": "7A",
+      "evidence_type": "prose",
+      "evidence_span": {
+        "char_start": 1381,
+        "char_end": 1571,
+        "evidence_text": "Beginning in 2025, we use short-term foreign currency forward contracts for cash management to reduce, but not entirely eliminate, exchange rate impacts on foreign currency cash conversions.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 3,
+      "relevant_chunk_ids": [
+        "META-2025-7A-0000"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "META-2025-7A-0000",
+          "score": 0.4676,
+          "ticker": "META",
+          "fiscal_year": 2025,
+          "item": "7A"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "META-2025-7A-0001",
+          "score": 0.3716,
+          "ticker": "META",
+          "fiscal_year": 2025,
+          "item": "7A"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "META-2025-7A-0002",
+          "score": 0.3026,
+          "ticker": "META",
+          "fiscal_year": 2025,
+          "item": "7A"
+        }
+      ],
+      "first_relevant_rank": 1,
+      "latency_s": {
+        "total": 0.09877770001185127
+      }
+    },
+    {
+      "question_id": "dani-b6-032",
+      "query": "¿Cuál fue el coste total de arrendamientos de Meta en FY2025 y qué componentes lo integraron?",
+      "ticker": "META",
+      "fiscal_year": 2025,
+      "item": "8",
+      "evidence_type": "table_adjacent",
+      "evidence_span": {
+        "char_start": 74856,
+        "char_end": 75182,
+        "evidence_text": "The components of lease costs are as follows (in millions):\n\nYear Ended December 31,\n2025\t\t2024\t\t2023\nFinance lease cost:\nAmortization of right-of-use assets\t$\t549\t\t\t$\t387\t\t\t$\t349\nInterest\t31\t\t\t23\t\t\t20\nOperating lease cost\t2,798\t\t\t2,359\t\t\t2,091\nVariable lease cost and other\t1,147\t\t\t844\t\t\t580\nTotal\t$\t4,525\t\t\t$\t3,613\t\t\t$\t3,040",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 90,
+      "relevant_chunk_ids": [
+        "META-2025-8-0046"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "META-2025-8-0010",
+          "score": 0.5654,
+          "ticker": "META",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "META-2025-8-0017",
+          "score": 0.5421,
+          "ticker": "META",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "META-2025-8-0013",
+          "score": 0.5349,
+          "ticker": "META",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "META-2025-8-0009",
+          "score": 0.5268,
+          "ticker": "META",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "META-2025-8-0008",
+          "score": 0.5232,
+          "ticker": "META",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "META-2025-8-0012",
+          "score": 0.5039,
+          "ticker": "META",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "META-2025-8-0007",
+          "score": 0.4754,
+          "ticker": "META",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "META-2025-8-0000",
+          "score": 0.4654,
+          "ticker": "META",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "META-2025-8-0014",
+          "score": 0.4472,
+          "ticker": "META",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "META-2025-8-0042",
+          "score": 0.4355,
+          "ticker": "META",
+          "fiscal_year": 2025,
+          "item": "8"
+        }
+      ],
+      "first_relevant_rank": null,
+      "latency_s": {
+        "total": 0.06130699999630451
+      }
+    },
+    {
+      "question_id": "dani-b6-033",
+      "query": "¿Por qué la localización del ensamblaje de hardware de Microsoft puede convertirse en un riesgo de suministro?",
+      "ticker": "MSFT",
+      "fiscal_year": 2024,
+      "item": "1A",
+      "evidence_type": "prose",
+      "evidence_span": {
+        "char_start": 40103,
+        "char_end": 40397,
+        "evidence_text": "Datacenter servers, Xbox consoles, Surface devices, and other hardware are assembled in Asia and other geographies that may be subject to disruptions in the supply chain, resulting in shortages which may adversely affect our business, operations, financial condition, and results of operations.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 33,
+      "relevant_chunk_ids": [
+        "MSFT-2024-1A-0019"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "MSFT-2024-1A-0019",
+          "score": 0.5719,
+          "ticker": "MSFT",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "MSFT-2024-1A-0022",
+          "score": 0.5414,
+          "ticker": "MSFT",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "MSFT-2024-1A-0031",
+          "score": 0.5217,
+          "ticker": "MSFT",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "MSFT-2024-1A-0024",
+          "score": 0.4438,
+          "ticker": "MSFT",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "MSFT-2024-1A-0030",
+          "score": 0.4415,
+          "ticker": "MSFT",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "MSFT-2024-1A-0005",
+          "score": 0.4308,
+          "ticker": "MSFT",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "MSFT-2024-1A-0010",
+          "score": 0.4262,
+          "ticker": "MSFT",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "MSFT-2024-1A-0018",
+          "score": 0.4117,
+          "ticker": "MSFT",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "MSFT-2024-1A-0014",
+          "score": 0.4042,
+          "ticker": "MSFT",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "MSFT-2024-1A-0008",
+          "score": 0.3978,
+          "ticker": "MSFT",
+          "fiscal_year": 2024,
+          "item": "1A"
+        }
+      ],
+      "first_relevant_rank": 1,
+      "latency_s": {
+        "total": 0.04287330000079237
+      }
+    },
+    {
+      "question_id": "dani-b6-034",
+      "query": "¿Qué negocios explicaron el aumento de 8.300 millones de dólares en el coste de ingresos de Microsoft en FY2024?",
+      "ticker": "MSFT",
+      "fiscal_year": 2024,
+      "item": "7",
+      "evidence_type": "numeric",
+      "evidence_span": {
+        "char_start": 14933,
+        "char_end": 15066,
+        "evidence_text": "Cost of revenue increased $8.3 billion or 13% driven by growth in Microsoft Cloud and Gaming, offset in part by a decline in Devices.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 28,
+      "relevant_chunk_ids": [
+        "MSFT-2024-7-0009"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "MSFT-2024-7-0001",
+          "score": 0.6675,
+          "ticker": "MSFT",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "MSFT-2024-7-0009",
+          "score": 0.6526,
+          "ticker": "MSFT",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "MSFT-2024-7-0010",
+          "score": 0.6051,
+          "ticker": "MSFT",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "MSFT-2024-7-0000",
+          "score": 0.5763,
+          "ticker": "MSFT",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "MSFT-2024-7-0011",
+          "score": 0.5466,
+          "ticker": "MSFT",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "MSFT-2024-7-0014",
+          "score": 0.532,
+          "ticker": "MSFT",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "MSFT-2024-7-0005",
+          "score": 0.5306,
+          "ticker": "MSFT",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "MSFT-2024-7-0012",
+          "score": 0.5173,
+          "ticker": "MSFT",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "MSFT-2024-7-0006",
+          "score": 0.5165,
+          "ticker": "MSFT",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "MSFT-2024-7-0019",
+          "score": 0.508,
+          "ticker": "MSFT",
+          "fiscal_year": 2024,
+          "item": "7"
+        }
+      ],
+      "first_relevant_rank": 2,
+      "latency_s": {
+        "total": 0.03784649999579415
+      }
+    },
+    {
+      "question_id": "dani-b6-035",
+      "query": "¿Con qué frecuencia supervisa Microsoft sus exposiciones en moneda extranjera y con qué propósito?",
+      "ticker": "MSFT",
+      "fiscal_year": 2024,
+      "item": "7A",
+      "evidence_type": "prose",
+      "evidence_span": {
+        "char_start": 425,
+        "char_end": 564,
+        "evidence_text": "We monitor our foreign currency exposures daily to maximize the economic effectiveness of our foreign currency positions, including hedges.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 1,
+      "relevant_chunk_ids": [
+        "MSFT-2024-7A-0000"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "MSFT-2024-7A-0000",
+          "score": 0.3464,
+          "ticker": "MSFT",
+          "fiscal_year": 2024,
+          "item": "7A"
+        }
+      ],
+      "first_relevant_rank": 1,
+      "latency_s": {
+        "total": 0.10678139998344705
+      }
+    },
+    {
+      "question_id": "dani-b6-036",
+      "query": "¿Cómo determina y reconoce Microsoft el coste de sus RSU y PSU?",
+      "ticker": "MSFT",
+      "fiscal_year": 2024,
+      "item": "8",
+      "evidence_type": "prose",
+      "evidence_span": {
+        "char_start": 24522,
+        "char_end": 24820,
+        "evidence_text": "Stock-Based Compensation\n\nCompensation cost for stock awards, which include restricted stock units (“RSUs”) and performance stock units (“PSUs”), is measured at the fair value on the grant date and recognized as expense, net of estimated forfeitures, over the related service or performance period.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 77,
+      "relevant_chunk_ids": [
+        "MSFT-2024-8-0015"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "MSFT-2024-8-0065",
+          "score": 0.5781,
+          "ticker": "MSFT",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "MSFT-2024-8-0072",
+          "score": 0.4994,
+          "ticker": "MSFT",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "MSFT-2024-8-0015",
+          "score": 0.4936,
+          "ticker": "MSFT",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "MSFT-2024-8-0008",
+          "score": 0.4592,
+          "ticker": "MSFT",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "MSFT-2024-8-0039",
+          "score": 0.441,
+          "ticker": "MSFT",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "MSFT-2024-8-0071",
+          "score": 0.4303,
+          "ticker": "MSFT",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "MSFT-2024-8-0069",
+          "score": 0.4284,
+          "ticker": "MSFT",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "MSFT-2024-8-0066",
+          "score": 0.4077,
+          "ticker": "MSFT",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "MSFT-2024-8-0011",
+          "score": 0.4066,
+          "ticker": "MSFT",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "MSFT-2024-8-0067",
+          "score": 0.394,
+          "ticker": "MSFT",
+          "fiscal_year": 2024,
+          "item": "8"
+        }
+      ],
+      "first_relevant_rank": 3,
+      "latency_s": {
+        "total": 0.048957299994071946
+      }
+    },
+    {
+      "question_id": "dani-b6-037",
+      "query": "¿Qué consecuencias podrían tener los defectos de diseño, fabricación o software que Microsoft no logre prevenir o detectar?",
+      "ticker": "MSFT",
+      "fiscal_year": 2025,
+      "item": "1A",
+      "evidence_type": "prose",
+      "evidence_span": {
+        "char_start": 41472,
+        "char_end": 41703,
+        "evidence_text": "Failure to prevent, detect, or address defects in design, manufacture, or associated software could result in recalls, safety alerts, or product liability claims, which could adversely affect our business and results of operations.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 32,
+      "relevant_chunk_ids": [
+        "MSFT-2025-1A-0019"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "MSFT-2025-1A-0019",
+          "score": 0.5341,
+          "ticker": "MSFT",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "MSFT-2025-1A-0012",
+          "score": 0.5167,
+          "ticker": "MSFT",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "MSFT-2025-1A-0010",
+          "score": 0.5043,
+          "ticker": "MSFT",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "MSFT-2025-1A-0022",
+          "score": 0.485,
+          "ticker": "MSFT",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "MSFT-2025-1A-0008",
+          "score": 0.484,
+          "ticker": "MSFT",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "MSFT-2025-1A-0005",
+          "score": 0.473,
+          "ticker": "MSFT",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "MSFT-2025-1A-0017",
+          "score": 0.4609,
+          "ticker": "MSFT",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "MSFT-2025-1A-0021",
+          "score": 0.455,
+          "ticker": "MSFT",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "MSFT-2025-1A-0026",
+          "score": 0.4426,
+          "ticker": "MSFT",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "MSFT-2025-1A-0013",
+          "score": 0.4348,
+          "ticker": "MSFT",
+          "fiscal_year": 2025,
+          "item": "1A"
+        }
+      ],
+      "first_relevant_rank": 1,
+      "latency_s": {
+        "total": 0.04978760000085458
+      }
+    },
+    {
+      "question_id": "dani-b6-038",
+      "query": "¿Qué crecimiento de Azure impulsó el aumento de los ingresos de productos de servidor y servicios cloud de Microsoft en FY2025?",
+      "ticker": "MSFT",
+      "fiscal_year": 2025,
+      "item": "7",
+      "evidence_type": "numeric",
+      "evidence_span": {
+        "char_start": 2461,
+        "char_end": 2583,
+        "evidence_text": "•\nServer products and cloud services revenue increased 23% driven by Azure and other cloud services revenue growth of 34%.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 26,
+      "relevant_chunk_ids": [
+        "MSFT-2025-7-0001"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "MSFT-2025-7-0001",
+          "score": 0.7049,
+          "ticker": "MSFT",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "MSFT-2025-7-0010",
+          "score": 0.6435,
+          "ticker": "MSFT",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "MSFT-2025-7-0007",
+          "score": 0.6317,
+          "ticker": "MSFT",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "MSFT-2025-7-0006",
+          "score": 0.5918,
+          "ticker": "MSFT",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "MSFT-2025-7-0009",
+          "score": 0.5829,
+          "ticker": "MSFT",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "MSFT-2025-7-0005",
+          "score": 0.5686,
+          "ticker": "MSFT",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "MSFT-2025-7-0008",
+          "score": 0.5578,
+          "ticker": "MSFT",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "MSFT-2025-7-0000",
+          "score": 0.549,
+          "ticker": "MSFT",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "MSFT-2025-7-0011",
+          "score": 0.5045,
+          "ticker": "MSFT",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "MSFT-2025-7-0013",
+          "score": 0.4921,
+          "ticker": "MSFT",
+          "fiscal_year": 2025,
+          "item": "7"
+        }
+      ],
+      "first_relevant_rank": 1,
+      "latency_s": {
+        "total": 0.04697549997945316
+      }
+    },
+    {
+      "question_id": "dani-b6-039",
+      "query": "¿De qué depende el riesgo de tipos de interés de los valores de renta fija que mantiene Microsoft?",
+      "ticker": "MSFT",
+      "fiscal_year": 2025,
+      "item": "7A",
+      "evidence_type": "prose",
+      "evidence_span": {
+        "char_start": 682,
+        "char_end": 814,
+        "evidence_text": "Interest Rate\n\nSecurities held in our fixed-income portfolio are subject to different interest rate risks based on their maturities.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 1,
+      "relevant_chunk_ids": [
+        "MSFT-2025-7A-0000"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "MSFT-2025-7A-0000",
+          "score": 0.4425,
+          "ticker": "MSFT",
+          "fiscal_year": 2025,
+          "item": "7A"
+        }
+      ],
+      "first_relevant_rank": 1,
+      "latency_s": {
+        "total": 0.10037209998699836
+      }
+    },
+    {
+      "question_id": "dani-b6-040",
+      "query": "¿Qué representa la provisión de Microsoft para cuentas de dudoso cobro?",
+      "ticker": "MSFT",
+      "fiscal_year": 2025,
+      "item": "8",
+      "evidence_type": "prose",
+      "evidence_span": {
+        "char_start": 20033,
+        "char_end": 20198,
+        "evidence_text": "We record an allowance for doubtful accounts which reflects our best estimate of credit losses inherent in the accounts receivable and financing receivable balances.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 75,
+      "relevant_chunk_ids": [
+        "MSFT-2025-8-0013"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "MSFT-2025-8-0071",
+          "score": 0.4987,
+          "ticker": "MSFT",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "MSFT-2025-8-0008",
+          "score": 0.4847,
+          "ticker": "MSFT",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "MSFT-2025-8-0039",
+          "score": 0.4803,
+          "ticker": "MSFT",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "MSFT-2025-8-0013",
+          "score": 0.4687,
+          "ticker": "MSFT",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "MSFT-2025-8-0070",
+          "score": 0.458,
+          "ticker": "MSFT",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "MSFT-2025-8-0011",
+          "score": 0.4375,
+          "ticker": "MSFT",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "MSFT-2025-8-0067",
+          "score": 0.4221,
+          "ticker": "MSFT",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "MSFT-2025-8-0057",
+          "score": 0.4178,
+          "ticker": "MSFT",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "MSFT-2025-8-0055",
+          "score": 0.4125,
+          "ticker": "MSFT",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "MSFT-2025-8-0066",
+          "score": 0.3939,
+          "ticker": "MSFT",
+          "fiscal_year": 2025,
+          "item": "8"
+        }
+      ],
+      "first_relevant_rank": 4,
+      "latency_s": {
+        "total": 0.037766800000099465
+      }
+    },
+    {
+      "question_id": "dani-b6-041",
+      "query": "¿Qué efectos comerciales y financieros puede provocar un defecto detectado tras iniciar los envíos de un producto de NVIDIA?",
+      "ticker": "NVDA",
+      "fiscal_year": 2024,
+      "item": "1A",
+      "evidence_type": "prose",
+      "evidence_span": {
+        "char_start": 28714,
+        "char_end": 29198,
+        "evidence_text": "An error or defect in new products, releases or related software drivers after commencement of commercial shipments could result in failure to achieve market acceptance, loss of design wins, temporary or permanent withdrawal from a product or market and harm to our relationships with existing and prospective customers and partners and consumers’ perceptions of our brand, which would in turn negatively impact our business operations, gross margin, revenue and/or financial results.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 48,
+      "relevant_chunk_ids": [
+        "NVDA-2024-1A-0013"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "NVDA-2024-1A-0037",
+          "score": 0.5859,
+          "ticker": "NVDA",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "NVDA-2024-1A-0033",
+          "score": 0.5775,
+          "ticker": "NVDA",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "NVDA-2024-1A-0019",
+          "score": 0.5586,
+          "ticker": "NVDA",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "NVDA-2024-1A-0035",
+          "score": 0.5417,
+          "ticker": "NVDA",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "NVDA-2024-1A-0012",
+          "score": 0.5233,
+          "ticker": "NVDA",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "NVDA-2024-1A-0034",
+          "score": 0.5183,
+          "ticker": "NVDA",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "NVDA-2024-1A-0013",
+          "score": 0.5093,
+          "ticker": "NVDA",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "NVDA-2024-1A-0038",
+          "score": 0.4803,
+          "ticker": "NVDA",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "NVDA-2024-1A-0002",
+          "score": 0.476,
+          "ticker": "NVDA",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "NVDA-2024-1A-0046",
+          "score": 0.4736,
+          "ticker": "NVDA",
+          "fiscal_year": 2024,
+          "item": "1A"
+        }
+      ],
+      "first_relevant_rank": 7,
+      "latency_s": {
+        "total": 0.038626299996394664
+      }
+    },
+    {
+      "question_id": "dani-b6-042",
+      "query": "¿Qué factores elevaron principalmente el margen bruto de NVIDIA en FY2024?",
+      "ticker": "NVDA",
+      "fiscal_year": 2024,
+      "item": "7",
+      "evidence_type": "prose",
+      "evidence_span": {
+        "char_start": 12337,
+        "char_end": 12490,
+        "evidence_text": "Gross margin increased in fiscal year 2024, primarily driven by Data Center revenue growth and lower net inventory provisions as a percentage of revenue.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 26,
+      "relevant_chunk_ids": [
+        "NVDA-2024-7-0006"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "NVDA-2024-7-0006",
+          "score": 0.707,
+          "ticker": "NVDA",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "NVDA-2024-7-0007",
+          "score": 0.6288,
+          "ticker": "NVDA",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "NVDA-2024-7-0015",
+          "score": 0.6122,
+          "ticker": "NVDA",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "NVDA-2024-7-0000",
+          "score": 0.5874,
+          "ticker": "NVDA",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "NVDA-2024-7-0014",
+          "score": 0.5239,
+          "ticker": "NVDA",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "NVDA-2024-7-0008",
+          "score": 0.5228,
+          "ticker": "NVDA",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "NVDA-2024-7-0017",
+          "score": 0.4769,
+          "ticker": "NVDA",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "NVDA-2024-7-0018",
+          "score": 0.4714,
+          "ticker": "NVDA",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "NVDA-2024-7-0013",
+          "score": 0.459,
+          "ticker": "NVDA",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "NVDA-2024-7-0022",
+          "score": 0.3942,
+          "ticker": "NVDA",
+          "fiscal_year": 2024,
+          "item": "7"
+        }
+      ],
+      "first_relevant_rank": 1,
+      "latency_s": {
+        "total": 0.041882599995005876
+      }
+    },
+    {
+      "question_id": "dani-b6-043",
+      "query": "¿Qué variación de valor estimó NVIDIA para su cartera ante un desplazamiento paralelo de medio punto porcentual en la curva de tipos?",
+      "ticker": "NVDA",
+      "fiscal_year": 2024,
+      "item": "7A",
+      "evidence_type": "numeric",
+      "evidence_span": {
+        "char_start": 465,
+        "char_end": 625,
+        "evidence_text": "According to our analysis, parallel shifts in the yield curve of plus or minus 0.5% would result in a change in fair value for these investments of $93 million.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 2,
+      "relevant_chunk_ids": [
+        "NVDA-2024-7A-0000"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "NVDA-2024-7A-0000",
+          "score": 0.4005,
+          "ticker": "NVDA",
+          "fiscal_year": 2024,
+          "item": "7A"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "NVDA-2024-7A-0001",
+          "score": 0.2578,
+          "ticker": "NVDA",
+          "fiscal_year": 2024,
+          "item": "7A"
+        }
+      ],
+      "first_relevant_rank": 1,
+      "latency_s": {
+        "total": 0.09000389999710023
+      }
+    },
+    {
+      "question_id": "dani-b6-044",
+      "query": "¿Cuál era el inventario total de NVIDIA al cierre de FY2024 y qué provisión por inventario registró ese ejercicio?",
+      "ticker": "NVDA",
+      "fiscal_year": 2024,
+      "item": "8",
+      "evidence_type": "table_adjacent",
+      "evidence_span": {
+        "char_start": 67307,
+        "char_end": 67679,
+        "evidence_text": "Certain balance sheet components are as follows:\n\nJan 28, 2024\t\tJan 29, 2023\n(In millions)\nInventories (1) :\nRaw materials\t$\t1,719\t\t\t$\t2,430\nWork in-process\t1,505\t\t\t466\nFinished goods\t2,058\t\t\t2,263\nTotal inventories\t$\t5,282\t\t\t$\t5,159\n\n(1) In fiscal years 2024 and 2023, we recorded an inventory provision of $774 million and $1.0 billion, respectively, in cost of revenue.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 74,
+      "relevant_chunk_ids": [
+        "NVDA-2024-8-0042"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "NVDA-2024-8-0042",
+          "score": 0.6215,
+          "ticker": "NVDA",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "NVDA-2024-8-0009",
+          "score": 0.6135,
+          "ticker": "NVDA",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "NVDA-2024-8-0015",
+          "score": 0.6005,
+          "ticker": "NVDA",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "NVDA-2024-8-0045",
+          "score": 0.5982,
+          "ticker": "NVDA",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "NVDA-2024-8-0012",
+          "score": 0.5821,
+          "ticker": "NVDA",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "NVDA-2024-8-0007",
+          "score": 0.5744,
+          "ticker": "NVDA",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "NVDA-2024-8-0006",
+          "score": 0.5622,
+          "ticker": "NVDA",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "NVDA-2024-8-0050",
+          "score": 0.5575,
+          "ticker": "NVDA",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "NVDA-2024-8-0053",
+          "score": 0.5527,
+          "ticker": "NVDA",
+          "fiscal_year": 2024,
+          "item": "8"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "NVDA-2024-8-0000",
+          "score": 0.549,
+          "ticker": "NVDA",
+          "fiscal_year": 2024,
+          "item": "8"
+        }
+      ],
+      "first_relevant_rank": 1,
+      "latency_s": {
+        "total": 0.03823609999381006
+      }
+    },
+    {
+      "question_id": "dani-b6-045",
+      "query": "¿Cómo podrían afectar a NVIDIA las tensiones geopolíticas en las zonas donde concentra la fabricación y el ensamblaje?",
+      "ticker": "NVDA",
+      "fiscal_year": 2025,
+      "item": "1A",
+      "evidence_type": "prose",
+      "evidence_span": {
+        "char_start": 42621,
+        "char_end": 43038,
+        "evidence_text": "Worldwide geopolitical tensions and conflicts, including but not limited to China, Hong Kong, Israel, Korea and Taiwan where the manufacture of our product components and final assembly of our products are concentrated may result in changing regulatory requirements, and other disruptions that could impact our operations and operating strategies, product\n\ndemand, access to global markets, hiring, and profitability.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 49,
+      "relevant_chunk_ids": [
+        "NVDA-2025-1A-0018"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "NVDA-2025-1A-0031",
+          "score": 0.6118,
+          "ticker": "NVDA",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "NVDA-2025-1A-0037",
+          "score": 0.5733,
+          "ticker": "NVDA",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "NVDA-2025-1A-0018",
+          "score": 0.5628,
+          "ticker": "NVDA",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "NVDA-2025-1A-0038",
+          "score": 0.558,
+          "ticker": "NVDA",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "NVDA-2025-1A-0028",
+          "score": 0.5473,
+          "ticker": "NVDA",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "NVDA-2025-1A-0032",
+          "score": 0.5223,
+          "ticker": "NVDA",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "NVDA-2025-1A-0034",
+          "score": 0.5097,
+          "ticker": "NVDA",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "NVDA-2025-1A-0008",
+          "score": 0.4943,
+          "ticker": "NVDA",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "NVDA-2025-1A-0029",
+          "score": 0.4884,
+          "ticker": "NVDA",
+          "fiscal_year": 2025,
+          "item": "1A"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "NVDA-2025-1A-0036",
+          "score": 0.487,
+          "ticker": "NVDA",
+          "fiscal_year": 2025,
+          "item": "1A"
+        }
+      ],
+      "first_relevant_rank": 3,
+      "latency_s": {
+        "total": 0.04243289999430999
+      }
+    },
+    {
+      "question_id": "dani-b6-046",
+      "query": "¿Qué factores explicaron el aumento interanual de los gastos operativos de NVIDIA en FY2025?",
+      "ticker": "NVDA",
+      "fiscal_year": 2025,
+      "item": "7",
+      "evidence_type": "prose",
+      "evidence_span": {
+        "char_start": 13813,
+        "char_end": 14077,
+        "evidence_text": "Operating expenses for fiscal year 2025 were up 45% from a year ago, driven by higher compensation and benefits expenses due to employee growth and compensation increases, and engineering development, compute and infrastructure costs for new product introductions.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 23,
+      "relevant_chunk_ids": [
+        "NVDA-2025-7-0007"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "NVDA-2025-7-0012",
+          "score": 0.6536,
+          "ticker": "NVDA",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "NVDA-2025-7-0016",
+          "score": 0.5861,
+          "ticker": "NVDA",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "NVDA-2025-7-0007",
+          "score": 0.5857,
+          "ticker": "NVDA",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "NVDA-2025-7-0013",
+          "score": 0.5836,
+          "ticker": "NVDA",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "NVDA-2025-7-0000",
+          "score": 0.5811,
+          "ticker": "NVDA",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "NVDA-2025-7-0004",
+          "score": 0.4932,
+          "ticker": "NVDA",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "NVDA-2025-7-0001",
+          "score": 0.4919,
+          "ticker": "NVDA",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "NVDA-2025-7-0019",
+          "score": 0.4844,
+          "ticker": "NVDA",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "NVDA-2025-7-0015",
+          "score": 0.4814,
+          "ticker": "NVDA",
+          "fiscal_year": 2025,
+          "item": "7"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "NVDA-2025-7-0022",
+          "score": 0.4505,
+          "ticker": "NVDA",
+          "fiscal_year": 2025,
+          "item": "7"
+        }
+      ],
+      "first_relevant_rank": 3,
+      "latency_s": {
+        "total": 0.04728389999945648
+      }
+    },
+    {
+      "question_id": "dani-b6-047",
+      "query": "¿Qué impacto adverso antes de impuestos habría tenido para NVIDIA un movimiento del 10 % aplicado a sus contratos de cobertura de balance al 26 de enero de 2025?",
+      "ticker": "NVDA",
+      "fiscal_year": 2025,
+      "item": "7A",
+      "evidence_type": "numeric",
+      "evidence_span": {
+        "char_start": 2581,
+        "char_end": 2837,
+        "evidence_text": "If an adverse 10% foreign exchange rate change was applied to our balance sheet hedging contracts, it would have resulted in an adverse impact on income before taxes of $129 million and $60 million as of January 26, 2025 and January 28, 2024, respectively.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 2,
+      "relevant_chunk_ids": [
+        "NVDA-2025-7A-0001"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "NVDA-2025-7A-0001",
+          "score": 0.3887,
+          "ticker": "NVDA",
+          "fiscal_year": 2025,
+          "item": "7A"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "NVDA-2025-7A-0000",
+          "score": 0.3372,
+          "ticker": "NVDA",
+          "fiscal_year": 2025,
+          "item": "7A"
+        }
+      ],
+      "first_relevant_rank": 1,
+      "latency_s": {
+        "total": 0.09973710001213476
+      }
+    },
+    {
+      "question_id": "dani-b6-048",
+      "query": "¿Cómo estima NVIDIA la reducción de ingresos por devoluciones de productos?",
+      "ticker": "NVDA",
+      "fiscal_year": 2025,
+      "item": "8",
+      "evidence_type": "prose",
+      "evidence_span": {
+        "char_start": 22340,
+        "char_end": 22564,
+        "evidence_text": "For products sold with a right of return, we record a reduction to revenue by establishing a sales return allowance for estimated product returns at the time revenue is recognized, based primarily on historical return rates.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 74,
+      "relevant_chunk_ids": [
+        "NVDA-2025-8-0016"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "NVDA-2025-8-0006",
+          "score": 0.6012,
+          "ticker": "NVDA",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "NVDA-2025-8-0007",
+          "score": 0.5725,
+          "ticker": "NVDA",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "NVDA-2025-8-0016",
+          "score": 0.5674,
+          "ticker": "NVDA",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "NVDA-2025-8-0051",
+          "score": 0.5631,
+          "ticker": "NVDA",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "NVDA-2025-8-0015",
+          "score": 0.5591,
+          "ticker": "NVDA",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "NVDA-2025-8-0055",
+          "score": 0.5487,
+          "ticker": "NVDA",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "NVDA-2025-8-0049",
+          "score": 0.5473,
+          "ticker": "NVDA",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "NVDA-2025-8-0041",
+          "score": 0.5341,
+          "ticker": "NVDA",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "NVDA-2025-8-0009",
+          "score": 0.5261,
+          "ticker": "NVDA",
+          "fiscal_year": 2025,
+          "item": "8"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "NVDA-2025-8-0065",
+          "score": 0.5235,
+          "ticker": "NVDA",
+          "fiscal_year": 2025,
+          "item": "8"
+        }
+      ],
+      "first_relevant_rank": 3,
+      "latency_s": {
+        "total": 0.04808579999371432
+      }
+    }
+  ]
+}

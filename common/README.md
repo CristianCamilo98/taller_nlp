@@ -18,6 +18,72 @@ Si no existe esa variable se prueban, en este orden, `repo/dataset` y
 - `corpus_miax_2026/{secciones.jsonl,chunks.jsonl,xbrl_facts.parquet}`
 - `indice_faiss/{corpus.faiss,chunks_meta.parquet}`
 
+### Perfiles de retrieval denso
+
+El perfil por defecto sigue siendo el baseline BGE y no requiere ninguna
+variable nueva:
+
+```powershell
+$env:MIAX_RETRIEVAL_PROFILE = 'bge-small-baseline'
+```
+
+El perfil Qwen se selecciona explícitamente con:
+
+```powershell
+$env:MIAX_RETRIEVAL_PROFILE = 'qwen3-06b'
+```
+
+Qwen resuelve un índice separado en `indice_faiss_qwen3_06b/`. Ese directorio
+debe contener `corpus.faiss`, `chunks_meta.parquet` e `index_manifest.json`.
+Si ese bundle ya existe, basta seleccionar el perfil; el runtime valida su
+manifest y sus hashes antes de cargar Qwen:
+
+```powershell
+$env:MIAX_RETRIEVAL_PROFILE = 'qwen3-06b'
+```
+
+En un clon limpio con el dataset oficial original, el bundle se construye con:
+
+```powershell
+$env:MIAX_DATASET_DIR = 'C:\ruta\al\dataset'
+$env:HF_HUB_OFFLINE = '1'
+python -m common.scripts.build_qwen_index
+```
+
+El modelo exacto debe estar previamente disponible en la caché local. El
+builder usa `local_files_only=True`: no descarga modelos ni sobrescribe un
+bundle existente. Codifica los 1.749 documentos raw en su orden oficial,
+reafirma L2 en float32, crea `IndexFlatIP`, copia sin alterar el metadata
+canónico y registra los hashes reales. El manifest tiene este contrato:
+
+```json
+{
+  "schema_version": 1,
+  "profile": "qwen3-06b",
+  "model_name": "Qwen/Qwen3-Embedding-0.6B",
+  "model_revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+  "embedding_dimension": 1024,
+  "pooling": "lasttoken",
+  "include_prompt": true,
+  "normalize": true,
+  "document_format": "raw",
+  "query_template": "Instruct: Given a financial question, retrieve relevant passages from SEC 10-K filings that answer the question.\nQuery:{query}",
+  "index_type": "IndexFlatIP",
+  "ntotal": 1749,
+  "faiss_sha256": "<SHA-256 real del corpus.faiss generado>",
+  "chunks_sha256": "388ff3671742c2248e8f5cb1c75afbc786edfa0dc6f72a62d1fadf2310ec82b2",
+  "chunks_meta_sha256": "fbd22360e517e5da250b18f0c95dbc9ad704b41902cedb1154747fde0be16fd9"
+}
+```
+
+El SHA `f2180a18b804b1e767e34d1ad84bed3cb3af07c9206e488f3fd6d3cfd872d2de`
+identifica el índice congelado usado para validar esta integración. Una
+reconstrucción reproducible puede tener otro SHA por diferencias numéricas
+entre hardware, pero su archivo debe coincidir con el SHA que declara su propio
+manifest. Modelo, revisión, pooling, dimensión, normalización, formato de
+documentos, hashes de corpus/metadata, tipo de índice y `ntotal` no se relajan.
+El runtime falla antes de cargar Qwen si cualquiera de ellos no coincide.
+
 Una variable definida pero incorrecta produce un error explícito; no se cae
 silenciosamente en otra copia del dataset.
 

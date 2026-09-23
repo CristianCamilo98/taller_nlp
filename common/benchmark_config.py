@@ -4,6 +4,11 @@ from __future__ import annotations
 
 from dataclasses import asdict, dataclass
 
+from common.retrieval.profiles import get_embedding_profile
+
+
+_EMBEDDING_PROFILE = get_embedding_profile()
+
 
 @dataclass(frozen=True)
 class BenchmarkConfig:
@@ -18,12 +23,14 @@ class BenchmarkConfig:
     pause_between_questions_s: float = 5.0
     retrieval_k: int = 5
     prompt_version: str = "common-v2-2026-09-19"
-    embedding_model: str = "BAAI/bge-small-en-v1.5"
-    embedding_query_prefix: str = (
-        "Represent this sentence for searching relevant passages: "
-    )
-    embedding_normalize: bool = True
-    faiss_index_type: str = "IndexFlatIP"
+    retrieval_profile: str = _EMBEDDING_PROFILE.name
+    embedding_model: str = _EMBEDDING_PROFILE.model_name
+    embedding_revision: str | None = _EMBEDDING_PROFILE.model_revision
+    embedding_query_prefix: str = _EMBEDDING_PROFILE.query_prefix
+    embedding_dimension: int = _EMBEDDING_PROFILE.dimension
+    embedding_pooling: str = _EMBEDDING_PROFILE.pooling
+    embedding_normalize: bool = _EMBEDDING_PROFILE.normalize_embeddings
+    faiss_index_type: str = _EMBEDDING_PROFILE.index_type
     metadata_filtering: str = "post-filter sobre ranking global"
 
     def as_dict(self) -> dict:
