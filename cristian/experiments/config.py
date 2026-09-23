@@ -55,14 +55,54 @@ class AgentSettings:
     eval_max_workers: int = 5  # preguntas en paralelo en evaluar()
     retrieval_k: int = 5
     prompt_version: str = "cristian-exp-v0"
-    embedding_model: str = "BAAI/bge-small-en-v1.5"
+    embedding_model: str = "openrouter:google/gemini-embedding-2"
+    # embedding_model: str = "BAAI/bge-small-en-v1.5"
+    # embedding_model: str = "openrouter:perplexity/pplx-embed-v1-0.6b"
     embedding_query_prefix: str = (
         "Represent this sentence for searching relevant passages: "
     )
+    embedding_batch_size: int = 8
     provider: str = "openrouter"
 
 
 SETTINGS = AgentSettings()
+
+
+def embedding_model_id(model: str | None = None) -> str:
+    """Id que entiende el proveedor (sin el prefijo ``openrouter:``)."""
+    value = SETTINGS.embedding_model if model is None else model
+    return value.removeprefix("openrouter:")
+
+
+def is_openrouter_embedding(model: str | None = None) -> bool:
+    value = SETTINGS.embedding_model if model is None else model
+    return value.startswith("openrouter:")
+
+
+def embedding_slug(model: str | None = None) -> str:
+    return embedding_model_id(model).replace("/", "_").replace(":", "_")
+
+
+def embedding_query_prefix_efectivo(model: str | None = None) -> str:
+    """Prefijo BGE solo aplica al retriever local, no a OpenRouter."""
+    if is_openrouter_embedding(model):
+        return ""
+    return SETTINGS.embedding_query_prefix
+
+
+def embedding_index_dir() -> Path:
+    return _EXPERIMENTS_ROOT / "artifacts" / "indices"
+
+
+def embedding_index_path(model: str | None = None) -> Path:
+    """FAISS del modelo elegido: docente si BGE, artifacts/ si OpenRouter."""
+    if not is_openrouter_embedding(model):
+        return get_dataset_paths().faiss_index
+    return embedding_index_dir() / f"{embedding_slug(model)}.faiss"
+
+
+def embedding_manifest_path(model: str | None = None) -> Path:
+    return embedding_index_dir() / f"{embedding_slug(model)}.manifest.json"
 
 
 def dataset_candidates() -> tuple[Path, ...]:

@@ -35,7 +35,13 @@ _REPO_ROOT = Path(__file__).resolve().parents[2]
 if str(_REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(_REPO_ROOT))
 
-from cristian.experiments.config import SETTINGS, get_dataset_paths
+from cristian.experiments.config import (
+    SETTINGS,
+    embedding_index_path,
+    embedding_query_prefix_efectivo,
+    get_dataset_paths,
+    is_openrouter_embedding,
+)
 
 _print_lock = threading.Lock()
 
@@ -68,9 +74,13 @@ def _commit_sha() -> str | None:
 
 def _artifact_hashes() -> dict[str, str]:
     paths = get_dataset_paths()
-    return {
+    hashes = {
         name: _sha256(path) for name, path in paths.required_files().items()
     }
+    index_path = embedding_index_path()
+    if index_path.resolve() != paths.faiss_index.resolve() and index_path.is_file():
+        hashes[index_path.name] = _sha256(index_path)
+    return hashes
 
 
 def _is_rate_limit(error: Exception) -> bool:
@@ -218,7 +228,10 @@ def _construir_fila(
         "retrieval_config": {
             "tipo": "dense_faiss_con_postfiltrado_metadata",
             "embedding": SETTINGS.embedding_model,
-            "query_prefix": SETTINGS.embedding_query_prefix,
+            "backend": (
+                "openrouter" if is_openrouter_embedding() else "local"
+            ),
+            "query_prefix": embedding_query_prefix_efectivo(),
             "k": SETTINGS.retrieval_k,
             "query_rewriting": False,
             "bm25": False,
@@ -316,7 +329,8 @@ def evaluar(
     from cristian.experiments.tools import _load_sections
     from cristian.experiments.xbrl import load_xbrl
 
-    print("Precargando retrieval (FAISS + BGE) y corpus/XBRL…")
+    print("Precargando retrieval (FAISS + embeddings) y corpus/XBRL…")
+    print(f"  embedding_model={SETTINGS.embedding_model}")
     precargar_retrieval()
     load_xbrl()
     _load_sections()

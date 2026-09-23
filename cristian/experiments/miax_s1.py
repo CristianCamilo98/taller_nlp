@@ -16,10 +16,11 @@ las dos están aquí por el mismo motivo: **no son el contenido de la sesión 1*
 
 ## Lo único que hay que saber de `buscar()`
 
-El prefijo de consulta de BGE. Los modelos BGE piden un prefijo en la
-**consulta** y no en los fragmentos indexados. Omitirlo no da ningún error:
-simplemente recupera peor. Está documentado en `indice/MANIFEST.md` y es la
-clase de fallo silencioso que la sesión 2 enseña a detectar.
+El modelo lo elige ``SETTINGS.embedding_model``. Si es BGE local, la consulta
+lleva el prefijo documentado en ``indice/MANIFEST.md``. Si es OpenRouter
+(p. ej. ``google/gemini-embedding-2``), no hay prefijo: se usa ``input_type``
+``search_query`` / ``search_document``. Mezclar un FAISS de un modelo con
+el encoder de otro no da un error obvio de tipos: recupera basura.
 """
 
 from __future__ import annotations
@@ -29,14 +30,13 @@ import json
 import threading
 from pathlib import Path
 
-from cristian.experiments.config import get_dataset_paths
-
-# ---------------------------------------------------------------------------
-# Constantes del índice. Tienen que coincidir con `indice/MANIFEST.md`.
-# ---------------------------------------------------------------------------
-MODELO_EMBEDDINGS = "BAAI/bge-small-en-v1.5"
-PREFIJO_CONSULTA_BGE = (
-    "Represent this sentence for searching relevant passages: "
+from cristian.experiments.config import (
+    SETTINGS,
+    embedding_index_path,
+    embedding_manifest_path,
+    embedding_model_id,
+    get_dataset_paths,
+    is_openrouter_embedding,
 )
 
 RUTA_TRAZA_DEMO = Path(__file__).resolve().parent / "demo_traza.json"
@@ -44,45 +44,73 @@ RUTA_TRAZA_DEMO = Path(__file__).resolve().parent / "demo_traza.json"
 _indice_lock = threading.Lock()
 
 
+def _mensaje_indice_ausente(model: str, index_path: Path) -> str:
+    return (
+        f"No hay índice FAISS para {model} en {index_path}. "
+        "Genera primero: python -m cristian.experiments.indexar"
+    )
+
+
 # ---------------------------------------------------------------------------
 # Búsqueda densa — el cuerpo de `search_filings`
 # ---------------------------------------------------------------------------
-@functools.lru_cache(maxsize=1)
-def _cargar_indice():
-    """Carga real del índice FAISS + BGE (una sola vez en el proceso)."""
+@functools.lru_cache(maxsize=4)
+def _cargar_indice_para(model: str):
+    """Carga FAISS + encoder del ``embedding_model`` (una vez por modelo)."""
     import faiss
     import pandas as pd
-    from sentence_transformers import SentenceTransformer
+
+    from cristian.experiments.embeddings import crear_encoder
 
     paths = get_dataset_paths()
-    indice = faiss.read_index(str(paths.faiss_index))
+    index_path = embedding_index_path(model)
+    if not index_path.is_file():
+        raise RuntimeError(_mensaje_indice_ausente(model, index_path))
+
+    indice = faiss.read_index(str(index_path))
     meta = pd.read_parquet(paths.chunks_meta)
 
     if indice.ntotal != len(meta):
         raise RuntimeError(
             f"El índice tiene {indice.ntotal} vectores y los metadatos "
-            f"{len(meta)} filas. Están desalineados: vuelve a descomprimir "
-            "los dos ZIP en la misma carpeta."
+            f"{len(meta)} filas. Están desalineados."
         )
 
-    codificador = SentenceTransformer(MODELO_EMBEDDINGS)
-    return indice, meta, codificador
+    if is_openrouter_embedding(model):
+        manifest_path = embedding_manifest_path(model)
+        if manifest_path.is_file():
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+            expected = embedding_model_id(model)
+            stored = manifest.get("model")
+            if stored and stored != expected:
+                raise RuntimeError(
+                    f"El manifiesto de {index_path} es del modelo {stored}, "
+                    f"pero SETTINGS pide {expected}. Regenera con "
+                    "python -m cristian.experiments.indexar --force"
+                )
+
+    encoder = crear_encoder(model)
+    return indice, meta, encoder
 
 
 def _indice():
-    """Índice, metadatos y codificador compartidos entre hilos.
+    """Índice, metadatos y encoder compartidos entre hilos.
 
-    ``lru_cache`` solo memoiza el resultado: si 5 workers entran a la vez
-    antes de que termine la primera carga, todos cargarían pesos. El lock
+    ``lru_cache`` solo memoiza el resultado: si varios workers entran a la
+    vez antes de que termine la primera carga, todos recargarían. El lock
     serializa esa primera carga.
     """
     with _indice_lock:
-        return _cargar_indice()
+        return _cargar_indice_para(SETTINGS.embedding_model)
 
 
 def precargar_retrieval() -> None:
-    """Fuerza la carga de FAISS/BGE en el hilo principal (antes del pool)."""
+    """Fuerza la carga de FAISS + encoder en el hilo principal."""
     _indice()
+
+
+def clear_retrieval_cache() -> None:
+    _cargar_indice_para.cache_clear()
 
 
 def buscar(
@@ -104,13 +132,17 @@ def buscar(
     resultado; con un corpus grande habría que filtrar antes, y esa es una de
     las conversaciones del día 17.
     """
-    indice, meta, codificador = _indice()
+    indice, meta, encoder = _indice()
 
-    vector = codificador.encode(
-        [PREFIJO_CONSULTA_BGE + query],   # el prefijo, SOLO en la consulta
-        normalize_embeddings=True,
-        convert_to_numpy=True,
-    ).astype("float32")
+    vector = encoder.encode_query(query)
+    if vector.ndim == 1:
+        vector = vector.reshape(1, -1)
+    if vector.shape[1] != indice.d:
+        raise RuntimeError(
+            f"La query tiene dim {vector.shape[1]} y el índice {indice.d}. "
+            "El embedding_model de SETTINGS no coincide con el FAISS cargado. "
+            "Regenera: python -m cristian.experiments.indexar --force"
+        )
 
     puntuaciones, posiciones = indice.search(vector, indice.ntotal)
 
