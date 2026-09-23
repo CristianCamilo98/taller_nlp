@@ -1,0 +1,139 @@
+{
+  "schema_version": "1",
+  "source": {
+    "golden_sha256": "023554dc53608eb4c56b4dd64e6e06d02ac8306540014d5e83609e76431893c9",
+    "sections_sha256": "823272082bcf84fb14f6de415d087f2ee708b77dc475bcf3c3ff1a2d1e487dd1",
+    "chunks_sha256": "388ff3671742c2248e8f5cb1c75afbc786edfa0dc6f72a62d1fadf2310ec82b2"
+  },
+  "policy": {
+    "offset_semantics": "Python character slice: char_start inclusive, char_end exclusive",
+    "chunk_offset_semantics": "section_text[inicio_car:fin_car] == chunk_text; fin_car exclusive",
+    "matching_order": [
+      "exact_literal",
+      "whitespace_normalized_with_original_offset_map"
+    ],
+    "whitespace_normalization": "collapse consecutive Unicode whitespace to one ASCII space and strip leading/trailing whitespace",
+    "relevance_rule": "full_containment",
+    "full_containment": "chunk_start <= evidence_start and chunk_end >= evidence_end"
+  },
+  "summary": {
+    "n_questions": 6,
+    "exact_unique_matches": 6,
+    "normalized_matches": 0,
+    "ambiguous_matches": 0,
+    "not_found": 0,
+    "evidence_with_full_containment": 6,
+    "split_evidence": 0,
+    "e0_relevant_set_parity": 6
+  },
+  "evidence": [
+    {
+      "question_id": "g3-008",
+      "ticker": "NVDA",
+      "fiscal_year": 2025,
+      "item": "1A",
+      "evidence_text": "As a result, excessive or shifting export controls may negatively impact demand for our products and services not only in China, but also in other markets, such as Europe, Latin America, and Southeast Asia.",
+      "char_start": 85654,
+      "char_end": 85860,
+      "matching_method": "exact_literal",
+      "original_relevant_chunk_ids": [
+        "NVDA-2025-1A-0038"
+      ],
+      "e0_relevant_chunk_ids": [
+        "NVDA-2025-1A-0038"
+      ],
+      "partial_overlap_chunk_ids": [],
+      "same_e0_relevant_set": true
+    },
+    {
+      "question_id": "g3-009",
+      "ticker": "MSFT",
+      "fiscal_year": 2024,
+      "item": "7A",
+      "evidence_text": "Certain forecasted transactions, assets, and liabilities are exposed to foreign currency risk.",
+      "char_start": 330,
+      "char_end": 424,
+      "matching_method": "exact_literal",
+      "original_relevant_chunk_ids": [
+        "MSFT-2024-7A-0000"
+      ],
+      "e0_relevant_chunk_ids": [
+        "MSFT-2024-7A-0000"
+      ],
+      "partial_overlap_chunk_ids": [],
+      "same_e0_relevant_set": true
+    },
+    {
+      "question_id": "g3-010",
+      "ticker": "AAPL",
+      "fiscal_year": 2025,
+      "item": "7",
+      "evidence_text": "Services net sales increased during 2025 compared to 2024 primarily due to higher net sales from advertising, the App Store and cloud services.",
+      "char_start": 6437,
+      "char_end": 6580,
+      "matching_method": "exact_literal",
+      "original_relevant_chunk_ids": [
+        "AAPL-2025-7-0003"
+      ],
+      "e0_relevant_chunk_ids": [
+        "AAPL-2025-7-0003"
+      ],
+      "partial_overlap_chunk_ids": [],
+      "same_e0_relevant_set": true
+    },
+    {
+      "question_id": "g3-011",
+      "ticker": "META",
+      "fiscal_year": 2024,
+      "item": "1A",
+      "evidence_text": "the interpretation and enforcement of the GDPR, as well as the imposition and amount of penalties for non-compliance, are subject to significant uncertainty",
+      "char_start": 130644,
+      "char_end": 130800,
+      "matching_method": "exact_literal",
+      "original_relevant_chunk_ids": [
+        "META-2024-1A-0057"
+      ],
+      "e0_relevant_chunk_ids": [
+        "META-2024-1A-0057"
+      ],
+      "partial_overlap_chunk_ids": [],
+      "same_e0_relevant_set": true
+    },
+    {
+      "question_id": "g3-012",
+      "ticker": "GOOGL",
+      "fiscal_year": 2025,
+      "item": "7A",
+      "evidence_text": "International revenues, foreign-denominated monetary assets and liabilities, and investments in foreign subsidiaries expose us to the risk of fluctuations in foreign exchange rates against the US dollar.",
+      "char_start": 296,
+      "char_end": 499,
+      "matching_method": "exact_literal",
+      "original_relevant_chunk_ids": [
+        "GOOGL-2025-7A-0000"
+      ],
+      "e0_relevant_chunk_ids": [
+        "GOOGL-2025-7A-0000"
+      ],
+      "partial_overlap_chunk_ids": [],
+      "same_e0_relevant_set": true
+    },
+    {
+      "question_id": "g3-013",
+      "ticker": "AMZN",
+      "fiscal_year": 2024,
+      "item": "8",
+      "evidence_text": "We utilize a two-step approach to recognizing and measuring uncertain income tax positions (income tax contingencies).",
+      "char_start": 36440,
+      "char_end": 36558,
+      "matching_method": "exact_literal",
+      "original_relevant_chunk_ids": [
+        "AMZN-2024-8-0023"
+      ],
+      "e0_relevant_chunk_ids": [
+        "AMZN-2024-8-0023"
+      ],
+      "partial_overlap_chunk_ids": [],
+      "same_e0_relevant_set": true
+    }
+  ]
+}
