@@ -9,6 +9,7 @@ import json
 import sys
 import time
 from pathlib import Path
+import os
 
 RAIZ = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(RAIZ))
@@ -29,7 +30,7 @@ from evaluator_span import (
 
 
 BENCHMARK_PATH = Path(__file__).resolve().parent / "data" / "retrieval_benchmark_v2.jsonl"
-OUTPUT_PATH = Path(__file__).resolve().parents[2] / "results" / "final" / "reranking_canonical_R1.json"
+OUTPUT_PATH = Path(__file__).resolve().parents[2] / "results" / "final" / "frankestein_Qwen3_BGE.json"
 
 
 def _top20_denso(question: str, gt: QuestionGroundTruth) -> tuple[list[dict], float]:
@@ -154,8 +155,11 @@ def run() -> dict:
         "config": {
             "benchmark_path": str(BENCHMARK_PATH.relative_to(RAIZ)),
             "benchmark_sha256": "6BD044EF3135686942B42CC9A654019D43675C1ACB2629ACE4B11274FFD80B8C",
-            "reranker_model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
-            "reranker_revision": "233902d25c440f23af6f7d6e94d2946bac0bee0a",
+            "embedding_model": os.getenv("MIAX_EMBEDDING_MODEL", "BAAI/bge-small-en-v1.5"),
+            "embedding_query_prefix": os.getenv("MIAX_QUERY_PREFIX", "Represent this sentence for searching relevant passages: "),
+            "index_dirname": os.getenv("MIAX_INDEX_DIRNAME", "indice_faiss"),
+            "reranker_model": "BAAI/bge-reranker-v2-m3",
+            "reranker_revision": "953dc6f6f85a1b2dbfca4c34a2796e7dde08d41e",
             "n_candidates": 20,
             "top_k_saved": 20,
         },

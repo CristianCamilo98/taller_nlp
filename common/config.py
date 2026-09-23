@@ -44,10 +44,13 @@ def dataset_candidates() -> tuple[Path, ...]:
     return (REPO_ROOT / "dataset", REPO_ROOT.parent / "dataset")
 
 
+
+
 def _build_paths(dataset_dir: Path) -> DatasetPaths:
     root = dataset_dir.resolve()
     corpus = root / "corpus_miax_2026"
-    index = root / "indice_faiss"
+    index_name = os.getenv("MIAX_INDEX_DIRNAME", "indice_faiss")
+    index = root / index_name
     return DatasetPaths(
         dataset_dir=root,
         corpus_dir=corpus,
