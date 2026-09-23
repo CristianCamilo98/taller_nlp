@@ -7,3 +7,6 @@ dataset_backup/
 *.zip
 *.rar
 .env
+
+__pycache__/
+*.pyc
