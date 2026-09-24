@@ -1,0 +1,25 @@
+{
+  "config": {
+    "reranking": true,
+    "reranker_model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+    "n_candidatos": 20
+  },
+  "metrics": {
+    "dense": {
+      "recall@1": 0.2708,
+      "recall@3": 0.5208,
+      "recall@5": 0.6458,
+      "recall@10": 0.7917,
+      "mrr@10": 0.4264,
+      "n_questions": 48
+    },
+    "reranked": {
+      "recall@1": 0.2708,
+      "recall@3": 0.4792,
+      "recall@5": 0.6667,
+      "recall@10": 0.7708,
+      "mrr@10": 0.4180,
+      "n_questions": 48
+    }
+  }
+}

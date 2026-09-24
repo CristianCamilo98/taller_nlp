@@ -40,19 +40,29 @@ python -m unittest discover -s common/tests -v
 | `agent.py` | Agente experimental + CLI interactiva. |
 | `responder.py` | `responder(pregunta)` → dict evaluable. |
 | `evaluar.py` | Corre golden + métricas cifra/cita/trayectoria. |
+| `eval_retrieval_benchmark_v2.py` | Retrieval vs benchmark Dani v2 (Recall@k / MRR). |
+| `benchmark/` | Copia congelada de `retrieval_benchmark_v2.jsonl`. |
 | `tools.py` | Las 4 tools; `search_filings` → `miax_s1`. |
 | `schema.py` / `config.py` / `xbrl.py` | Runtime experimental autónomo. |
-| `results_viewer/` | Dashboard HTML para comparar `results/*.jsonl`. |
+| `results_viewer/` | Dashboard HTML para comparar `results/*.jsonl` (agente). |
+| `retrieval_viewer/` | Dashboard HTML para comparar retrieval benchmark v2. |
+| `results/comparisons/` | JSON de Dani/Marco/Cristian para el visor de retrieval. |
 | `../../.env` | Claves locales (`OPENROUTER_API_KEY`, `HF_TOKEN`, `MIAX_DATASET_DIR`). |
 
 ```bash
-# Evaluación (consume OpenRouter; pausa entre preguntas)
+# Evaluación agente (golden; consume OpenRouter LLM)
 python -m cristian.experiments.evaluar \
   common/golden_set/golden_set_grupo3.jsonl \
   cristian/experiments/results/run.jsonl
 
-# Comparar resultados (HTML local; relee todos los *.jsonl de results/)
+# Benchmark retrieval Dani v2 (sin LLM; comparable a dani/*_benchmark_v2*)
+python -m cristian.experiments.eval_retrieval_benchmark_v2
+
+# Comparar resultados agente (HTML local)
 python -m cristian.experiments.results_viewer
+
+# Comparar retrieval benchmark v2 (Dani / Marco / Cristian)
+python -m cristian.experiments.retrieval_viewer
 ```
 
 Los tres evaluadores se importan de `common.eval` a propósito: misma rúbrica

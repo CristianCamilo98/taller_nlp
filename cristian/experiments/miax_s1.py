@@ -30,8 +30,8 @@ import json
 import threading
 from pathlib import Path
 
+from cristian.experiments import config as config_mod
 from cristian.experiments.config import (
-    SETTINGS,
     embedding_index_path,
     embedding_manifest_path,
     embedding_model_id,
@@ -101,8 +101,7 @@ def _indice():
     serializa esa primera carga.
     """
     with _indice_lock:
-        return _cargar_indice_para(SETTINGS.embedding_model)
-
+        return _cargar_indice_para(config_mod.SETTINGS.embedding_model)
 
 def precargar_retrieval() -> None:
     """Fuerza la carga de FAISS + encoder en el hilo principal."""
