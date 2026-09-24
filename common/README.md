@@ -153,3 +153,17 @@ python -m common.scripts.measure_recall --output recall-baseline-v2.json
 El resultado canónico debe registrar commit, hash del golden y hashes de los
 cinco artefactos del dataset. No debe compararse directamente con el baseline
 histórico: v2 cambia el golden comparativo y endurece los tres evaluadores.
+
+### Benchmark de retrieval v2 (48 preguntas)
+
+El runner de COMMON usa el benchmark congelado por EvidenceSpan y permite
+seleccionar una pregunta para smoke. Este comando realiza exactamente una
+query Gemini, ranking global FAISS y postfiltrado por ticker/año/item:
+
+```powershell
+python -m common.scripts.evaluate_retrieval_benchmark --profile gemini-embedding-2 --question-id dani-b6-001 --output common\results\retrieval\gemini_smoke_dani-b6-001.json
+```
+
+Sin `--question-id`, el mismo runner evalúa las 48 preguntas. El JSON conserva
+hashes de benchmark, índice y metadata, ranking, métricas y provenance de la
+petición de embeddings. No incluye rewriting, BM25 ni reranking.
