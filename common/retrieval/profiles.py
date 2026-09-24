@@ -30,13 +30,15 @@ class DenseRetrievalProfile:
     manifest_required: bool = False
 
     def format_query(self, query: str) -> str:
-        """Aplica el formato congelado de cada uno de los dos perfiles."""
+        """Aplica el formato congelado del perfil seleccionado."""
         if self.name == "bge-small-baseline":
             return f"{self.query_prefix}{query}"
         if self.name == "qwen3-06b":
             return query if query.startswith(self.query_prefix) else (
                 f"{self.query_prefix}{query}"
             )
+        if self.name == "gemini-embedding-2":
+            return query
         raise RetrievalProfileError(f"Perfil no soportado: {self.name!r}")
 
 
@@ -76,6 +78,20 @@ PROFILES = {
             "Instruct: Given a financial question, retrieve relevant passages "
             "from SEC 10-K filings that answer the question.\nQuery:{query}"
         ),
+        manifest_required=True,
+    ),
+    "gemini-embedding-2": DenseRetrievalProfile(
+        name="gemini-embedding-2",
+        model_name="google/gemini-embedding-2",
+        model_revision=None,
+        dimension=3072,
+        pooling="provider-managed",
+        normalize_embeddings=True,
+        index_type="IndexFlatIP",
+        index_dirname="indice_faiss_gemini_embedding_2",
+        query_prefix="",
+        query_template="{query}",
+        document_format="raw",
         manifest_required=True,
     ),
 }

@@ -1,4 +1,4 @@
-"""Retrieval denso común: BGE baseline o Qwen3 0.6B."""
+"""Retrieval denso común: BGE baseline, Qwen3 o Gemini Embedding 2."""
 
 from __future__ import annotations
 
@@ -90,6 +90,67 @@ def _validate_qwen_manifest(
     return manifest
 
 
+def _validate_gemini_manifest(
+    profile: DenseRetrievalProfile, paths: DatasetPaths
+) -> dict[str, Any]:
+    """Valida el bundle histórico Gemini antes de cualquier llamada de red."""
+    if paths.index_manifest is None:
+        raise DenseRetrievalConfigurationError(
+            "Gemini exige index_manifest.json"
+        )
+    try:
+        manifest = json.loads(paths.index_manifest.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise DenseRetrievalConfigurationError(
+            f"Manifest Gemini ausente o inválido: {paths.index_manifest}"
+        ) from exc
+
+    expected = {
+        "schema_version": 1,
+        "profile": "gemini-embedding-2",
+        "provider": "openrouter",
+        "model_name": profile.model_name,
+        "model_revision": None,
+        "model_revision_policy": "provider_managed",
+        "embedding_dimension": 3072,
+        "normalize": True,
+        "document_format": "raw",
+        "input_type_documents_requested": "search_document",
+        "input_type_queries_requested": "search_query",
+        "input_type_historical_effective": "unknown",
+        "index_type": "IndexFlatIP",
+        "ntotal": 1749,
+        "chunks_sha256": CHUNKS_SHA256,
+        "chunks_meta_sha256": CHUNKS_META_SHA256,
+    }
+    for field, expected_value in expected.items():
+        if manifest.get(field) != expected_value:
+            raise DenseRetrievalConfigurationError(
+                f"Manifest Gemini incompatible en {field}: "
+                f"{manifest.get(field)!r} != {expected_value!r}"
+            )
+    faiss_sha256 = manifest.get("faiss_sha256")
+    if (
+        not isinstance(faiss_sha256, str)
+        or len(faiss_sha256) != 64
+        or any(character not in "0123456789abcdefABCDEF" for character in faiss_sha256)
+    ):
+        raise DenseRetrievalConfigurationError(
+            "Manifest Gemini incompatible en faiss_sha256"
+        )
+    for field, path in {
+        "faiss_sha256": paths.faiss_index,
+        "chunks_sha256": paths.chunks,
+        "chunks_meta_sha256": paths.chunks_meta,
+    }.items():
+        actual = _sha256(path)
+        if actual.lower() != manifest[field].lower():
+            raise DenseRetrievalConfigurationError(
+                f"Hash incompatible para {field}: {actual} != {manifest[field]}"
+            )
+    return manifest
+
+
 def _validate_index(
     profile: DenseRetrievalProfile,
     index: Any,
@@ -145,6 +206,12 @@ def _create_encoder(
     profile: DenseRetrievalProfile,
     encoder_factory: Callable[..., Any] | None = None,
 ) -> Any:
+    if profile.name == "gemini-embedding-2":
+        from common.retrieval.openrouter_embeddings import (
+            OpenRouterEmbeddingEncoder,
+        )
+
+        return OpenRouterEmbeddingEncoder(profile.model_name, profile.dimension)
     if encoder_factory is None:
         from sentence_transformers import SentenceTransformer
 
@@ -158,15 +225,16 @@ def _create_encoder(
     return encoder_factory(profile.model_name)
 
 
-@functools.lru_cache(maxsize=2)
+@functools.lru_cache(maxsize=3)
 def _load_profile_resources(profile_name: str):
     profile = get_embedding_profile(profile_name)
     paths = get_dataset_paths(profile.name)
-    manifest = (
-        _validate_qwen_manifest(profile, paths)
-        if profile.name == "qwen3-06b"
-        else None
-    )
+    if profile.name == "qwen3-06b":
+        manifest = _validate_qwen_manifest(profile, paths)
+    elif profile.name == "gemini-embedding-2":
+        manifest = _validate_gemini_manifest(profile, paths)
+    else:
+        manifest = None
 
     import faiss
     import pandas as pd
@@ -189,6 +257,15 @@ def clear_dense_retrieval_cache() -> None:
     _load_profile_resources.cache_clear()
 
 
+def get_last_query_embedding_metadata() -> dict[str, Any] | None:
+    """Devuelve provenance de la última query OpenRouter, si aplica."""
+    _index, _metadata, encoder, profile = _indice()
+    if profile.name != "gemini-embedding-2":
+        return None
+    value = getattr(encoder, "last_request_metadata", None)
+    return dict(value) if value is not None else None
+
+
 def buscar(query: str, ticker: str | None = None,
            fiscal_year: int | None = None, item: str | None = None,
            k: int = 5) -> list[dict]:
@@ -207,9 +284,8 @@ def buscar(query: str, ticker: str | None = None,
         raise DenseRetrievalConfigurationError(
             f"El embedding de query no está normalizado en L2: {norm}"
         )
-    if profile.name == "qwen3-06b":
-        # Qwen puede normalizar en BF16; reafirma L2 después del cast a FP32,
-        # igual que el adaptador experimental congelado.
+    if profile.name in {"qwen3-06b", "gemini-embedding-2"}:
+        # Reafirma L2 después del cast a FP32 para los perfiles no baseline.
         vector /= norm
 
     scores, positions = index.search(vector, index.ntotal)

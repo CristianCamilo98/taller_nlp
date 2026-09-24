@@ -33,6 +33,26 @@ El perfil Qwen se selecciona explícitamente con:
 $env:MIAX_RETRIEVAL_PROFILE = 'qwen3-06b'
 ```
 
+El perfil Gemini Embedding 2 usa OpenRouter para codificar únicamente las
+queries y reutiliza su índice persistido independiente:
+
+```powershell
+$env:MIAX_RETRIEVAL_PROFILE = 'gemini-embedding-2'
+$env:OPENROUTER_API_KEY = '<clave>'
+```
+
+El directorio `indice_faiss_gemini_embedding_2/` debe contener
+`corpus.faiss`, `chunks_meta.parquet` e `index_manifest.json`. El runtime
+valida antes de llamar a OpenRouter: modelo gestionado por proveedor,
+dimensión 3072, normalización L2, `IndexFlatIP`, 1.749 vectores y hashes de
+FAISS/corpus/metadata. Las queries se envían raw solicitando
+`input_type=search_query`. Si OpenRouter rechaza ese campo con HTTP 400, el
+fallback sin `input_type` emite un warning y queda disponible como
+`input_type_mode=fallback_without_input_type` en la provenance de la última
+query; nunca ocurre silenciosamente. El índice histórico solo demuestra los
+`input_type` solicitados, por lo que su manifest declara honestamente
+`input_type_historical_effective=unknown`.
+
 Qwen resuelve un índice separado en `indice_faiss_qwen3_06b/`. Ese directorio
 debe contener `corpus.faiss`, `chunks_meta.parquet` e `index_manifest.json`.
 Si ese bundle ya existe, basta seleccionar el perfil; el runtime valida su

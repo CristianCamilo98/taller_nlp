@@ -4,6 +4,7 @@ import json
 import os
 import tempfile
 import unittest
+import warnings
 from pathlib import Path
 from unittest.mock import Mock, patch
 
@@ -12,6 +13,7 @@ import pandas as pd
 
 from common.config import DatasetPaths, _build_paths
 from common.retrieval import dense_baseline as dense
+from common.retrieval import openrouter_embeddings as openrouter
 from common.retrieval.profiles import RetrievalProfileError, get_embedding_profile
 
 VALIDATED_QWEN_FAISS_SHA256 = (
@@ -90,10 +92,35 @@ def qwen_manifest():
     }
 
 
+def gemini_manifest():
+    return {
+        "schema_version": 1,
+        "profile": "gemini-embedding-2",
+        "provider": "openrouter",
+        "model_name": "google/gemini-embedding-2",
+        "model_revision": None,
+        "model_revision_policy": "provider_managed",
+        "embedding_dimension": 3072,
+        "normalize": True,
+        "document_format": "raw",
+        "input_type_documents_requested": "search_document",
+        "input_type_queries_requested": "search_query",
+        "input_type_historical_effective": "unknown",
+        "index_type": "IndexFlatIP",
+        "ntotal": 1749,
+        "faiss_sha256": (
+            "aa84a962a1b5a1c2ea3c75f87efa858687229335774d56416944356f3ee74a5a"
+        ),
+        "chunks_sha256": dense.CHUNKS_SHA256,
+        "chunks_meta_sha256": dense.CHUNKS_META_SHA256,
+    }
+
+
 class ProfileTests(unittest.TestCase):
     def test_profiles_are_exact_and_use_separate_indexes(self):
         bge = get_embedding_profile("bge-small-baseline")
         qwen = get_embedding_profile("qwen3-06b")
+        gemini = get_embedding_profile("gemini-embedding-2")
         self.assertEqual(bge.model_name, "BAAI/bge-small-en-v1.5")
         self.assertIsNone(bge.model_revision)
         self.assertEqual(bge.dimension, 384)
@@ -103,7 +130,12 @@ class ProfileTests(unittest.TestCase):
             "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
         )
         self.assertEqual(qwen.dimension, 1024)
-        self.assertNotEqual(bge.index_dirname, qwen.index_dirname)
+        self.assertEqual(gemini.model_name, "google/gemini-embedding-2")
+        self.assertIsNone(gemini.model_revision)
+        self.assertEqual(gemini.dimension, 3072)
+        self.assertEqual(
+            len({bge.index_dirname, qwen.index_dirname, gemini.index_dirname}), 3
+        )
 
     def test_bge_always_adds_prefix_and_qwen_format_is_exact(self):
         bge = get_embedding_profile("bge-small-baseline")
@@ -112,6 +144,8 @@ class ProfileTests(unittest.TestCase):
         self.assertEqual(bge.format_query(prefix + "raw"), prefix + prefix + "raw")
         qwen = get_embedding_profile("qwen3-06b")
         self.assertEqual(qwen.format_query("pregunta"), qwen.query_prefix + "pregunta")
+        gemini = get_embedding_profile("gemini-embedding-2")
+        self.assertEqual(gemini.format_query("pregunta raw"), "pregunta raw")
 
     def test_unknown_profile_fails_closed(self):
         with self.assertRaises(RetrievalProfileError):
@@ -133,8 +167,10 @@ class ProfileTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             bge = _build_paths(Path(directory), "bge-small-baseline")
             qwen = _build_paths(Path(directory), "qwen3-06b")
+            gemini = _build_paths(Path(directory), "gemini-embedding-2")
         self.assertIsNone(bge.index_manifest)
         self.assertEqual(qwen.index_manifest.name, "index_manifest.json")
+        self.assertEqual(gemini.index_manifest.name, "index_manifest.json")
 
 
 class ManifestTests(unittest.TestCase):
@@ -390,6 +426,134 @@ class BgeDifferentialTests(unittest.TestCase):
                     dense.formatear_fragmentos(expected),
                 )
                 self.assertEqual(actual_encoder.calls, expected_encoder.calls)
+
+
+class GeminiManifestTests(unittest.TestCase):
+    def setUp(self):
+        self.temporary = tempfile.TemporaryDirectory()
+        root = Path(self.temporary.name)
+        corpus = root / "corpus_miax_2026"
+        index_dir = root / "indice_faiss_gemini_embedding_2"
+        corpus.mkdir()
+        index_dir.mkdir()
+        self.paths = DatasetPaths(
+            dataset_dir=root,
+            corpus_dir=corpus,
+            index_dir=index_dir,
+            sections=corpus / "secciones.jsonl",
+            chunks=corpus / "chunks.jsonl",
+            xbrl_facts=corpus / "xbrl_facts.parquet",
+            faiss_index=index_dir / "corpus.faiss",
+            chunks_meta=index_dir / "chunks_meta.parquet",
+            index_manifest=index_dir / "index_manifest.json",
+        )
+        for path in (self.paths.chunks, self.paths.faiss_index, self.paths.chunks_meta):
+            path.write_bytes(b"fixture")
+        self.paths.index_manifest.write_text(
+            json.dumps(gemini_manifest()), encoding="utf-8"
+        )
+
+    def tearDown(self):
+        self.temporary.cleanup()
+
+    def test_valid_manifest_is_accepted_and_hashes_are_checked(self):
+        manifest = gemini_manifest()
+
+        def valid_hash(path):
+            return {
+                self.paths.faiss_index: manifest["faiss_sha256"],
+                self.paths.chunks: manifest["chunks_sha256"],
+                self.paths.chunks_meta: manifest["chunks_meta_sha256"],
+            }[path]
+
+        with patch.object(dense, "_sha256", side_effect=valid_hash):
+            self.assertEqual(
+                dense._validate_gemini_manifest(
+                    get_embedding_profile("gemini-embedding-2"), self.paths
+                ),
+                manifest,
+            )
+
+    def test_manifest_fields_fail_closed(self):
+        for field, value in (
+            ("model_name", "wrong"),
+            ("embedding_dimension", 384),
+            ("input_type_historical_effective", "requested"),
+        ):
+            manifest = gemini_manifest()
+            manifest[field] = value
+            self.paths.index_manifest.write_text(
+                json.dumps(manifest), encoding="utf-8"
+            )
+            with self.subTest(field=field), self.assertRaises(
+                dense.DenseRetrievalConfigurationError
+            ):
+                dense._validate_gemini_manifest(
+                    get_embedding_profile("gemini-embedding-2"), self.paths
+                )
+
+
+class OpenRouterEmbeddingTests(unittest.TestCase):
+    @staticmethod
+    def response(value=3.0):
+        vector = [0.0] * 3072
+        vector[0] = value
+        return {
+            "data": [{"index": 0, "embedding": vector}],
+            "usage": {"prompt_tokens": 7, "total_tokens": 7},
+        }
+
+    def test_query_is_raw_requested_and_l2_normalized(self):
+        encoder = openrouter.OpenRouterEmbeddingEncoder(
+            "google/gemini-embedding-2", 3072
+        )
+        with patch.object(
+            openrouter, "_post_openrouter", return_value=self.response()
+        ) as post:
+            matrix = encoder.encode(["pregunta raw"])
+        self.assertEqual(
+            post.call_args.args[0],
+            {
+                "model": "google/gemini-embedding-2",
+                "input": ["pregunta raw"],
+                "input_type": "search_query",
+            },
+        )
+        self.assertEqual(matrix.dtype, np.float32)
+        self.assertAlmostEqual(float(np.linalg.norm(matrix[0])), 1.0)
+        self.assertEqual(
+            encoder.last_request_metadata["input_type_mode"], "requested"
+        )
+
+    def test_input_type_fallback_is_visible(self):
+        encoder = openrouter.OpenRouterEmbeddingEncoder(
+            "google/gemini-embedding-2", 3072
+        )
+        error = openrouter.OpenRouterEmbeddingError("rejected", status=400)
+        with patch.object(
+            openrouter,
+            "_post_openrouter",
+            side_effect=[error, self.response()],
+        ) as post, warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+            encoder.encode(["query"])
+        self.assertTrue(
+            any(item.category is RuntimeWarning for item in caught)
+        )
+        self.assertNotIn("input_type", post.call_args_list[1].args[0])
+        self.assertEqual(
+            encoder.last_request_metadata["input_type_mode"],
+            "fallback_without_input_type",
+        )
+
+    def test_gemini_rejects_wrong_index_dimension(self):
+        with self.assertRaises(dense.DenseRetrievalConfigurationError):
+            dense._validate_index(
+                get_embedding_profile("gemini-embedding-2"),
+                IndexFlatIP(384),
+                [object()],
+                {"ntotal": 1},
+            )
 
 
 if __name__ == "__main__":
