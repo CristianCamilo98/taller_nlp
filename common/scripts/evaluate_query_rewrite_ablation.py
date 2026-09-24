@@ -272,6 +272,10 @@ def run_evaluation(
             "retrieval": {
                 "type": "dense_faiss_with_metadata_postfilter",
                 "policy": "global rank + ticker/fiscal_year/item postfilter",
+                "query_rewriting": (
+                    True if mode == "rewritten"
+                    else {"original": False, "rewritten": True}
+                ),
                 "only_variable": "query",
                 "bm25": False,
                 "reranking": False,

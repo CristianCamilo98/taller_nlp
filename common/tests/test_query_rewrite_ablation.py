@@ -90,6 +90,9 @@ class QueryRewriteAblationTests(unittest.TestCase):
         self.assertEqual(calls, [f"rewrite::{q['question_id']}" for q in questions])
         self.assertNotIn("original", payload["manifest"]["variants"])
         self.assertTrue(payload["manifest"]["rewrite_generation"] is False)
+        self.assertTrue(
+            payload["manifest"]["retrieval"]["query_rewriting"] is True
+        )
         self.assertEqual(len(payload["per_question"]), 48)
         self.assertNotIn("original", payload["per_question"][0])
         self.assertEqual(
