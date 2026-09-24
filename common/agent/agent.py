@@ -8,6 +8,15 @@ SYSTEM = """Eres un analista financiero que responde preguntas sobre informes
 10-K usando ÚNICAMENTE las herramientas disponibles.
 
 Reglas:
+- Nunca respondas con conocimiento interno cuando una tool pueda dar
+  evidencia del corpus. Toda respuesta final debe estar fundamentada en al
+  menos una llamada a una tool; no emitas una respuesta final con cero
+  llamadas a herramientas.
+- Para cifras contables/XBRL exactas, usa get_xbrl_fact como primera
+  herramienta apropiada.
+- Para preguntas narrativas o extractivas, usa search_filings.
+- Usa read_section solo cuando de verdad necesites la sección completa.
+- Usa list_available solo cuando necesites descubrir disponibilidad.
 - Para cualquier CIFRA, usa get_xbrl_fact. Nunca leas un número de la prosa.
 - En comparativas numéricas consulta get_xbrl_fact para AMBOS ejercicios, con
   el mismo ticker y concepto; calcula después delta y porcentaje. Devuelve en
@@ -66,3 +75,24 @@ def crear_agente():
         checkpointer=InMemorySaver(),
         middleware=_agent_middleware(),
     )
+
+
+def crear_forced_evidence_model():
+    """Modelo DeepSeek SIN response_format, para el turno forzado de evidencia.
+
+    create_agent(response_format=RespuestaFinanciera) resuelve a
+    ProviderStrategy para este modelo, porque model.profile["structured_output"]
+    es True (ver langchain.agents.factory._supports_provider_strategy). En esa
+    rama tool_choice se ignora por completo (factory.py, rama ProviderStrategy
+    de _get_bound_model), así que un modelo bindeado ahí puede terminar el
+    turno con texto plano y cero tool calls -confirmado en un smoke real tras
+    dos intentos-. Este modelo aparte, sin response_format, sí respeta
+    tool_choice="required" (ChatOpenRouter.bind_tools lo pasa tal cual).
+    """
+    from pathlib import Path
+
+    from dotenv import load_dotenv
+    from langchain.chat_models import init_chat_model
+
+    load_dotenv(Path(__file__).resolve().parents[2] / ".env")
+    return init_chat_model(MODELO, temperature=BENCHMARK.temperature)

@@ -117,17 +117,22 @@ silenciosamente en otra copia del dataset.
   personales bajo `*/experiments/`.
 
 Ningún módulo runtime importa query rewriting, resultados ni scripts
-históricos. El baseline de retrieval sigue siendo BGE small EN v1.5, vectores
-normalizados, `IndexFlatIP`, ranking sobre 1.749 vectores y postfiltrado por
-metadata. No incluye BM25, reranking ni cambios de chunking/embeddings.
+históricos. El baseline de retrieval original era BGE small EN v1.5; el
+retrieval **final y congelado** (`retrieval-final-v1`) es query original →
+Gemini Embedding 2 → ranking global FAISS (`IndexFlatIP`, vectores
+normalizados) → postfiltrado por metadata ticker/fiscal_year/item. No
+incluye BM25, reranking ni query rewriting obligatorio.
 
 ### Configuración congelada
 
 `benchmark_config.py` centraliza modelo, proveedor, temperatura, límites,
-reintentos, k y versión del prompt. El modelo solicitado sigue siendo
-`openrouter:google/gemini-3.8-flash`; la temperatura pasa a estar declarada
-explícitamente como `0.0`. El máximo de 3 búsquedas del prompt es una guía
-heredada y no se puntúa en trayectoria porque el enunciado no fija ese máximo.
+reintentos, k y versión del prompt. El modelo final congelado es
+`openrouter:deepseek/deepseek-v4-flash`; el perfil de retrieval está fijado
+a `gemini-embedding-2` de forma explícita en el código (`FINAL_RETRIEVAL_PROFILE`
+en `benchmark_config.py`), independientemente de `MIAX_RETRIEVAL_PROFILE`. La
+temperatura está declarada explícitamente como `0.0`. El máximo de 3
+búsquedas del prompt es una guía heredada y no se puntúa en trayectoria
+porque el enunciado no fija ese máximo.
 
 Las métricas de proveedor que no estén presentes en la respuesta (`coste`,
 modelo efectivo o tokens) se guardan como `null`; no se estiman. La latencia de

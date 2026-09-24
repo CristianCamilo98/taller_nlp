@@ -109,6 +109,11 @@ def run_smoke(
         "respuesta_estructurada": respuesta_estructurada,
         "tool_calls_detallado": tool_calls,
         "tool_calls_bloqueados": respuesta.get("tool_calls_bloqueados") or [],
+        "tool_results_detallado": respuesta.get("tool_results_detallado") or [],
+        "citation_grounding_ok": respuesta.get("citation_grounding_ok"),
+        "citation_repair_used": respuesta.get("citation_repair_used"),
+        "citation_repair_failed": respuesta.get("citation_repair_failed"),
+        "evidence_rescue_used": respuesta.get("evidence_rescue_used"),
         "trajectory": evaluar_trayectoria_detallada(respuesta, pregunta_eval),
         "metricas": {
             "cifra": evaluar_cifra_detallada(respuesta, pregunta_eval),
@@ -146,6 +151,14 @@ def run_smoke(
     print(
         "query_original_ok="
         f"{artifact['primera_query_es_pregunta_original_literal']}",
+        flush=True,
+    )
+    print(
+        f"chunks_recuperados={len(artifact['tool_results_detallado'])} · "
+        f"citation_grounding_ok={artifact['citation_grounding_ok']} · "
+        f"citation_repair_used={artifact['citation_repair_used']} · "
+        f"citation_repair_failed={artifact['citation_repair_failed']} · "
+        f"evidence_rescue_used={artifact['evidence_rescue_used']}",
         flush=True,
     )
     print(f"Artifact: {destino.resolve()}", flush=True)

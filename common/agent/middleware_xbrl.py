@@ -58,9 +58,18 @@ def verificar_respuesta_xbrl(
     """
     numeric_fields = ("cifra", "valor_inicial", "valor_final", "delta",
                       "porcentaje")
-    if not any(respuesta.get(field) is not None for field in numeric_fields):
+    has_numeric = any(respuesta.get(field) is not None
+                      for field in numeric_fields)
+    declares_xbrl = respuesta.get("fuente") in {"xbrl", "ambas"}
+    if not has_numeric:
+        if declares_xbrl:
+            return False, (
+                "La respuesta declara fuente xbrl/ambas pero no incluye "
+                "ninguna cifra estructurada; toda cifra consultada debe "
+                "trasladarse a los campos estructurados."
+            )
         return True, "sin cifra que verificar"
-    if respuesta.get("fuente") not in {"xbrl", "ambas"}:
+    if not declares_xbrl:
         return False, "Toda cifra debe declarar fuente XBRL o ambas."
 
     consulted = _queried_facts(tool_calls or [])

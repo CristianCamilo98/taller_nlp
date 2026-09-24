@@ -147,6 +147,15 @@ def evaluar(ruta_jsonl: str, guardar_en: str | None = None,
     retrieval_final_provenance = _retrieval_final_provenance()
     results = []
 
+    destination = None
+    if guardar_en:
+        destination = Path(guardar_en)
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        # Trunca/crea antes de empezar: cada fila se añade incrementalmente
+        # según se calcula, para no perder progreso si el batch se
+        # interrumpe a mitad de camino.
+        destination.open("w", encoding="utf-8", newline="\n").close()
+
     for index, question in enumerate(questions):
         wall_start = time.perf_counter()
         retry_meta = {"retry_count": 0, "rate_limited": False,
@@ -242,7 +251,7 @@ def evaluar(ruta_jsonl: str, guardar_en: str | None = None,
             "cifra_esperada": question.get("cifra_esperada"),
         }
         if error:
-            numeric = question["familia"] in {"numerica", "comparativa"}
+            numeric = question.get("familia") in {"numerica", "comparativa"}
             qualitative = bool(question.get("ancla_texto"))
             number_detail = {"aplica": numeric, "acierto_cifra":
                              False if numeric else None, "errores": ["error_run"]}
@@ -251,9 +260,21 @@ def evaluar(ruta_jsonl: str, guardar_en: str | None = None,
             trajectory_detail = {"aplica": True, "acierto_trayectoria": False,
                                  "errores": ["error_run"]}
         else:
-            number_detail = evaluar_cifra_detallada(row, question)
-            citation_detail = evaluar_cita_detallada(row, question)
-            trajectory_detail = evaluar_trayectoria_detallada(row, question)
+            try:
+                number_detail = evaluar_cifra_detallada(row, question)
+                citation_detail = evaluar_cita_detallada(row, question)
+                trajectory_detail = evaluar_trayectoria_detallada(row, question)
+            except Exception as eval_error:
+                # Una pregunta con esquema inesperado (p. ej. un blind set
+                # ajeno al golden) no debe tirar abajo el resto del batch.
+                detalle = f"evaluator_error: {type(eval_error).__name__}: {eval_error}"
+                number_detail = {"aplica": None, "acierto_cifra": None,
+                                 "errores": [detalle]}
+                citation_detail = {"aplica": None, "acierto_cita": None}
+                trajectory_detail = {"aplica": None,
+                                     "acierto_trayectoria": None,
+                                     "errores": [detalle]}
+                row["error"] = detalle
         row["metricas"] = {
             "cifra": number_detail,
             "cita": citation_detail,
@@ -264,15 +285,12 @@ def evaluar(ruta_jsonl: str, guardar_en: str | None = None,
         row["acierto_trayectoria"] = trajectory_detail.get(
             "acierto_trayectoria")
         results.append(row)
+        if destination is not None:
+            with destination.open("a", encoding="utf-8", newline="\n") as stream:
+                stream.write(json.dumps(row, ensure_ascii=False) + "\n")
         if index < len(questions) - 1 and pause > 0:
             time.sleep(pause)
 
-    if guardar_en:
-        destination = Path(guardar_en)
-        destination.parent.mkdir(parents=True, exist_ok=True)
-        with destination.open("w", encoding="utf-8", newline="\n") as stream:
-            for result in results:
-                stream.write(json.dumps(result, ensure_ascii=False) + "\n")
     return results
 
 
