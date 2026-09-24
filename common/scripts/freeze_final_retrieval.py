@@ -67,9 +67,12 @@ def _load_json(path: Path) -> dict[str, Any]:
 
 def _write_json(path: Path, value: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
+    # newline="\n" evita que Windows traduzca a CRLF: los artefactos
+    # congelados son LF y deben regenerarse byte a byte en cualquier SO.
     path.write_text(
         json.dumps(value, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
+        newline="\n",
     )
 
 
