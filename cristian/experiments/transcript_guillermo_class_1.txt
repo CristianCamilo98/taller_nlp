@@ -1,0 +1,1008 @@
+Guillermo Fajardo: Vale. Perfecto. Muchas gracias.
+Guillermo Fajardo: Bueno, hola hola a todos. Lo primero, pediros, perdón. Acabo de llegar de
+Guillermo Fajardo: de un viaje con la empresa y tal y el vuelo se ha retrasado más de una hora. Y aunque, bueno, tenía cierto margen.
+Guillermo Fajardo: me ha me ha pasado factura en esto. Vamos. Acabo de Acabo de meterme con el
+Guillermo Fajardo: acabo de llegar del taxi y y ponerme.
+Guillermo Fajardo: Vale, estáis viendo mi pantalla, si no que sí.
+Guillermo Fajardo: ¿vale? Perfecto.
+Guillermo Fajardo: Bueno, lo primero. Os he dejado en el Chat el enlace a los documentos específicos de esta clase y la configuración es
+Guillermo Fajardo: prima hermana de la del año pas de la del la clase pasada, simplemente los documentos de esta clase. Bueno, tenéis que abrir el notebook y tenéis que subir los otros 2 co 2 documentos aquí,
+Guillermo Fajardo: y de la misma manera que hicimos en la anterior clase, el Datasset, que también tenéis el también. Tenéis el archivo, lo tenéis que subir y poner en una carpeta que se llama Dataset.
+Guillermo Fajardo: Entonces, bueno, mientras los vais configurando, os recomiendo que también ejecutéis esta primera celda y el
+Guillermo Fajardo: he visto bueno, he recibido algún email de que algunos os ha costado encontrar el el la
+Guillermo Fajardo: en el aula virtual, el Datasset.
+Guillermo Fajardo: que sé que está subido, pero la ¿verdad? No puedo verlo.
+Guillermo Fajardo: Cualquiera que tenga un problema. Bueno, no sé si tendréis un grupo de Whatsapp para la clase, deberíais tenerlo
+Guillermo Fajardo: a los que os he pasado el el enlace del Dataset. Si alguien no lo encuentra, pues que se se pase por ahí y si no, Pues me escribís un correo. Voy a poner otra vez el correo y ya se
+Guillermo Fajardo: y cualquier duda o cualquier problema, o tal me lo me lo comentáis vale
+Guillermo Fajardo: mientras lo vais configurando alguna duda o algo que hayáis visto de la clase anterior que os tenga
+Guillermo Fajardo: que os haya surgido algo por el estilo.
+Guillermo Fajardo: De la.
+Guillermo Fajardo: Para un momento.
+Guillermo Fajardo: podría ir al canal
+Guillermo Fajardo: a ver.
+Guillermo Fajardo: Vale, intentadlo ahora con el mismo enlace y me comentáis.
+Guillermo Fajardo: Vale, perfecto.
+Guillermo Fajardo: Bien. Y
+Guillermo Fajardo: a ver alguna duda de la clase anterior, La clase anterior era más o menos general en la gente. Y ya tienes una versión original de la gente.
+Guillermo Fajardo: Y vamos a entrar un poquito más en las herramientas, que es una cosa, pues
+Guillermo Fajardo: prima hermana de la que vais a tener que hacer vosotros
+Guillermo Fajardo: si no, por ejemplo, una cosita que os queríais en enseñar es: mira.
+Guillermo Fajardo: esto es utilizando Open router Lapid Open Router. Lo que se gastó en la clase anterior
+Guillermo Fajardo: durante el día de la clase anterior. Simplemente fui haciendo unos retesteos por la mañana y cosas así,
+Guillermo Fajardo: pero fijaos que el coste total del día fue a ver dónde está esto?
+Guillermo Fajardo: Nueve céntimos fue 9 céntimos, todo lo que se hizo la clase anterior. Teniendo en cuenta que
+Guillermo Fajardo: reinicialicé celdas que lo volví a hacer que estuve testeando, que tuve que cambiar algunas cosas, pues eso 9, céntimos Una una cosa muy bajo y estábamos utilizando. Vale, No estábamos utilizando el modelo más potente de todos.
+Guillermo Fajardo: pero estamos utilizando lo que es el Jeminay 3, 8 flash, que es un modelo
+Guillermo Fajardo: completamente puntero. Si te metes en la página de jemina, es el
+Guillermo Fajardo: el que tienes ahora completamente disponible.
+Guillermo Fajardo: Y es un modelo que funciona superbién Entonces, para que veáis que el nivel de coste es bastante reducido
+Guillermo Fajardo: y seguir configurando seguid configurando esto y al menos ejecutar la celda de instalación. Esta
+Guillermo Fajardo: y aquí deberías tener preparado algo. O sea, o si habéis optado por open router, pues perfecto, podéis ejecutar esta celda automáticamente os pediréis a la clave y este tipo de cosas.
+Guillermo Fajardo: Pero antes de empezar y continuar con la clase, Os quería comentar una cosa, porque anteayer, anteayer por la tarde noche ha pasado una cosa chulísima que pasa muy poco. Ha salido
+Guillermo Fajardo: una nueva inteligencia artificial, que no solo es una nueva inteligencia artificial. No es como. Vale, Pues antes teníamos G, P: T, 4, 8, y ahora tenemos 5, 5 2 o chat, Gp terra o lo que sea, sino que es un nuevo tipo de inteligencia artificial. Es de un
+Guillermo Fajardo: ex desarrollador de Openney, que fue 1 de los desarrolladores originales y han creado este modelo que se llama Jet.
+Guillermo Fajardo: Este modelo es una maravilla.
+Guillermo Fajardo: Y digo que es una maravilla, no solo porque la idea esté genial, sino porque es una máquina. Es una máquina absoluta
+Guillermo Fajardo: de crear agentes.
+Guillermo Fajardo: Este modelo
+Guillermo Fajardo: en el es una el L. L, M en el fondo, pero tiene una limitación bastante especial. La limitación bastante especial es que no es capaz
+Guillermo Fajardo: de elaborar
+Guillermo Fajardo: generarte texto. No es capaz de escribir y de darte una respuesta al uso como la que esperarías de Echar. G P, T,
+Guillermo Fajardo: Esto que obviamente es una limitación, tiene una contrapartida.
+Guillermo Fajardo: Ese modelo Lo único que es capaz de hacer es de devolverte una salida estructurada. Es decir.
+Guillermo Fajardo: tú le haces una pregunta y dándole la pregunta: ¿es capaz de
+Guillermo Fajardo: devolverte? Simplemente un J, son un J. Son en plan. Imagínate que le le preguntas oye. Debería invertir en Apple
+Guillermo Fajardo: y es capaz de es una Lelm en el sentido de que es capaz de leer
+Guillermo Fajardo: texto y es capaz de conseguir una cantidad de información gigantesca. O sea, bueno, tú se la tienes que proporcionar, pero es capaz de procesarla.
+Guillermo Fajardo: Y luego hace todo el procesamiento de manera interna. Y lo que te devuelve es simplemente un. J. ¿son
+Guillermo Fajardo: que te va a venir, Sí, opción, ¿Sí o no? O Opción seleccionada true por ponerte un ejemplo.
+Guillermo Fajardo: probabilidad, 95 por 100, entonces lo único que es capaz de hacer es responderte a preguntas de manera súper escueta.
+Guillermo Fajardo: pero de Pero para darte esa respuesta. Ha condensado muchísima información.
+Guillermo Fajardo: ¿cuál es la esto? Que en principio es una limitación, tiene un
+Guillermo Fajardo: una ventaja ridícula, que es es rápido. Como el demonio es rapidísimo. Estamos hablando de milisegundos.
+Guillermo Fajardo: y es barato. Es barato.
+Guillermo Fajardo: Para que os hagáis una idea Cloud Te puede cobrar
+Guillermo Fajardo: 25 dólares. Por ponerte un ejemplo.
+Guillermo Fajardo: o de media 20 dólares por cada 1 000 000 de tokens.
+Guillermo Fajardo: Este te cobra 42 céntimos?
+Guillermo Fajardo: ¿no? ¿cómo era. Era no 42 € por cada 1 000 000 000 000 1 000 000 000 000 europeo.
+Guillermo Fajardo: Digo, no, europeo, no hombre americano
+Guillermo Fajardo: de Tokens, luego es extremadamente barato y es extremadamente rápido.
+Guillermo Fajardo: Claro.
+Guillermo Fajardo: en qué convierte esto a una máquina. Esto lo convierte en una máquina tanto por velocidad como por coste
+Guillermo Fajardo: de tomar decisiones.
+Guillermo Fajardo: Y precisamente los agentes lo que más hacen es tomar decisiones, luego
+Guillermo Fajardo: sí a lo mejor. Es decir, hay aquí una idea maravillosa, un concepto maravilloso, que es.
+Guillermo Fajardo: Ok, para la mayor parte de tareas o de acciones que va a tener que tomar un agente
+Guillermo Fajardo: puede utilizar este modelo, y es en el último paso, únicamente en el último paso donde ya hay que devolverle quizás un mensaje al usuario.
+Guillermo Fajardo: donde voy a utilizar ya un modelo caro que es capaz de redactar y hacer todas estas cosas. Este modelo. Ahora mismo no podéis acceder a él porque lo anunciaron anteayer por la tarde y solamente le han dado acceso a algunos, pero os podéis unir aquí a la Watchlis. Si queréis o no puede poner esto también en el chat.
+Guillermo Fajardo: ¿por qué os digo esto?
+Guillermo Fajardo: Os digo esto?
+Guillermo Fajardo: ¿por qué?
+Guillermo Fajardo: Bueno, no sé cómo de generosos o de fácil será que te den acceso, pero
+Guillermo Fajardo: hacer un sistema de agente híbrido y a partir de aquí, que la gente haga otras cosas, es decir, que la gente puede ser un agente de cualquier otra cosa
+Guillermo Fajardo: es un un proyecto de Tfm
+Guillermo Fajardo: increíble, maravilloso. Ya os lo digo completamente. Mirad, aquí podemos ver algunas de las cosas. Bueno, han han hecho este nuevo tipo de entrenamiento que ellos llaman en vez del radio informe learning normal, pues tienen este tipo de informes learning
+Guillermo Fajardo: y
+Guillermo Fajardo: no lo sabemos todavía, porque no conocemos las tripas, pero por lo visto es extremadamente resistente a las alucinaciones, luego pues ahí tienes otra ventaja, otra ventaja.
+Guillermo Fajardo: 42.
+Guillermo Fajardo: Ah, no.
+Guillermo Fajardo: Bueno, 42 dólares por cada 1 000 000 000 por cada 1 000 000 000 de tokens, hemos
+Guillermo Fajardo: y esto solamente los tokens que te cuesta
+Guillermo Fajardo: leer todo el contexto que le estás dando, porque la respuesta que te dan recordando. No sé si os acordáis que Claude y otro modelo, lo que hacían es que te tenían un precio por el texto que estaba procesando, que solía ser más barato y luego te daban un precio por la
+Guillermo Fajardo: el texto que estaban generando finalmente. La respuesta final que te daban que ese era bastante más caro claro. Aquí, lo que te devuelve es un jota. Son cortito con las decisiones, luego es tan
+Guillermo Fajardo: nimio. Y es tan poco significativo que aquí, literalmente, los output tokens te lo dan completamente gratis.
+Guillermo Fajardo: fijaos en tu en response en el peor de los casos, estamos hablando de medio segundo
+Guillermo Fajardo: medio segundo y 70 ms. Si alguno si alguno es gamer o algo por el estilo, Pues podéis entender que 70 ms te permiten, te permitirían jugar prácticamente en
+Guillermo Fajardo: en tiempo real. Algunos videojuegos, incluso que
+Guillermo Fajardo: aquí tenéis un ejemplo. Por ejemplo, vamos a ver una comparativa de
+Guillermo Fajardo: 27 preguntas hechas con este programa y luego este mismo tipo de preguntas hechas a open eye.
+Guillermo Fajardo: La diferencia es abismal
+Guillermo Fajardo: y no es abismal simplemente por el tiempo, sino porque cuando estáis generando agentes, o sea, cuando estáis generando cosas que vayan de cara al usuario.
+Guillermo Fajardo: El Responsifnes, la capacidad de que el usuario lo sienta como algo rápido y algo ácido algo ágil. Es extremadamente importante para la sensación de usuario. Entonces.
+Guillermo Fajardo: Okay, este modelo no lo puedes utilizar ahora mismo.
+Guillermo Fajardo: Ya están saliendo.
+Guillermo Fajardo: Ya están saliendo versiones definitivamente peores, pero que están hechas de manera completamente open source.
+Guillermo Fajardo: Entonces, lo cual quiere decir que os podéis descargar los los pesos y podéis ejecutar estos modelos. Además, son modelos
+Guillermo Fajardo: más ligeros y que muchos de ellos los podéis ejecutar de manera completamente
+Guillermo Fajardo: eficiente, no completamente funcional en un ordenador mínimamente potente para eso. No sé si lo sabéis, pero para últimamente, en los últimos años, para utilizar redes neuronales y tal los los los Mac. Los ordenadores de Apple suelen ir bastante bien. Yo no soy fan en absoluto de Apple.
+Guillermo Fajardo: pero al César lo que es del César, el Los chips m los chips de la gama eme son una maravilla.
+Guillermo Fajardo: y hubo, No puedo. No puedo deciros con suficiente intensidad
+Guillermo Fajardo: lo importante que es es la creación de este tipo de modelos.
+Guillermo Fajardo: porque van a convertir a los agentes en cosas flipantes. De hecho.
+Guillermo Fajardo: yo, que soy un poco gamer y tal 1 de los mejores ejemplos que he visto es este
+Guillermo Fajardo: claro pensar lo siguiente: este modelo puede tomar decisiones muy rápido.
+Guillermo Fajardo: Entonces oye en un videojuego antiguo
+Guillermo Fajardo: el número de teclas que tienes tú disponibles es limitado.
+Guillermo Fajardo: Luego es completamente factible que un modelo, si es suficientemente rápido.
+Guillermo Fajardo: pueda tomar decisiones en tiempo real con 70 200 ms de retraso que es
+Guillermo Fajardo: tu padre o muchos de los que estamos aquí Probablemente tengamos menos un tiempo de reacción menor.
+Guillermo Fajardo: o sea menor mayor en el sentido de que seamos peores Entonces, aquí,
+Guillermo Fajardo: Fíjate que han cogido y han aplicado el modelo para que juegue a Doom.
+Guillermo Fajardo: Este modelo está jugando, y esto es con una A. P. I. Está jugando en tiempo real tomando decisiones de vale, pues ahora tengo que pulsar la tecla. D. Ahora tengo que pulsar la tecla. W. Ahora tengo, tendría que darle al botón de disparo y está jugando en tiempo real al videojuego.
+Guillermo Fajardo: Es muy loco. La capacidad de respuesta que va a dar esto es ridícula.
+Guillermo Fajardo: Ahora mismo no podéis acceder, pero estás muy atentos
+Guillermo Fajardo: porque os lo digo con con toda la claridad del mundo.
+Guillermo Fajardo: quien sea capaz de hacer un agente híbrido
+Guillermo Fajardo: que, dependiendo del modelo, depen dependiendo de la pregunta, dependiendo de la situación, sea capaz de elegir a qué modelo irse pensad, por ejemplo, recordáis. La última vez que alguno de vosotros me preguntó,
+Guillermo Fajardo: oye: ¿puedo hacer alguna manera de utilizar el modelo gratuito.
+Guillermo Fajardo: y cuando se acaben los créditos del modelo gratuito. Lo puedo derivar al otro. Vale, Eso se puede hacer con una función, pero aquí ahora, con este tipo de modelos que toman decisiones tan rápido.
+Guillermo Fajardo: Lo que te puedes hacer, por ejemplo, es un orquestador, un modelo que, en cuanto le llega una pregunta
+Guillermo Fajardo: decidas súper rápido? Vale, Esta es una pregunta compleja. Se la tengo que pasar al modelo inteligente? Esta es una pregunta normal. Se lo puedo pasar a un modelo un poco más barato. Y esta es una pregunta trivial. Se lo puedo pasar al modelo gratuito.
+Guillermo Fajardo: y eso lo puede hacer completamente en tiempo real.
+Guillermo Fajardo: Prácticamente entonces vamos, yo. Ya estoy salivando con cómo vamos a aplicar nosotros estos en el trabajo.
+Guillermo Fajardo: Entonces os recomiendo muchísimo que lo investiguéis, que le echéis un ojo que si a lo mejor sois frikicillos de implementar algunas
+Guillermo Fajardo: algunos modelos no de open source. Ya podéis tener una experiencia, por así decirlo, similar a esto con los modelos open source que están saliendo. Luego, si queréis o os pongo como los enlaces a donde están esos modelos están todos en Hallo y en París. Claro.
+Guillermo Fajardo: Así que, bueno, aquí os lo dejo esto y y vamos a darle a la clase un poquito
+Guillermo Fajardo: tenéis alguna duda de la parte de la clase anterior. Y todo esto, la verdad es que los cuadernos los he ido revisando para que estén.
+Guillermo Fajardo: sean bien explicativos y tal Entonces.
+Guillermo Fajardo: para la práctica, ya tenéis una parte al menos estructural del trabajo ya bastante hecha.
+Guillermo Fajardo: Alguien ha alguien ha estado jugueteando con la práctica o ha mirado algo o algo por el estilo.
+Guillermo Fajardo: Si no.
+Guillermo Fajardo: Vale, Sí, no.
+Guillermo Fajardo: Pues mira we win.
+Guillermo Fajardo: Pues mira una cosa que os comenté en la clase anterior y que creo que sería positiva que la hubieses hecho y si no? Bueno, pues la podéis hacer o hoy. Bueno, hoy, mañana el fin de semana
+Guillermo Fajardo: es es
+Guillermo Fajardo: ojo bichear por los datos, ponerte tú a hacer código de mirar cómo están los data frames y todas estas cosas es bastante útil. Así que si lo podéis hacer, yo os recomendaría mucho.
+Guillermo Fajardo: Pero mucho
+Guillermo Fajardo: que antes de que empecéis a meter código o antes de que le empecéis a pedir a la guía de turno que os ayude, o tal
+Guillermo Fajardo: o si o pedírselo a la Ia de turno en el en ese sentido, en plan oye, no mira antes, te ponías a resolver el problema.
+Guillermo Fajardo: Vamos a ponernos a hacer algo de código
+Guillermo Fajardo: para ir revisando el tipo de cómo es el Datasset que tenemos tal para que lo tengáis para que os vaya sonando en la cabeza
+Guillermo Fajardo: porque a, por ejemplo, yo estoy creando agentes bastante potentes.
+Guillermo Fajardo: Y claro, ¿qué pasa ahora? Estamos en la época de, obviamente, del bytecoding para todo. Y todo el mundo es programador. Y tal y y yo no, yo no lo veo como algo negativo. Mucha gente lo ve como algo negativo. Pero yo creo que este tipo de universalización de del
+Guillermo Fajardo: de la capacidad de creación a través de la programación
+Guillermo Fajardo: es algo que es netamente bueno, pero hubo
+Guillermo Fajardo: vosotros que estáis haciendo este máster.
+Guillermo Fajardo: Os tengo que decir que se nota una barbaridad. Se nota una barbaridad cuando alguien entiende y alguien no entiende.
+Guillermo Fajardo: Y en concreto, os lo digo, creo que lo comenté en la clase anterior porque, por ejemplo, ahora en nuestro departamento estamos creciendo bastante. Estamos contratando un montón de gente
+Guillermo Fajardo: y hemos tenido un problema muy claro. Hemos tenido un problema muy claro y es
+Guillermo Fajardo: el departamento de recursos humanos. No ha sido capaz en absoluto de filtrarnos a la gente
+Guillermo Fajardo: por 2 motivos, porque, claro, el departamento de recursos humanos.
+Guillermo Fajardo: por muchas indicaciones que le demos, no tiene el conocimiento, como son puestos técnicos. Claro, no tiene el conocimiento como para hacer el filtro. Pero es que, además, muchísimos muchísimos, por no decir el 100 por 100
+Guillermo Fajardo: de los aspirantes han han optimizado sus currículum de tal manera con el objetivo de saltarse todos estos filtros.
+Guillermo Fajardo: cosa que es completamente comprensible. Pero si alguno sabe de teoría de juegos. Esto es como en un una estrategia. La estrategia óptima para todos los partícipes es la peor para el conjunto en este caso.
+Guillermo Fajardo: Pero, claro, ¿qué pasa?
+Guillermo Fajardo: Aunque a mí no me debería tocar. Como no teníamos ese filtro. Yo he estado haciendo muchísimas entrevistas, Muchísimas
+Guillermo Fajardo: no puedo expresar lo
+Guillermo Fajardo: ridículamente. Evidente yo, porque soy un que da bien y y he mantenido entrevistas sus 20 min cuando en el minuto 3, yo ya sabía perfectamente que que esa persona no tenía ni idea de lo que estaba hablando.
+Guillermo Fajardo: Entonces eso se nota un montonazo. Entonces lo que quiero decir con esto es
+Guillermo Fajardo: inflados a utilizar la inteligencia artificial perfecto. Me parece perfecto. Vayas vayas a creerte que yo no he optimizado las funciones de aquí o yo no le he aprovechado y le he puesto comentarios, no en las clases utilizando la inteligencia artificial, Sí, sí, completamente. Sí está para eso.
+Guillermo Fajardo: Pero lo que aquí cuenta no es ya
+Guillermo Fajardo: tu capacidad de picar líneas que él, igual a había muchos como programadores antes que se vanagloriaban porque eran unos picalinias que hacían unas
+Guillermo Fajardo: unos espaguetis gigantes y nadie lo entendía menos ellos, y por eso eran importantes. No venga. Ahora podemos hacerlo de otra manera. Pero hablando con la gente se nota muchísimo. ¿quién lo entiende? Y
+Guillermo Fajardo: os lo digo porque es la situación 100 por 100 a la que nos hemos enfrentado. Esa es la diferencia.
+Guillermo Fajardo: porque no, Tú no. Tú no estás haciendo este Máster. Tú no estás haciendo este máster porque quieras el titulito. Y bueno, luego me voy a plantar tomates. Tú que tú estás haciendo este máster que entiendo yo, que tampoco es barato
+Guillermo Fajardo: porque lo que quieres es
+Guillermo Fajardo: trabajar o implementar esto en tu trabajo. Entonces lo que importa aquí es tu criterio y tu capacidad de entendimiento.
+Guillermo Fajardo: Entonces, cuando vayáis a preguntar algo cuando vayáis a utilizar la inteligencia artificial.
+Guillermo Fajardo: ponerle prompt del sistema, Ponerle el cloude punto M D, o lo que sea para que
+Guillermo Fajardo: os enriquezca vuestro conocimiento
+Guillermo Fajardo: igual. Hay un Hay una técnica bastante buena. Yo la uso un montón que puedes plantear a Claude o a cualquier otra inteligencia artificial para que cuando le estás haciendo preguntas o le estás pidiendo algo.
+Guillermo Fajardo: actué como un tutor socrático. El método socrático es este método en el que el profesor, en vez de darte la respuesta.
+Guillermo Fajardo: porque te va haciendo preguntas de tal manera que te va guiando hacia acá. Y con eso lo que quiero decir es.
+Guillermo Fajardo: hasta ahora era muy, importante, muy, muy importante saber conocer técnicamente el qué digo, el el cómo
+Guillermo Fajardo: y el qué, El qué tenías que hacer es algo que ya se encargaba, pues tu jefe o el diseñador, o o algo por el estilo.
+Guillermo Fajardo: La barrera de entrada del conocimiento del cómo acaba de bajar muchísimo por la inteligencia artificial.
+Guillermo Fajardo: Luego a vosotros lo que os va a dar valor es vuestro criterio empoderar.
+Guillermo Fajardo: No va a ser tanto cuantitativo de picar líneas de ser muy técnico. Va a ser más
+Guillermo Fajardo: entendimiento de la esencia. Entonces intentad aprender. Intentad. Ser un poco curiosos con esto que yo entiendo que estáis presionados y tal. Pero intentad ir un poquito por encima de esa
+Guillermo Fajardo: presión evolutiva, presión competitiva que hay por que
+Guillermo Fajardo: si tenéis claro, vuestro objetivo y vuestro objetivo es ser buenos. El criterio es lo que os va a diferenciar. No hace falta que tú sepas hacer el código 100 por 100, pero vuestro criterio va a ser muy relevante y cultivarlo. Por lo tanto, también.
+Guillermo Fajardo: Entonces, Bueno, me estoy enrollando, tela y encima he llegado tarde.
+Guillermo Fajardo: Estamos aquí con esto. Ya le yo ya he instalado estas cosas
+Guillermo Fajardo: aquí. Ya le he puesto la clave.
+Guillermo Fajardo: Simplemente esa es la típica funcioncita
+Guillermo Fajardo: que te recrea el corpus desde los datos del Dataceet no tiene mucho misterio
+Guillermo Fajardo: aquí, os recomiendo que pongáis si habéis alguno jugado y tal que pongáis vuestro propio agente, si no, Pues bueno, hay 1 de de Chichinao, ya puesto. Ahí
+Guillermo Fajardo: estamos utilizando recordad géminis, 3, 8 flash.
+Guillermo Fajardo: una cosa superim importante, también. Bueno, superinteresante, para la práctica.
+Guillermo Fajardo: tanto con jemina, como luego con los modelos de embelings.
+Guillermo Fajardo: Es Oye jugad un poco en esto. Probad otros modelos, tal
+Guillermo Fajardo: ya habéis visto que es bastante barato. Hay modelos caros, obviamente, pero hay muchos modelos gratuitos. Ya lo ya os lo enseñé el otro día, y hay modelos que también son más baratos. Luego, jugando un poquito con esto
+Guillermo Fajardo: aquí. Os he puesto como ejemplo este modelo de preguntas.
+Guillermo Fajardo: Este es el es, Esto es un esquema
+Guillermo Fajardo: de 1 de los entregables que vais a tener que hacer. ¿oye, Pues mira, tenemos la pregunta número 1 pregunta que dicen vídeo en sus 10 que Uy.
+Guillermo Fajardo: que dice: envidia en su 10 cada lado.
+Guillermo Fajardo: Y aquí está esto aquí.
+Guillermo Fajardo: A ver, no sé mucho
+Guillermo Fajardo: que dicen ellos, familia extractiva, recordar que podía haber 2 familias principalmente eran 2, sí, y luego
+Guillermo Fajardo: oye, pues mira, yo espero que cuando le hago esta pregunta, me detecte que la empresa se envidia que el año sobre el que le estoy preguntando al 2 025. Esto el en el código ya lo tenéis. Pero simplemente para que lo entendáis
+Guillermo Fajardo: y respuesta esperada, la respuesta esperada es una respuesta.
+Guillermo Fajardo: Obviamente, la re el dependiendo de la inteligencia artificial que utilices. Y tal esto puede cambiar. Esto no es que tenga que ser un
+Guillermo Fajardo: un acierto del 100 por 100, sino que se encuentre lo correcto, cifra esperada. Va a haber en muchos casos donde la cifra esperada sea muy relevante. Por ejemplo, cuando estemos preguntando sobre variables concretas fijaos aquí,
+Guillermo Fajardo: Entonces entended, el Datase D es muy importante
+Guillermo Fajardo: y a raíz de haber entendido el data, sed
+Guillermo Fajardo: entended las clases de Pailantic de los modelos de respuesta. Es también superimportante.
+Guillermo Fajardo: Entonces, y antes de meterlos al turrón, darle un poquito a esto.
+Guillermo Fajardo: Vamos a ejecutar esto. Básicamente tenemos estas preguntitas y le hemos puesto. ¿le hemos hecho aquí que vaya intentando encontrar la información.
+Guillermo Fajardo: Aquí estamos viendo solamente cuando falla.
+Guillermo Fajardo: esto es el el la lista de
+Guillermo Fajardo: de las funciones de las Tuls que hemos ido utilizando.
+Guillermo Fajardo: Y aquí podemos ver cómo ha ido fallando poco a poco. Por ejemplo, en el primero
+Guillermo Fajardo: no he encontrado nada relevante. En la pregunta, 6 pregunta, 6:
+Guillermo Fajardo: ¿Qué porcentaje de los ingresos consolidados
+Guillermo Fajardo: de Amazon a puerto del cemento internacional? Dos 1 025.
+Guillermo Fajardo: Y estamos mencionando aquí específicamente el apartado de riesgo.
+Guillermo Fajardo: Fíjate la información aquí está, pero no ha encontrado nada relevante. Luego, en esta otra pregunta. Por ejemplo, ha recuperado otro tipo de dato Pregunta número 2: ¿qué riesgos de seguridad asocia a Microsoft en 2 025 al uso creciente de la inteligencia artificial. Recordad que esta es una pregunta que ya hicimos en el en el día anterior.
+Guillermo Fajardo: Oye, pues ahí buscando fijaos problema.
+Guillermo Fajardo: Ha buscado a Apple. Aquí.
+Guillermo Fajardo: Aquí ha utilizado Microsoft.
+Guillermo Fajardo: vale, pero no ha seleccionado.
+Guillermo Fajardo: Ha utilizado Microsoft, pero fijaos el riesgo recordad, que era el 7 7 A,
+Guillermo Fajardo: y pero ha buscado Microsoft. El El perdón ha buscado Microsoft ya es que se ha movido.
+Guillermo Fajardo: ha utilizado otro sector.
+Guillermo Fajardo: Todos estos errores ya a ver están un poquito preparados, obviamente.
+Guillermo Fajardo: pero ha ido fallando en todos estos sitios en el número 20. No supo cómo comparar 2 ejercicios. Esta es una. Este es un error clasiquísimo. Este es un error muy clásico y es un error, sobre todo
+Guillermo Fajardo: que los agentes son la única herramienta, por así decirlo.
+Guillermo Fajardo: que realmente te puede salvar de ello, que pueden ir itera iterativamente, mientras que en un rap clásico una pregunta que contiene este tipo de mezcla de
+Guillermo Fajardo: mezcla de fuentes insinuadas, por así decirlo, hubiera fallado
+Guillermo Fajardo: fijaos. Aquí se ha hinchado a llamar a cosas. ¿
+Guillermo Fajardo: Se inventa la cifra. Esto cada vez con los de
+Guillermo Fajardo: no es por meterles caña. Pero los de Jaminay son un poquito. Tienden a inventar un poquito más de la cuenta, pero bueno, también son muy baratos y muy rápido.
+Guillermo Fajardo: y aquí se lo se lo ha inventado. Ha utilizado la herramienta equivocada.
+Guillermo Fajardo: Esto esto utilizar la herramienta equivocada puede no ser un error en el sentido de
+Guillermo Fajardo: siempre y cuando termine llegando la respuesta, pues puede ser una falla en eficiencia, por así decirlo.
+Guillermo Fajardo: pero siempre y cuando se llegue la respuesta, pues oye, mira.
+Guillermo Fajardo: Bueno, lo vamos a ver después porque al final del cuaderno hay una serie de evaluadores.
+Guillermo Fajardo: Yo, pero lo digo, os lo digo ya
+Guillermo Fajardo: cuando estás creando agentes. Obviamente ya te haces este tipo de preguntas. Oye ¿Qué es un fallo? ¿hasta dónde es mi nivel de eficiencia, cosas por el estilo, por dejarlo simple. Por ahora, si llegas a la respuesta correcta, es un acierto, ya está. No es un fallo
+Guillermo Fajardo: y luego ya podemos entrar en una discusión sobre optimizaciones.
+Guillermo Fajardo: pero si la respuesta a la que se ha llegado es la correcta.
+Guillermo Fajardo: No es un fallo.
+Guillermo Fajardo: Entonces podemos ver aquí ya cerrar esto.
+Guillermo Fajardo: Podemos ver aquí básicamente los fallos que hay. Son estos 5
+Guillermo Fajardo: oye, pues mira en este caso.
+Guillermo Fajardo: no has seleccionado la sex no encontrado nada relevante, aunque había había información relevante.
+Guillermo Fajardo: luego ha recuperado información que no era. Esto puede pasarte esto en documentos legales o financieros o contables. Pasa un montón porque hay muchas estructuras que son muy, muy parecidas.
+Guillermo Fajardo: No supo comparar 2 ejercicios. Esto es lo típico que si yo os hubiera enseñado, simplemente Rack, hubiese sido muy difícil que saliésemos de este problema.
+Guillermo Fajardo: pero con agentes va a ser mucho más fácil.
+Guillermo Fajardo: Se inventó la cifra. Aquí hay maneras muy guays de resolver esto.
+Guillermo Fajardo: pero os las puedo comentar, y tal o si alguien tiene dudas que me pregunte.
+Guillermo Fajardo: pero es un poquito más difícil salirse de este tipo de problemas, porque esto depende mucho más de la inteligencia artificial como tal.
+Guillermo Fajardo: Entonces esto salvarte de estos problemas va a depender más
+Guillermo Fajardo: de lo pillo que seas tú al buscar la respuesta. Por ejemplo.
+Guillermo Fajardo: una imaginaos, claro, aquí lo que está pasando es que vosotros tenéis un archivo Magdawn, el texto y
+Guillermo Fajardo: estáis buscando una respuesta, pues una de las maneras de asegurarse de que no se está
+Guillermo Fajardo: que no está alucinando
+Guillermo Fajardo: es oye, no me devuelva solo el dato o la respuesta, sino además del dato. La respuesta. Me vas a devolver
+Guillermo Fajardo: el te te lo pido como un campo extra.
+Guillermo Fajardo: El la frase o frases
+Guillermo Fajardo: que te han servido de inspiración de referencia para sacar esta conclusión en plan cópiame, la frase tal cual
+Guillermo Fajardo: tal cual está. Entonces, ¿qué va a pasar que tú luego con una funcioncita que no es muy complicada, nada complicada. De hecho, coges y buscas ese trozo de texto
+Guillermo Fajardo: dentro del texto original.
+Guillermo Fajardo: Si lo encuentra, es que la frase está ahí
+Guillermo Fajardo: y que la frase es cierta. Sin embargo, sí ha alucinado
+Guillermo Fajardo: lo que va a pasar normalmente
+Guillermo Fajardo: solo con pedirle eso. Ya va a alucinar mucho menos porque ya como que mentalmente, por así decirlo, le está forzando a
+Guillermo Fajardo: focalizarse mucho más en el texto.
+Guillermo Fajardo: pero en el caso de que haya alucinado, va a alucinar también la referencia.
+Guillermo Fajardo: Y lo que va a pasar es que no va a encontrar cuando intentes buscar la ese trozo de string en la string general no la va a encontrar.
+Guillermo Fajardo: y eso no quiere decir automáticamente que esté mal, porque imaginaos, pues puede haber un salto de línea, cuestión de dobles espacios o cosas por el estilo que hay que vigilarlas un poco, pero ya es una alerta muy clara que os puede dar a que eso está pasando, aunque, bueno, cada vez con las inteligencias artificiales actuales, esto pasa menos y menos
+Guillermo Fajardo: y utilizar la herramienta equivocada.
+Guillermo Fajardo: Poniendo la temperatura. Es que bueno. Punto 1.
+Guillermo Fajardo: Hay muchas inteligencias artificiales y cada vez más
+Guillermo Fajardo: en las que no pueda setear la temperatura.
+Guillermo Fajardo: La temperatura es un parámetro que se está quedando como obsoleto del pasado.
+Guillermo Fajardo: Hemos también. Por ejemplo, la temperatura era un parámetro muy goloso.
+Guillermo Fajardo: porque cada vez que tú estabas haciendo algo, pues te dices, oye, le pongo la no quiero que me mienta, le pongo la temperatura 0, pero está completamente demostrado. Hay Papers al respecto. Con muchos tipos de inteligencia artificial que si tú bajas la temperatura 0,
+Guillermo Fajardo: estás sin darte cuenta, estás penalizando y de una manera relevante la inteligencia del modelo.
+Guillermo Fajardo: Entonces, pues ahí ya entras en ese pacto mefistólico en el que
+Guillermo Fajardo: puedes estar necesitando una inteligencia superior y no la estás teniendo porque estás yendo a la inteligencia, al a la temperatura 0. Pero, por ejemplo, hay muchos modelos actuales en los que no puedes setear ya la temperatura
+Guillermo Fajardo: o se ve.
+Guillermo Fajardo: o hay otros en los que puedes setear la temperatura. Y aunque las E T es como que no es tan eficiente como antes, pero hasta, por ejemplo, en vez de tú que estabas en Chatg, P, T,
+Guillermo Fajardo: 4, 6 o 4 8 hasta ahí. Sí que podías setear la temperatura y bajarla a 0. Era un tipo de solución que que funcionaba, pero estabas perdiendo inteligencia sin darte cuenta.
+Guillermo Fajardo: Entonces, bueno, ya fijaos que simplemente el problema.
+Guillermo Fajardo: El problema que estaba pasando aquí muchas veces era que cuando estamos dando una respuesta
+Guillermo Fajardo: muchas veces el problema no viene de la L. L. M,
+Guillermo Fajardo: sino que, obviamente, como estamos haciendo algo relacionado con el rap.
+Guillermo Fajardo: muchas veces el problema viene de nuestra herramienta
+Guillermo Fajardo: y en nuestra herramienta ya hay mucho trabajo hecho
+Guillermo Fajardo: de como hemos procesado el texto
+Guillermo Fajardo: como lo hemos partido, cómo hemos dividido en secciones.
+Guillermo Fajardo: otra cosa superimportante. Nosotros le dedicamos un esfuerzo gigante a esto.
+Guillermo Fajardo: Imagínate que tú tienes un P. D f
+Guillermo Fajardo: pasarlo pasarlo de P. D. F. A. Markdown Hay muchas librerías completamente open source y tal que te lo hacen automáticamente.
+Guillermo Fajardo: Hay Hay una de Microsoft que el que el símbolo es un patito. Se llama docling.
+Guillermo Fajardo: que es bastante buena, pero no es perfecta, entonces muchas veces hay una
+Guillermo Fajardo: hay problemática de traducción desde el Pe de lo de de lo que es el P. D, F, A, lo que es el el Mark Now.
+Guillermo Fajardo: Y eso hay que cuidarlo mucho. Por ejemplo, nosotros, cuando estamos trabajando, pues imagínate un sistema que está procesando miles de noticias, acciones corporativas, y todo este tipo de cosas.
+Guillermo Fajardo: Lo que hacemos es, utilizamos la mejor que existe del mercado, que es mistral, que son unos franceses
+Guillermo Fajardo: y luego encima de mistral tenemos puesto como una una librería, una serie de funciones de comprobación y cosas por el estilo para asegurarnos que el texto nos viene lo más limpio posible.
+Guillermo Fajardo: Eso es muy importante, porque muchas veces pasando de Pdf a a Marklown se rompe las tablas o cosas por el estilo.
+Guillermo Fajardo: simplemente en la clase anterior, en el M. I, A, C, s. En el archivo M I a. C. S: Uno punto, Pay.
+Guillermo Fajardo: Pues teníamos este tipo de los vectores aquí, recordar lo que os dije
+Guillermo Fajardo: cuando estamos haciendo una búsqueda, se está haciendo un cálculo
+Guillermo Fajardo: vectorial de multiplicación vectorial, que es la búsqueda por similitud.
+Guillermo Fajardo: esto es una de las claves que vais a tener que investigar y que vais a tener que mejorar a ver. Os lo digo desde ya
+Guillermo Fajardo: a ver dónde está aquí el B, G: aquí.
+Guillermo Fajardo: Modelo. B: G, Vale. Aquí pone modelo B G. Que para que os hagáis una idea, es
+Guillermo Fajardo: un modelo de Meddings.
+Guillermo Fajardo: Creo que es del 2 020 o algo por el estilo. La tecnología ha mejorado muchísimo. Vosotros. Una de las cosas que vais a tener que hacer. Os podéis mejorar como queráis. Pero una de las cosas más directas y más evidentes es: Oye, me voy a ir a un mejor modelo de embelings
+Guillermo Fajardo: Voy a currarme como parto. El texto y todo este tipo de cosas. Recordad también los en Beddings son modelos
+Guillermo Fajardo: que suelen que son bastante ligeros.
+Guillermo Fajardo: por lo cual son completamente viables ejecutarlos en local o en Google Colab o algo por el estilo.
+Guillermo Fajardo: Pero recordad que también hay modelos muy buenos de embering que están tanto en Open routers como en cualquier otra pa plataforma.
+Guillermo Fajardo: Luego testear diferentes modelos. Sería una muy, muy buena idea. Entonces fijaos, lo corto que es esto.
+Guillermo Fajardo: Esto son 16 líneas con comentarios.
+Guillermo Fajardo: Es super es supersencillo.
+Guillermo Fajardo: Entonces, para haber hecho todo el tema de los embelings y la búsqueda, hemos hecho varios procedimientos, varios pasos.
+Guillermo Fajardo: primero, oye troceado. Okay. Un modelo de embeddings. Es un modelo.
+Guillermo Fajardo: recordad lo que os dije de los embed in que os enseñé la paginita, esta donde cada palabra estaba como en un mapa tridimensional. Y todas estas cosas.
+Guillermo Fajardo: Cada palabra se convertía en un vector, pues esto lo que hay son los modelos de Em Beding que tú le das una palabra, o un texto.
+Guillermo Fajardo: y te lo transforma en un vector de 1 000 y pico dimensiones, o de eso depende del modelo de embedix.
+Guillermo Fajardo: y ese tipo de representación contiene información sobre información semántica, información sobre el significado de la frase. Y eso es lo importante, porque es lo que nos va a recuperar los trozos que más nos importantes no son
+Guillermo Fajardo: entonces, pues, claro, ahora.
+Guillermo Fajardo: si el modelo de los modelos de embedings van a tener siempre una un límite de cantidad, pero vamos a todos. Les cabe como mínimo mínimo mínimo una página.
+Guillermo Fajardo: pero puede ser que el hecho de que les quepa una página o les quepan 30 páginas no quiere decir que tenga que utilizar yo esa cantidad de páginas, porque igual
+Guillermo Fajardo: si estoy metiendo 30 páginas, el significado. Queda mucho más diluido luego seleccionar cómo de grande son los trozos
+Guillermo Fajardo: que vamos a meterle a ese modelo en Medhinks. Es muy relevante. Esos modelos, esos trozos no tienen por qué ser siempre iguales. Pueden ser dinámicos. Pueden ser por secciones, por lo que vas investigando
+Guillermo Fajardo: cuando ya tenemos los trozos hechos y eso solo lo lo vais a poder.
+Guillermo Fajardo: Eso solo lo vais a poder medir a posteriori. Por eso, una parte importante de la práctica no va a ser sólo hacer el código.
+Guillermo Fajardo: sino que hay una serie de decisiones que que son parámetros.
+Guillermo Fajardo: Pueden ser más parámetros, desde el tamaño del trozo de texto hasta el modelo que estamos seleccionando. No sé si en otras clases. Lo habéis visto, pero hay librerías y tal para optimización de hiperparámetros y cosas por el estilo, pues bueno, esto no es optimización de hiperparámetros de un modelo.
+Guillermo Fajardo: pero es prinísimo hermano. Entonces por ahí podéis tirar.
+Guillermo Fajardo: Una vez tenemos los textos, lo pasamos por los modelos de Medings. Y ya digo.
+Guillermo Fajardo: no hace falta gran un gran ordenador para hacerlo en local. Pero si no en Google Colab también se puede hacer.
+Guillermo Fajardo: Luego, con todo esto, creamos un índice.
+Guillermo Fajardo: Sinceramente.
+Guillermo Fajardo: a ver. Hay librerías como Five, que es la que estamos utilizando que te hacen índices vectoriales y tal y funcionan superbién.
+Guillermo Fajardo: Esto se puede replicar en menos de
+Guillermo Fajardo: 30 o 40 líneas con un país.
+Guillermo Fajardo: un ejercicio superguay de entender esto y de interiorizarlo
+Guillermo Fajardo: sería hacer este tipo de índices y de Retrival con Nun Pay.
+Guillermo Fajardo: porque ya digo que es súper sencillo. Es una multiplicación vectorial. Y el y el rate tribal es supersencillo.
+Guillermo Fajardo: Entonces vamos a ver aquí. Cómo termina saliendo esto fijaos.
+Guillermo Fajardo: Aquí tenemos. Bueno, a ver, lo voy a explicar un pelín.
+Guillermo Fajardo: El tema del troceado que ya os lo he estado comentando hasta ahora. Es superimportante.
+Guillermo Fajardo: Yo aquí que no vais a tener acceso a ese código ya me
+Guillermo Fajardo: curr, aunque el modelo de embedings que he utilizado es bastante malo el troceado, y esto me lo he currado un pelín más.
+Guillermo Fajardo: Entonces aquí vais a poder ver un poquito los trozos que he hecho, pues, por ejemplo.
+Guillermo Fajardo: el ítem 1 a se ha partido en 533 trozos. Hay muchos que tienen tabla, pues también hizo una lógica
+Guillermo Fajardo: nada complicada, pero pequeña para intentar, porque imaginaos que estáis buscando información.
+Guillermo Fajardo: Y tenéis una sección. Imaginaos que estáis partiendo la información por cada página, una sección, una página.
+Guillermo Fajardo: y en muchos informes os vais a encontrar el caso de que una tabla está partida entre página y página.
+Guillermo Fajardo: ¿qué pasa A lo mejor el el buscador, o lo o se encuentra la página correcta que contiene esa tabla.
+Guillermo Fajardo: Pero como el último, la última mitad de la tabla que es donde está la información que vosotros queréis, se ha ido a la página siguiente y no la encuentra, pues eso es un problema grande que tenéis.
+Guillermo Fajardo: podéis ver que el número de tokens Esto depende mucho ya también del modelo que utilicéis y de los embeding. Pero el el número de tokens no suele ser muy alto
+Guillermo Fajardo: normalmente un modelo de en vez de in como estos. Como mínimo puede pillar
+Guillermo Fajardo: 2 005 1 000. Hay modelos en Bething muchísimo más grandes.
+Guillermo Fajardo: Entonces aquí podéis ver que la distribución
+Guillermo Fajardo: es bastante variopinta. Pero los trozos tienden a ser pequeños como para ir muy al detalle cuando se recuperen los
+Guillermo Fajardo: cuando se recuperen las cosas. Aún así como el modelo de embeding que estoy utilizando es el que es
+Guillermo Fajardo: como las preguntas y los datos de cada sección. Yo ya los conozco.
+Guillermo Fajardo: pues yo le he podido hacer un testeo de oye
+Guillermo Fajardo: si yo pregunto por este dato.
+Guillermo Fajardo: Yo ya sé dónde está este dato, porque para eso tengo los textos y los conozco a la perfección.
+Guillermo Fajardo: Pero si yo al recuperador de fragmentos, le pido que me recupere el fragmento. Con la pregunta sobre este dato, me va a recuperar el dato el fragmento correcto. Dije, pues, con este modelo ya un 41 por 100 es una porcentaje terrible, así que superarlo no debería costar mucho
+Guillermo Fajardo: fijaos, por ejemplo, Este tipo de este tipo de esto es un trozo de 1 de el final de 1 de los trozos, por así decirlo. Pues, ¿qué pasa aquí? Esto es una tabla
+Guillermo Fajardo: cosas superimportantes que no le quiero decir, por no darnos pistas, pero cosas superimportantes.
+Guillermo Fajardo: limpiar y pre procesar el texto ahorra una cantidad de trabajo.
+Guillermo Fajardo: No, no es que te ahor mentira, No te ahorras una cantidad de trabajo te da más trabajo.
+Guillermo Fajardo: pero te da un aumento en la calidad bastante grande.
+Guillermo Fajardo: Ejemplo tontísimo. Estas cosas, las tablas, cuando no estás utilizando un
+Guillermo Fajardo: 1 C. R superpotente que pasa esto con las tablas. Esto es una fila y fijaos los espacios.
+Guillermo Fajardo: Esto hace que visualmente para el humano es, pues, una mierda
+Guillermo Fajardo: para la el L. L. M. A la L M no le importa tanto, pero no te creas que no le importa. Así que le afecta
+Guillermo Fajardo: Luego, si hubiera una manera de optimizar, esto os estaríais ahorrando, por un lado os estaríais ahorrando tokens, porque me parece una tontería, pero las tabulaciones y los espacios terminan siendo tokens también.
+Guillermo Fajardo: Pero por otro lado, también estás como favoreciendo el funcionamiento de
+Guillermo Fajardo: el funcionamiento del retriever del recuperador de fragmentos
+Guillermo Fajardo: fijaos que tenemos aquí, por ejemplo, esto es súper complicado de entender.
+Guillermo Fajardo: Hay una cosa también súper
+Guillermo Fajardo: guay, súper compleja. No voy a esperar que hagáis esto, pero ¿qué es esto? ¿alguien lo sabe qué es esto.
+Guillermo Fajardo: ¿Por qué está entre paréntesis? Quiero decir.
+Guillermo Fajardo: Justo claro en negativo.
+Guillermo Fajardo: Pero
+Guillermo Fajardo: ¿qué problema? Aquí hay un problema que es que muchas veces, cuando te encuentres, esto puede ser que esté en negativo.
+Guillermo Fajardo: pero dependiendo de la columna en la que esté, puede ser otra cosa más.
+Guillermo Fajardo: Alguien se le ocurre, alguien tiene ideas al respecto.
+Guillermo Fajardo: No el índice de la tabla, pero una referencia a las notas.
+Guillermo Fajardo: una reflexión que suelen estar en otra sección. Además.
+Guillermo Fajardo: es decir, hay en las cuentas anuales, hay un hay unos apartados específicos para clarificaciones y tal entonces esto puede ser una referencia.
+Guillermo Fajardo: Luego aquí el cielo es el límite, ¿sabes? Es decir, no te digo que sustituyas no te cómo detectas. Si punto 1 cómo detectas y cómo diferencias, cuándo es un número negativo y cuándo es una referencia. Una nota
+Guillermo Fajardo: y punto 2: suponiendo que diferen que lo pudieras diferenciar perfectamente cuando esto sea una nota.
+Guillermo Fajardo: ¿qué haces al respecto?
+Guillermo Fajardo: Porque a lo mejor la nota es relevante
+Guillermo Fajardo: para el tipo de preguntas que vamos a estar haciendo? Probablemente no.
+Guillermo Fajardo: Pero quiero decir
+Guillermo Fajardo: el nivel máximo al que tú te puedes llegar a complicar para optimizar esto llega hasta donde a ti te dé la gana.
+Guillermo Fajardo: por ejemplo, a la siguiente.
+Guillermo Fajardo: Entonces vamos a ejecutar esto.
+Guillermo Fajardo: Este es el argentito básico de de la otra vez.
+Guillermo Fajardo: Y aquí os he generado algún unos tipos de de funciones básicas en la que podéis medir
+Guillermo Fajardo: más o menos de P también es importante, como hagáis el data Sac, no más o menos la eficiencia que tengáis esto, pues por ejemplo.
+Guillermo Fajardo: fijaos.
+Guillermo Fajardo: Esto es bueno, así a voz. De pronto se se puede entender qué quiere decir qué quiere decir esto
+Guillermo Fajardo: simplemente para que lo entendáis, lo veáis. Luego, lo que quiere decir. Esto es muy sencillo.
+Guillermo Fajardo: Aquí estoy haciendo. Recordad esto son las referencias al Golden, a las preguntas que habíamos hecho.
+Guillermo Fajardo: Esto es y el la sección donde está y hacer.
+Guillermo Fajardo: Aquí es donde ha aparecido, por ejemplo, para Nvidia en 2 025,
+Guillermo Fajardo: tenemos 1 749 trozos.
+Guillermo Fajardo: el trozo, donde está la información que nosotros queríamos.
+Guillermo Fajardo: dónde ha aparecido. Ha aparecido en el puesto. 217.
+Guillermo Fajardo: ¿eso ¿Qué quiere decir?
+Guillermo Fajardo: Sería? Nor: Vamos. Sería ridículo, normalmente.
+Guillermo Fajardo: que yo recupere 200 y pico trozos.
+Guillermo Fajardo: es decir, que yo le pase a la Lm 200 y pico trozos de contexto para que se los lea. Todo Lo normal es que cojas, pues
+Guillermo Fajardo: los 3, los 10, los 20 primeros cosas por el estilo, pero no te vas a ir a 100, ni a ni muchísimo menos a 200
+Guillermo Fajardo: esto aquí implícitamente, te está diciendo cagaste.
+Guillermo Fajardo: Entonces aquí es donde el tipo de preguntas vais a ver como oportunidad de mejora utilizar esta funcioncita.
+Guillermo Fajardo: verlas, un pelín, jugar con ellas.
+Guillermo Fajardo: porque antes de llegar a la parte final, hacer este tipo de análisis en los
+Guillermo Fajardo: es lo que os va a dar.
+Guillermo Fajardo: No va a decir exactamente dónde está el error.
+Guillermo Fajardo: pero os va a poner en el camino intuitivamente. Hacia dónde deberíais ir tirando con esto?
+Guillermo Fajardo: Entonces vamos a hacer ahora un par de ejercicios que tienen que ver con cómo mejorar esa situación.
+Guillermo Fajardo: Como afinar el tiro, un pelín más. El primero que quiero que hagáis es este: vamos a filtrar
+Guillermo Fajardo: por metadatos.
+Guillermo Fajardo: Es súper sencillo los trozos que tenemos a ver si lo
+Guillermo Fajardo: donde está con ancla Vale.
+Guillermo Fajardo: fijaos.
+Guillermo Fajardo: Vale, esa es la pregunta. Este es el tipo extractiva respuesta esperada. Todo lo demás.
+Guillermo Fajardo: pues ahora es muy sencillo.
+Guillermo Fajardo: Dentro de los trozos bueno es que estas son las preguntas entre los trozos
+Guillermo Fajardo: y los tengo aquí el índice mitad. Aleg
+Guillermo Fajardo: Vale, Sí, claro.
+Guillermo Fajardo: De es
+Guillermo Fajardo: igual, es cosa mía completamente, pero yo, por ejemplo, soy muy de utilizar la librería de No Pay porque además va volando.
+Guillermo Fajardo: Y estas bases de datos que ya te vienen hechas, son un poquito feas a la hora de explorarlas
+Guillermo Fajardo: y salvo que tenga 1 000 000 1 000 000 y 1 000 000 de puntos de datos en un país, sigue sigue ganándoles
+Guillermo Fajardo: de todo aquí. Efectivamente, claro, aquí ya tenemos todos los trozos que hemos ido haciendo.
+Guillermo Fajardo: pero para cada trozo, pues obviamente tenemos oye de qué empresa es, de qué año es, cuál es su Item.
+Guillermo Fajardo: El número de Token que no nos va a valer mucho, contiene tabla, se puede o puede no ser útil.
+Guillermo Fajardo: Pero una de las cosas más tontas y sencillas que vamos que podemos hacer es hostia
+Guillermo Fajardo: cuando te esté preguntando por envidia.
+Guillermo Fajardo: No me cojas toda la tabla
+Guillermo Fajardo: de todos los trozos de todas las empresas todos los años que hay
+Guillermo Fajardo: cógeme el este datasad primero me lo filtra por el ticket.
+Guillermo Fajardo: Luego me lo puedes filtrar por esto o por otras cosas.
+Guillermo Fajardo: Entonces, el primero que quiero que hagáis es modificar esto para coger la función anterior.
+Guillermo Fajardo: pero hacerlo añadiéndole este tipo de filtro.
+Guillermo Fajardo: básicamente punto por punto, te pone lo que lo que tienes que hacer. De hecho, lo podéis hacer así, simplemente de
+Guillermo Fajardo: te pones aquí y pones código.
+Guillermo Fajardo: aunque házlo como le dé la gana, ¿no? Pero bueno.
+Guillermo Fajardo: algo así.
+Guillermo Fajardo: Entonces voy a dejar 10 minutillos, un pelín menos, y y ahora lo vamos viendo
+Guillermo Fajardo: así, ya la ibais metiendo mano, porque es literalmente lo que vas a tener que hacerlo.
+Guillermo Fajardo: Así que, bueno, intentadlo. Si tenéis algún problema, me lo comentáis. Y Y si no, pues ahora lo vemos, os dejo, eso. Diez minutillos, venga hasta ahora.
+Guillermo Fajardo: Bueno, chicos. ¿cómo vais?
+Guillermo Fajardo: ¿alguien ha avanzado un poquito que sea en plan alguno de los puntos
+Guillermo Fajardo: fijaos?
+Guillermo Fajardo: No me oye.
+Guillermo Fajardo: Que tenemos aquí. Por ejemplo, tenemos el índice
+Guillermo Fajardo: que recordar lo del Fiz Este
+Guillermo Fajardo: y en el índice le podemos hacer que lo pone ahí. Básicamente podemos hacer una búsqueda.
+Guillermo Fajardo: ya está poniéndole.
+Guillermo Fajardo: Vamos a poner en vez de esto, Vamos a poner una preguntita
+Guillermo Fajardo: pregunta igual beneficio neto por poner una cosa así, simple y ponemos pregunta.
+Guillermo Fajardo: y y a efectivamente, el índice n total. Esto, qué es, por ejemplo, bastante simple, pero bueno.
+Guillermo Fajardo: es el tamaño completo del índice.
+Guillermo Fajardo: Si nosotros hacemos esto, vamos a ponerle aquí on
+Guillermo Fajardo: fijaos que nos está devolviendo. Esto.
+Guillermo Fajardo: Estamos diciendo oye en el índice búscame
+Guillermo Fajardo: la pregunta. En vez de poner la pregunta directamente, claro que está pasando aquí. Esto es un Rick Triever
+Guillermo Fajardo: Esto está utilizando los modelos de embelings de los que hemos estado hablando.
+Guillermo Fajardo: Pues, bueno, aquí tenemos el tema de
+Guillermo Fajardo: codificar que es una funcioncita accesoria que ya
+Guillermo Fajardo: lo digo, es una funcioncita superfácil
+Guillermo Fajardo: que lo que hace es que coge el modelo de embeddings La pregunta te la transforma en un vector.
+Guillermo Fajardo: y luego haces la comparativa vegetal.
+Guillermo Fajardo: Entonces tenemos intento y veis aquí que tenemos. Por ejemplo.
+Guillermo Fajardo: vamos a hacerlo por separado que mejor recalcularlo todo el rato.
+Guillermo Fajardo: Tenemos esto.
+Guillermo Fajardo: Todo este rey no debería haber 2.
+Guillermo Fajardo: vale, No, sí, te he encontrado todos los trozos en 1.
+Guillermo Fajardo: Esto igual no debería. No deberían haber sido 2 listas, pero bueno, esto va a fallar. Vale.
+Guillermo Fajardo: podríamos haberlo hecho una única lista.
+Guillermo Fajardo: Entonces, yo aquí Lo que busco es, por ejemplo.
+Guillermo Fajardo: ¿qué es qué es esta lista?
+Guillermo Fajardo: Este Array, este vector.
+Guillermo Fajardo: ¿alguien sabe qué es este vector.
+Guillermo Fajardo: Justo es el número dentro del
+Guillermo Fajardo: del data frame, por así decirlo, a ver si lo tenemos por aquí o si no lo pongo otra vez.
+Guillermo Fajardo: Ohh.
+Guillermo Fajardo: sí, es exactamente eso. Teníamos, Por ejemplo, teníamos, por ejemplo, el meta, no en el meta. Teníamos todo esto
+Guillermo Fajardo: justo? Pues Así que ya me lo pone todo. Así que más fácil.
+Guillermo Fajardo: Pues sí,
+Guillermo Fajardo: no ha pasado 1.
+Guillermo Fajardo: Vale, ya
+Guillermo Fajardo: no tiene que hacer.
+Guillermo Fajardo: Porque no he puesto el userrín tanto.
+Guillermo Fajardo: ¿esto ¿Qué va a hacer esto? Me va a devolver el data frame
+Guillermo Fajardo: del Data Frame solo me va a ve, me va a devolver
+Guillermo Fajardo: los chats que le he pedido, pero los chans que le he pedido. En realidad, este vector
+Guillermo Fajardo: tiene exactamente el mismo tamaño que todos los Chanks. Lo único que ha hecho ha sido como reordenarlo por importancia.
+Guillermo Fajardo: Oye, pues mira
+Guillermo Fajardo: fijaos, es que los los embelings antiguos flipas.
+Guillermo Fajardo: el primero que me ha encontrado es de meta.
+Guillermo Fajardo: el segundo que me he encontrado es de Microsoft. Vale, bueno, el año, por lo visto, más o menos lo va pillando todos estos.
+Guillermo Fajardo: y me ha ido cogiendo el Item. ¿7? Vamos a poner. Por ejemplo, vamos a coger ya que Microsoft y 2 025 es el segundo.
+Guillermo Fajardo: Vamos a coger el el segundo.
+Guillermo Fajardo: he puesto 1 porque recordad los índices empieza de 0, ¿no?
+Guillermo Fajardo: Y vamos a coger el texto para verlo.
+Guillermo Fajardo: Vale, pues nos ha cogido este trozo de texto.
+Guillermo Fajardo: Vale, fijaos. Yo le he preguntado aquí por el beneficio neto: he venido
+Guillermo Fajardo: qué mal es el médico.
+Guillermo Fajardo: pues me ha cogido este trozo que está hablando sobre todo del régimen, No está hablando de de ingreso
+Guillermo Fajardo: a no ser que no esté, No lo esté viendo yo aquí. Pero vamos.
+Guillermo Fajardo: Pero para que os hagáis una idea, este es el bu la el tipo de búsqueda que estamos buscando hacer Okay.
+Guillermo Fajardo: Pues primero, si lo primero que tenemos que hacer es buscar sobre.
+Guillermo Fajardo: Pero esto es reves ojo, Esto es revenue. Yo le he preguntado por beneficio y revenue ese ingreso.
+Guillermo Fajardo: ¿se ha.
+Guillermo Fajardo: Liado, por así decirlo.
+Guillermo Fajardo: Entonces, pues? Bueno, pero pero a ver, es normal porque es un motor de embedings regulinchi.
+Guillermo Fajardo: Pero lo que vamos a hacer. ¿es justo eso?
+Guillermo Fajardo: Mhm: Ah, no, Eso está aquí. Bien.
+Guillermo Fajardo: De hecho, aquí os lo he puesto. Aquí vamos a poner, por ejemplo, cuando hagamos el search.
+Guillermo Fajardo: Lo tenemos Aquí intento
+Guillermo Fajardo: Intento es lo del Search, pues fijaos que me da 2 cosas.
+Guillermo Fajardo: Tenemos este ya.
+Guillermo Fajardo: Y luego tenemos es este nosotros el que hemos cogido es el identificador de los chanks.
+Guillermo Fajardo: Pero este primero que sale, que es, va todo del 0 al 1. ¿esto ¿Qué es
+Guillermo Fajardo: esto? ¿es recordad?
+Guillermo Fajardo: La ventaja de los enverdings es que estamos haciendo. Estamos traduciendo
+Guillermo Fajardo: texto con componente semántico, cosa que se supone que sólo debería entender un ser inteligente.
+Guillermo Fajardo: Lo estamos convirtiendo en algo puramente matemático, es decir, la gran ventaja de esto es que estamos pudiendo hacer
+Guillermo Fajardo: operaciones cuantitativas
+Guillermo Fajardo: con cosas que se supone que eran cualitativas. Es decir, estamos transformando el significado en números, nuestra civilización, Hemos sido magníficos en optimizar y en procesar grandísimas cantidades de datos, siempre y cuando sean cuantitativas.
+Guillermo Fajardo: y el gran problema que teníamos era
+Guillermo Fajardo: que había muchísima información que estaba únicamente en términos cualitativos, en textos entendibles para un ser inteligente. La gran ventaja de
+Guillermo Fajardo: ya incluso antes de la inteligencia artificial, con las
+Guillermo Fajardo: cosas como los embeles. Y tal era que podíamos hacer este tipo de traducción, podíamos ir moviéndonos del campo cualitativo
+Guillermo Fajardo: al campo cuantitativo. Y una vez estamos en el campo cuantitativo, en el campo cuantitativo, pues podemos darle caña a todo el conocimiento matemático que tenemos.
+Guillermo Fajardo: Estos son los índices de similitud.
+Guillermo Fajardo: Una cosa que os quiero decir, una co una cosa: superinteligentes suele ser
+Guillermo Fajardo: si yo tengo una pregunta rara, aunque la pregunta tenga respuesta y
+Guillermo Fajardo: yo te he dicho cógeme los 10 trozos trozos más relevantes.
+Guillermo Fajardo: Si la pregunta es muy rara.
+Guillermo Fajardo: claro como esto, literalmente el array que me devuelve son todos simplemente ordenados del más, al menos relevante.
+Guillermo Fajardo: El problema que tenemos es que se pued se pudiera dar el caso en el que
+Guillermo Fajardo: todos los trozos tuvieron una puntuación bajísima.
+Guillermo Fajardo: Entonces, en ese tipo de situaciones, a lo mejor te conviene. Y a lo mejor es buena idea decir.
+Guillermo Fajardo: oye, sí, mira cógeme los 10 trozos más importantes, siempre y cuando
+Guillermo Fajardo: la similitud que me haya sacado de esos trozos sea mayor a 0 5.
+Guillermo Fajardo: Esto suele ser buena idea, pero tiene otra derivada y otra problemática estos porcentajes de similitud.
+Guillermo Fajardo: Esto recordad es una multiplicación vectorial simple entre los vectores
+Guillermo Fajardo: del modelo de embeding que hemos seleccionado, lo cual quiere decir
+Guillermo Fajardo: que, a igualdad de condiciones, ser tarifa y bus diferentes modelos
+Guillermo Fajardo: van a tener diferentes niveles de sensibilidad. Luego lo que para un modelo puede ser un
+Guillermo Fajardo: para algún un modelo, un 45 por 100 de similitud puede ser una puntuación válida, mientras que para otro modelo.
+Guillermo Fajardo: un 45 por 100 de similitud puede ser una malísima puntuación.
+Guillermo Fajardo: Esto lo digo porque lo he sufrido en mis carnes, tú siempre con una inteligencia artificial tipo chatgbt. Pues si sale un modelo nuevo, tú coges el modelo nuevo. Y salvo que haya alguna cagada enorme.
+Guillermo Fajardo: te van a salir mejor las cosas, porque el modelo es más inteligente. Aquí es diferente.
+Guillermo Fajardo: El modelo, El modelo de M. Beddings puede ser mejor en el sentido de que te devuelva cosas mejores.
+Guillermo Fajardo: Pero a lo mejor te devuel el el modelo antiguo que te devolvía una un orden
+Guillermo Fajardo: equivocado o no tan óptimo.
+Guillermo Fajardo: con puntuaciones que llegaban hasta el 90 por 100 igual. Un nuevo modelo te devuelve
+Guillermo Fajardo: un mejor orden de los trozos que en el fondo a ti. Lo que te importa es el orden.
+Guillermo Fajardo: pero con puntuaciones mucho más bajas que a lo mejor el trozo más relevante llega como mucho al 60 por 100.
+Guillermo Fajardo: Aquí también va a afectar mucho. Cómo seleccionáis vosotros la longitud de los trozos.
+Guillermo Fajardo: la longitud y el contenido de los trozos.
+Guillermo Fajardo: Entonces esto requiere al margen del código que hay que juguéis con ello.
+Guillermo Fajardo: porque en el juego y la exploración es donde vais a obtener este tipo de cosas.
+Guillermo Fajardo: entonces tenemos en el 0 las puntuaciones de similitud y en el 1, el orden, el
+Guillermo Fajardo: las posiciones de los trozos que hemos querido poner oye chico, pues supersimple no.
+Guillermo Fajardo: Si en el 1 están las posiciones y en el en las puntuaciones. Y en el 2 están las posiciones, pues
+Guillermo Fajardo: tengo el teclado jodido y me salta la P cada 2 por 3.
+Guillermo Fajardo: Sí, justo?
+Guillermo Fajardo: Pues, la consulta, la pregunta L.
+Guillermo Fajardo: La pregunta que estamos haciendo la vamos a codificar
+Guillermo Fajardo: y vamos a hacer la búsqueda
+Guillermo Fajardo: sobre todos estos aquí. Esto va a hacer que me lo devuelva todo lo podría limitar. Tampoco Tampoco pasa nada. El cálculo lo va a hacer Igualmente
+Guillermo Fajardo: vale Okay.
+Guillermo Fajardo: pues ya lo tenemos esto Aquí tenemos aquí tanto las puntuaciones como las posiciones, el 1 y el el 0 y el 1 de este sitio
+Guillermo Fajardo: Vale.
+Guillermo Fajardo: Ahora, ¿qué vamos a hacer? Vamos a recorrer los resultados en orden de puntuación
+Guillermo Fajardo: por cada fila y todo lo demás, a ver, recorrer los resultados
+Guillermo Fajardo: en este sentido. Esto es un bucle de toda la vida de Dios
+Guillermo Fajardo: y vamos a hacer por puntuación. En realidad, no nos hace falta la puntuación, la verdad.
+Guillermo Fajardo: posiciones 0 no a ver este va a ser el 1
+Guillermo Fajardo: Claro, recordáis que antes se comentaba como muy por encima en plan de hoy aquí, en realidad no te hacen falta.
+Guillermo Fajardo: Te hacen falta 2, pues eso es todo
+Guillermo Fajardo: posiciones. Si le doy posiciones, me va a dar
+Guillermo Fajardo: un arrai que tiene dentro otro Array, entonces tengo que meterme en el array inicial.
+Guillermo Fajardo: Pues sí es esto. Joder. ¿qué? Bien, la fila que vamos a estar buscando
+Guillermo Fajardo: es recordad a ver si lo enseño aquí otra vez.
+Guillermo Fajardo: ¿cierto?
+Guillermo Fajardo: Meta.
+Guillermo Fajardo: Aquí tengo el data frame sobre el que estoy buscando.
+Guillermo Fajardo: Y aquí lo que voy a ir haciendo es, pues, Ok, lo que quiero saber es seleccionar la fila concreta.
+Guillermo Fajardo: pues fila es igual a en el meta. Voy a seleccionar la fila concreta igual que antes hemos hecho
+Guillermo Fajardo: esto y había que poner el Ilove, porque nos lo ordenan
+Guillermo Fajardo: numéricamente en posición. No es tener mucho cuidado, porque veis este índice.
+Guillermo Fajardo: Este índice, aquí mismo, claro, es numérico, cuantitativo. Coincide 100 por 100, el índice.
+Guillermo Fajardo: el lock y el Ilog. Si os acordáis de los data frames coincide aquí.
+Guillermo Fajardo: Esto no tiene por qué ser en absoluto la realidad, luego tenerlo muy en cuenta.
+Guillermo Fajardo: Sí, Vale, o se hicieron.
+Guillermo Fajardo: Esta es la fila que tenemos.
+Guillermo Fajardo: Y
+Guillermo Fajardo: ahora lo que vamos a hacer es: vale, lo que tenemos que filtrar aquí. Tenemos algunas cosas para filtrar el ticket, el fiscal gear y el ite
+Guillermo Fajardo: Okay.
+Guillermo Fajardo: Bueno, L lo voy a hacer luego aquí abajo. O sea.
+Guillermo Fajardo: bueno, no vamos a quitarnos aquí el primero, pues, súper sencillo.
+Guillermo Fajardo: Ya tenemos aquí la fila, La fila sería el equivalente que hemos hecho antes. A esto meta. Apunto.
+Guillermo Fajardo: Hay lo hay, lo
+Guillermo Fajardo: 0, 1 0, y vamos a coger y el
+Guillermo Fajardo: se me hace así, no habría que poner al otro ahí lo que no.
+Guillermo Fajardo: Cuando estamos hablando de fila. Estamos hablando de esta entrada.
+Guillermo Fajardo: Vale. Pues ahora lo primero que quiero hacer es que, Ok, yo sé que voy a estar preguntando por el el ticket, que viene aquí,
+Guillermo Fajardo: presumiblemente, si lo hace bien, la inteligencia artificial me habrá puesto envidia.
+Guillermo Fajardo: Pues entonces yo lo único que voy a hacer es, y el fila punto ticket.
+Guillermo Fajardo: ¡ay, ¿Qué? Bien, hostia! Esto está
+Guillermo Fajardo: aquí. Me los está haciendo todo de golpe. ¿qué bien
+Guillermo Fajardo: y fila, apunta a ti que no lo voy a ser.
+Guillermo Fajardo: Lo voy a hacer al revés.
+Guillermo Fajardo: Normalmente a ver, no me quiero meter mucho en detalles, pero trabajar en posición en comparaciones negativas, es decir.
+Guillermo Fajardo: Push normalmente con trabajar en comparaciones negativas, Es decir, suele ser mejor esto que hacer esto
+Guillermo Fajardo: y puede parecer una tontería de diferencia.
+Guillermo Fajardo: Pero bueno, y esto está por encima de estas cosas, pero se nota, se nota la diferencia tanto en la facilidad de lectura del código como en otras cosas. Pero, bueno.
+Guillermo Fajardo: si filo apunta a ticket es diferente al ticket.
+Guillermo Fajardo: pues lo que vamos a hacer es que nos la saltamos.
+Guillermo Fajardo: Luego podemos poner aquí lo mismo que lo hemos hecho con el ticket, pues los hacemos con el Fiscal Gear y con el Item.
+Guillermo Fajardo: He hecho esto. Lo he hecho aquí mal, ya ¿Quién me lo ha corregido. Y aquí habría que poner
+Guillermo Fajardo: estickers claro
+Guillermo Fajardo: y que ya sí.
+Guillermo Fajardo: Esto. ¿por qué es importante? ¿se esto?
+Guillermo Fajardo: A alguien se le ocurre
+Guillermo Fajardo: simplemente para que lo sepáis y Sticker a
+Guillermo Fajardo: Ifticker es más o menos lo mismo que poner If Sticker y estándar.
+Guillermo Fajardo: Se le ocurre a alguien. ¿por qué
+Guillermo Fajardo: esto es de primero de funciones.
+Guillermo Fajardo: pues lo que pasa es que esta función que estamos buscando con filtros que estén todos estos filtros
+Guillermo Fajardo: no quiere decir que lo vayamos a usar.
+Guillermo Fajardo: Entonces, si.
+Guillermo Fajardo: por lo que sea, por falta de información o por el tipo de pregunta o lo que sea.
+Guillermo Fajardo: Cuando el agente llama a la función, no pone ningún ticket.
+Guillermo Fajardo: Y yo hago esto claro. Fila apunto ticket siempre va a ser diferente
+Guillermo Fajardo: a ticket, porque ticket aquí iba a ser non.
+Guillermo Fajardo: Es una tontería, pero por eso hay que tenerlo en cuenta.
+Guillermo Fajardo: Entonces son cada filtro, son 2 condiciones. Todo esto se podría haber hecho en una línea, ¿no? Pero bueno, así es más fácil leerlo.
+Guillermo Fajardo: Entonces aquí nos saltamos a todas estas cosas y relativa
+Guillermo Fajardo: claro para cada posición. Ya le hemos aplicado el filtro.
+Guillermo Fajardo: pero Ahora tendremos que guardarlo en algún lado. No, pues vamos a ver.
+Guillermo Fajardo: Vamos a poner una lista vacía y aquí ponemos
+Guillermo Fajardo: al final del bucle no fuera de bucle.
+Guillermo Fajardo: Mira a ver lo está haciendo bien.
+Guillermo Fajardo: Si la ha fragmentado. Bueno, claro, si la función está esto.
+Guillermo Fajardo: las tenéis ahí para usarlas, porque hacer funcioncitas también es
+Guillermo Fajardo: es que no quiero meter mucha caña con esto, pero
+Guillermo Fajardo: ahora mismo igual no lo entendéis tanto, pero
+Guillermo Fajardo: hay muchas veces que hacer funcioncitas superpequeñas ayuda mucho en la claridad del código y, sobre todo, en cierto en otro tipo de optimizaciones que nos vienen ahora al caso.
+Guillermo Fajardo: Entonces, pues por deje podía estar aquí, pero podríamos aquí. Poner, por ejemplo.
+Guillermo Fajardo: mira, eso es lo que nos dice aquí laia que pongamos, pero
+Guillermo Fajardo: el texto como tal es esto.
+Guillermo Fajardo: Entonces aquí podemos hacer algo así. Alternativamente, quiero decir.
+Guillermo Fajardo: en el posición. Intento 1, no.
+Guillermo Fajardo: Esto sería
+Guillermo Fajardo: algo así.
+Guillermo Fajardo: Dos.
+Guillermo Fajardo: sí. Además, creo que la ilog test también habría que quitarlo
+Guillermo Fajardo: algo así probablemente me esté equivocando ahora mismo. Pero bueno.
+Guillermo Fajardo: pero si lo podía, en vez de hacer estas cosas, luego os hacéis la funcioncita, pues puede ir bastante mejor
+Guillermo Fajardo: y hacer
+Guillermo Fajardo: cuál es el último. Aquí nos falta algo. Nos falta una cosita. Al final, aparte del ratón, claramente
+Guillermo Fajardo: se le ocurre a alguien que es una tontería, ¿ Me voy a poner.
+Guillermo Fajardo: oye, Le hemos dicho, oye, devuélveme los k trozos más importantes, pues simplemente
+Guillermo Fajardo: una manera de hacerlo sería dejar que todo este bucle corra
+Guillermo Fajardo: Y entonces, después de quedarnos con resultado
+Guillermo Fajardo: desde el principio hasta. Ca: No, Sí, hasta acá
+Guillermo Fajardo: resultado.
+Guillermo Fajardo: pero esto sería una tontería. No es que no, no es que se te vaya a morir el ordenador.
+Guillermo Fajardo: porque si el bucle ya ha llegado al nivel que creemos, pues pues no hace falta que el bucle salga entero no. Entonces pues.
+Guillermo Fajardo: como aquí, cada vez que encontramos un resultado que nos vale, lo vamos a ir. Metiendo en la lista de resultados, Pues no.
+Guillermo Fajardo: Sí, justo esto.
+Guillermo Fajardo: Esto no hace falta. Me lo ha cogido aquí directamente, ofrendar esto.
+Guillermo Fajardo: Voy a ver cómo está aquí, bien, puesto. O. K
+Guillermo Fajardo: Vale, añadiendo estos filtros de metadatos, vamos a hacer el mismo ejercicio de antes? Vamos a hacer la comparativa.
+Guillermo Fajardo: ¿qué ha pasado aquí.
+Guillermo Fajardo: Esto funcionaba antes.
+Guillermo Fajardo: No me las está cogiendo. Todas consulta, Okay, diseño total.
+Guillermo Fajardo: Se hicieron.
+Guillermo Fajardo: Ay cállate ya. Esto no es un ya
+Guillermo Fajardo: que que hace falta la puntuación.
+Guillermo Fajardo: Fíjate que dentro de este bucle
+Guillermo Fajardo: es que claro, como había dejado aquí, el Apen estaba llamando a las puntuaciones.
+Guillermo Fajardo: Pero sin embargo, aquí no le había puesto ningún tipo de puntuación
+Guillermo Fajardo: y no la función de comparativa. Luego no estaba funcionando.
+Guillermo Fajardo: No he
+Guillermo Fajardo: claro, y hay que poner un Zip claro sobre tanto esto sería Zip
+Guillermo Fajardo: puntuaciones que 0, que sería el principio y
+Guillermo Fajardo: porque recordad que Tie está como una Li, una rai dentro de una rae.
+Guillermo Fajardo: pues nada la he acabado en algún lado y no sé hacer continuo continuo. Sí.
+Guillermo Fajardo: El igual acá.
+Guillermo Fajardo: Uy Uy. Uy. Uy, Bueno, no, espérate, no, no. Esto debe.
+Guillermo Fajardo: Sí, Vale, Sí.
+Guillermo Fajardo: Bueno, no sé si será eso.
+Guillermo Fajardo: No.
+Guillermo Fajardo: esto debería estar dando más.
+Guillermo Fajardo: Iter.
+Guillermo Fajardo: un momento.
+Guillermo Fajardo: No, Eso está bien, ¿no?
+Guillermo Fajardo: Y si hago esto a hacer un momento.
+Guillermo Fajardo: esto es una tontería, como un castillo. Como sea, esto y fiscal llegan.
+Guillermo Fajardo: No sigo fallando.
+Guillermo Fajardo: Tickets.
+Guillermo Fajardo: Esto no es así.
+Guillermo Fajardo: Mhm.
+Guillermo Fajardo: A lo mejor. Esto es esta tontería, No creo. ¿no?
+Guillermo Fajardo: Uy.
+Guillermo Fajardo: bueno. Y te mientras que exista, no
+Guillermo Fajardo: les está llamando a ver esto es fila.
+Guillermo Fajardo: Esto es el equivalente a una fila, Pero
+Guillermo Fajardo: el punto, entonces debería funcionar sin problema.
+Guillermo Fajardo: ¿vale?
+Guillermo Fajardo: ¿qué raro dice esto? Tiene que ser diferente cisneo
+Guillermo Fajardo: fila
+Guillermo Fajardo: a ver muchas veces lo de los íntegras. Me da un proble unos problemas que flipan. Pero, bueno.
+Guillermo Fajardo: ¿qué raro alguno ve el error o algo así?
+Guillermo Fajardo: Codificar consulta el índice índice.
+Guillermo Fajardo: Consulta está abierta, pero no, no intento.
+Guillermo Fajardo: Aquí. Dices, no.
+Guillermo Fajardo: Vale, a ver o como seas tontería.
+Guillermo Fajardo: No estaba haciendo algo raro aquí.
+Guillermo Fajardo: Habré jodido algo aquí, No, no, no mucho. Sabes.
+Guillermo Fajardo: Un momento.
+Guillermo Fajardo: Nada. No hay nada como este tipo de cosas, pues no lo sé. La verdad.
+Guillermo Fajardo: Vamos a poner una cosa solo por aquí.
+Guillermo Fajardo: Fíjate, no está llegando. No está pasando ninguno.
+Guillermo Fajardo: Lo que quiere decir que para la consulta
+Guillermo Fajardo: está viendo algún filtro que se los alguno o algunos filtros que se lo está cargando todo literalmente.
+Guillermo Fajardo: sí. La Bueno, mira, vamos a hacer esto.
+Guillermo Fajardo: El El truco de de Bug más viejo de todos los tiempos no es poner
+Guillermo Fajardo: Prince como si no hubiera un mañana.
+Guillermo Fajardo: La imprimir todo es una pasada. Pero bueno.
+Guillermo Fajardo: ticket. Fiscalía. Habrá escrito algo más.
+Guillermo Fajardo: Vale si funciona
+Guillermo Fajardo: ¿
+Guillermo Fajardo: El año también funciona.
+Guillermo Fajardo: Ojo que si yo pongo aquí
+Guillermo Fajardo: a ver si va a ser esto.
+Guillermo Fajardo: anda, No me jodas.
+Guillermo Fajardo: Vale. Sabéis qué es esto? Pua que tontería
+Guillermo Fajardo: que hemos puesto una columna, hemos puesto una columna.
+Guillermo Fajardo: Bueno, a ver. Primero voy a
+Guillermo Fajardo: confirmaron antes de decir: no me llamaba tontería.
+Guillermo Fajardo: Vale, sí que hemos puesto un nombre a la columna que se llama Item.
+Guillermo Fajardo: Pero hay un Met. Esto es una, Esto es una
+Guillermo Fajardo: pandas Datasiris. Y hay hay un método interno de pandas Datasiris que se llama Item.
+Guillermo Fajardo: Entonces, al poner punto ítem, yo no estaba referenciando a la columna estaba referenciando al método
+Guillermo Fajardo: y claro, obviamente petaba.
+Guillermo Fajardo: Pero, bueno, ya está esa gran tontería.
+Guillermo Fajardo: pues fijaos que antes sin el filtro de metadatos. Estamos obteniendo una precisión de aproximadamente el 30 y solo añadiendo este filtro de metadatos.
+Guillermo Fajardo: Estamos subiendo al 46, entonces, de esta misma manera.
+Guillermo Fajardo: Con esto quiero decir que podemos ir avanzando un montón.
+Guillermo Fajardo: Como me estoy comiendo mucho. El tiempo.
+Guillermo Fajardo: voy a ir avanzando sobre esto esto Luego, esta noche o este mañana, como muy tarde, o voy a poner los 2 cuadernos completamente resueltos con los resultados
+Guillermo Fajardo: de tal manera que bueno, que deberíais hacerlo vosotros y lo vais a tener que mejorar, pero al menos los tenéis de de referencia completamente.
+Guillermo Fajardo: Entonces, luego aquí ya depende esto del
+Guillermo Fajardo: método del del modelo de embeddings que utilizáis. Hay una cosa súper chula súper súper chula, que es que
+Guillermo Fajardo: las similitudes que hay entre palabras
+Guillermo Fajardo: son diferentes en diferentes idiomas, en el sentido de pues, por ejemplo, vamos a darle un pequeño cambio y vamos a imaginarlo de otra manera.
+Guillermo Fajardo: Hay palabras en español que tienen una raíz
+Guillermo Fajardo: originaria de la palabra desde el latín que eso hace que de alguna manera esté más cerca semánticamente, mientras que esas mismas 2 palabras.
+Guillermo Fajardo: incluso cuando se utilizan de manera similar.
+Guillermo Fajardo: al no tener esa raíz igual
+Guillermo Fajardo: en otro idioma, pueden estar más separadas semánticamente.
+Guillermo Fajardo: Los buenos. Los modelos modernos de en Bellings son capaces de sobrepasar esto.
+Guillermo Fajardo: Y esto, cómo se cómo se ve?
+Guillermo Fajardo: Se ve? Porque topológicamente, aunque hay diferencias entre idiomas.
+Guillermo Fajardo: hay los idiomas tienden a ser, es decir, una traducción de un idioma al otro.
+Guillermo Fajardo: Para los que sepáis un pelín de matemáticas suele ser un movimiento de traslación
+Guillermo Fajardo: en el espacio vectorial de los embeles. Y eso está muy chulo, porque es como si yo te digo, en el espacio de los Embedí, pues este es el español
+Guillermo Fajardo: y el inglés, pues es esta misma forma. Pero a lo mejor giraba así.
+Guillermo Fajardo: No hace falta que entendáis esto, aunque a mí me parece bastante guay.
+Guillermo Fajardo: Pero esto qué quiere decir que dependiendo del modelo de embeddings que tengáis? Bueno, pasa con todos los embedings, pero con los en vez de impotente modernos. Es más
+Guillermo Fajardo: menos relevante
+Guillermo Fajardo: hacer exactamente la misma pregunta en inglés o en español, dependiendo del corpus que tengas, es muy relevante.
+Guillermo Fajardo: Entonces, igual una técnica de optimización, igual no lo es que es
+Guillermo Fajardo: si tú vas a si tu agente va a hacer una llamada
+Guillermo Fajardo: al modelo de Rac, Pues entonces, antes de hacer la llamada asegúrate que ese modelo lo está.
+Guillermo Fajardo: Lo está haciendo en el idioma correcto.
+Guillermo Fajardo: incluso ya metes en van Gales. Pero claro, como la mayor parte de los textos y cosas están en inglés, pues hay gente que lo que hace es
+Guillermo Fajardo: antes de construirse un corpus. Si ese corpus está en otro idioma. En español hay bastante inteligencia y bastante información, entonces no pasa nada. Pero si estás en un lenguaje más marginal sobre que ha habido muy poco Corpus, pues hay gente que lo que hace es que primero lo traduce a inglés y ya luego trabaja sobre eso.
+Guillermo Fajardo: Entonces aquí hablamos el segundo y el tercero. Hablamos de este tipo de reescritura, de funcioncitas tal fijaos. Esto va a ser un Atúl
+Guillermo Fajardo: que o lo comenté en la clase pasada.
+Guillermo Fajardo: Esto va a ser un Atúl, pero este atún es un mini agente en sí mismo.
+Guillermo Fajardo: Esto es un Atúl en el que simplemente le vamos a pasar una cuery. Y le vamos a decir, oye me la devuelves traduce al inglés. Por favor, porque necesito hacer la cueri Bien.
+Guillermo Fajardo: Este tipo de cosas me va a petar esto ahora, ¿verdad?
+Guillermo Fajardo: Bueno, luego lo voy a pasar. Creo que lo tengo por aquí.
+Guillermo Fajardo: Vale, era este
+Guillermo Fajardo: que podía haber mirado de antes, pero bueno.
+Guillermo Fajardo: mejora. Bueno, sí, claro, ya
+Guillermo Fajardo: igual que hacemos una búsqueda híbrida. La híbrida aquí no funciona por el modelo de Medeling, que es.
+Guillermo Fajardo: pero normalmente sí que funciona bastante bien
+Guillermo Fajardo: llamando por detrás a la L. L. M. Porque recuerda, hemos construido un mini a gente para esto
+Guillermo Fajardo: ves la traducido
+Guillermo Fajardo: a ver
+Guillermo Fajardo: que normalmente es una tontería, Porque, bueno, los modelos nuevos, por ejemplo, el de hay 1 que va por a P. I, que es el de Google, que se va como la seda
+Guillermo Fajardo: también recordad, aunque os haga la idea del Código y tal
+Guillermo Fajardo: de verdad. Miradlo. Hacedlo. Vuestro
+Guillermo Fajardo: pensad como si fuera entregable, es literalmente un entregable, Pero en el sentido de
+Guillermo Fajardo: en el momento que tú lo entregas.
+Guillermo Fajardo: Eso es tuyo.
+Guillermo Fajardo: Punto pelota.
+Guillermo Fajardo: y me da igual que se lo hayas pedido a la I a que te lo haya hecho bien, que te lo haya hecho mal tal Tú tienes que no solamente
+Guillermo Fajardo: hacer que funcione, obviamente, sino poder defenderlo, que yo te pregunte
+Guillermo Fajardo: y tú sepas decirme porque a ver, no te digo que te vayas al dedillo del del código y tal, Pero
+Guillermo Fajardo: todo código tiene un montón de pequeñas decisiones en el que en las que tienes que saber defenderlas
+Guillermo Fajardo: completamente. Bueno, fijaos. Antes estábamos en 40 y pico, no 46 simplemente reescribiendo a las preguntas.
+Guillermo Fajardo: hemos subido ya al 69
+Guillermo Fajardo: y teniendo en cuenta que esta es la búsqueda híbrida, pues se debería quedar más o menos ahí. No debería mejorar mucho más aplicando el tema de la de la reescritura híbrida.
+Guillermo Fajardo: La reescritura de híbrida es que igual se ha quedado ya un poco desfasada. La verdad, pero bueno.
+Guillermo Fajardo: no son tantas preguntas ¿ Como para dejarme tanto.
+Guillermo Fajardo: No ha mejorado absolutamente nada.
+Guillermo Fajardo: Sí, Igual que el otro modelo de embering hubiera cambiado con otro modelo de inteligencia artificial? No creo.
+Guillermo Fajardo: pero no creo que hubiera mejorado mucho lo de la búsqueda híbrida. Yo creo que ya está un poquito perdidillo.
+Guillermo Fajardo: Así que si bueno, mientras estás haciendo el código, no queréis ponerlo. Porque, bueno, todos estos métodos, los vais a tener que hacer vosotros a vuestra manera, mientras mejor os salga
+Guillermo Fajardo: hacer lo que les dé la gana.
+Guillermo Fajardo: Vale, Sí, Bueno, aquí sin mirar cómo ha ido haciendo esto? ¿cómo ha ido mejorando?
+Guillermo Fajardo: Hemos pasado de un 30 por 100 inicial a un 69. Os lo digo completamente desde ya un 69 sigue siendo una bastante mala nota. Pero, bueno, simplemente para que lo tengáis como referencia.
+Guillermo Fajardo: claro qué está pasando.
+Guillermo Fajardo: Va a haber el motivo por el que nos hemos metido directamente en agentes es porque
+Guillermo Fajardo: hay preguntas que re
+Guillermo Fajardo: hay preguntas que para hacerlas correctamente. Necesitas ya información. Luego necesitas prepararte. Necesitas hacer como varias tandas de preguntas. Eso en el rack inicial, no podías hacerlo
+Guillermo Fajardo: no a ver. Hacer un bucle. Tampoco es que te fuera a partir la espalda, pero inicialmente no podías hacerlo, pero los agentes ya esto lo llevamos de manera completamente nativa.
+Guillermo Fajardo: Entonces, si hacemos una comparativa con una con con una.
+Guillermo Fajardo: con un rack base, por así decirlo.
+Guillermo Fajardo: vamos a poder ver como hay esta, cómo tenemos esta diferencia a la hora de recuperar los trozos.
+Guillermo Fajardo: la similitud Okay.
+Guillermo Fajardo: Vale.
+Guillermo Fajardo: Vale, eso está bien. Sí, no. Sí. Vale. Sí, Perfecto.
+Guillermo Fajardo: Vale, Sí, está perfecto.
+Guillermo Fajardo: pero debería haber salido.
+Guillermo Fajardo: No, Sí, está bien. La está sacando esa pregunta la has sacado yo antes no me la ha sacado. Yo
+Guillermo Fajardo: quizá debería ser determinástico, igual es que he cambiado algo sin darme cuenta, pero tampoco tenemos mucho tiempo.
+Guillermo Fajardo: Otro paso de la del documento completamente actualizado
+Guillermo Fajardo: y debería estar funcionando. Esto deberías
+Guillermo Fajardo: igual, le tocaba antes la base de datos, el data frame.
+Guillermo Fajardo: Creo que no vale simplemente aquí recordad
+Guillermo Fajardo: antes, estamos haciendo una búsqueda completamente normal, directa, el Racc. Pero ahora tenemos los turnos. Ahora podemos decir
+Guillermo Fajardo: okay, primero puedo buscar este grado de información, O, P, o primero puedo imaginar lo que os he comentado antes de
+Guillermo Fajardo: en una tabla, te encuentras una referencia a una nota.
+Guillermo Fajardo: y entonces, a lo mejor el
+Guillermo Fajardo: agente o el rap ha encontrado el trozo con correcto donde está el dato.
+Guillermo Fajardo: Pero luego la nota, resulta que es muy relevante porque resulta que han mentido. No sé qué o lo que sea
+Guillermo Fajardo: en el momento que tienes turnos y que puedes hacer este tipo de búsqueda. La gente puede pensar, o se lo puedes instruir. Tú
+Guillermo Fajardo: oye. Si ves que hay una referencia a la nota, busca también la nota y coge contexto. Vaya que haya ahí otro tipo de información.
+Guillermo Fajardo: Entonces aquí podemos ver cómo ha hecho esto.
+Guillermo Fajardo: Ha ido buscando
+Guillermo Fajardo: todos los datos del 24 del 25 ha ido cogiendo esta información. Le he ido dando todo esto y
+Guillermo Fajardo: ha obtenido esta información menos disminuyó en 1 902 000 000 de dólares.
+Guillermo Fajardo: Y fíjate que, mientras que aquí, cómo varió el beneficio, no ha podido responderlo bien en el sentido de
+Guillermo Fajardo: estoy mezclando información. Estoy mezclando información en la misma pregunta y una sola tirada del retribar ¿Está intentando conseguirla. Aquí sí lo estamos consiguiendo hacer porque, como le hemos dado los turnos, pues ha podido ir haciendo todas esas cosas.
+Guillermo Fajardo: Se ha pasado de búsqueda, la verdad, bastante
+Guillermo Fajardo: Pero bueno, ha respo lo que decíamos antes, siempre y cuando lo hayas respondido bien, lo ha respondido. Bien.
+Guillermo Fajardo: ¿vale? Ahora, simplemente esto ya lo pusimos en el agente del otro día, recordarlo, el tema de los
+Guillermo Fajardo: el tema del Fred I D, que te hace que te puede separar conversaciones tal, por ejemplo, imaginas que lo eso lo podéis presentar como un chat bot funcional.
+Guillermo Fajardo: Hay librerías de para ponerle un frontal al chat bot. Algunas son super sencillas, como cómo se llamaba
+Guillermo Fajardo: alguno. Ha hecho frontales. ¿cómo se llamaba Chacott
+Guillermo Fajardo: ¿cómo se llamaba Streamlit.
+Guillermo Fajardo: pues hay hay frontales supersencillos de hacer con librerías como Streamlit, o gradio, gradio es hipersensilla, de utilizar streaming también ¿ Pero bueno.
+Guillermo Fajardo: O sea, 1 quiere hacer frontales o cosas por el estilo. Se las recomiendo.
+Guillermo Fajardo: Y esto está un poco, des no está desfasado.
+Guillermo Fajardo: pero teniendo en cuenta que los modelos actuales pueden tener contextos gigantescos.
+Guillermo Fajardo: pues como que ya no se utiliza tanto. Pero
+Guillermo Fajardo: quiero que os quedéis con el concepto
+Guillermo Fajardo: que para cuando vayas a hacer la gente más complicados. Y tal es superimportante del Middlewear.
+Guillermo Fajardo: El middlewear es código funciones lo que a ti te dé la gana que puedes introducir
+Guillermo Fajardo: ante durante o después de lo que está haciendo la gente como tal.
+Guillermo Fajardo: El ejemplo clasiquísimo de esto, que es el que tenéis aquí. El submarization Eddlewhere es oye conforme la búsqueda imagínate que tu agente no en el corpus de datos que tiene
+Guillermo Fajardo: es ridículamente grande, y la búsqueda es bastante complicada. Entonces ya va por el paso 30 de la búsqueda.
+Guillermo Fajardo: y no solamente no lo está encontrando, sino como que ya tiene tantísimos Shanks, tantísimos trozos metidos en el contexto
+Guillermo Fajardo: que se le está saturando. El contexto. Encima se está volviendo tonto por esto y cada vez va a peor, pues una cosa que se hacía, se bueno, se hace completamente. Es. Y que, bueno.
+Guillermo Fajardo: esto lo habéis visto vosotros. Si estáis utilizando clutch chatgpt.
+Guillermo Fajardo: cuando la conversación llega a cierto tamaño.
+Guillermo Fajardo: ¿qué te dice? Bueno, o o te dice que te has pasado el contexto, pero más normal. Lo primero que hace, por ejemplo, este lo hace mucho flor que te dice, ¿ He llegado a la ventana. No
+Guillermo Fajardo: no peta directamente, sino que te hace. Es que te dice. No estoy compactando la información de antes, pues compactar la información de antes es a ver lo lo hace de otra manera más eficiente, pero es que le está metiendo Middlewell que antes de continuar, está comprimiendo todo el contexto.
+Guillermo Fajardo: Además, la compresión puede y debería ser inteligente, porque va a haber información que importe más que otra.
+Guillermo Fajardo: porque, además, el submarization puede ver, por ejemplo, en el ejemplo este que os he dicho de
+Guillermo Fajardo: que está haciendo muchísimos pasos. Puede ser que esté fallando mucho, que muchas búsquedas sean erróneas. Entonces, a lo mejor. Eso no te merece la pena resumirlo, sino simple y llanamente, tirarlo.
+Guillermo Fajardo: Entonces lo importante que os quedéis con esto es el Middleworh te puede meter
+Guillermo Fajardo: código. Y esto os da un poder bastante grande a la hora de refinar una gente
+Guillermo Fajardo: en el que podéis meterlo, pues antes de que se ejecute el modelo después puede ser un modificador a un atúl o
+Guillermo Fajardo: o después de que termine todo el proyecto, Pues ejemplo Fácil
+Guillermo Fajardo: After Agent, que no es lo mismo que After Model.
+Guillermo Fajardo: Imagínate que la gente ya ha terminado y tiene, como todas las respuestas, pues a lo mejor tú tienes un agente
+Guillermo Fajardo: que es especialista en dejar la respuesta bonita formatearla, poner gráficos lo que sea, entonces la respuesta que te dé tu agente, en vez de dársela directamente. El usuario, que es como otro agente que pones como un after agente. Y lo hace, pues más bonito, o lo que tú quieras
+Guillermo Fajardo: que que hay que tener cuidado donde hay que tener mucho cuidado con esto.
+Guillermo Fajardo: Si vais a meter otro agente o cualquier otra cosa, tened en cuenta en el tiempo que le va a consumir al usuario, entonces esto puede ser negativo en ese punto y en gran medida por esto.
+Guillermo Fajardo: el modelo este que os he dicho al principio de la clase, el J, E, el J. E. V. El Jeff es tan tan tan potente
+Guillermo Fajardo: cuando lo podamos utilizar, Pero esto en las librerías de en la librería de Landsen
+Guillermo Fajardo: hay muchos que ya están como prefabricados, completamente
+Guillermo Fajardo: y que tienen cosas chulísimas aquí podéis poner. Pues imaginamos, aquí. Están filtros de contenido. Aquí está literalmente cualquier cosa que se pueda poner en una función que es todo
+Guillermo Fajardo: se puede hacer. Entonces, por favor, miraos. Esto es la librería del artxe.
+Guillermo Fajardo: No es algo, no es algo hipernecesario para la práctica. Realmente. La práctica es sencilla.
+Guillermo Fajardo: Pero controlar este tipo de modificadores
+Guillermo Fajardo: a la hora de hacer agentes potentes marca muchísimo la diferencia.
+Guillermo Fajardo: Aquí. Simplemente os he puesto un ejemplo de antes de cómo, poniendo una de estas cosas diferentes, un middleword de
+Guillermo Fajardo: recordad que en el anterior, pues le pedíamos una pregunta rara.
+Guillermo Fajardo: Se liaba a intentarlo y no terminaba, Pues hay un nivel web que es súper simple.
+Guillermo Fajardo: que esto, además, a ver
+Guillermo Fajardo: que es que la echen te lo ha puesto aquí a su manera, porque puedes hacer esto, pero para ti codificar esto, serían.
+Guillermo Fajardo: Estamos hablando de 10 líneas o 20. No te creas que es mucho más, pero
+Guillermo Fajardo: ya lo tenéis. Aquí hecho. La extracción es la ventaja que tiene
+Guillermo Fajardo: es que claro, Me estoy quedando corto. Pero bueno.
+Guillermo Fajardo: os importa si sigo un pelín o
+Guillermo Fajardo: esto lo voy a dar luego completamente hecho.
+Guillermo Fajardo: Simplemente Bueno, esto es simplemente la explicación de de antes.
+Guillermo Fajardo: Esto no es necesario agua. Decir. Esta parte ya no es necesaria.
+Guillermo Fajardo: Igual puede ser que esto no hace falta que lo incluyáis en vuestro agente, porque
+Guillermo Fajardo: no sé exactamente por qué, pero a mucha mucha gente se lía con el con el tema del human in the Middle.
+Guillermo Fajardo: 1 de los middlewords que hay es simplemente pues, preguntar y que el usuario te dé capacidad de interrumpir o de validar o de cosas por el estilo.
+Guillermo Fajardo: queda superchulo, queda muy profesional. Realmente no es necesario para la práctica que tenéis vosotros ahora mismo.
+Guillermo Fajardo: Pero si lo queréis sobre todo ahora, después que lo pasaré completo, lo podéis introducir simplemente.
+Guillermo Fajardo: Y luego esta parte final que esta sí que es importante porque, bueno.
+Guillermo Fajardo: esta la voy a pasar hecha esta igual, me espero. El domingo
+Guillermo Fajardo: os vendría hiperbbién.
+Guillermo Fajardo: Intentad hacer vosotros esto y entenderlo, tenéis clase mañana, y el sábado no.
+Guillermo Fajardo: Vale. Y el sábado si sigue todo igual, pues terminaréis como a mediodía. No.
+Guillermo Fajardo: Sí, Bueno, sí a las 2. Sí, Vale. Perfecto.
+Guillermo Fajardo: Pues bueno.
+Guillermo Fajardo: venga el domingo por la mañana. Os lo paso. Todo esto completo. Os recomendaría muchísimo porque os va a venir muy bien.
+Guillermo Fajardo: Intentad hacer estas tools vosotros.
+Guillermo Fajardo: pero bueno, que os la haga la I A y todas estas cosas, aunque pase eso.
+Guillermo Fajardo: por favor intentas entender por qué lo hace así,
+Guillermo Fajardo: porque este tipo de cosas luego
+Guillermo Fajardo: se notan un montonazo. Y además es la típica. Esto es la típica pregunta de entrevista de trabajo
+Guillermo Fajardo: de cómo estás validando, cómo estás entendiendo que funciona bien el sistema que has hecho y tal dónde cae la gente.
+Guillermo Fajardo: Pero como moscas, o sea, no os hacía una ligera idea. Gente con
+Guillermo Fajardo: gente con máster, gente que ha construido un montón de cosas, tal
+Guillermo Fajardo: y le preguntas cosas sobre esto, especialmente sobre la evaluación.
+Guillermo Fajardo: Y es que no saben decirte eso. Y
+Guillermo Fajardo: por mucho que les intentes rascar preguntar bien tal, no entiendo por qué
+Guillermo Fajardo: caen como moscas. Aquí se filtra muchísima gente. La evaluación es hiperimportante.
+Guillermo Fajardo: Y bueno, simplemente las tablas de respuesta final, estas funciones, las podéis copiar.
+Guillermo Fajardo: Bueno, esta funcio, esta este código lo podéis copiar como tal, os va a servir como para evaluar. Y para que vosotros hagáis vuestras interacciones sobre la práctica.
+Guillermo Fajardo: Todas las funciones entre el archivo, punto Pay
+Guillermo Fajardo: y lo que hay en el cuaderno
+Guillermo Fajardo: lo tenéis todo para como auto evaluaros, por así decirlo.
+Guillermo Fajardo: Por lo tanto, al margen de hacer solo el código.
+Guillermo Fajardo: yo lo que haría también para vosotros. Es bueno que lo vais a tener que hacer igualmente
+Guillermo Fajardo: tener un 1 o 2 punto país de autoevaluación
+Guillermo Fajardo: en el que que no tenéis que supercurrarlos. Si habéis visto cosas como optimización de hiper parámetros y cosas por el estilo, podéis con relativa facilidad, haceros, una especie de pipe line en la que vayáis automatizando la búsqueda de eso. A lo mejor le dais un
+Guillermo Fajardo: le dais un set de diferentes tipos de, pues, diferentes tipos de modelos de embering, diferentes niveles de parámetros diferentes niveles de pues
+Guillermo Fajardo: limpieza y troceado de los de los textos y cosas por el estilo.
+Guillermo Fajardo: Y con eso ya estaría listo a ver, claro.
+Guillermo Fajardo: yo la las clases que tenía que dar eran sobre los Raj. Al final hemos terminado haciendo un ragéntico, pero lo importante es que con los Middlewell, con las tools con todo lo demás, podéis poner aquí cualquier cosa
+Guillermo Fajardo: a multiagente Swarms, cualquier cualquier tipo de cosa. A partir de aquí ya lo tenéis completamente.
+Guillermo Fajardo: Entonces, lo que quiero decir con esto.
+Guillermo Fajardo: Yo sé que estáis cómodos también. Probablemente estéis agobiados o cosas por el estilo. Pero una cosa que he notado yo mucho con la gente es que se pierde un poco de la ilusión. Lo puedo entender con el tema de la programación debido a la inteligencia artificial.
+Guillermo Fajardo: El problema de esto es si eso repercute luego en tu punto 1. Yo creo que la vida con todas las cosas hay que fliparse, Hay que fliparse mucho. Tienes que ser un
+Guillermo Fajardo: un puto friki y que te moelen las cosas.
+Guillermo Fajardo: Si tienes eso tienes una grandísima parte del curro ya hecho.
+Guillermo Fajardo: La motivación es algo que podéis cultivar. Vosotros intentad
+Guillermo Fajardo: fliparos. Intentad fliquear un poco, intentar
+Guillermo Fajardo: buscar optimizarlo, no solamente que lo haga la I a por qué la consecuencia
+Guillermo Fajardo: directa e indirecta de eso es que Vais a ir interiorizando y desarrollando criterio.
+Guillermo Fajardo: Y por mucho que seáis el primero de la clase.
+Guillermo Fajardo: primero de la promoción me hicieron la ola al salir.
+Guillermo Fajardo: eso no vale absolutamente nada. Si llegas y con
+Guillermo Fajardo: buen rollo te estoy haciendo preguntas de de muy buenas y te estoy intentando dar guías mientras te estoy ve preguntando, y no tienes ni idea
+Guillermo Fajardo: de lo que estoy hablando, y se nota, incluso aunque tú
+Guillermo Fajardo: creas que verborreicamente está saliendo al paso.
+Guillermo Fajardo: se nota una barbaridad, una locura. Entonces mi recomendación es esa: las prácticas
+Guillermo Fajardo: son un medio para un fin y el fin no es solamente que tengáis el titulito. El fin es que tengáis un terreno de juego donde fliparos un poco. Entonces
+Guillermo Fajardo: no me voy a cansar de repetirlo, pero porque ahora todos vais a ser utilizar inteligencia artificial. Lo entiendo.
+Guillermo Fajardo: Si alguien quiere no usarla, se lo recomiendo mucho, porque supongo que esto ya lo habréis. Os habrá pasado alguna vez
+Guillermo Fajardo: donde más donde más se te queda un conocimiento
+Guillermo Fajardo: con órdenes de magnitud de diferencia.
+Guillermo Fajardo: Es un
+Guillermo Fajardo: en el error que no has sabido corregir y que has estado haciendo 50 cosas. Os acordáis de lo que me ha pasado antes, que estaba llamando al método, no en vez de poner la columna. Ese tipo de cosas son las que se te quedan completamente.
+Guillermo Fajardo: Y incluso aunque intentes fliparte con la inteligencia artificial, intentar echarle ganas, el no tener ese nivel de errores
+Guillermo Fajardo: va en contra tuya.
+Guillermo Fajardo: Entonces, bueno, estudiando la la turra un poco ya os dejo marchar, pero sí hoy
+Guillermo Fajardo: al con algo os tuvierais que dar de toda esta práctica y de todo lo que deberías hacer con la práctica. Es precisamente eso.
+Guillermo Fajardo: Así que nada. El La semana que viene vamos a ir lo vais a ir presentando por grupitos a más tardar el domingo. Os subo toda la versión completa de este código, que no es que en realidad nos hace falta ¿no? Pero Pero bueno, la subo
+Guillermo Fajardo: y nada Nos vemos la semana que viene.
+Guillermo Fajardo: Y bueno, ya recordad, tenéis ahí mi email, cualquier cosa que necesitéis.
+Guillermo Fajardo: me la podéis preguntar dudas de esto de cualquier otra cosa. Si tenéis al
+Guillermo Fajardo: alguna duda más del del T, F, M o algo por el estilo, vosotros me diréis
+Guillermo Fajardo: entonces pues nada os dejo marchar. Y bueno, sí, dime.
+Rodolfo Villena: Guillermo. Solo una pregunta de sobre la la entrega, como nos gusta apurar al máximo, como a todos los estudiantes de de Prof.
+Guillermo Fajardo: Y lo venía pensando en el avión. Si la podéis entregar hasta justo antes de la clase.
+Guillermo Fajardo: Ah, es un.
+Guillermo Fajardo: Es un es un parámetro, no que han marcado. Vale, pues ahora le voy a mandar el correo para que lo cambien.
+Guillermo Fajardo: Estar atentos, porque yo se lo voy a decir, pero yo no estoy accediendo a la plataforma, así que si no lo cambia. Me mandáis un email, pero se lo voy a mandar ahora mismo.
+Guillermo Fajardo: Nada.
+Guillermo Fajardo: Nada. Buenas noches.

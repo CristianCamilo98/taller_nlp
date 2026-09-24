@@ -1,0 +1,8419 @@
+{
+  "config": {
+    "benchmark_path": "marco\\experiments\\benchmark\\data\\retrieval_benchmark_v2.jsonl",
+    "benchmark_sha256": "6BD044EF3135686942B42CC9A654019D43675C1ACB2629ACE4B11274FFD80B8C",
+    "reranker_model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+    "reranker_revision": "233902d25c440f23af6f7d6e94d2946bac0bee0a",
+    "n_candidates": 20,
+    "top_k_saved": 20
+  },
+  "metrics": {
+    "dense": {
+      "ALL-48": {
+        "n_questions": 48,
+        "recall@1": 0.2708333333333333,
+        "recall@3": 0.5208333333333334,
+        "recall@5": 0.6458333333333334,
+        "recall@10": 0.7916666666666666,
+        "mrr@10": 0.42643849206349205
+      },
+      "NON-7A-36": {
+        "n_questions": 36,
+        "recall@1": 0.2222222222222222,
+        "recall@3": 0.4444444444444444,
+        "recall@5": 0.5277777777777778,
+        "recall@10": 0.7222222222222222,
+        "mrr@10": 0.3607142857142857
+      },
+      "ITEM-1A-12": {
+        "n_questions": 12,
+        "recall@1": 0.3333333333333333,
+        "recall@3": 0.5,
+        "recall@5": 0.5833333333333334,
+        "recall@10": 0.8333333333333334,
+        "mrr@10": 0.45866402116402116
+      },
+      "ITEM-7-12": {
+        "n_questions": 12,
+        "recall@1": 0.16666666666666666,
+        "recall@3": 0.4166666666666667,
+        "recall@5": 0.5833333333333334,
+        "recall@10": 0.8333333333333334,
+        "mrr@10": 0.33644179894179893
+      },
+      "ITEM-7A-12": {
+        "n_questions": 12,
+        "recall@1": 0.4166666666666667,
+        "recall@3": 0.75,
+        "recall@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 0.6236111111111111
+      },
+      "ITEM-8-12": {
+        "n_questions": 12,
+        "recall@1": 0.16666666666666666,
+        "recall@3": 0.4166666666666667,
+        "recall@5": 0.4166666666666667,
+        "recall@10": 0.5,
+        "mrr@10": 0.28703703703703703
+      }
+    },
+    "reranked": {
+      "ALL-48": {
+        "n_questions": 48,
+        "recall@1": 0.2708333333333333,
+        "recall@3": 0.4791666666666667,
+        "recall@5": 0.6666666666666666,
+        "recall@10": 0.7708333333333334,
+        "mrr@10": 0.41798941798941797
+      },
+      "NON-7A-36": {
+        "n_questions": 36,
+        "recall@1": 0.19444444444444445,
+        "recall@3": 0.3888888888888889,
+        "recall@5": 0.5555555555555556,
+        "recall@10": 0.6944444444444444,
+        "mrr@10": 0.33231922398589064
+      },
+      "ITEM-1A-12": {
+        "n_questions": 12,
+        "recall@1": 0.16666666666666666,
+        "recall@3": 0.4166666666666667,
+        "recall@5": 0.6666666666666666,
+        "recall@10": 0.75,
+        "mrr@10": 0.34953703703703703
+      },
+      "ITEM-7-12": {
+        "n_questions": 12,
+        "recall@1": 0.25,
+        "recall@3": 0.4166666666666667,
+        "recall@5": 0.6666666666666666,
+        "recall@10": 0.9166666666666666,
+        "mrr@10": 0.4132936507936508
+      },
+      "ITEM-7A-12": {
+        "n_questions": 12,
+        "recall@1": 0.5,
+        "recall@3": 0.75,
+        "recall@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 0.6749999999999999
+      },
+      "ITEM-8-12": {
+        "n_questions": 12,
+        "recall@1": 0.16666666666666666,
+        "recall@3": 0.3333333333333333,
+        "recall@5": 0.3333333333333333,
+        "recall@10": 0.4166666666666667,
+        "mrr@10": 0.2341269841269841
+      }
+    }
+  },
+  "candidate_recall@20": {
+    "ALL-48": 0.875,
+    "NON-7A-36": 0.8333333333333334,
+    "ITEM-1A-12": 0.8333333333333334,
+    "ITEM-7-12": 1.0,
+    "ITEM-7A-12": 1.0,
+    "ITEM-8-12": 0.6666666666666666
+  },
+  "latency_ms": {
+    "dense_mean": 199.33776041822662,
+    "reranker_mean": 434.6017979114549
+  },
+  "per_question": [
+    {
+      "question_id": "dani-b6-001",
+      "ticker": "AAPL",
+      "fiscal_year": 2024,
+      "item": "1A",
+      "char_start": 7339,
+      "char_end": 7600,
+      "relevant_chunk_ids": [
+        "AAPL-2024-1A-0003"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "AAPL-2024-1A-0011",
+          "score": 0.676
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AAPL-2024-1A-0024",
+          "score": 0.6326
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AAPL-2024-1A-0008",
+          "score": 0.6284
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AAPL-2024-1A-0002",
+          "score": 0.6248
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AAPL-2024-1A-0027",
+          "score": 0.623
+        },
+        {
+          "rank": 6,
+          "chunk_id": "AAPL-2024-1A-0019",
+          "score": 0.6191
+        },
+        {
+          "rank": 7,
+          "chunk_id": "AAPL-2024-1A-0003",
+          "score": 0.5938
+        },
+        {
+          "rank": 8,
+          "chunk_id": "AAPL-2024-1A-0025",
+          "score": 0.5875
+        },
+        {
+          "rank": 9,
+          "chunk_id": "AAPL-2024-1A-0014",
+          "score": 0.5857
+        },
+        {
+          "rank": 10,
+          "chunk_id": "AAPL-2024-1A-0020",
+          "score": 0.5772
+        },
+        {
+          "rank": 11,
+          "chunk_id": "AAPL-2024-1A-0021",
+          "score": 0.5703
+        },
+        {
+          "rank": 12,
+          "chunk_id": "AAPL-2024-1A-0026",
+          "score": 0.5686
+        },
+        {
+          "rank": 13,
+          "chunk_id": "AAPL-2024-1A-0018",
+          "score": 0.5686
+        },
+        {
+          "rank": 14,
+          "chunk_id": "AAPL-2024-1A-0015",
+          "score": 0.5671
+        },
+        {
+          "rank": 15,
+          "chunk_id": "AAPL-2024-1A-0005",
+          "score": 0.5659
+        },
+        {
+          "rank": 16,
+          "chunk_id": "AAPL-2024-1A-0033",
+          "score": 0.5651
+        },
+        {
+          "rank": 17,
+          "chunk_id": "AAPL-2024-1A-0022",
+          "score": 0.5642
+        },
+        {
+          "rank": 18,
+          "chunk_id": "AAPL-2024-1A-0017",
+          "score": 0.554
+        },
+        {
+          "rank": 19,
+          "chunk_id": "AAPL-2024-1A-0030",
+          "score": 0.5514
+        },
+        {
+          "rank": 20,
+          "chunk_id": "AAPL-2024-1A-0023",
+          "score": 0.5509
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "AAPL-2024-1A-0002",
+          "score": -7.8629
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AAPL-2024-1A-0030",
+          "score": -9.8676
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AAPL-2024-1A-0008",
+          "score": -9.9111
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AAPL-2024-1A-0003",
+          "score": -9.9449
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AAPL-2024-1A-0011",
+          "score": -10.0054
+        },
+        {
+          "rank": 6,
+          "chunk_id": "AAPL-2024-1A-0019",
+          "score": -10.0973
+        },
+        {
+          "rank": 7,
+          "chunk_id": "AAPL-2024-1A-0005",
+          "score": -10.1677
+        },
+        {
+          "rank": 8,
+          "chunk_id": "AAPL-2024-1A-0027",
+          "score": -10.3848
+        },
+        {
+          "rank": 9,
+          "chunk_id": "AAPL-2024-1A-0024",
+          "score": -10.3966
+        },
+        {
+          "rank": 10,
+          "chunk_id": "AAPL-2024-1A-0033",
+          "score": -10.4353
+        },
+        {
+          "rank": 11,
+          "chunk_id": "AAPL-2024-1A-0017",
+          "score": -10.4994
+        },
+        {
+          "rank": 12,
+          "chunk_id": "AAPL-2024-1A-0020",
+          "score": -10.6745
+        },
+        {
+          "rank": 13,
+          "chunk_id": "AAPL-2024-1A-0014",
+          "score": -10.7318
+        },
+        {
+          "rank": 14,
+          "chunk_id": "AAPL-2024-1A-0018",
+          "score": -10.7753
+        },
+        {
+          "rank": 15,
+          "chunk_id": "AAPL-2024-1A-0025",
+          "score": -10.982
+        },
+        {
+          "rank": 16,
+          "chunk_id": "AAPL-2024-1A-0015",
+          "score": -11.2115
+        },
+        {
+          "rank": 17,
+          "chunk_id": "AAPL-2024-1A-0022",
+          "score": -11.2413
+        },
+        {
+          "rank": 18,
+          "chunk_id": "AAPL-2024-1A-0021",
+          "score": -11.2607
+        },
+        {
+          "rank": 19,
+          "chunk_id": "AAPL-2024-1A-0026",
+          "score": -11.4154
+        },
+        {
+          "rank": 20,
+          "chunk_id": "AAPL-2024-1A-0023",
+          "score": -11.4336
+        }
+      ],
+      "dense_first_relevant_rank": 7,
+      "reranked_first_relevant_rank": 4,
+      "dense_latency_ms": 7672.79,
+      "reranked_latency_ms": 2732.95
+    },
+    {
+      "question_id": "dani-b6-002",
+      "ticker": "AAPL",
+      "fiscal_year": 2024,
+      "item": "7",
+      "char_start": 4480,
+      "char_end": 4667,
+      "relevant_chunk_ids": [
+        "AAPL-2024-7-0002"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "AAPL-2024-7-0000",
+          "score": 0.6609
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AAPL-2024-7-0002",
+          "score": 0.6442
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AAPL-2024-7-0001",
+          "score": 0.6219
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AAPL-2024-7-0004",
+          "score": 0.584
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AAPL-2024-7-0006",
+          "score": 0.5792
+        },
+        {
+          "rank": 6,
+          "chunk_id": "AAPL-2024-7-0009",
+          "score": 0.5555
+        },
+        {
+          "rank": 7,
+          "chunk_id": "AAPL-2024-7-0008",
+          "score": 0.5006
+        },
+        {
+          "rank": 8,
+          "chunk_id": "AAPL-2024-7-0007",
+          "score": 0.4826
+        },
+        {
+          "rank": 9,
+          "chunk_id": "AAPL-2024-7-0003",
+          "score": 0.4758
+        },
+        {
+          "rank": 10,
+          "chunk_id": "AAPL-2024-7-0005",
+          "score": 0.4593
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "AAPL-2024-7-0000",
+          "score": -9.283
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AAPL-2024-7-0002",
+          "score": -9.4457
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AAPL-2024-7-0001",
+          "score": -10.324
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AAPL-2024-7-0006",
+          "score": -10.5347
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AAPL-2024-7-0009",
+          "score": -10.7843
+        },
+        {
+          "rank": 6,
+          "chunk_id": "AAPL-2024-7-0004",
+          "score": -11.0915
+        },
+        {
+          "rank": 7,
+          "chunk_id": "AAPL-2024-7-0003",
+          "score": -11.2633
+        },
+        {
+          "rank": 8,
+          "chunk_id": "AAPL-2024-7-0008",
+          "score": -11.2872
+        },
+        {
+          "rank": 9,
+          "chunk_id": "AAPL-2024-7-0007",
+          "score": -11.3454
+        },
+        {
+          "rank": 10,
+          "chunk_id": "AAPL-2024-7-0005",
+          "score": -11.3663
+        }
+      ],
+      "dense_first_relevant_rank": 2,
+      "reranked_first_relevant_rank": 2,
+      "dense_latency_ms": 61.44,
+      "reranked_latency_ms": 286.87
+    },
+    {
+      "question_id": "dani-b6-003",
+      "ticker": "AAPL",
+      "fiscal_year": 2024,
+      "item": "7A",
+      "char_start": 459,
+      "char_end": 624,
+      "relevant_chunk_ids": [
+        "AAPL-2024-7A-0000"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "AAPL-2024-7A-0001",
+          "score": 0.4595
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AAPL-2024-7A-0000",
+          "score": 0.4252
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "AAPL-2024-7A-0001",
+          "score": -11.2719
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AAPL-2024-7A-0000",
+          "score": -11.3162
+        }
+      ],
+      "dense_first_relevant_rank": 2,
+      "reranked_first_relevant_rank": 2,
+      "dense_latency_ms": 61.01,
+      "reranked_latency_ms": 93.17
+    },
+    {
+      "question_id": "dani-b6-004",
+      "ticker": "AAPL",
+      "fiscal_year": 2024,
+      "item": "8",
+      "char_start": 11027,
+      "char_end": 11143,
+      "relevant_chunk_ids": [
+        "AAPL-2024-8-0008"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "AAPL-2024-8-0029",
+          "score": 0.5882
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AAPL-2024-8-0008",
+          "score": 0.586
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AAPL-2024-8-0012",
+          "score": 0.5745
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AAPL-2024-8-0004",
+          "score": 0.5726
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AAPL-2024-8-0025",
+          "score": 0.5714
+        },
+        {
+          "rank": 6,
+          "chunk_id": "AAPL-2024-8-0037",
+          "score": 0.569
+        },
+        {
+          "rank": 7,
+          "chunk_id": "AAPL-2024-8-0031",
+          "score": 0.5588
+        },
+        {
+          "rank": 8,
+          "chunk_id": "AAPL-2024-8-0001",
+          "score": 0.553
+        },
+        {
+          "rank": 9,
+          "chunk_id": "AAPL-2024-8-0022",
+          "score": 0.5497
+        },
+        {
+          "rank": 10,
+          "chunk_id": "AAPL-2024-8-0005",
+          "score": 0.5491
+        },
+        {
+          "rank": 11,
+          "chunk_id": "AAPL-2024-8-0020",
+          "score": 0.5476
+        },
+        {
+          "rank": 12,
+          "chunk_id": "AAPL-2024-8-0039",
+          "score": 0.5449
+        },
+        {
+          "rank": 13,
+          "chunk_id": "AAPL-2024-8-0015",
+          "score": 0.5362
+        },
+        {
+          "rank": 14,
+          "chunk_id": "AAPL-2024-8-0035",
+          "score": 0.5344
+        },
+        {
+          "rank": 15,
+          "chunk_id": "AAPL-2024-8-0010",
+          "score": 0.5318
+        },
+        {
+          "rank": 16,
+          "chunk_id": "AAPL-2024-8-0018",
+          "score": 0.531
+        },
+        {
+          "rank": 17,
+          "chunk_id": "AAPL-2024-8-0002",
+          "score": 0.5272
+        },
+        {
+          "rank": 18,
+          "chunk_id": "AAPL-2024-8-0032",
+          "score": 0.52
+        },
+        {
+          "rank": 19,
+          "chunk_id": "AAPL-2024-8-0042",
+          "score": 0.5167
+        },
+        {
+          "rank": 20,
+          "chunk_id": "AAPL-2024-8-0000",
+          "score": 0.5163
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "AAPL-2024-8-0008",
+          "score": -8.5765
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AAPL-2024-8-0020",
+          "score": -9.474
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AAPL-2024-8-0042",
+          "score": -10.4077
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AAPL-2024-8-0022",
+          "score": -10.645
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AAPL-2024-8-0025",
+          "score": -10.6666
+        },
+        {
+          "rank": 6,
+          "chunk_id": "AAPL-2024-8-0031",
+          "score": -10.7172
+        },
+        {
+          "rank": 7,
+          "chunk_id": "AAPL-2024-8-0004",
+          "score": -10.764
+        },
+        {
+          "rank": 8,
+          "chunk_id": "AAPL-2024-8-0012",
+          "score": -10.8129
+        },
+        {
+          "rank": 9,
+          "chunk_id": "AAPL-2024-8-0001",
+          "score": -10.9273
+        },
+        {
+          "rank": 10,
+          "chunk_id": "AAPL-2024-8-0039",
+          "score": -10.9602
+        },
+        {
+          "rank": 11,
+          "chunk_id": "AAPL-2024-8-0015",
+          "score": -10.9682
+        },
+        {
+          "rank": 12,
+          "chunk_id": "AAPL-2024-8-0005",
+          "score": -11.0073
+        },
+        {
+          "rank": 13,
+          "chunk_id": "AAPL-2024-8-0037",
+          "score": -11.0476
+        },
+        {
+          "rank": 14,
+          "chunk_id": "AAPL-2024-8-0029",
+          "score": -11.0731
+        },
+        {
+          "rank": 15,
+          "chunk_id": "AAPL-2024-8-0032",
+          "score": -11.0799
+        },
+        {
+          "rank": 16,
+          "chunk_id": "AAPL-2024-8-0002",
+          "score": -11.1149
+        },
+        {
+          "rank": 17,
+          "chunk_id": "AAPL-2024-8-0010",
+          "score": -11.1212
+        },
+        {
+          "rank": 18,
+          "chunk_id": "AAPL-2024-8-0035",
+          "score": -11.2348
+        },
+        {
+          "rank": 19,
+          "chunk_id": "AAPL-2024-8-0000",
+          "score": -11.3877
+        },
+        {
+          "rank": 20,
+          "chunk_id": "AAPL-2024-8-0018",
+          "score": -11.3955
+        }
+      ],
+      "dense_first_relevant_rank": 2,
+      "reranked_first_relevant_rank": 1,
+      "dense_latency_ms": 15.89,
+      "reranked_latency_ms": 468.47
+    },
+    {
+      "question_id": "dani-b6-005",
+      "ticker": "AAPL",
+      "fiscal_year": 2025,
+      "item": "1A",
+      "char_start": 39704,
+      "char_end": 40156,
+      "relevant_chunk_ids": [
+        "AAPL-2025-1A-0018"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "AAPL-2025-1A-0016",
+          "score": 0.6391
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AAPL-2025-1A-0013",
+          "score": 0.6297
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AAPL-2025-1A-0026",
+          "score": 0.6223
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AAPL-2025-1A-0010",
+          "score": 0.6205
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AAPL-2025-1A-0005",
+          "score": 0.619
+        },
+        {
+          "rank": 6,
+          "chunk_id": "AAPL-2025-1A-0023",
+          "score": 0.6163
+        },
+        {
+          "rank": 7,
+          "chunk_id": "AAPL-2025-1A-0006",
+          "score": 0.6034
+        },
+        {
+          "rank": 8,
+          "chunk_id": "AAPL-2025-1A-0030",
+          "score": 0.6012
+        },
+        {
+          "rank": 9,
+          "chunk_id": "AAPL-2025-1A-0018",
+          "score": 0.5976
+        },
+        {
+          "rank": 10,
+          "chunk_id": "AAPL-2025-1A-0032",
+          "score": 0.5973
+        },
+        {
+          "rank": 11,
+          "chunk_id": "AAPL-2025-1A-0020",
+          "score": 0.5863
+        },
+        {
+          "rank": 12,
+          "chunk_id": "AAPL-2025-1A-0024",
+          "score": 0.5698
+        },
+        {
+          "rank": 13,
+          "chunk_id": "AAPL-2025-1A-0002",
+          "score": 0.5631
+        },
+        {
+          "rank": 14,
+          "chunk_id": "AAPL-2025-1A-0011",
+          "score": 0.5539
+        },
+        {
+          "rank": 15,
+          "chunk_id": "AAPL-2025-1A-0031",
+          "score": 0.5512
+        },
+        {
+          "rank": 16,
+          "chunk_id": "AAPL-2025-1A-0008",
+          "score": 0.533
+        },
+        {
+          "rank": 17,
+          "chunk_id": "AAPL-2025-1A-0025",
+          "score": 0.5321
+        },
+        {
+          "rank": 18,
+          "chunk_id": "AAPL-2025-1A-0019",
+          "score": 0.5149
+        },
+        {
+          "rank": 19,
+          "chunk_id": "AAPL-2025-1A-0007",
+          "score": 0.5047
+        },
+        {
+          "rank": 20,
+          "chunk_id": "AAPL-2025-1A-0009",
+          "score": 0.5044
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "AAPL-2025-1A-0002",
+          "score": -10.4715
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AAPL-2025-1A-0018",
+          "score": -10.5885
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AAPL-2025-1A-0005",
+          "score": -10.6177
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AAPL-2025-1A-0026",
+          "score": -10.6219
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AAPL-2025-1A-0030",
+          "score": -10.6889
+        },
+        {
+          "rank": 6,
+          "chunk_id": "AAPL-2025-1A-0016",
+          "score": -10.692
+        },
+        {
+          "rank": 7,
+          "chunk_id": "AAPL-2025-1A-0023",
+          "score": -10.7599
+        },
+        {
+          "rank": 8,
+          "chunk_id": "AAPL-2025-1A-0020",
+          "score": -10.8064
+        },
+        {
+          "rank": 9,
+          "chunk_id": "AAPL-2025-1A-0010",
+          "score": -10.8369
+        },
+        {
+          "rank": 10,
+          "chunk_id": "AAPL-2025-1A-0013",
+          "score": -10.9882
+        },
+        {
+          "rank": 11,
+          "chunk_id": "AAPL-2025-1A-0006",
+          "score": -11.0424
+        },
+        {
+          "rank": 12,
+          "chunk_id": "AAPL-2025-1A-0024",
+          "score": -11.1009
+        },
+        {
+          "rank": 13,
+          "chunk_id": "AAPL-2025-1A-0011",
+          "score": -11.196
+        },
+        {
+          "rank": 14,
+          "chunk_id": "AAPL-2025-1A-0032",
+          "score": -11.2416
+        },
+        {
+          "rank": 15,
+          "chunk_id": "AAPL-2025-1A-0031",
+          "score": -11.249
+        },
+        {
+          "rank": 16,
+          "chunk_id": "AAPL-2025-1A-0008",
+          "score": -11.3465
+        },
+        {
+          "rank": 17,
+          "chunk_id": "AAPL-2025-1A-0007",
+          "score": -11.3512
+        },
+        {
+          "rank": 18,
+          "chunk_id": "AAPL-2025-1A-0019",
+          "score": -11.3525
+        },
+        {
+          "rank": 19,
+          "chunk_id": "AAPL-2025-1A-0025",
+          "score": -11.3663
+        },
+        {
+          "rank": 20,
+          "chunk_id": "AAPL-2025-1A-0009",
+          "score": -11.4711
+        }
+      ],
+      "dense_first_relevant_rank": 9,
+      "reranked_first_relevant_rank": 2,
+      "dense_latency_ms": 44.0,
+      "reranked_latency_ms": 500.09
+    },
+    {
+      "question_id": "dani-b6-006",
+      "ticker": "AAPL",
+      "fiscal_year": 2025,
+      "item": "7",
+      "char_start": 3915,
+      "char_end": 4363,
+      "relevant_chunk_ids": [
+        "AAPL-2025-7-0002"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "AAPL-2025-7-0000",
+          "score": 0.6469
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AAPL-2025-7-0003",
+          "score": 0.6331
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AAPL-2025-7-0007",
+          "score": 0.632
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AAPL-2025-7-0005",
+          "score": 0.6166
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AAPL-2025-7-0002",
+          "score": 0.6153
+        },
+        {
+          "rank": 6,
+          "chunk_id": "AAPL-2025-7-0010",
+          "score": 0.5813
+        },
+        {
+          "rank": 7,
+          "chunk_id": "AAPL-2025-7-0009",
+          "score": 0.5587
+        },
+        {
+          "rank": 8,
+          "chunk_id": "AAPL-2025-7-0004",
+          "score": 0.5542
+        },
+        {
+          "rank": 9,
+          "chunk_id": "AAPL-2025-7-0006",
+          "score": 0.5382
+        },
+        {
+          "rank": 10,
+          "chunk_id": "AAPL-2025-7-0008",
+          "score": 0.5256
+        },
+        {
+          "rank": 11,
+          "chunk_id": "AAPL-2025-7-0001",
+          "score": 0.4405
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "AAPL-2025-7-0002",
+          "score": -10.3279
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AAPL-2025-7-0007",
+          "score": -10.7079
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AAPL-2025-7-0003",
+          "score": -10.7844
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AAPL-2025-7-0005",
+          "score": -10.8858
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AAPL-2025-7-0010",
+          "score": -11.1527
+        },
+        {
+          "rank": 6,
+          "chunk_id": "AAPL-2025-7-0000",
+          "score": -11.1717
+        },
+        {
+          "rank": 7,
+          "chunk_id": "AAPL-2025-7-0004",
+          "score": -11.3871
+        },
+        {
+          "rank": 8,
+          "chunk_id": "AAPL-2025-7-0009",
+          "score": -11.4543
+        },
+        {
+          "rank": 9,
+          "chunk_id": "AAPL-2025-7-0001",
+          "score": -11.465
+        },
+        {
+          "rank": 10,
+          "chunk_id": "AAPL-2025-7-0006",
+          "score": -11.475
+        },
+        {
+          "rank": 11,
+          "chunk_id": "AAPL-2025-7-0008",
+          "score": -11.4867
+        }
+      ],
+      "dense_first_relevant_rank": 5,
+      "reranked_first_relevant_rank": 1,
+      "dense_latency_ms": 61.08,
+      "reranked_latency_ms": 282.35
+    },
+    {
+      "question_id": "dani-b6-007",
+      "ticker": "AAPL",
+      "fiscal_year": 2025,
+      "item": "7A",
+      "char_start": 2221,
+      "char_end": 2381,
+      "relevant_chunk_ids": [
+        "AAPL-2025-7A-0001"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "AAPL-2025-7A-0001",
+          "score": 0.5464
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AAPL-2025-7A-0000",
+          "score": 0.523
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "AAPL-2025-7A-0001",
+          "score": -11.2917
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AAPL-2025-7A-0000",
+          "score": -11.2922
+        }
+      ],
+      "dense_first_relevant_rank": 1,
+      "reranked_first_relevant_rank": 1,
+      "dense_latency_ms": 61.77,
+      "reranked_latency_ms": 96.6
+    },
+    {
+      "question_id": "dani-b6-008",
+      "ticker": "AAPL",
+      "fiscal_year": 2025,
+      "item": "8",
+      "char_start": 24767,
+      "char_end": 24955,
+      "relevant_chunk_ids": [
+        "AAPL-2025-8-0018"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "AAPL-2025-8-0009",
+          "score": 0.5802
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AAPL-2025-8-0033",
+          "score": 0.5668
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AAPL-2025-8-0017",
+          "score": 0.5536
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AAPL-2025-8-0041",
+          "score": 0.5518
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AAPL-2025-8-0039",
+          "score": 0.5504
+        },
+        {
+          "rank": 6,
+          "chunk_id": "AAPL-2025-8-0008",
+          "score": 0.5446
+        },
+        {
+          "rank": 7,
+          "chunk_id": "AAPL-2025-8-0012",
+          "score": 0.5405
+        },
+        {
+          "rank": 8,
+          "chunk_id": "AAPL-2025-8-0021",
+          "score": 0.5395
+        },
+        {
+          "rank": 9,
+          "chunk_id": "AAPL-2025-8-0027",
+          "score": 0.5379
+        },
+        {
+          "rank": 10,
+          "chunk_id": "AAPL-2025-8-0034",
+          "score": 0.5306
+        },
+        {
+          "rank": 11,
+          "chunk_id": "AAPL-2025-8-0031",
+          "score": 0.5213
+        },
+        {
+          "rank": 12,
+          "chunk_id": "AAPL-2025-8-0001",
+          "score": 0.5163
+        },
+        {
+          "rank": 13,
+          "chunk_id": "AAPL-2025-8-0004",
+          "score": 0.514
+        },
+        {
+          "rank": 14,
+          "chunk_id": "AAPL-2025-8-0019",
+          "score": 0.5125
+        },
+        {
+          "rank": 15,
+          "chunk_id": "AAPL-2025-8-0028",
+          "score": 0.5114
+        },
+        {
+          "rank": 16,
+          "chunk_id": "AAPL-2025-8-0000",
+          "score": 0.5105
+        },
+        {
+          "rank": 17,
+          "chunk_id": "AAPL-2025-8-0038",
+          "score": 0.5081
+        },
+        {
+          "rank": 18,
+          "chunk_id": "AAPL-2025-8-0010",
+          "score": 0.505
+        },
+        {
+          "rank": 19,
+          "chunk_id": "AAPL-2025-8-0013",
+          "score": 0.5049
+        },
+        {
+          "rank": 20,
+          "chunk_id": "AAPL-2025-8-0042",
+          "score": 0.5028
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "AAPL-2025-8-0008",
+          "score": -10.3104
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AAPL-2025-8-0039",
+          "score": -10.5269
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AAPL-2025-8-0021",
+          "score": -10.7713
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AAPL-2025-8-0041",
+          "score": -10.806
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AAPL-2025-8-0031",
+          "score": -10.9545
+        },
+        {
+          "rank": 6,
+          "chunk_id": "AAPL-2025-8-0001",
+          "score": -10.9613
+        },
+        {
+          "rank": 7,
+          "chunk_id": "AAPL-2025-8-0004",
+          "score": -10.9665
+        },
+        {
+          "rank": 8,
+          "chunk_id": "AAPL-2025-8-0012",
+          "score": -11.0193
+        },
+        {
+          "rank": 9,
+          "chunk_id": "AAPL-2025-8-0033",
+          "score": -11.0291
+        },
+        {
+          "rank": 10,
+          "chunk_id": "AAPL-2025-8-0017",
+          "score": -11.0546
+        },
+        {
+          "rank": 11,
+          "chunk_id": "AAPL-2025-8-0009",
+          "score": -11.0623
+        },
+        {
+          "rank": 12,
+          "chunk_id": "AAPL-2025-8-0027",
+          "score": -11.0782
+        },
+        {
+          "rank": 13,
+          "chunk_id": "AAPL-2025-8-0019",
+          "score": -11.1068
+        },
+        {
+          "rank": 14,
+          "chunk_id": "AAPL-2025-8-0038",
+          "score": -11.1106
+        },
+        {
+          "rank": 15,
+          "chunk_id": "AAPL-2025-8-0034",
+          "score": -11.2203
+        },
+        {
+          "rank": 16,
+          "chunk_id": "AAPL-2025-8-0010",
+          "score": -11.2313
+        },
+        {
+          "rank": 17,
+          "chunk_id": "AAPL-2025-8-0028",
+          "score": -11.3112
+        },
+        {
+          "rank": 18,
+          "chunk_id": "AAPL-2025-8-0000",
+          "score": -11.3152
+        },
+        {
+          "rank": 19,
+          "chunk_id": "AAPL-2025-8-0013",
+          "score": -11.3655
+        },
+        {
+          "rank": 20,
+          "chunk_id": "AAPL-2025-8-0042",
+          "score": -11.4249
+        }
+      ],
+      "dense_first_relevant_rank": null,
+      "reranked_first_relevant_rank": null,
+      "dense_latency_ms": 22.52,
+      "reranked_latency_ms": 496.53
+    },
+    {
+      "question_id": "dani-b6-009",
+      "ticker": "AMZN",
+      "fiscal_year": 2024,
+      "item": "1A",
+      "char_start": 16872,
+      "char_end": 17098,
+      "relevant_chunk_ids": [
+        "AMZN-2024-1A-0008"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "AMZN-2024-1A-0021",
+          "score": 0.6111
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AMZN-2024-1A-0008",
+          "score": 0.5998
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AMZN-2024-1A-0007",
+          "score": 0.5968
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AMZN-2024-1A-0017",
+          "score": 0.5945
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AMZN-2024-1A-0011",
+          "score": 0.5889
+        },
+        {
+          "rank": 6,
+          "chunk_id": "AMZN-2024-1A-0024",
+          "score": 0.5875
+        },
+        {
+          "rank": 7,
+          "chunk_id": "AMZN-2024-1A-0004",
+          "score": 0.5786
+        },
+        {
+          "rank": 8,
+          "chunk_id": "AMZN-2024-1A-0029",
+          "score": 0.5769
+        },
+        {
+          "rank": 9,
+          "chunk_id": "AMZN-2024-1A-0027",
+          "score": 0.572
+        },
+        {
+          "rank": 10,
+          "chunk_id": "AMZN-2024-1A-0001",
+          "score": 0.5688
+        },
+        {
+          "rank": 11,
+          "chunk_id": "AMZN-2024-1A-0013",
+          "score": 0.5649
+        },
+        {
+          "rank": 12,
+          "chunk_id": "AMZN-2024-1A-0010",
+          "score": 0.5641
+        },
+        {
+          "rank": 13,
+          "chunk_id": "AMZN-2024-1A-0002",
+          "score": 0.5586
+        },
+        {
+          "rank": 14,
+          "chunk_id": "AMZN-2024-1A-0006",
+          "score": 0.5572
+        },
+        {
+          "rank": 15,
+          "chunk_id": "AMZN-2024-1A-0028",
+          "score": 0.553
+        },
+        {
+          "rank": 16,
+          "chunk_id": "AMZN-2024-1A-0015",
+          "score": 0.5522
+        },
+        {
+          "rank": 17,
+          "chunk_id": "AMZN-2024-1A-0025",
+          "score": 0.5468
+        },
+        {
+          "rank": 18,
+          "chunk_id": "AMZN-2024-1A-0019",
+          "score": 0.5363
+        },
+        {
+          "rank": 19,
+          "chunk_id": "AMZN-2024-1A-0016",
+          "score": 0.5337
+        },
+        {
+          "rank": 20,
+          "chunk_id": "AMZN-2024-1A-0018",
+          "score": 0.5311
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "AMZN-2024-1A-0024",
+          "score": -10.7458
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AMZN-2024-1A-0021",
+          "score": -10.8765
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AMZN-2024-1A-0001",
+          "score": -10.8949
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AMZN-2024-1A-0004",
+          "score": -10.9754
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AMZN-2024-1A-0010",
+          "score": -11.0086
+        },
+        {
+          "rank": 6,
+          "chunk_id": "AMZN-2024-1A-0017",
+          "score": -11.0412
+        },
+        {
+          "rank": 7,
+          "chunk_id": "AMZN-2024-1A-0011",
+          "score": -11.0505
+        },
+        {
+          "rank": 8,
+          "chunk_id": "AMZN-2024-1A-0025",
+          "score": -11.0619
+        },
+        {
+          "rank": 9,
+          "chunk_id": "AMZN-2024-1A-0007",
+          "score": -11.1529
+        },
+        {
+          "rank": 10,
+          "chunk_id": "AMZN-2024-1A-0029",
+          "score": -11.1679
+        },
+        {
+          "rank": 11,
+          "chunk_id": "AMZN-2024-1A-0019",
+          "score": -11.17
+        },
+        {
+          "rank": 12,
+          "chunk_id": "AMZN-2024-1A-0018",
+          "score": -11.1706
+        },
+        {
+          "rank": 13,
+          "chunk_id": "AMZN-2024-1A-0008",
+          "score": -11.1728
+        },
+        {
+          "rank": 14,
+          "chunk_id": "AMZN-2024-1A-0006",
+          "score": -11.2178
+        },
+        {
+          "rank": 15,
+          "chunk_id": "AMZN-2024-1A-0015",
+          "score": -11.287
+        },
+        {
+          "rank": 16,
+          "chunk_id": "AMZN-2024-1A-0028",
+          "score": -11.2985
+        },
+        {
+          "rank": 17,
+          "chunk_id": "AMZN-2024-1A-0002",
+          "score": -11.4093
+        },
+        {
+          "rank": 18,
+          "chunk_id": "AMZN-2024-1A-0013",
+          "score": -11.4362
+        },
+        {
+          "rank": 19,
+          "chunk_id": "AMZN-2024-1A-0016",
+          "score": -11.4396
+        },
+        {
+          "rank": 20,
+          "chunk_id": "AMZN-2024-1A-0027",
+          "score": -11.4507
+        }
+      ],
+      "dense_first_relevant_rank": 2,
+      "reranked_first_relevant_rank": 13,
+      "dense_latency_ms": 31.38,
+      "reranked_latency_ms": 463.57
+    },
+    {
+      "question_id": "dani-b6-010",
+      "ticker": "AMZN",
+      "fiscal_year": 2024,
+      "item": "7",
+      "char_start": 36119,
+      "char_end": 36338,
+      "relevant_chunk_ids": [
+        "AMZN-2024-7-0019"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "AMZN-2024-7-0000",
+          "score": 0.6353
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AMZN-2024-7-0011",
+          "score": 0.6281
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AMZN-2024-7-0012",
+          "score": 0.6223
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AMZN-2024-7-0002",
+          "score": 0.6113
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AMZN-2024-7-0026",
+          "score": 0.6112
+        },
+        {
+          "rank": 6,
+          "chunk_id": "AMZN-2024-7-0001",
+          "score": 0.5941
+        },
+        {
+          "rank": 7,
+          "chunk_id": "AMZN-2024-7-0013",
+          "score": 0.5887
+        },
+        {
+          "rank": 8,
+          "chunk_id": "AMZN-2024-7-0016",
+          "score": 0.5872
+        },
+        {
+          "rank": 9,
+          "chunk_id": "AMZN-2024-7-0006",
+          "score": 0.5812
+        },
+        {
+          "rank": 10,
+          "chunk_id": "AMZN-2024-7-0003",
+          "score": 0.5771
+        },
+        {
+          "rank": 11,
+          "chunk_id": "AMZN-2024-7-0021",
+          "score": 0.5723
+        },
+        {
+          "rank": 12,
+          "chunk_id": "AMZN-2024-7-0027",
+          "score": 0.5692
+        },
+        {
+          "rank": 13,
+          "chunk_id": "AMZN-2024-7-0019",
+          "score": 0.5691
+        },
+        {
+          "rank": 14,
+          "chunk_id": "AMZN-2024-7-0018",
+          "score": 0.5688
+        },
+        {
+          "rank": 15,
+          "chunk_id": "AMZN-2024-7-0004",
+          "score": 0.5684
+        },
+        {
+          "rank": 16,
+          "chunk_id": "AMZN-2024-7-0005",
+          "score": 0.5571
+        },
+        {
+          "rank": 17,
+          "chunk_id": "AMZN-2024-7-0015",
+          "score": 0.5504
+        },
+        {
+          "rank": 18,
+          "chunk_id": "AMZN-2024-7-0010",
+          "score": 0.539
+        },
+        {
+          "rank": 19,
+          "chunk_id": "AMZN-2024-7-0009",
+          "score": 0.5364
+        },
+        {
+          "rank": 20,
+          "chunk_id": "AMZN-2024-7-0007",
+          "score": 0.5306
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "AMZN-2024-7-0003",
+          "score": -10.4663
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AMZN-2024-7-0026",
+          "score": -10.9365
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AMZN-2024-7-0007",
+          "score": -10.9912
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AMZN-2024-7-0000",
+          "score": -11.0166
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AMZN-2024-7-0002",
+          "score": -11.038
+        },
+        {
+          "rank": 6,
+          "chunk_id": "AMZN-2024-7-0011",
+          "score": -11.0933
+        },
+        {
+          "rank": 7,
+          "chunk_id": "AMZN-2024-7-0016",
+          "score": -11.0986
+        },
+        {
+          "rank": 8,
+          "chunk_id": "AMZN-2024-7-0010",
+          "score": -11.1432
+        },
+        {
+          "rank": 9,
+          "chunk_id": "AMZN-2024-7-0001",
+          "score": -11.168
+        },
+        {
+          "rank": 10,
+          "chunk_id": "AMZN-2024-7-0006",
+          "score": -11.171
+        },
+        {
+          "rank": 11,
+          "chunk_id": "AMZN-2024-7-0012",
+          "score": -11.186
+        },
+        {
+          "rank": 12,
+          "chunk_id": "AMZN-2024-7-0009",
+          "score": -11.2601
+        },
+        {
+          "rank": 13,
+          "chunk_id": "AMZN-2024-7-0021",
+          "score": -11.274
+        },
+        {
+          "rank": 14,
+          "chunk_id": "AMZN-2024-7-0005",
+          "score": -11.283
+        },
+        {
+          "rank": 15,
+          "chunk_id": "AMZN-2024-7-0004",
+          "score": -11.3015
+        },
+        {
+          "rank": 16,
+          "chunk_id": "AMZN-2024-7-0027",
+          "score": -11.3057
+        },
+        {
+          "rank": 17,
+          "chunk_id": "AMZN-2024-7-0018",
+          "score": -11.3383
+        },
+        {
+          "rank": 18,
+          "chunk_id": "AMZN-2024-7-0019",
+          "score": -11.3396
+        },
+        {
+          "rank": 19,
+          "chunk_id": "AMZN-2024-7-0013",
+          "score": -11.3427
+        },
+        {
+          "rank": 20,
+          "chunk_id": "AMZN-2024-7-0015",
+          "score": -11.4047
+        }
+      ],
+      "dense_first_relevant_rank": 13,
+      "reranked_first_relevant_rank": 18,
+      "dense_latency_ms": 48.74,
+      "reranked_latency_ms": 473.81
+    },
+    {
+      "question_id": "dani-b6-011",
+      "ticker": "AMZN",
+      "fiscal_year": 2024,
+      "item": "7A",
+      "char_start": 1150,
+      "char_end": 1423,
+      "relevant_chunk_ids": [
+        "AMZN-2024-7A-0001"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "AMZN-2024-7A-0003",
+          "score": 0.6029
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AMZN-2024-7A-0004",
+          "score": 0.5057
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AMZN-2024-7A-0002",
+          "score": 0.4566
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AMZN-2024-7A-0000",
+          "score": 0.4551
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AMZN-2024-7A-0001",
+          "score": 0.4541
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "AMZN-2024-7A-0004",
+          "score": -11.1529
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AMZN-2024-7A-0003",
+          "score": -11.2141
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AMZN-2024-7A-0002",
+          "score": -11.2815
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AMZN-2024-7A-0000",
+          "score": -11.3335
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AMZN-2024-7A-0001",
+          "score": -11.3479
+        }
+      ],
+      "dense_first_relevant_rank": 5,
+      "reranked_first_relevant_rank": 5,
+      "dense_latency_ms": 63.66,
+      "reranked_latency_ms": 143.14
+    },
+    {
+      "question_id": "dani-b6-012",
+      "ticker": "AMZN",
+      "fiscal_year": 2024,
+      "item": "8",
+      "char_start": 31403,
+      "char_end": 31589,
+      "relevant_chunk_ids": [
+        "AMZN-2024-8-0020"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "AMZN-2024-8-0060",
+          "score": 0.6277
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AMZN-2024-8-0058",
+          "score": 0.619
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AMZN-2024-8-0019",
+          "score": 0.6177
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AMZN-2024-8-0012",
+          "score": 0.6081
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AMZN-2024-8-0055",
+          "score": 0.6035
+        },
+        {
+          "rank": 6,
+          "chunk_id": "AMZN-2024-8-0016",
+          "score": 0.6032
+        },
+        {
+          "rank": 7,
+          "chunk_id": "AMZN-2024-8-0031",
+          "score": 0.6026
+        },
+        {
+          "rank": 8,
+          "chunk_id": "AMZN-2024-8-0056",
+          "score": 0.6009
+        },
+        {
+          "rank": 9,
+          "chunk_id": "AMZN-2024-8-0000",
+          "score": 0.6006
+        },
+        {
+          "rank": 10,
+          "chunk_id": "AMZN-2024-8-0025",
+          "score": 0.5983
+        },
+        {
+          "rank": 11,
+          "chunk_id": "AMZN-2024-8-0033",
+          "score": 0.5899
+        },
+        {
+          "rank": 12,
+          "chunk_id": "AMZN-2024-8-0074",
+          "score": 0.5899
+        },
+        {
+          "rank": 13,
+          "chunk_id": "AMZN-2024-8-0057",
+          "score": 0.5896
+        },
+        {
+          "rank": 14,
+          "chunk_id": "AMZN-2024-8-0059",
+          "score": 0.5894
+        },
+        {
+          "rank": 15,
+          "chunk_id": "AMZN-2024-8-0070",
+          "score": 0.5821
+        },
+        {
+          "rank": 16,
+          "chunk_id": "AMZN-2024-8-0024",
+          "score": 0.5798
+        },
+        {
+          "rank": 17,
+          "chunk_id": "AMZN-2024-8-0075",
+          "score": 0.5777
+        },
+        {
+          "rank": 18,
+          "chunk_id": "AMZN-2024-8-0034",
+          "score": 0.577
+        },
+        {
+          "rank": 19,
+          "chunk_id": "AMZN-2024-8-0072",
+          "score": 0.5752
+        },
+        {
+          "rank": 20,
+          "chunk_id": "AMZN-2024-8-0003",
+          "score": 0.5723
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "AMZN-2024-8-0060",
+          "score": -7.9478
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AMZN-2024-8-0058",
+          "score": -8.3221
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AMZN-2024-8-0057",
+          "score": -8.62
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AMZN-2024-8-0056",
+          "score": -9.0151
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AMZN-2024-8-0070",
+          "score": -9.0984
+        },
+        {
+          "rank": 6,
+          "chunk_id": "AMZN-2024-8-0016",
+          "score": -9.1068
+        },
+        {
+          "rank": 7,
+          "chunk_id": "AMZN-2024-8-0059",
+          "score": -9.413
+        },
+        {
+          "rank": 8,
+          "chunk_id": "AMZN-2024-8-0025",
+          "score": -9.9757
+        },
+        {
+          "rank": 9,
+          "chunk_id": "AMZN-2024-8-0019",
+          "score": -10.0717
+        },
+        {
+          "rank": 10,
+          "chunk_id": "AMZN-2024-8-0075",
+          "score": -10.0923
+        },
+        {
+          "rank": 11,
+          "chunk_id": "AMZN-2024-8-0012",
+          "score": -10.3016
+        },
+        {
+          "rank": 12,
+          "chunk_id": "AMZN-2024-8-0031",
+          "score": -10.338
+        },
+        {
+          "rank": 13,
+          "chunk_id": "AMZN-2024-8-0074",
+          "score": -10.4991
+        },
+        {
+          "rank": 14,
+          "chunk_id": "AMZN-2024-8-0000",
+          "score": -10.6279
+        },
+        {
+          "rank": 15,
+          "chunk_id": "AMZN-2024-8-0033",
+          "score": -11.0682
+        },
+        {
+          "rank": 16,
+          "chunk_id": "AMZN-2024-8-0003",
+          "score": -11.1247
+        },
+        {
+          "rank": 17,
+          "chunk_id": "AMZN-2024-8-0034",
+          "score": -11.2586
+        },
+        {
+          "rank": 18,
+          "chunk_id": "AMZN-2024-8-0072",
+          "score": -11.2621
+        },
+        {
+          "rank": 19,
+          "chunk_id": "AMZN-2024-8-0024",
+          "score": -11.3595
+        },
+        {
+          "rank": 20,
+          "chunk_id": "AMZN-2024-8-0055",
+          "score": -11.3713
+        }
+      ],
+      "dense_first_relevant_rank": null,
+      "reranked_first_relevant_rank": null,
+      "dense_latency_ms": 15.74,
+      "reranked_latency_ms": 494.4
+    },
+    {
+      "question_id": "dani-b6-013",
+      "ticker": "AMZN",
+      "fiscal_year": 2025,
+      "item": "1A",
+      "char_start": 26679,
+      "char_end": 27095,
+      "relevant_chunk_ids": [
+        "AMZN-2025-1A-0012"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "AMZN-2025-1A-0006",
+          "score": 0.627
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AMZN-2025-1A-0021",
+          "score": 0.6099
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AMZN-2025-1A-0010",
+          "score": 0.5916
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AMZN-2025-1A-0004",
+          "score": 0.5908
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AMZN-2025-1A-0017",
+          "score": 0.5849
+        },
+        {
+          "rank": 6,
+          "chunk_id": "AMZN-2025-1A-0012",
+          "score": 0.5832
+        },
+        {
+          "rank": 7,
+          "chunk_id": "AMZN-2025-1A-0013",
+          "score": 0.5744
+        },
+        {
+          "rank": 8,
+          "chunk_id": "AMZN-2025-1A-0007",
+          "score": 0.5668
+        },
+        {
+          "rank": 9,
+          "chunk_id": "AMZN-2025-1A-0020",
+          "score": 0.5663
+        },
+        {
+          "rank": 10,
+          "chunk_id": "AMZN-2025-1A-0011",
+          "score": 0.5619
+        },
+        {
+          "rank": 11,
+          "chunk_id": "AMZN-2025-1A-0029",
+          "score": 0.5522
+        },
+        {
+          "rank": 12,
+          "chunk_id": "AMZN-2025-1A-0002",
+          "score": 0.5487
+        },
+        {
+          "rank": 13,
+          "chunk_id": "AMZN-2025-1A-0028",
+          "score": 0.5419
+        },
+        {
+          "rank": 14,
+          "chunk_id": "AMZN-2025-1A-0009",
+          "score": 0.536
+        },
+        {
+          "rank": 15,
+          "chunk_id": "AMZN-2025-1A-0019",
+          "score": 0.5355
+        },
+        {
+          "rank": 16,
+          "chunk_id": "AMZN-2025-1A-0003",
+          "score": 0.5317
+        },
+        {
+          "rank": 17,
+          "chunk_id": "AMZN-2025-1A-0001",
+          "score": 0.5305
+        },
+        {
+          "rank": 18,
+          "chunk_id": "AMZN-2025-1A-0008",
+          "score": 0.5284
+        },
+        {
+          "rank": 19,
+          "chunk_id": "AMZN-2025-1A-0024",
+          "score": 0.5266
+        },
+        {
+          "rank": 20,
+          "chunk_id": "AMZN-2025-1A-0016",
+          "score": 0.5236
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "AMZN-2025-1A-0006",
+          "score": -10.3933
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AMZN-2025-1A-0021",
+          "score": -10.4333
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AMZN-2025-1A-0004",
+          "score": -10.5637
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AMZN-2025-1A-0012",
+          "score": -10.6266
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AMZN-2025-1A-0020",
+          "score": -10.764
+        },
+        {
+          "rank": 6,
+          "chunk_id": "AMZN-2025-1A-0029",
+          "score": -10.8364
+        },
+        {
+          "rank": 7,
+          "chunk_id": "AMZN-2025-1A-0024",
+          "score": -10.9151
+        },
+        {
+          "rank": 8,
+          "chunk_id": "AMZN-2025-1A-0010",
+          "score": -10.9552
+        },
+        {
+          "rank": 9,
+          "chunk_id": "AMZN-2025-1A-0017",
+          "score": -11.0359
+        },
+        {
+          "rank": 10,
+          "chunk_id": "AMZN-2025-1A-0019",
+          "score": -11.0914
+        },
+        {
+          "rank": 11,
+          "chunk_id": "AMZN-2025-1A-0011",
+          "score": -11.1156
+        },
+        {
+          "rank": 12,
+          "chunk_id": "AMZN-2025-1A-0007",
+          "score": -11.1762
+        },
+        {
+          "rank": 13,
+          "chunk_id": "AMZN-2025-1A-0003",
+          "score": -11.1999
+        },
+        {
+          "rank": 14,
+          "chunk_id": "AMZN-2025-1A-0001",
+          "score": -11.2421
+        },
+        {
+          "rank": 15,
+          "chunk_id": "AMZN-2025-1A-0028",
+          "score": -11.3448
+        },
+        {
+          "rank": 16,
+          "chunk_id": "AMZN-2025-1A-0013",
+          "score": -11.3531
+        },
+        {
+          "rank": 17,
+          "chunk_id": "AMZN-2025-1A-0008",
+          "score": -11.3713
+        },
+        {
+          "rank": 18,
+          "chunk_id": "AMZN-2025-1A-0009",
+          "score": -11.4014
+        },
+        {
+          "rank": 19,
+          "chunk_id": "AMZN-2025-1A-0016",
+          "score": -11.4126
+        },
+        {
+          "rank": 20,
+          "chunk_id": "AMZN-2025-1A-0002",
+          "score": -11.4307
+        }
+      ],
+      "dense_first_relevant_rank": 6,
+      "reranked_first_relevant_rank": 4,
+      "dense_latency_ms": 28.12,
+      "reranked_latency_ms": 470.49
+    },
+    {
+      "question_id": "dani-b6-014",
+      "ticker": "AMZN",
+      "fiscal_year": 2025,
+      "item": "7",
+      "char_start": 15881,
+      "char_end": 16118,
+      "relevant_chunk_ids": [
+        "AMZN-2025-7-0007"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "AMZN-2025-7-0024",
+          "score": 0.6744
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AMZN-2025-7-0013",
+          "score": 0.6738
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AMZN-2025-7-0000",
+          "score": 0.6544
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AMZN-2025-7-0008",
+          "score": 0.6494
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AMZN-2025-7-0019",
+          "score": 0.6456
+        },
+        {
+          "rank": 6,
+          "chunk_id": "AMZN-2025-7-0012",
+          "score": 0.6372
+        },
+        {
+          "rank": 7,
+          "chunk_id": "AMZN-2025-7-0018",
+          "score": 0.6247
+        },
+        {
+          "rank": 8,
+          "chunk_id": "AMZN-2025-7-0011",
+          "score": 0.6184
+        },
+        {
+          "rank": 9,
+          "chunk_id": "AMZN-2025-7-0007",
+          "score": 0.6184
+        },
+        {
+          "rank": 10,
+          "chunk_id": "AMZN-2025-7-0004",
+          "score": 0.6117
+        },
+        {
+          "rank": 11,
+          "chunk_id": "AMZN-2025-7-0003",
+          "score": 0.6026
+        },
+        {
+          "rank": 12,
+          "chunk_id": "AMZN-2025-7-0009",
+          "score": 0.6016
+        },
+        {
+          "rank": 13,
+          "chunk_id": "AMZN-2025-7-0023",
+          "score": 0.5951
+        },
+        {
+          "rank": 14,
+          "chunk_id": "AMZN-2025-7-0002",
+          "score": 0.5877
+        },
+        {
+          "rank": 15,
+          "chunk_id": "AMZN-2025-7-0017",
+          "score": 0.5822
+        },
+        {
+          "rank": 16,
+          "chunk_id": "AMZN-2025-7-0010",
+          "score": 0.5777
+        },
+        {
+          "rank": 17,
+          "chunk_id": "AMZN-2025-7-0015",
+          "score": 0.5735
+        },
+        {
+          "rank": 18,
+          "chunk_id": "AMZN-2025-7-0006",
+          "score": 0.5731
+        },
+        {
+          "rank": 19,
+          "chunk_id": "AMZN-2025-7-0016",
+          "score": 0.571
+        },
+        {
+          "rank": 20,
+          "chunk_id": "AMZN-2025-7-0014",
+          "score": 0.5676
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "AMZN-2025-7-0024",
+          "score": -10.823
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AMZN-2025-7-0012",
+          "score": -11.0465
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AMZN-2025-7-0007",
+          "score": -11.0512
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AMZN-2025-7-0003",
+          "score": -11.0532
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AMZN-2025-7-0009",
+          "score": -11.0562
+        },
+        {
+          "rank": 6,
+          "chunk_id": "AMZN-2025-7-0004",
+          "score": -11.0959
+        },
+        {
+          "rank": 7,
+          "chunk_id": "AMZN-2025-7-0016",
+          "score": -11.1174
+        },
+        {
+          "rank": 8,
+          "chunk_id": "AMZN-2025-7-0013",
+          "score": -11.1297
+        },
+        {
+          "rank": 9,
+          "chunk_id": "AMZN-2025-7-0017",
+          "score": -11.1299
+        },
+        {
+          "rank": 10,
+          "chunk_id": "AMZN-2025-7-0019",
+          "score": -11.1317
+        },
+        {
+          "rank": 11,
+          "chunk_id": "AMZN-2025-7-0008",
+          "score": -11.1783
+        },
+        {
+          "rank": 12,
+          "chunk_id": "AMZN-2025-7-0006",
+          "score": -11.1904
+        },
+        {
+          "rank": 13,
+          "chunk_id": "AMZN-2025-7-0014",
+          "score": -11.2234
+        },
+        {
+          "rank": 14,
+          "chunk_id": "AMZN-2025-7-0000",
+          "score": -11.2256
+        },
+        {
+          "rank": 15,
+          "chunk_id": "AMZN-2025-7-0015",
+          "score": -11.2861
+        },
+        {
+          "rank": 16,
+          "chunk_id": "AMZN-2025-7-0018",
+          "score": -11.2863
+        },
+        {
+          "rank": 17,
+          "chunk_id": "AMZN-2025-7-0010",
+          "score": -11.3159
+        },
+        {
+          "rank": 18,
+          "chunk_id": "AMZN-2025-7-0002",
+          "score": -11.3168
+        },
+        {
+          "rank": 19,
+          "chunk_id": "AMZN-2025-7-0023",
+          "score": -11.3521
+        },
+        {
+          "rank": 20,
+          "chunk_id": "AMZN-2025-7-0011",
+          "score": -11.3637
+        }
+      ],
+      "dense_first_relevant_rank": 9,
+      "reranked_first_relevant_rank": 3,
+      "dense_latency_ms": 29.04,
+      "reranked_latency_ms": 515.16
+    },
+    {
+      "question_id": "dani-b6-015",
+      "ticker": "AMZN",
+      "fiscal_year": 2025,
+      "item": "7A",
+      "char_start": 614,
+      "char_end": 749,
+      "relevant_chunk_ids": [
+        "AMZN-2025-7A-0001"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "AMZN-2025-7A-0003",
+          "score": 0.6136
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AMZN-2025-7A-0004",
+          "score": 0.5087
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AMZN-2025-7A-0000",
+          "score": 0.4988
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AMZN-2025-7A-0002",
+          "score": 0.4962
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AMZN-2025-7A-0001",
+          "score": 0.4924
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "AMZN-2025-7A-0003",
+          "score": -10.8415
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AMZN-2025-7A-0004",
+          "score": -11.1943
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AMZN-2025-7A-0002",
+          "score": -11.2345
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AMZN-2025-7A-0000",
+          "score": -11.2812
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AMZN-2025-7A-0001",
+          "score": -11.3035
+        }
+      ],
+      "dense_first_relevant_rank": 5,
+      "reranked_first_relevant_rank": 5,
+      "dense_latency_ms": 68.87,
+      "reranked_latency_ms": 147.44
+    },
+    {
+      "question_id": "dani-b6-016",
+      "ticker": "AMZN",
+      "fiscal_year": 2025,
+      "item": "8",
+      "char_start": 19303,
+      "char_end": 19556,
+      "relevant_chunk_ids": [
+        "AMZN-2025-8-0013"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "AMZN-2025-8-0058",
+          "score": 0.6625
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AMZN-2025-8-0056",
+          "score": 0.6612
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AMZN-2025-8-0044",
+          "score": 0.6449
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AMZN-2025-8-0057",
+          "score": 0.6449
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AMZN-2025-8-0055",
+          "score": 0.635
+        },
+        {
+          "rank": 6,
+          "chunk_id": "AMZN-2025-8-0054",
+          "score": 0.6218
+        },
+        {
+          "rank": 7,
+          "chunk_id": "AMZN-2025-8-0000",
+          "score": 0.6146
+        },
+        {
+          "rank": 8,
+          "chunk_id": "AMZN-2025-8-0024",
+          "score": 0.5974
+        },
+        {
+          "rank": 9,
+          "chunk_id": "AMZN-2025-8-0011",
+          "score": 0.5933
+        },
+        {
+          "rank": 10,
+          "chunk_id": "AMZN-2025-8-0053",
+          "score": 0.5837
+        },
+        {
+          "rank": 11,
+          "chunk_id": "AMZN-2025-8-0015",
+          "score": 0.576
+        },
+        {
+          "rank": 12,
+          "chunk_id": "AMZN-2025-8-0074",
+          "score": 0.5708
+        },
+        {
+          "rank": 13,
+          "chunk_id": "AMZN-2025-8-0036",
+          "score": 0.5682
+        },
+        {
+          "rank": 14,
+          "chunk_id": "AMZN-2025-8-0004",
+          "score": 0.5659
+        },
+        {
+          "rank": 15,
+          "chunk_id": "AMZN-2025-8-0069",
+          "score": 0.5603
+        },
+        {
+          "rank": 16,
+          "chunk_id": "AMZN-2025-8-0070",
+          "score": 0.5593
+        },
+        {
+          "rank": 17,
+          "chunk_id": "AMZN-2025-8-0073",
+          "score": 0.5559
+        },
+        {
+          "rank": 18,
+          "chunk_id": "AMZN-2025-8-0030",
+          "score": 0.553
+        },
+        {
+          "rank": 19,
+          "chunk_id": "AMZN-2025-8-0071",
+          "score": 0.551
+        },
+        {
+          "rank": 20,
+          "chunk_id": "AMZN-2025-8-0018",
+          "score": 0.5505
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "AMZN-2025-8-0055",
+          "score": -8.2937
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AMZN-2025-8-0057",
+          "score": -8.31
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AMZN-2025-8-0056",
+          "score": -8.5122
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AMZN-2025-8-0058",
+          "score": -9.0864
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AMZN-2025-8-0054",
+          "score": -9.1684
+        },
+        {
+          "rank": 6,
+          "chunk_id": "AMZN-2025-8-0069",
+          "score": -9.4072
+        },
+        {
+          "rank": 7,
+          "chunk_id": "AMZN-2025-8-0015",
+          "score": -9.7213
+        },
+        {
+          "rank": 8,
+          "chunk_id": "AMZN-2025-8-0044",
+          "score": -10.1761
+        },
+        {
+          "rank": 9,
+          "chunk_id": "AMZN-2025-8-0036",
+          "score": -10.2789
+        },
+        {
+          "rank": 10,
+          "chunk_id": "AMZN-2025-8-0004",
+          "score": -10.5232
+        },
+        {
+          "rank": 11,
+          "chunk_id": "AMZN-2025-8-0030",
+          "score": -10.5788
+        },
+        {
+          "rank": 12,
+          "chunk_id": "AMZN-2025-8-0018",
+          "score": -10.6078
+        },
+        {
+          "rank": 13,
+          "chunk_id": "AMZN-2025-8-0024",
+          "score": -10.6294
+        },
+        {
+          "rank": 14,
+          "chunk_id": "AMZN-2025-8-0000",
+          "score": -10.6558
+        },
+        {
+          "rank": 15,
+          "chunk_id": "AMZN-2025-8-0011",
+          "score": -10.9191
+        },
+        {
+          "rank": 16,
+          "chunk_id": "AMZN-2025-8-0053",
+          "score": -11.1486
+        },
+        {
+          "rank": 17,
+          "chunk_id": "AMZN-2025-8-0074",
+          "score": -11.2003
+        },
+        {
+          "rank": 18,
+          "chunk_id": "AMZN-2025-8-0073",
+          "score": -11.2006
+        },
+        {
+          "rank": 19,
+          "chunk_id": "AMZN-2025-8-0070",
+          "score": -11.2641
+        },
+        {
+          "rank": 20,
+          "chunk_id": "AMZN-2025-8-0071",
+          "score": -11.3112
+        }
+      ],
+      "dense_first_relevant_rank": null,
+      "reranked_first_relevant_rank": null,
+      "dense_latency_ms": 20.07,
+      "reranked_latency_ms": 461.43
+    },
+    {
+      "question_id": "dani-b6-017",
+      "ticker": "GOOGL",
+      "fiscal_year": 2024,
+      "item": "1A",
+      "char_start": 31254,
+      "char_end": 31595,
+      "relevant_chunk_ids": [
+        "GOOGL-2024-1A-0014"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "GOOGL-2024-1A-0037",
+          "score": 0.6315
+        },
+        {
+          "rank": 2,
+          "chunk_id": "GOOGL-2024-1A-0036",
+          "score": 0.5951
+        },
+        {
+          "rank": 3,
+          "chunk_id": "GOOGL-2024-1A-0013",
+          "score": 0.5917
+        },
+        {
+          "rank": 4,
+          "chunk_id": "GOOGL-2024-1A-0014",
+          "score": 0.5909
+        },
+        {
+          "rank": 5,
+          "chunk_id": "GOOGL-2024-1A-0006",
+          "score": 0.5755
+        },
+        {
+          "rank": 6,
+          "chunk_id": "GOOGL-2024-1A-0018",
+          "score": 0.5721
+        },
+        {
+          "rank": 7,
+          "chunk_id": "GOOGL-2024-1A-0034",
+          "score": 0.5702
+        },
+        {
+          "rank": 8,
+          "chunk_id": "GOOGL-2024-1A-0003",
+          "score": 0.5688
+        },
+        {
+          "rank": 9,
+          "chunk_id": "GOOGL-2024-1A-0015",
+          "score": 0.5676
+        },
+        {
+          "rank": 10,
+          "chunk_id": "GOOGL-2024-1A-0001",
+          "score": 0.5661
+        },
+        {
+          "rank": 11,
+          "chunk_id": "GOOGL-2024-1A-0026",
+          "score": 0.5655
+        },
+        {
+          "rank": 12,
+          "chunk_id": "GOOGL-2024-1A-0019",
+          "score": 0.5653
+        },
+        {
+          "rank": 13,
+          "chunk_id": "GOOGL-2024-1A-0027",
+          "score": 0.562
+        },
+        {
+          "rank": 14,
+          "chunk_id": "GOOGL-2024-1A-0028",
+          "score": 0.5608
+        },
+        {
+          "rank": 15,
+          "chunk_id": "GOOGL-2024-1A-0007",
+          "score": 0.5578
+        },
+        {
+          "rank": 16,
+          "chunk_id": "GOOGL-2024-1A-0021",
+          "score": 0.5547
+        },
+        {
+          "rank": 17,
+          "chunk_id": "GOOGL-2024-1A-0023",
+          "score": 0.5541
+        },
+        {
+          "rank": 18,
+          "chunk_id": "GOOGL-2024-1A-0002",
+          "score": 0.5536
+        },
+        {
+          "rank": 19,
+          "chunk_id": "GOOGL-2024-1A-0020",
+          "score": 0.5522
+        },
+        {
+          "rank": 20,
+          "chunk_id": "GOOGL-2024-1A-0012",
+          "score": 0.5475
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "GOOGL-2024-1A-0036",
+          "score": -10.5933
+        },
+        {
+          "rank": 2,
+          "chunk_id": "GOOGL-2024-1A-0003",
+          "score": -11.1019
+        },
+        {
+          "rank": 3,
+          "chunk_id": "GOOGL-2024-1A-0015",
+          "score": -11.118
+        },
+        {
+          "rank": 4,
+          "chunk_id": "GOOGL-2024-1A-0006",
+          "score": -11.1739
+        },
+        {
+          "rank": 5,
+          "chunk_id": "GOOGL-2024-1A-0028",
+          "score": -11.2025
+        },
+        {
+          "rank": 6,
+          "chunk_id": "GOOGL-2024-1A-0037",
+          "score": -11.2132
+        },
+        {
+          "rank": 7,
+          "chunk_id": "GOOGL-2024-1A-0013",
+          "score": -11.2221
+        },
+        {
+          "rank": 8,
+          "chunk_id": "GOOGL-2024-1A-0023",
+          "score": -11.2413
+        },
+        {
+          "rank": 9,
+          "chunk_id": "GOOGL-2024-1A-0014",
+          "score": -11.266
+        },
+        {
+          "rank": 10,
+          "chunk_id": "GOOGL-2024-1A-0001",
+          "score": -11.2775
+        },
+        {
+          "rank": 11,
+          "chunk_id": "GOOGL-2024-1A-0002",
+          "score": -11.2797
+        },
+        {
+          "rank": 12,
+          "chunk_id": "GOOGL-2024-1A-0026",
+          "score": -11.3132
+        },
+        {
+          "rank": 13,
+          "chunk_id": "GOOGL-2024-1A-0018",
+          "score": -11.333
+        },
+        {
+          "rank": 14,
+          "chunk_id": "GOOGL-2024-1A-0027",
+          "score": -11.3565
+        },
+        {
+          "rank": 15,
+          "chunk_id": "GOOGL-2024-1A-0021",
+          "score": -11.3907
+        },
+        {
+          "rank": 16,
+          "chunk_id": "GOOGL-2024-1A-0007",
+          "score": -11.4118
+        },
+        {
+          "rank": 17,
+          "chunk_id": "GOOGL-2024-1A-0019",
+          "score": -11.4136
+        },
+        {
+          "rank": 18,
+          "chunk_id": "GOOGL-2024-1A-0034",
+          "score": -11.4221
+        },
+        {
+          "rank": 19,
+          "chunk_id": "GOOGL-2024-1A-0012",
+          "score": -11.4677
+        },
+        {
+          "rank": 20,
+          "chunk_id": "GOOGL-2024-1A-0020",
+          "score": -11.4731
+        }
+      ],
+      "dense_first_relevant_rank": 4,
+      "reranked_first_relevant_rank": 9,
+      "dense_latency_ms": 21.19,
+      "reranked_latency_ms": 438.83
+    },
+    {
+      "question_id": "dani-b6-018",
+      "ticker": "GOOGL",
+      "fiscal_year": 2024,
+      "item": "7",
+      "char_start": 20728,
+      "char_end": 20891,
+      "relevant_chunk_ids": [
+        "GOOGL-2024-7-0009",
+        "GOOGL-2024-7-0010"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "GOOGL-2024-7-0016",
+          "score": 0.608
+        },
+        {
+          "rank": 2,
+          "chunk_id": "GOOGL-2024-7-0000",
+          "score": 0.5937
+        },
+        {
+          "rank": 3,
+          "chunk_id": "GOOGL-2024-7-0006",
+          "score": 0.5917
+        },
+        {
+          "rank": 4,
+          "chunk_id": "GOOGL-2024-7-0002",
+          "score": 0.5903
+        },
+        {
+          "rank": 5,
+          "chunk_id": "GOOGL-2024-7-0007",
+          "score": 0.5716
+        },
+        {
+          "rank": 6,
+          "chunk_id": "GOOGL-2024-7-0010",
+          "score": 0.5696
+        },
+        {
+          "rank": 7,
+          "chunk_id": "GOOGL-2024-7-0012",
+          "score": 0.5673
+        },
+        {
+          "rank": 8,
+          "chunk_id": "GOOGL-2024-7-0008",
+          "score": 0.5612
+        },
+        {
+          "rank": 9,
+          "chunk_id": "GOOGL-2024-7-0003",
+          "score": 0.5606
+        },
+        {
+          "rank": 10,
+          "chunk_id": "GOOGL-2024-7-0026",
+          "score": 0.5555
+        },
+        {
+          "rank": 11,
+          "chunk_id": "GOOGL-2024-7-0017",
+          "score": 0.5546
+        },
+        {
+          "rank": 12,
+          "chunk_id": "GOOGL-2024-7-0027",
+          "score": 0.5531
+        },
+        {
+          "rank": 13,
+          "chunk_id": "GOOGL-2024-7-0005",
+          "score": 0.5494
+        },
+        {
+          "rank": 14,
+          "chunk_id": "GOOGL-2024-7-0030",
+          "score": 0.5492
+        },
+        {
+          "rank": 15,
+          "chunk_id": "GOOGL-2024-7-0009",
+          "score": 0.5459
+        },
+        {
+          "rank": 16,
+          "chunk_id": "GOOGL-2024-7-0029",
+          "score": 0.5441
+        },
+        {
+          "rank": 17,
+          "chunk_id": "GOOGL-2024-7-0024",
+          "score": 0.5436
+        },
+        {
+          "rank": 18,
+          "chunk_id": "GOOGL-2024-7-0014",
+          "score": 0.5421
+        },
+        {
+          "rank": 19,
+          "chunk_id": "GOOGL-2024-7-0025",
+          "score": 0.5371
+        },
+        {
+          "rank": 20,
+          "chunk_id": "GOOGL-2024-7-0004",
+          "score": 0.5341
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "GOOGL-2024-7-0007",
+          "score": -10.7398
+        },
+        {
+          "rank": 2,
+          "chunk_id": "GOOGL-2024-7-0017",
+          "score": -11.2617
+        },
+        {
+          "rank": 3,
+          "chunk_id": "GOOGL-2024-7-0006",
+          "score": -11.2689
+        },
+        {
+          "rank": 4,
+          "chunk_id": "GOOGL-2024-7-0002",
+          "score": -11.2722
+        },
+        {
+          "rank": 5,
+          "chunk_id": "GOOGL-2024-7-0010",
+          "score": -11.2797
+        },
+        {
+          "rank": 6,
+          "chunk_id": "GOOGL-2024-7-0025",
+          "score": -11.2928
+        },
+        {
+          "rank": 7,
+          "chunk_id": "GOOGL-2024-7-0024",
+          "score": -11.3104
+        },
+        {
+          "rank": 8,
+          "chunk_id": "GOOGL-2024-7-0027",
+          "score": -11.3405
+        },
+        {
+          "rank": 9,
+          "chunk_id": "GOOGL-2024-7-0003",
+          "score": -11.3492
+        },
+        {
+          "rank": 10,
+          "chunk_id": "GOOGL-2024-7-0012",
+          "score": -11.3822
+        },
+        {
+          "rank": 11,
+          "chunk_id": "GOOGL-2024-7-0016",
+          "score": -11.3852
+        },
+        {
+          "rank": 12,
+          "chunk_id": "GOOGL-2024-7-0014",
+          "score": -11.3891
+        },
+        {
+          "rank": 13,
+          "chunk_id": "GOOGL-2024-7-0009",
+          "score": -11.3937
+        },
+        {
+          "rank": 14,
+          "chunk_id": "GOOGL-2024-7-0005",
+          "score": -11.4094
+        },
+        {
+          "rank": 15,
+          "chunk_id": "GOOGL-2024-7-0026",
+          "score": -11.4176
+        },
+        {
+          "rank": 16,
+          "chunk_id": "GOOGL-2024-7-0000",
+          "score": -11.439
+        },
+        {
+          "rank": 17,
+          "chunk_id": "GOOGL-2024-7-0004",
+          "score": -11.4638
+        },
+        {
+          "rank": 18,
+          "chunk_id": "GOOGL-2024-7-0008",
+          "score": -11.4647
+        },
+        {
+          "rank": 19,
+          "chunk_id": "GOOGL-2024-7-0029",
+          "score": -11.4785
+        },
+        {
+          "rank": 20,
+          "chunk_id": "GOOGL-2024-7-0030",
+          "score": -11.481
+        }
+      ],
+      "dense_first_relevant_rank": 6,
+      "reranked_first_relevant_rank": 5,
+      "dense_latency_ms": 35.97,
+      "reranked_latency_ms": 487.51
+    },
+    {
+      "question_id": "dani-b6-019",
+      "ticker": "GOOGL",
+      "fiscal_year": 2024,
+      "item": "7A",
+      "char_start": 1471,
+      "char_end": 1971,
+      "relevant_chunk_ids": [
+        "GOOGL-2024-7A-0000"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "GOOGL-2024-7A-0001",
+          "score": 0.5769
+        },
+        {
+          "rank": 2,
+          "chunk_id": "GOOGL-2024-7A-0004",
+          "score": 0.5303
+        },
+        {
+          "rank": 3,
+          "chunk_id": "GOOGL-2024-7A-0002",
+          "score": 0.5255
+        },
+        {
+          "rank": 4,
+          "chunk_id": "GOOGL-2024-7A-0000",
+          "score": 0.5073
+        },
+        {
+          "rank": 5,
+          "chunk_id": "GOOGL-2024-7A-0003",
+          "score": 0.4866
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "GOOGL-2024-7A-0003",
+          "score": -10.9716
+        },
+        {
+          "rank": 2,
+          "chunk_id": "GOOGL-2024-7A-0004",
+          "score": -11.0786
+        },
+        {
+          "rank": 3,
+          "chunk_id": "GOOGL-2024-7A-0002",
+          "score": -11.1092
+        },
+        {
+          "rank": 4,
+          "chunk_id": "GOOGL-2024-7A-0001",
+          "score": -11.1317
+        },
+        {
+          "rank": 5,
+          "chunk_id": "GOOGL-2024-7A-0000",
+          "score": -11.2103
+        }
+      ],
+      "dense_first_relevant_rank": 4,
+      "reranked_first_relevant_rank": 5,
+      "dense_latency_ms": 61.27,
+      "reranked_latency_ms": 170.39
+    },
+    {
+      "question_id": "dani-b6-020",
+      "ticker": "GOOGL",
+      "fiscal_year": 2024,
+      "item": "8",
+      "char_start": 20137,
+      "char_end": 20365,
+      "relevant_chunk_ids": [
+        "GOOGL-2024-8-0013"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "GOOGL-2024-8-0013",
+          "score": 0.5925
+        },
+        {
+          "rank": 2,
+          "chunk_id": "GOOGL-2024-8-0058",
+          "score": 0.5803
+        },
+        {
+          "rank": 3,
+          "chunk_id": "GOOGL-2024-8-0049",
+          "score": 0.5755
+        },
+        {
+          "rank": 4,
+          "chunk_id": "GOOGL-2024-8-0014",
+          "score": 0.5659
+        },
+        {
+          "rank": 5,
+          "chunk_id": "GOOGL-2024-8-0002",
+          "score": 0.5651
+        },
+        {
+          "rank": 6,
+          "chunk_id": "GOOGL-2024-8-0003",
+          "score": 0.5567
+        },
+        {
+          "rank": 7,
+          "chunk_id": "GOOGL-2024-8-0059",
+          "score": 0.5532
+        },
+        {
+          "rank": 8,
+          "chunk_id": "GOOGL-2024-8-0062",
+          "score": 0.5523
+        },
+        {
+          "rank": 9,
+          "chunk_id": "GOOGL-2024-8-0016",
+          "score": 0.5522
+        },
+        {
+          "rank": 10,
+          "chunk_id": "GOOGL-2024-8-0078",
+          "score": 0.5522
+        },
+        {
+          "rank": 11,
+          "chunk_id": "GOOGL-2024-8-0053",
+          "score": 0.5484
+        },
+        {
+          "rank": 12,
+          "chunk_id": "GOOGL-2024-8-0045",
+          "score": 0.5462
+        },
+        {
+          "rank": 13,
+          "chunk_id": "GOOGL-2024-8-0000",
+          "score": 0.5391
+        },
+        {
+          "rank": 14,
+          "chunk_id": "GOOGL-2024-8-0029",
+          "score": 0.5384
+        },
+        {
+          "rank": 15,
+          "chunk_id": "GOOGL-2024-8-0063",
+          "score": 0.5381
+        },
+        {
+          "rank": 16,
+          "chunk_id": "GOOGL-2024-8-0023",
+          "score": 0.5375
+        },
+        {
+          "rank": 17,
+          "chunk_id": "GOOGL-2024-8-0079",
+          "score": 0.5293
+        },
+        {
+          "rank": 18,
+          "chunk_id": "GOOGL-2024-8-0072",
+          "score": 0.5285
+        },
+        {
+          "rank": 19,
+          "chunk_id": "GOOGL-2024-8-0010",
+          "score": 0.528
+        },
+        {
+          "rank": 20,
+          "chunk_id": "GOOGL-2024-8-0015",
+          "score": 0.5245
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "GOOGL-2024-8-0049",
+          "score": -9.6741
+        },
+        {
+          "rank": 2,
+          "chunk_id": "GOOGL-2024-8-0023",
+          "score": -10.173
+        },
+        {
+          "rank": 3,
+          "chunk_id": "GOOGL-2024-8-0013",
+          "score": -10.5483
+        },
+        {
+          "rank": 4,
+          "chunk_id": "GOOGL-2024-8-0003",
+          "score": -10.5926
+        },
+        {
+          "rank": 5,
+          "chunk_id": "GOOGL-2024-8-0029",
+          "score": -10.9738
+        },
+        {
+          "rank": 6,
+          "chunk_id": "GOOGL-2024-8-0078",
+          "score": -11.0192
+        },
+        {
+          "rank": 7,
+          "chunk_id": "GOOGL-2024-8-0002",
+          "score": -11.0371
+        },
+        {
+          "rank": 8,
+          "chunk_id": "GOOGL-2024-8-0000",
+          "score": -11.1172
+        },
+        {
+          "rank": 9,
+          "chunk_id": "GOOGL-2024-8-0059",
+          "score": -11.1652
+        },
+        {
+          "rank": 10,
+          "chunk_id": "GOOGL-2024-8-0058",
+          "score": -11.2995
+        },
+        {
+          "rank": 11,
+          "chunk_id": "GOOGL-2024-8-0053",
+          "score": -11.3156
+        },
+        {
+          "rank": 12,
+          "chunk_id": "GOOGL-2024-8-0010",
+          "score": -11.3231
+        },
+        {
+          "rank": 13,
+          "chunk_id": "GOOGL-2024-8-0045",
+          "score": -11.3288
+        },
+        {
+          "rank": 14,
+          "chunk_id": "GOOGL-2024-8-0079",
+          "score": -11.3533
+        },
+        {
+          "rank": 15,
+          "chunk_id": "GOOGL-2024-8-0072",
+          "score": -11.3552
+        },
+        {
+          "rank": 16,
+          "chunk_id": "GOOGL-2024-8-0063",
+          "score": -11.3571
+        },
+        {
+          "rank": 17,
+          "chunk_id": "GOOGL-2024-8-0014",
+          "score": -11.3686
+        },
+        {
+          "rank": 18,
+          "chunk_id": "GOOGL-2024-8-0016",
+          "score": -11.3949
+        },
+        {
+          "rank": 19,
+          "chunk_id": "GOOGL-2024-8-0015",
+          "score": -11.4389
+        },
+        {
+          "rank": 20,
+          "chunk_id": "GOOGL-2024-8-0062",
+          "score": -11.4545
+        }
+      ],
+      "dense_first_relevant_rank": 1,
+      "reranked_first_relevant_rank": 3,
+      "dense_latency_ms": 24.1,
+      "reranked_latency_ms": 458.19
+    },
+    {
+      "question_id": "dani-b6-021",
+      "ticker": "GOOGL",
+      "fiscal_year": 2025,
+      "item": "1A",
+      "char_start": 28127,
+      "char_end": 28300,
+      "relevant_chunk_ids": [
+        "GOOGL-2025-1A-0012"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "GOOGL-2025-1A-0031",
+          "score": 0.5712
+        },
+        {
+          "rank": 2,
+          "chunk_id": "GOOGL-2025-1A-0033",
+          "score": 0.5706
+        },
+        {
+          "rank": 3,
+          "chunk_id": "GOOGL-2025-1A-0012",
+          "score": 0.5686
+        },
+        {
+          "rank": 4,
+          "chunk_id": "GOOGL-2025-1A-0010",
+          "score": 0.5644
+        },
+        {
+          "rank": 5,
+          "chunk_id": "GOOGL-2025-1A-0021",
+          "score": 0.5582
+        },
+        {
+          "rank": 6,
+          "chunk_id": "GOOGL-2025-1A-0028",
+          "score": 0.5537
+        },
+        {
+          "rank": 7,
+          "chunk_id": "GOOGL-2025-1A-0037",
+          "score": 0.5531
+        },
+        {
+          "rank": 8,
+          "chunk_id": "GOOGL-2025-1A-0024",
+          "score": 0.553
+        },
+        {
+          "rank": 9,
+          "chunk_id": "GOOGL-2025-1A-0007",
+          "score": 0.5525
+        },
+        {
+          "rank": 10,
+          "chunk_id": "GOOGL-2025-1A-0015",
+          "score": 0.5511
+        },
+        {
+          "rank": 11,
+          "chunk_id": "GOOGL-2025-1A-0001",
+          "score": 0.5476
+        },
+        {
+          "rank": 12,
+          "chunk_id": "GOOGL-2025-1A-0032",
+          "score": 0.5462
+        },
+        {
+          "rank": 13,
+          "chunk_id": "GOOGL-2025-1A-0038",
+          "score": 0.5445
+        },
+        {
+          "rank": 14,
+          "chunk_id": "GOOGL-2025-1A-0018",
+          "score": 0.54
+        },
+        {
+          "rank": 15,
+          "chunk_id": "GOOGL-2025-1A-0030",
+          "score": 0.5394
+        },
+        {
+          "rank": 16,
+          "chunk_id": "GOOGL-2025-1A-0023",
+          "score": 0.5393
+        },
+        {
+          "rank": 17,
+          "chunk_id": "GOOGL-2025-1A-0027",
+          "score": 0.5393
+        },
+        {
+          "rank": 18,
+          "chunk_id": "GOOGL-2025-1A-0034",
+          "score": 0.5377
+        },
+        {
+          "rank": 19,
+          "chunk_id": "GOOGL-2025-1A-0006",
+          "score": 0.5317
+        },
+        {
+          "rank": 20,
+          "chunk_id": "GOOGL-2025-1A-0013",
+          "score": 0.5311
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "GOOGL-2025-1A-0010",
+          "score": -10.9723
+        },
+        {
+          "rank": 2,
+          "chunk_id": "GOOGL-2025-1A-0012",
+          "score": -11.0636
+        },
+        {
+          "rank": 3,
+          "chunk_id": "GOOGL-2025-1A-0030",
+          "score": -11.1401
+        },
+        {
+          "rank": 4,
+          "chunk_id": "GOOGL-2025-1A-0031",
+          "score": -11.1404
+        },
+        {
+          "rank": 5,
+          "chunk_id": "GOOGL-2025-1A-0037",
+          "score": -11.1627
+        },
+        {
+          "rank": 6,
+          "chunk_id": "GOOGL-2025-1A-0015",
+          "score": -11.1639
+        },
+        {
+          "rank": 7,
+          "chunk_id": "GOOGL-2025-1A-0033",
+          "score": -11.1912
+        },
+        {
+          "rank": 8,
+          "chunk_id": "GOOGL-2025-1A-0018",
+          "score": -11.2198
+        },
+        {
+          "rank": 9,
+          "chunk_id": "GOOGL-2025-1A-0034",
+          "score": -11.2608
+        },
+        {
+          "rank": 10,
+          "chunk_id": "GOOGL-2025-1A-0024",
+          "score": -11.2953
+        },
+        {
+          "rank": 11,
+          "chunk_id": "GOOGL-2025-1A-0028",
+          "score": -11.2978
+        },
+        {
+          "rank": 12,
+          "chunk_id": "GOOGL-2025-1A-0027",
+          "score": -11.3088
+        },
+        {
+          "rank": 13,
+          "chunk_id": "GOOGL-2025-1A-0006",
+          "score": -11.325
+        },
+        {
+          "rank": 14,
+          "chunk_id": "GOOGL-2025-1A-0013",
+          "score": -11.3542
+        },
+        {
+          "rank": 15,
+          "chunk_id": "GOOGL-2025-1A-0001",
+          "score": -11.3542
+        },
+        {
+          "rank": 16,
+          "chunk_id": "GOOGL-2025-1A-0038",
+          "score": -11.3596
+        },
+        {
+          "rank": 17,
+          "chunk_id": "GOOGL-2025-1A-0032",
+          "score": -11.3748
+        },
+        {
+          "rank": 18,
+          "chunk_id": "GOOGL-2025-1A-0021",
+          "score": -11.3863
+        },
+        {
+          "rank": 19,
+          "chunk_id": "GOOGL-2025-1A-0023",
+          "score": -11.3887
+        },
+        {
+          "rank": 20,
+          "chunk_id": "GOOGL-2025-1A-0007",
+          "score": -11.3932
+        }
+      ],
+      "dense_first_relevant_rank": 3,
+      "reranked_first_relevant_rank": 2,
+      "dense_latency_ms": 30.77,
+      "reranked_latency_ms": 447.05
+    },
+    {
+      "question_id": "dani-b6-022",
+      "ticker": "GOOGL",
+      "fiscal_year": 2025,
+      "item": "7",
+      "char_start": 3164,
+      "char_end": 3416,
+      "relevant_chunk_ids": [
+        "GOOGL-2025-7-0001"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "GOOGL-2025-7-0010",
+          "score": 0.5622
+        },
+        {
+          "rank": 2,
+          "chunk_id": "GOOGL-2025-7-0000",
+          "score": 0.5569
+        },
+        {
+          "rank": 3,
+          "chunk_id": "GOOGL-2025-7-0026",
+          "score": 0.5495
+        },
+        {
+          "rank": 4,
+          "chunk_id": "GOOGL-2025-7-0020",
+          "score": 0.5346
+        },
+        {
+          "rank": 5,
+          "chunk_id": "GOOGL-2025-7-0023",
+          "score": 0.5193
+        },
+        {
+          "rank": 6,
+          "chunk_id": "GOOGL-2025-7-0024",
+          "score": 0.5151
+        },
+        {
+          "rank": 7,
+          "chunk_id": "GOOGL-2025-7-0008",
+          "score": 0.5084
+        },
+        {
+          "rank": 8,
+          "chunk_id": "GOOGL-2025-7-0021",
+          "score": 0.4983
+        },
+        {
+          "rank": 9,
+          "chunk_id": "GOOGL-2025-7-0022",
+          "score": 0.4967
+        },
+        {
+          "rank": 10,
+          "chunk_id": "GOOGL-2025-7-0028",
+          "score": 0.4926
+        },
+        {
+          "rank": 11,
+          "chunk_id": "GOOGL-2025-7-0001",
+          "score": 0.4918
+        },
+        {
+          "rank": 12,
+          "chunk_id": "GOOGL-2025-7-0002",
+          "score": 0.4904
+        },
+        {
+          "rank": 13,
+          "chunk_id": "GOOGL-2025-7-0027",
+          "score": 0.488
+        },
+        {
+          "rank": 14,
+          "chunk_id": "GOOGL-2025-7-0005",
+          "score": 0.4794
+        },
+        {
+          "rank": 15,
+          "chunk_id": "GOOGL-2025-7-0025",
+          "score": 0.4735
+        },
+        {
+          "rank": 16,
+          "chunk_id": "GOOGL-2025-7-0016",
+          "score": 0.4664
+        },
+        {
+          "rank": 17,
+          "chunk_id": "GOOGL-2025-7-0011",
+          "score": 0.4628
+        },
+        {
+          "rank": 18,
+          "chunk_id": "GOOGL-2025-7-0015",
+          "score": 0.4621
+        },
+        {
+          "rank": 19,
+          "chunk_id": "GOOGL-2025-7-0003",
+          "score": 0.4616
+        },
+        {
+          "rank": 20,
+          "chunk_id": "GOOGL-2025-7-0004",
+          "score": 0.4583
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "GOOGL-2025-7-0010",
+          "score": -11.1989
+        },
+        {
+          "rank": 2,
+          "chunk_id": "GOOGL-2025-7-0026",
+          "score": -11.277
+        },
+        {
+          "rank": 3,
+          "chunk_id": "GOOGL-2025-7-0002",
+          "score": -11.2907
+        },
+        {
+          "rank": 4,
+          "chunk_id": "GOOGL-2025-7-0023",
+          "score": -11.3385
+        },
+        {
+          "rank": 5,
+          "chunk_id": "GOOGL-2025-7-0001",
+          "score": -11.3632
+        },
+        {
+          "rank": 6,
+          "chunk_id": "GOOGL-2025-7-0008",
+          "score": -11.3699
+        },
+        {
+          "rank": 7,
+          "chunk_id": "GOOGL-2025-7-0015",
+          "score": -11.4144
+        },
+        {
+          "rank": 8,
+          "chunk_id": "GOOGL-2025-7-0020",
+          "score": -11.4185
+        },
+        {
+          "rank": 9,
+          "chunk_id": "GOOGL-2025-7-0021",
+          "score": -11.4231
+        },
+        {
+          "rank": 10,
+          "chunk_id": "GOOGL-2025-7-0011",
+          "score": -11.4236
+        },
+        {
+          "rank": 11,
+          "chunk_id": "GOOGL-2025-7-0005",
+          "score": -11.4325
+        },
+        {
+          "rank": 12,
+          "chunk_id": "GOOGL-2025-7-0016",
+          "score": -11.434
+        },
+        {
+          "rank": 13,
+          "chunk_id": "GOOGL-2025-7-0027",
+          "score": -11.4352
+        },
+        {
+          "rank": 14,
+          "chunk_id": "GOOGL-2025-7-0024",
+          "score": -11.4484
+        },
+        {
+          "rank": 15,
+          "chunk_id": "GOOGL-2025-7-0000",
+          "score": -11.4507
+        },
+        {
+          "rank": 16,
+          "chunk_id": "GOOGL-2025-7-0025",
+          "score": -11.451
+        },
+        {
+          "rank": 17,
+          "chunk_id": "GOOGL-2025-7-0028",
+          "score": -11.457
+        },
+        {
+          "rank": 18,
+          "chunk_id": "GOOGL-2025-7-0003",
+          "score": -11.4634
+        },
+        {
+          "rank": 19,
+          "chunk_id": "GOOGL-2025-7-0022",
+          "score": -11.4889
+        },
+        {
+          "rank": 20,
+          "chunk_id": "GOOGL-2025-7-0004",
+          "score": -11.4889
+        }
+      ],
+      "dense_first_relevant_rank": 11,
+      "reranked_first_relevant_rank": 5,
+      "dense_latency_ms": 52.48,
+      "reranked_latency_ms": 483.7
+    },
+    {
+      "question_id": "dani-b6-023",
+      "ticker": "GOOGL",
+      "fiscal_year": 2025,
+      "item": "7A",
+      "char_start": 5485,
+      "char_end": 5639,
+      "relevant_chunk_ids": [
+        "GOOGL-2025-7A-0003"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "GOOGL-2025-7A-0004",
+          "score": 0.6053
+        },
+        {
+          "rank": 2,
+          "chunk_id": "GOOGL-2025-7A-0002",
+          "score": 0.5814
+        },
+        {
+          "rank": 3,
+          "chunk_id": "GOOGL-2025-7A-0003",
+          "score": 0.5802
+        },
+        {
+          "rank": 4,
+          "chunk_id": "GOOGL-2025-7A-0001",
+          "score": 0.546
+        },
+        {
+          "rank": 5,
+          "chunk_id": "GOOGL-2025-7A-0000",
+          "score": 0.5122
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "GOOGL-2025-7A-0003",
+          "score": -11.0214
+        },
+        {
+          "rank": 2,
+          "chunk_id": "GOOGL-2025-7A-0001",
+          "score": -11.131
+        },
+        {
+          "rank": 3,
+          "chunk_id": "GOOGL-2025-7A-0000",
+          "score": -11.2645
+        },
+        {
+          "rank": 4,
+          "chunk_id": "GOOGL-2025-7A-0004",
+          "score": -11.3336
+        },
+        {
+          "rank": 5,
+          "chunk_id": "GOOGL-2025-7A-0002",
+          "score": -11.3526
+        }
+      ],
+      "dense_first_relevant_rank": 3,
+      "reranked_first_relevant_rank": 1,
+      "dense_latency_ms": 61.47,
+      "reranked_latency_ms": 152.9
+    },
+    {
+      "question_id": "dani-b6-024",
+      "ticker": "GOOGL",
+      "fiscal_year": 2025,
+      "item": "8",
+      "char_start": 44425,
+      "char_end": 44629,
+      "relevant_chunk_ids": [
+        "GOOGL-2025-8-0022"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "GOOGL-2025-8-0012",
+          "score": 0.6577
+        },
+        {
+          "rank": 2,
+          "chunk_id": "GOOGL-2025-8-0002",
+          "score": 0.6482
+        },
+        {
+          "rank": 3,
+          "chunk_id": "GOOGL-2025-8-0047",
+          "score": 0.6396
+        },
+        {
+          "rank": 4,
+          "chunk_id": "GOOGL-2025-8-0000",
+          "score": 0.6144
+        },
+        {
+          "rank": 5,
+          "chunk_id": "GOOGL-2025-8-0044",
+          "score": 0.6019
+        },
+        {
+          "rank": 6,
+          "chunk_id": "GOOGL-2025-8-0046",
+          "score": 0.6005
+        },
+        {
+          "rank": 7,
+          "chunk_id": "GOOGL-2025-8-0063",
+          "score": 0.5917
+        },
+        {
+          "rank": 8,
+          "chunk_id": "GOOGL-2025-8-0019",
+          "score": 0.5915
+        },
+        {
+          "rank": 9,
+          "chunk_id": "GOOGL-2025-8-0022",
+          "score": 0.5912
+        },
+        {
+          "rank": 10,
+          "chunk_id": "GOOGL-2025-8-0038",
+          "score": 0.5906
+        },
+        {
+          "rank": 11,
+          "chunk_id": "GOOGL-2025-8-0050",
+          "score": 0.5885
+        },
+        {
+          "rank": 12,
+          "chunk_id": "GOOGL-2025-8-0005",
+          "score": 0.5884
+        },
+        {
+          "rank": 13,
+          "chunk_id": "GOOGL-2025-8-0001",
+          "score": 0.5878
+        },
+        {
+          "rank": 14,
+          "chunk_id": "GOOGL-2025-8-0029",
+          "score": 0.5873
+        },
+        {
+          "rank": 15,
+          "chunk_id": "GOOGL-2025-8-0025",
+          "score": 0.5851
+        },
+        {
+          "rank": 16,
+          "chunk_id": "GOOGL-2025-8-0009",
+          "score": 0.5832
+        },
+        {
+          "rank": 17,
+          "chunk_id": "GOOGL-2025-8-0003",
+          "score": 0.5795
+        },
+        {
+          "rank": 18,
+          "chunk_id": "GOOGL-2025-8-0020",
+          "score": 0.5767
+        },
+        {
+          "rank": 19,
+          "chunk_id": "GOOGL-2025-8-0023",
+          "score": 0.5746
+        },
+        {
+          "rank": 20,
+          "chunk_id": "GOOGL-2025-8-0028",
+          "score": 0.5736
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "GOOGL-2025-8-0002",
+          "score": -10.6297
+        },
+        {
+          "rank": 2,
+          "chunk_id": "GOOGL-2025-8-0012",
+          "score": -10.9329
+        },
+        {
+          "rank": 3,
+          "chunk_id": "GOOGL-2025-8-0022",
+          "score": -11.1055
+        },
+        {
+          "rank": 4,
+          "chunk_id": "GOOGL-2025-8-0047",
+          "score": -11.1552
+        },
+        {
+          "rank": 5,
+          "chunk_id": "GOOGL-2025-8-0005",
+          "score": -11.1611
+        },
+        {
+          "rank": 6,
+          "chunk_id": "GOOGL-2025-8-0009",
+          "score": -11.1618
+        },
+        {
+          "rank": 7,
+          "chunk_id": "GOOGL-2025-8-0046",
+          "score": -11.1721
+        },
+        {
+          "rank": 8,
+          "chunk_id": "GOOGL-2025-8-0029",
+          "score": -11.1774
+        },
+        {
+          "rank": 9,
+          "chunk_id": "GOOGL-2025-8-0019",
+          "score": -11.1863
+        },
+        {
+          "rank": 10,
+          "chunk_id": "GOOGL-2025-8-0063",
+          "score": -11.193
+        },
+        {
+          "rank": 11,
+          "chunk_id": "GOOGL-2025-8-0038",
+          "score": -11.2014
+        },
+        {
+          "rank": 12,
+          "chunk_id": "GOOGL-2025-8-0000",
+          "score": -11.2084
+        },
+        {
+          "rank": 13,
+          "chunk_id": "GOOGL-2025-8-0020",
+          "score": -11.2146
+        },
+        {
+          "rank": 14,
+          "chunk_id": "GOOGL-2025-8-0044",
+          "score": -11.2335
+        },
+        {
+          "rank": 15,
+          "chunk_id": "GOOGL-2025-8-0050",
+          "score": -11.2389
+        },
+        {
+          "rank": 16,
+          "chunk_id": "GOOGL-2025-8-0025",
+          "score": -11.2981
+        },
+        {
+          "rank": 17,
+          "chunk_id": "GOOGL-2025-8-0028",
+          "score": -11.3046
+        },
+        {
+          "rank": 18,
+          "chunk_id": "GOOGL-2025-8-0023",
+          "score": -11.3066
+        },
+        {
+          "rank": 19,
+          "chunk_id": "GOOGL-2025-8-0001",
+          "score": -11.3258
+        },
+        {
+          "rank": 20,
+          "chunk_id": "GOOGL-2025-8-0003",
+          "score": -11.3645
+        }
+      ],
+      "dense_first_relevant_rank": 9,
+      "reranked_first_relevant_rank": 3,
+      "dense_latency_ms": 21.33,
+      "reranked_latency_ms": 498.05
+    },
+    {
+      "question_id": "dani-b6-025",
+      "ticker": "META",
+      "fiscal_year": 2024,
+      "item": "1A",
+      "char_start": 69326,
+      "char_end": 69652,
+      "relevant_chunk_ids": [
+        "META-2024-1A-0030"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "META-2024-1A-0018",
+          "score": 0.5984
+        },
+        {
+          "rank": 2,
+          "chunk_id": "META-2024-1A-0017",
+          "score": 0.5982
+        },
+        {
+          "rank": 3,
+          "chunk_id": "META-2024-1A-0041",
+          "score": 0.5963
+        },
+        {
+          "rank": 4,
+          "chunk_id": "META-2024-1A-0058",
+          "score": 0.5937
+        },
+        {
+          "rank": 5,
+          "chunk_id": "META-2024-1A-0066",
+          "score": 0.5889
+        },
+        {
+          "rank": 6,
+          "chunk_id": "META-2024-1A-0019",
+          "score": 0.5884
+        },
+        {
+          "rank": 7,
+          "chunk_id": "META-2024-1A-0012",
+          "score": 0.5868
+        },
+        {
+          "rank": 8,
+          "chunk_id": "META-2024-1A-0042",
+          "score": 0.5802
+        },
+        {
+          "rank": 9,
+          "chunk_id": "META-2024-1A-0067",
+          "score": 0.5773
+        },
+        {
+          "rank": 10,
+          "chunk_id": "META-2024-1A-0016",
+          "score": 0.5762
+        },
+        {
+          "rank": 11,
+          "chunk_id": "META-2024-1A-0068",
+          "score": 0.5725
+        },
+        {
+          "rank": 12,
+          "chunk_id": "META-2024-1A-0011",
+          "score": 0.5715
+        },
+        {
+          "rank": 13,
+          "chunk_id": "META-2024-1A-0029",
+          "score": 0.5696
+        },
+        {
+          "rank": 14,
+          "chunk_id": "META-2024-1A-0040",
+          "score": 0.5688
+        },
+        {
+          "rank": 15,
+          "chunk_id": "META-2024-1A-0020",
+          "score": 0.5655
+        },
+        {
+          "rank": 16,
+          "chunk_id": "META-2024-1A-0008",
+          "score": 0.5648
+        },
+        {
+          "rank": 17,
+          "chunk_id": "META-2024-1A-0021",
+          "score": 0.563
+        },
+        {
+          "rank": 18,
+          "chunk_id": "META-2024-1A-0010",
+          "score": 0.5622
+        },
+        {
+          "rank": 19,
+          "chunk_id": "META-2024-1A-0055",
+          "score": 0.5614
+        },
+        {
+          "rank": 20,
+          "chunk_id": "META-2024-1A-0023",
+          "score": 0.5577
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "META-2024-1A-0017",
+          "score": -9.9331
+        },
+        {
+          "rank": 2,
+          "chunk_id": "META-2024-1A-0018",
+          "score": -10.0763
+        },
+        {
+          "rank": 3,
+          "chunk_id": "META-2024-1A-0055",
+          "score": -10.3002
+        },
+        {
+          "rank": 4,
+          "chunk_id": "META-2024-1A-0066",
+          "score": -10.8143
+        },
+        {
+          "rank": 5,
+          "chunk_id": "META-2024-1A-0019",
+          "score": -10.844
+        },
+        {
+          "rank": 6,
+          "chunk_id": "META-2024-1A-0041",
+          "score": -10.9805
+        },
+        {
+          "rank": 7,
+          "chunk_id": "META-2024-1A-0042",
+          "score": -11.0033
+        },
+        {
+          "rank": 8,
+          "chunk_id": "META-2024-1A-0016",
+          "score": -11.0065
+        },
+        {
+          "rank": 9,
+          "chunk_id": "META-2024-1A-0008",
+          "score": -11.0639
+        },
+        {
+          "rank": 10,
+          "chunk_id": "META-2024-1A-0040",
+          "score": -11.0944
+        },
+        {
+          "rank": 11,
+          "chunk_id": "META-2024-1A-0058",
+          "score": -11.1119
+        },
+        {
+          "rank": 12,
+          "chunk_id": "META-2024-1A-0029",
+          "score": -11.1397
+        },
+        {
+          "rank": 13,
+          "chunk_id": "META-2024-1A-0010",
+          "score": -11.1738
+        },
+        {
+          "rank": 14,
+          "chunk_id": "META-2024-1A-0020",
+          "score": -11.2211
+        },
+        {
+          "rank": 15,
+          "chunk_id": "META-2024-1A-0023",
+          "score": -11.235
+        },
+        {
+          "rank": 16,
+          "chunk_id": "META-2024-1A-0011",
+          "score": -11.2642
+        },
+        {
+          "rank": 17,
+          "chunk_id": "META-2024-1A-0012",
+          "score": -11.2962
+        },
+        {
+          "rank": 18,
+          "chunk_id": "META-2024-1A-0068",
+          "score": -11.33
+        },
+        {
+          "rank": 19,
+          "chunk_id": "META-2024-1A-0067",
+          "score": -11.3309
+        },
+        {
+          "rank": 20,
+          "chunk_id": "META-2024-1A-0021",
+          "score": -11.4648
+        }
+      ],
+      "dense_first_relevant_rank": null,
+      "reranked_first_relevant_rank": null,
+      "dense_latency_ms": 15.98,
+      "reranked_latency_ms": 429.98
+    },
+    {
+      "question_id": "dani-b6-026",
+      "ticker": "META",
+      "fiscal_year": 2024,
+      "item": "7",
+      "char_start": 15798,
+      "char_end": 16093,
+      "relevant_chunk_ids": [
+        "META-2024-7-0009"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "META-2024-7-0009",
+          "score": 0.5506
+        },
+        {
+          "rank": 2,
+          "chunk_id": "META-2024-7-0007",
+          "score": 0.5434
+        },
+        {
+          "rank": 3,
+          "chunk_id": "META-2024-7-0000",
+          "score": 0.533
+        },
+        {
+          "rank": 4,
+          "chunk_id": "META-2024-7-0016",
+          "score": 0.5297
+        },
+        {
+          "rank": 5,
+          "chunk_id": "META-2024-7-0010",
+          "score": 0.5263
+        },
+        {
+          "rank": 6,
+          "chunk_id": "META-2024-7-0013",
+          "score": 0.5255
+        },
+        {
+          "rank": 7,
+          "chunk_id": "META-2024-7-0028",
+          "score": 0.5221
+        },
+        {
+          "rank": 8,
+          "chunk_id": "META-2024-7-0014",
+          "score": 0.5149
+        },
+        {
+          "rank": 9,
+          "chunk_id": "META-2024-7-0008",
+          "score": 0.5109
+        },
+        {
+          "rank": 10,
+          "chunk_id": "META-2024-7-0006",
+          "score": 0.5103
+        },
+        {
+          "rank": 11,
+          "chunk_id": "META-2024-7-0023",
+          "score": 0.51
+        },
+        {
+          "rank": 12,
+          "chunk_id": "META-2024-7-0005",
+          "score": 0.5071
+        },
+        {
+          "rank": 13,
+          "chunk_id": "META-2024-7-0002",
+          "score": 0.5002
+        },
+        {
+          "rank": 14,
+          "chunk_id": "META-2024-7-0012",
+          "score": 0.4976
+        },
+        {
+          "rank": 15,
+          "chunk_id": "META-2024-7-0015",
+          "score": 0.4975
+        },
+        {
+          "rank": 16,
+          "chunk_id": "META-2024-7-0011",
+          "score": 0.4916
+        },
+        {
+          "rank": 17,
+          "chunk_id": "META-2024-7-0026",
+          "score": 0.4882
+        },
+        {
+          "rank": 18,
+          "chunk_id": "META-2024-7-0019",
+          "score": 0.4838
+        },
+        {
+          "rank": 19,
+          "chunk_id": "META-2024-7-0032",
+          "score": 0.4807
+        },
+        {
+          "rank": 20,
+          "chunk_id": "META-2024-7-0017",
+          "score": 0.4791
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "META-2024-7-0009",
+          "score": -10.7133
+        },
+        {
+          "rank": 2,
+          "chunk_id": "META-2024-7-0016",
+          "score": -11.0904
+        },
+        {
+          "rank": 3,
+          "chunk_id": "META-2024-7-0008",
+          "score": -11.1395
+        },
+        {
+          "rank": 4,
+          "chunk_id": "META-2024-7-0032",
+          "score": -11.1568
+        },
+        {
+          "rank": 5,
+          "chunk_id": "META-2024-7-0005",
+          "score": -11.186
+        },
+        {
+          "rank": 6,
+          "chunk_id": "META-2024-7-0007",
+          "score": -11.2657
+        },
+        {
+          "rank": 7,
+          "chunk_id": "META-2024-7-0013",
+          "score": -11.2688
+        },
+        {
+          "rank": 8,
+          "chunk_id": "META-2024-7-0017",
+          "score": -11.2987
+        },
+        {
+          "rank": 9,
+          "chunk_id": "META-2024-7-0023",
+          "score": -11.3163
+        },
+        {
+          "rank": 10,
+          "chunk_id": "META-2024-7-0028",
+          "score": -11.3194
+        },
+        {
+          "rank": 11,
+          "chunk_id": "META-2024-7-0019",
+          "score": -11.3308
+        },
+        {
+          "rank": 12,
+          "chunk_id": "META-2024-7-0006",
+          "score": -11.3415
+        },
+        {
+          "rank": 13,
+          "chunk_id": "META-2024-7-0002",
+          "score": -11.3452
+        },
+        {
+          "rank": 14,
+          "chunk_id": "META-2024-7-0026",
+          "score": -11.3505
+        },
+        {
+          "rank": 15,
+          "chunk_id": "META-2024-7-0015",
+          "score": -11.3613
+        },
+        {
+          "rank": 16,
+          "chunk_id": "META-2024-7-0000",
+          "score": -11.364
+        },
+        {
+          "rank": 17,
+          "chunk_id": "META-2024-7-0012",
+          "score": -11.3708
+        },
+        {
+          "rank": 18,
+          "chunk_id": "META-2024-7-0011",
+          "score": -11.3822
+        },
+        {
+          "rank": 19,
+          "chunk_id": "META-2024-7-0014",
+          "score": -11.399
+        },
+        {
+          "rank": 20,
+          "chunk_id": "META-2024-7-0010",
+          "score": -11.4211
+        }
+      ],
+      "dense_first_relevant_rank": 1,
+      "reranked_first_relevant_rank": 1,
+      "dense_latency_ms": 38.41,
+      "reranked_latency_ms": 680.17
+    },
+    {
+      "question_id": "dani-b6-027",
+      "ticker": "META",
+      "fiscal_year": 2024,
+      "item": "7A",
+      "char_start": 2266,
+      "char_end": 2528,
+      "relevant_chunk_ids": [
+        "META-2024-7A-0001"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "META-2024-7A-0002",
+          "score": 0.5332
+        },
+        {
+          "rank": 2,
+          "chunk_id": "META-2024-7A-0001",
+          "score": 0.522
+        },
+        {
+          "rank": 3,
+          "chunk_id": "META-2024-7A-0000",
+          "score": 0.4841
+        },
+        {
+          "rank": 4,
+          "chunk_id": "META-2024-7A-0003",
+          "score": 0.4488
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "META-2024-7A-0002",
+          "score": -11.3121
+        },
+        {
+          "rank": 2,
+          "chunk_id": "META-2024-7A-0001",
+          "score": -11.3293
+        },
+        {
+          "rank": 3,
+          "chunk_id": "META-2024-7A-0000",
+          "score": -11.3901
+        },
+        {
+          "rank": 4,
+          "chunk_id": "META-2024-7A-0003",
+          "score": -11.4457
+        }
+      ],
+      "dense_first_relevant_rank": 2,
+      "reranked_first_relevant_rank": 2,
+      "dense_latency_ms": 84.44,
+      "reranked_latency_ms": 176.52
+    },
+    {
+      "question_id": "dani-b6-028",
+      "ticker": "META",
+      "fiscal_year": 2024,
+      "item": "8",
+      "char_start": 32241,
+      "char_end": 32474,
+      "relevant_chunk_ids": [
+        "META-2024-8-0018"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "META-2024-8-0014",
+          "score": 0.6044
+        },
+        {
+          "rank": 2,
+          "chunk_id": "META-2024-8-0018",
+          "score": 0.5905
+        },
+        {
+          "rank": 3,
+          "chunk_id": "META-2024-8-0004",
+          "score": 0.5879
+        },
+        {
+          "rank": 4,
+          "chunk_id": "META-2024-8-0000",
+          "score": 0.5763
+        },
+        {
+          "rank": 5,
+          "chunk_id": "META-2024-8-0030",
+          "score": 0.5758
+        },
+        {
+          "rank": 6,
+          "chunk_id": "META-2024-8-0028",
+          "score": 0.5758
+        },
+        {
+          "rank": 7,
+          "chunk_id": "META-2024-8-0031",
+          "score": 0.57
+        },
+        {
+          "rank": 8,
+          "chunk_id": "META-2024-8-0073",
+          "score": 0.5663
+        },
+        {
+          "rank": 9,
+          "chunk_id": "META-2024-8-0071",
+          "score": 0.565
+        },
+        {
+          "rank": 10,
+          "chunk_id": "META-2024-8-0053",
+          "score": 0.565
+        },
+        {
+          "rank": 11,
+          "chunk_id": "META-2024-8-0009",
+          "score": 0.5636
+        },
+        {
+          "rank": 12,
+          "chunk_id": "META-2024-8-0048",
+          "score": 0.5608
+        },
+        {
+          "rank": 13,
+          "chunk_id": "META-2024-8-0072",
+          "score": 0.5596
+        },
+        {
+          "rank": 14,
+          "chunk_id": "META-2024-8-0019",
+          "score": 0.5593
+        },
+        {
+          "rank": 15,
+          "chunk_id": "META-2024-8-0057",
+          "score": 0.5545
+        },
+        {
+          "rank": 16,
+          "chunk_id": "META-2024-8-0027",
+          "score": 0.5544
+        },
+        {
+          "rank": 17,
+          "chunk_id": "META-2024-8-0045",
+          "score": 0.5526
+        },
+        {
+          "rank": 18,
+          "chunk_id": "META-2024-8-0036",
+          "score": 0.5448
+        },
+        {
+          "rank": 19,
+          "chunk_id": "META-2024-8-0021",
+          "score": 0.5446
+        },
+        {
+          "rank": 20,
+          "chunk_id": "META-2024-8-0074",
+          "score": 0.5391
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "META-2024-8-0014",
+          "score": -9.3748
+        },
+        {
+          "rank": 2,
+          "chunk_id": "META-2024-8-0053",
+          "score": -10.0309
+        },
+        {
+          "rank": 3,
+          "chunk_id": "META-2024-8-0004",
+          "score": -10.1458
+        },
+        {
+          "rank": 4,
+          "chunk_id": "META-2024-8-0057",
+          "score": -10.5754
+        },
+        {
+          "rank": 5,
+          "chunk_id": "META-2024-8-0000",
+          "score": -10.7644
+        },
+        {
+          "rank": 6,
+          "chunk_id": "META-2024-8-0027",
+          "score": -10.9188
+        },
+        {
+          "rank": 7,
+          "chunk_id": "META-2024-8-0071",
+          "score": -10.9836
+        },
+        {
+          "rank": 8,
+          "chunk_id": "META-2024-8-0028",
+          "score": -11.1058
+        },
+        {
+          "rank": 9,
+          "chunk_id": "META-2024-8-0021",
+          "score": -11.1076
+        },
+        {
+          "rank": 10,
+          "chunk_id": "META-2024-8-0048",
+          "score": -11.1282
+        },
+        {
+          "rank": 11,
+          "chunk_id": "META-2024-8-0030",
+          "score": -11.1328
+        },
+        {
+          "rank": 12,
+          "chunk_id": "META-2024-8-0019",
+          "score": -11.2022
+        },
+        {
+          "rank": 13,
+          "chunk_id": "META-2024-8-0018",
+          "score": -11.2833
+        },
+        {
+          "rank": 14,
+          "chunk_id": "META-2024-8-0009",
+          "score": -11.3178
+        },
+        {
+          "rank": 15,
+          "chunk_id": "META-2024-8-0031",
+          "score": -11.3513
+        },
+        {
+          "rank": 16,
+          "chunk_id": "META-2024-8-0072",
+          "score": -11.3924
+        },
+        {
+          "rank": 17,
+          "chunk_id": "META-2024-8-0045",
+          "score": -11.4105
+        },
+        {
+          "rank": 18,
+          "chunk_id": "META-2024-8-0073",
+          "score": -11.4324
+        },
+        {
+          "rank": 19,
+          "chunk_id": "META-2024-8-0036",
+          "score": -11.4343
+        },
+        {
+          "rank": 20,
+          "chunk_id": "META-2024-8-0074",
+          "score": -11.4526
+        }
+      ],
+      "dense_first_relevant_rank": 2,
+      "reranked_first_relevant_rank": 13,
+      "dense_latency_ms": 26.99,
+      "reranked_latency_ms": 518.11
+    },
+    {
+      "question_id": "dani-b6-029",
+      "ticker": "META",
+      "fiscal_year": 2025,
+      "item": "1A",
+      "char_start": 35986,
+      "char_end": 36312,
+      "relevant_chunk_ids": [
+        "META-2025-1A-0015"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "META-2025-1A-0018",
+          "score": 0.6054
+        },
+        {
+          "rank": 2,
+          "chunk_id": "META-2025-1A-0022",
+          "score": 0.5912
+        },
+        {
+          "rank": 3,
+          "chunk_id": "META-2025-1A-0021",
+          "score": 0.5859
+        },
+        {
+          "rank": 4,
+          "chunk_id": "META-2025-1A-0016",
+          "score": 0.5853
+        },
+        {
+          "rank": 5,
+          "chunk_id": "META-2025-1A-0017",
+          "score": 0.5853
+        },
+        {
+          "rank": 6,
+          "chunk_id": "META-2025-1A-0068",
+          "score": 0.5845
+        },
+        {
+          "rank": 7,
+          "chunk_id": "META-2025-1A-0069",
+          "score": 0.5793
+        },
+        {
+          "rank": 8,
+          "chunk_id": "META-2025-1A-0035",
+          "score": 0.5789
+        },
+        {
+          "rank": 9,
+          "chunk_id": "META-2025-1A-0004",
+          "score": 0.5777
+        },
+        {
+          "rank": 10,
+          "chunk_id": "META-2025-1A-0020",
+          "score": 0.574
+        },
+        {
+          "rank": 11,
+          "chunk_id": "META-2025-1A-0037",
+          "score": 0.5718
+        },
+        {
+          "rank": 12,
+          "chunk_id": "META-2025-1A-0005",
+          "score": 0.5701
+        },
+        {
+          "rank": 13,
+          "chunk_id": "META-2025-1A-0033",
+          "score": 0.5679
+        },
+        {
+          "rank": 14,
+          "chunk_id": "META-2025-1A-0075",
+          "score": 0.5665
+        },
+        {
+          "rank": 15,
+          "chunk_id": "META-2025-1A-0076",
+          "score": 0.566
+        },
+        {
+          "rank": 16,
+          "chunk_id": "META-2025-1A-0003",
+          "score": 0.5659
+        },
+        {
+          "rank": 17,
+          "chunk_id": "META-2025-1A-0032",
+          "score": 0.5656
+        },
+        {
+          "rank": 18,
+          "chunk_id": "META-2025-1A-0079",
+          "score": 0.5651
+        },
+        {
+          "rank": 19,
+          "chunk_id": "META-2025-1A-0080",
+          "score": 0.564
+        },
+        {
+          "rank": 20,
+          "chunk_id": "META-2025-1A-0030",
+          "score": 0.5638
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "META-2025-1A-0018",
+          "score": -10.0599
+        },
+        {
+          "rank": 2,
+          "chunk_id": "META-2025-1A-0068",
+          "score": -10.6933
+        },
+        {
+          "rank": 3,
+          "chunk_id": "META-2025-1A-0035",
+          "score": -10.722
+        },
+        {
+          "rank": 4,
+          "chunk_id": "META-2025-1A-0017",
+          "score": -10.755
+        },
+        {
+          "rank": 5,
+          "chunk_id": "META-2025-1A-0003",
+          "score": -10.8138
+        },
+        {
+          "rank": 6,
+          "chunk_id": "META-2025-1A-0032",
+          "score": -10.8257
+        },
+        {
+          "rank": 7,
+          "chunk_id": "META-2025-1A-0004",
+          "score": -10.8738
+        },
+        {
+          "rank": 8,
+          "chunk_id": "META-2025-1A-0030",
+          "score": -10.8829
+        },
+        {
+          "rank": 9,
+          "chunk_id": "META-2025-1A-0079",
+          "score": -11.0179
+        },
+        {
+          "rank": 10,
+          "chunk_id": "META-2025-1A-0033",
+          "score": -11.0594
+        },
+        {
+          "rank": 11,
+          "chunk_id": "META-2025-1A-0075",
+          "score": -11.0705
+        },
+        {
+          "rank": 12,
+          "chunk_id": "META-2025-1A-0069",
+          "score": -11.086
+        },
+        {
+          "rank": 13,
+          "chunk_id": "META-2025-1A-0020",
+          "score": -11.0975
+        },
+        {
+          "rank": 14,
+          "chunk_id": "META-2025-1A-0076",
+          "score": -11.108
+        },
+        {
+          "rank": 15,
+          "chunk_id": "META-2025-1A-0005",
+          "score": -11.1228
+        },
+        {
+          "rank": 16,
+          "chunk_id": "META-2025-1A-0016",
+          "score": -11.1482
+        },
+        {
+          "rank": 17,
+          "chunk_id": "META-2025-1A-0037",
+          "score": -11.1917
+        },
+        {
+          "rank": 18,
+          "chunk_id": "META-2025-1A-0021",
+          "score": -11.2178
+        },
+        {
+          "rank": 19,
+          "chunk_id": "META-2025-1A-0022",
+          "score": -11.3374
+        },
+        {
+          "rank": 20,
+          "chunk_id": "META-2025-1A-0080",
+          "score": -11.3869
+        }
+      ],
+      "dense_first_relevant_rank": null,
+      "reranked_first_relevant_rank": null,
+      "dense_latency_ms": 16.51,
+      "reranked_latency_ms": 446.29
+    },
+    {
+      "question_id": "dani-b6-030",
+      "ticker": "META",
+      "fiscal_year": 2025,
+      "item": "7",
+      "char_start": 39766,
+      "char_end": 40066,
+      "relevant_chunk_ids": [
+        "META-2025-7-0023"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "META-2025-7-0023",
+          "score": 0.626
+        },
+        {
+          "rank": 2,
+          "chunk_id": "META-2025-7-0007",
+          "score": 0.6185
+        },
+        {
+          "rank": 3,
+          "chunk_id": "META-2025-7-0027",
+          "score": 0.6015
+        },
+        {
+          "rank": 4,
+          "chunk_id": "META-2025-7-0000",
+          "score": 0.5974
+        },
+        {
+          "rank": 5,
+          "chunk_id": "META-2025-7-0011",
+          "score": 0.5962
+        },
+        {
+          "rank": 6,
+          "chunk_id": "META-2025-7-0012",
+          "score": 0.5932
+        },
+        {
+          "rank": 7,
+          "chunk_id": "META-2025-7-0002",
+          "score": 0.5907
+        },
+        {
+          "rank": 8,
+          "chunk_id": "META-2025-7-0016",
+          "score": 0.5882
+        },
+        {
+          "rank": 9,
+          "chunk_id": "META-2025-7-0010",
+          "score": 0.5865
+        },
+        {
+          "rank": 10,
+          "chunk_id": "META-2025-7-0021",
+          "score": 0.5848
+        },
+        {
+          "rank": 11,
+          "chunk_id": "META-2025-7-0028",
+          "score": 0.5843
+        },
+        {
+          "rank": 12,
+          "chunk_id": "META-2025-7-0005",
+          "score": 0.5791
+        },
+        {
+          "rank": 13,
+          "chunk_id": "META-2025-7-0026",
+          "score": 0.5715
+        },
+        {
+          "rank": 14,
+          "chunk_id": "META-2025-7-0001",
+          "score": 0.5691
+        },
+        {
+          "rank": 15,
+          "chunk_id": "META-2025-7-0020",
+          "score": 0.5675
+        },
+        {
+          "rank": 16,
+          "chunk_id": "META-2025-7-0009",
+          "score": 0.5672
+        },
+        {
+          "rank": 17,
+          "chunk_id": "META-2025-7-0019",
+          "score": 0.5672
+        },
+        {
+          "rank": 18,
+          "chunk_id": "META-2025-7-0015",
+          "score": 0.5657
+        },
+        {
+          "rank": 19,
+          "chunk_id": "META-2025-7-0022",
+          "score": 0.5644
+        },
+        {
+          "rank": 20,
+          "chunk_id": "META-2025-7-0031",
+          "score": 0.5624
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "META-2025-7-0023",
+          "score": -10.975
+        },
+        {
+          "rank": 2,
+          "chunk_id": "META-2025-7-0019",
+          "score": -11.071
+        },
+        {
+          "rank": 3,
+          "chunk_id": "META-2025-7-0022",
+          "score": -11.0929
+        },
+        {
+          "rank": 4,
+          "chunk_id": "META-2025-7-0021",
+          "score": -11.1167
+        },
+        {
+          "rank": 5,
+          "chunk_id": "META-2025-7-0028",
+          "score": -11.1804
+        },
+        {
+          "rank": 6,
+          "chunk_id": "META-2025-7-0002",
+          "score": -11.2063
+        },
+        {
+          "rank": 7,
+          "chunk_id": "META-2025-7-0016",
+          "score": -11.2286
+        },
+        {
+          "rank": 8,
+          "chunk_id": "META-2025-7-0027",
+          "score": -11.2311
+        },
+        {
+          "rank": 9,
+          "chunk_id": "META-2025-7-0001",
+          "score": -11.263
+        },
+        {
+          "rank": 10,
+          "chunk_id": "META-2025-7-0020",
+          "score": -11.268
+        },
+        {
+          "rank": 11,
+          "chunk_id": "META-2025-7-0031",
+          "score": -11.2804
+        },
+        {
+          "rank": 12,
+          "chunk_id": "META-2025-7-0015",
+          "score": -11.2835
+        },
+        {
+          "rank": 13,
+          "chunk_id": "META-2025-7-0026",
+          "score": -11.2907
+        },
+        {
+          "rank": 14,
+          "chunk_id": "META-2025-7-0007",
+          "score": -11.3071
+        },
+        {
+          "rank": 15,
+          "chunk_id": "META-2025-7-0011",
+          "score": -11.3414
+        },
+        {
+          "rank": 16,
+          "chunk_id": "META-2025-7-0000",
+          "score": -11.3439
+        },
+        {
+          "rank": 17,
+          "chunk_id": "META-2025-7-0009",
+          "score": -11.3611
+        },
+        {
+          "rank": 18,
+          "chunk_id": "META-2025-7-0005",
+          "score": -11.3862
+        },
+        {
+          "rank": 19,
+          "chunk_id": "META-2025-7-0010",
+          "score": -11.3977
+        },
+        {
+          "rank": 20,
+          "chunk_id": "META-2025-7-0012",
+          "score": -11.4046
+        }
+      ],
+      "dense_first_relevant_rank": 1,
+      "reranked_first_relevant_rank": 1,
+      "dense_latency_ms": 42.43,
+      "reranked_latency_ms": 780.6
+    },
+    {
+      "question_id": "dani-b6-031",
+      "ticker": "META",
+      "fiscal_year": 2025,
+      "item": "7A",
+      "char_start": 1381,
+      "char_end": 1571,
+      "relevant_chunk_ids": [
+        "META-2025-7A-0000"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "META-2025-7A-0000",
+          "score": 0.5025
+        },
+        {
+          "rank": 2,
+          "chunk_id": "META-2025-7A-0002",
+          "score": 0.4622
+        },
+        {
+          "rank": 3,
+          "chunk_id": "META-2025-7A-0001",
+          "score": 0.4545
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "META-2025-7A-0000",
+          "score": -10.4037
+        },
+        {
+          "rank": 2,
+          "chunk_id": "META-2025-7A-0002",
+          "score": -11.0266
+        },
+        {
+          "rank": 3,
+          "chunk_id": "META-2025-7A-0001",
+          "score": -11.3987
+        }
+      ],
+      "dense_first_relevant_rank": 1,
+      "reranked_first_relevant_rank": 1,
+      "dense_latency_ms": 76.78,
+      "reranked_latency_ms": 138.18
+    },
+    {
+      "question_id": "dani-b6-032",
+      "ticker": "META",
+      "fiscal_year": 2025,
+      "item": "8",
+      "char_start": 74856,
+      "char_end": 75182,
+      "relevant_chunk_ids": [
+        "META-2025-8-0046"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "META-2025-8-0017",
+          "score": 0.6651
+        },
+        {
+          "rank": 2,
+          "chunk_id": "META-2025-8-0000",
+          "score": 0.6303
+        },
+        {
+          "rank": 3,
+          "chunk_id": "META-2025-8-0010",
+          "score": 0.6274
+        },
+        {
+          "rank": 4,
+          "chunk_id": "META-2025-8-0088",
+          "score": 0.6269
+        },
+        {
+          "rank": 5,
+          "chunk_id": "META-2025-8-0013",
+          "score": 0.6268
+        },
+        {
+          "rank": 6,
+          "chunk_id": "META-2025-8-0009",
+          "score": 0.6246
+        },
+        {
+          "rank": 7,
+          "chunk_id": "META-2025-8-0063",
+          "score": 0.6226
+        },
+        {
+          "rank": 8,
+          "chunk_id": "META-2025-8-0049",
+          "score": 0.6136
+        },
+        {
+          "rank": 9,
+          "chunk_id": "META-2025-8-0089",
+          "score": 0.6125
+        },
+        {
+          "rank": 10,
+          "chunk_id": "META-2025-8-0070",
+          "score": 0.6111
+        },
+        {
+          "rank": 11,
+          "chunk_id": "META-2025-8-0052",
+          "score": 0.6105
+        },
+        {
+          "rank": 12,
+          "chunk_id": "META-2025-8-0008",
+          "score": 0.6102
+        },
+        {
+          "rank": 13,
+          "chunk_id": "META-2025-8-0044",
+          "score": 0.6101
+        },
+        {
+          "rank": 14,
+          "chunk_id": "META-2025-8-0066",
+          "score": 0.6088
+        },
+        {
+          "rank": 15,
+          "chunk_id": "META-2025-8-0050",
+          "score": 0.6085
+        },
+        {
+          "rank": 16,
+          "chunk_id": "META-2025-8-0005",
+          "score": 0.6085
+        },
+        {
+          "rank": 17,
+          "chunk_id": "META-2025-8-0051",
+          "score": 0.6076
+        },
+        {
+          "rank": 18,
+          "chunk_id": "META-2025-8-0039",
+          "score": 0.5989
+        },
+        {
+          "rank": 19,
+          "chunk_id": "META-2025-8-0040",
+          "score": 0.5989
+        },
+        {
+          "rank": 20,
+          "chunk_id": "META-2025-8-0062",
+          "score": 0.5983
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "META-2025-8-0063",
+          "score": -8.3614
+        },
+        {
+          "rank": 2,
+          "chunk_id": "META-2025-8-0062",
+          "score": -9.2001
+        },
+        {
+          "rank": 3,
+          "chunk_id": "META-2025-8-0009",
+          "score": -9.3327
+        },
+        {
+          "rank": 4,
+          "chunk_id": "META-2025-8-0070",
+          "score": -9.5099
+        },
+        {
+          "rank": 5,
+          "chunk_id": "META-2025-8-0005",
+          "score": -9.7077
+        },
+        {
+          "rank": 6,
+          "chunk_id": "META-2025-8-0008",
+          "score": -9.9196
+        },
+        {
+          "rank": 7,
+          "chunk_id": "META-2025-8-0066",
+          "score": -10.2297
+        },
+        {
+          "rank": 8,
+          "chunk_id": "META-2025-8-0017",
+          "score": -10.2736
+        },
+        {
+          "rank": 9,
+          "chunk_id": "META-2025-8-0010",
+          "score": -10.3123
+        },
+        {
+          "rank": 10,
+          "chunk_id": "META-2025-8-0049",
+          "score": -10.5487
+        },
+        {
+          "rank": 11,
+          "chunk_id": "META-2025-8-0050",
+          "score": -10.5536
+        },
+        {
+          "rank": 12,
+          "chunk_id": "META-2025-8-0052",
+          "score": -10.5751
+        },
+        {
+          "rank": 13,
+          "chunk_id": "META-2025-8-0000",
+          "score": -10.5959
+        },
+        {
+          "rank": 14,
+          "chunk_id": "META-2025-8-0013",
+          "score": -10.597
+        },
+        {
+          "rank": 15,
+          "chunk_id": "META-2025-8-0051",
+          "score": -10.6572
+        },
+        {
+          "rank": 16,
+          "chunk_id": "META-2025-8-0089",
+          "score": -10.6907
+        },
+        {
+          "rank": 17,
+          "chunk_id": "META-2025-8-0088",
+          "score": -10.7656
+        },
+        {
+          "rank": 18,
+          "chunk_id": "META-2025-8-0040",
+          "score": -10.9868
+        },
+        {
+          "rank": 19,
+          "chunk_id": "META-2025-8-0039",
+          "score": -11.089
+        },
+        {
+          "rank": 20,
+          "chunk_id": "META-2025-8-0044",
+          "score": -11.2125
+        }
+      ],
+      "dense_first_relevant_rank": null,
+      "reranked_first_relevant_rank": null,
+      "dense_latency_ms": 21.85,
+      "reranked_latency_ms": 469.61
+    },
+    {
+      "question_id": "dani-b6-033",
+      "ticker": "MSFT",
+      "fiscal_year": 2024,
+      "item": "1A",
+      "char_start": 40103,
+      "char_end": 40397,
+      "relevant_chunk_ids": [
+        "MSFT-2024-1A-0019"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "MSFT-2024-1A-0019",
+          "score": 0.6311
+        },
+        {
+          "rank": 2,
+          "chunk_id": "MSFT-2024-1A-0024",
+          "score": 0.6183
+        },
+        {
+          "rank": 3,
+          "chunk_id": "MSFT-2024-1A-0022",
+          "score": 0.6119
+        },
+        {
+          "rank": 4,
+          "chunk_id": "MSFT-2024-1A-0001",
+          "score": 0.6091
+        },
+        {
+          "rank": 5,
+          "chunk_id": "MSFT-2024-1A-0014",
+          "score": 0.5989
+        },
+        {
+          "rank": 6,
+          "chunk_id": "MSFT-2024-1A-0002",
+          "score": 0.5982
+        },
+        {
+          "rank": 7,
+          "chunk_id": "MSFT-2024-1A-0018",
+          "score": 0.5892
+        },
+        {
+          "rank": 8,
+          "chunk_id": "MSFT-2024-1A-0023",
+          "score": 0.5861
+        },
+        {
+          "rank": 9,
+          "chunk_id": "MSFT-2024-1A-0011",
+          "score": 0.5783
+        },
+        {
+          "rank": 10,
+          "chunk_id": "MSFT-2024-1A-0010",
+          "score": 0.5752
+        },
+        {
+          "rank": 11,
+          "chunk_id": "MSFT-2024-1A-0031",
+          "score": 0.5739
+        },
+        {
+          "rank": 12,
+          "chunk_id": "MSFT-2024-1A-0020",
+          "score": 0.5737
+        },
+        {
+          "rank": 13,
+          "chunk_id": "MSFT-2024-1A-0015",
+          "score": 0.5724
+        },
+        {
+          "rank": 14,
+          "chunk_id": "MSFT-2024-1A-0032",
+          "score": 0.5643
+        },
+        {
+          "rank": 15,
+          "chunk_id": "MSFT-2024-1A-0012",
+          "score": 0.5613
+        },
+        {
+          "rank": 16,
+          "chunk_id": "MSFT-2024-1A-0003",
+          "score": 0.5602
+        },
+        {
+          "rank": 17,
+          "chunk_id": "MSFT-2024-1A-0004",
+          "score": 0.5576
+        },
+        {
+          "rank": 18,
+          "chunk_id": "MSFT-2024-1A-0016",
+          "score": 0.555
+        },
+        {
+          "rank": 19,
+          "chunk_id": "MSFT-2024-1A-0005",
+          "score": 0.5542
+        },
+        {
+          "rank": 20,
+          "chunk_id": "MSFT-2024-1A-0017",
+          "score": 0.5531
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "MSFT-2024-1A-0024",
+          "score": -9.9793
+        },
+        {
+          "rank": 2,
+          "chunk_id": "MSFT-2024-1A-0022",
+          "score": -10.0165
+        },
+        {
+          "rank": 3,
+          "chunk_id": "MSFT-2024-1A-0023",
+          "score": -10.1972
+        },
+        {
+          "rank": 4,
+          "chunk_id": "MSFT-2024-1A-0019",
+          "score": -10.6716
+        },
+        {
+          "rank": 5,
+          "chunk_id": "MSFT-2024-1A-0031",
+          "score": -10.7424
+        },
+        {
+          "rank": 6,
+          "chunk_id": "MSFT-2024-1A-0018",
+          "score": -10.7595
+        },
+        {
+          "rank": 7,
+          "chunk_id": "MSFT-2024-1A-0010",
+          "score": -10.8017
+        },
+        {
+          "rank": 8,
+          "chunk_id": "MSFT-2024-1A-0005",
+          "score": -10.8495
+        },
+        {
+          "rank": 9,
+          "chunk_id": "MSFT-2024-1A-0001",
+          "score": -10.9136
+        },
+        {
+          "rank": 10,
+          "chunk_id": "MSFT-2024-1A-0017",
+          "score": -10.9144
+        },
+        {
+          "rank": 11,
+          "chunk_id": "MSFT-2024-1A-0016",
+          "score": -11.073
+        },
+        {
+          "rank": 12,
+          "chunk_id": "MSFT-2024-1A-0014",
+          "score": -11.0919
+        },
+        {
+          "rank": 13,
+          "chunk_id": "MSFT-2024-1A-0020",
+          "score": -11.1244
+        },
+        {
+          "rank": 14,
+          "chunk_id": "MSFT-2024-1A-0011",
+          "score": -11.2
+        },
+        {
+          "rank": 15,
+          "chunk_id": "MSFT-2024-1A-0012",
+          "score": -11.2898
+        },
+        {
+          "rank": 16,
+          "chunk_id": "MSFT-2024-1A-0032",
+          "score": -11.2978
+        },
+        {
+          "rank": 17,
+          "chunk_id": "MSFT-2024-1A-0003",
+          "score": -11.3742
+        },
+        {
+          "rank": 18,
+          "chunk_id": "MSFT-2024-1A-0004",
+          "score": -11.3928
+        },
+        {
+          "rank": 19,
+          "chunk_id": "MSFT-2024-1A-0015",
+          "score": -11.4133
+        },
+        {
+          "rank": 20,
+          "chunk_id": "MSFT-2024-1A-0002",
+          "score": -11.4178
+        }
+      ],
+      "dense_first_relevant_rank": 1,
+      "reranked_first_relevant_rank": 4,
+      "dense_latency_ms": 23.66,
+      "reranked_latency_ms": 480.32
+    },
+    {
+      "question_id": "dani-b6-034",
+      "ticker": "MSFT",
+      "fiscal_year": 2024,
+      "item": "7",
+      "char_start": 14933,
+      "char_end": 15066,
+      "relevant_chunk_ids": [
+        "MSFT-2024-7-0009"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "MSFT-2024-7-0001",
+          "score": 0.6351
+        },
+        {
+          "rank": 2,
+          "chunk_id": "MSFT-2024-7-0011",
+          "score": 0.625
+        },
+        {
+          "rank": 3,
+          "chunk_id": "MSFT-2024-7-0004",
+          "score": 0.6114
+        },
+        {
+          "rank": 4,
+          "chunk_id": "MSFT-2024-7-0009",
+          "score": 0.61
+        },
+        {
+          "rank": 5,
+          "chunk_id": "MSFT-2024-7-0010",
+          "score": 0.5977
+        },
+        {
+          "rank": 6,
+          "chunk_id": "MSFT-2024-7-0007",
+          "score": 0.5922
+        },
+        {
+          "rank": 7,
+          "chunk_id": "MSFT-2024-7-0008",
+          "score": 0.5798
+        },
+        {
+          "rank": 8,
+          "chunk_id": "MSFT-2024-7-0014",
+          "score": 0.5766
+        },
+        {
+          "rank": 9,
+          "chunk_id": "MSFT-2024-7-0005",
+          "score": 0.5655
+        },
+        {
+          "rank": 10,
+          "chunk_id": "MSFT-2024-7-0020",
+          "score": 0.5611
+        },
+        {
+          "rank": 11,
+          "chunk_id": "MSFT-2024-7-0022",
+          "score": 0.5583
+        },
+        {
+          "rank": 12,
+          "chunk_id": "MSFT-2024-7-0006",
+          "score": 0.5577
+        },
+        {
+          "rank": 13,
+          "chunk_id": "MSFT-2024-7-0023",
+          "score": 0.5536
+        },
+        {
+          "rank": 14,
+          "chunk_id": "MSFT-2024-7-0012",
+          "score": 0.5466
+        },
+        {
+          "rank": 15,
+          "chunk_id": "MSFT-2024-7-0019",
+          "score": 0.5448
+        },
+        {
+          "rank": 16,
+          "chunk_id": "MSFT-2024-7-0016",
+          "score": 0.5399
+        },
+        {
+          "rank": 17,
+          "chunk_id": "MSFT-2024-7-0000",
+          "score": 0.539
+        },
+        {
+          "rank": 18,
+          "chunk_id": "MSFT-2024-7-0002",
+          "score": 0.526
+        },
+        {
+          "rank": 19,
+          "chunk_id": "MSFT-2024-7-0018",
+          "score": 0.5244
+        },
+        {
+          "rank": 20,
+          "chunk_id": "MSFT-2024-7-0025",
+          "score": 0.5012
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "MSFT-2024-7-0014",
+          "score": -11.0755
+        },
+        {
+          "rank": 2,
+          "chunk_id": "MSFT-2024-7-0019",
+          "score": -11.1107
+        },
+        {
+          "rank": 3,
+          "chunk_id": "MSFT-2024-7-0011",
+          "score": -11.1496
+        },
+        {
+          "rank": 4,
+          "chunk_id": "MSFT-2024-7-0010",
+          "score": -11.1642
+        },
+        {
+          "rank": 5,
+          "chunk_id": "MSFT-2024-7-0020",
+          "score": -11.1666
+        },
+        {
+          "rank": 6,
+          "chunk_id": "MSFT-2024-7-0002",
+          "score": -11.1984
+        },
+        {
+          "rank": 7,
+          "chunk_id": "MSFT-2024-7-0009",
+          "score": -11.2136
+        },
+        {
+          "rank": 8,
+          "chunk_id": "MSFT-2024-7-0001",
+          "score": -11.2376
+        },
+        {
+          "rank": 9,
+          "chunk_id": "MSFT-2024-7-0025",
+          "score": -11.2434
+        },
+        {
+          "rank": 10,
+          "chunk_id": "MSFT-2024-7-0012",
+          "score": -11.2444
+        },
+        {
+          "rank": 11,
+          "chunk_id": "MSFT-2024-7-0004",
+          "score": -11.2496
+        },
+        {
+          "rank": 12,
+          "chunk_id": "MSFT-2024-7-0005",
+          "score": -11.2547
+        },
+        {
+          "rank": 13,
+          "chunk_id": "MSFT-2024-7-0008",
+          "score": -11.2887
+        },
+        {
+          "rank": 14,
+          "chunk_id": "MSFT-2024-7-0016",
+          "score": -11.326
+        },
+        {
+          "rank": 15,
+          "chunk_id": "MSFT-2024-7-0022",
+          "score": -11.3392
+        },
+        {
+          "rank": 16,
+          "chunk_id": "MSFT-2024-7-0023",
+          "score": -11.3423
+        },
+        {
+          "rank": 17,
+          "chunk_id": "MSFT-2024-7-0018",
+          "score": -11.3517
+        },
+        {
+          "rank": 18,
+          "chunk_id": "MSFT-2024-7-0006",
+          "score": -11.3674
+        },
+        {
+          "rank": 19,
+          "chunk_id": "MSFT-2024-7-0000",
+          "score": -11.3689
+        },
+        {
+          "rank": 20,
+          "chunk_id": "MSFT-2024-7-0007",
+          "score": -11.4029
+        }
+      ],
+      "dense_first_relevant_rank": 4,
+      "reranked_first_relevant_rank": 7,
+      "dense_latency_ms": 50.57,
+      "reranked_latency_ms": 495.87
+    },
+    {
+      "question_id": "dani-b6-035",
+      "ticker": "MSFT",
+      "fiscal_year": 2024,
+      "item": "7A",
+      "char_start": 425,
+      "char_end": 564,
+      "relevant_chunk_ids": [
+        "MSFT-2024-7A-0000"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "MSFT-2024-7A-0000",
+          "score": 0.5599
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "MSFT-2024-7A-0000",
+          "score": -11.3766
+        }
+      ],
+      "dense_first_relevant_rank": 1,
+      "reranked_first_relevant_rank": 1,
+      "dense_latency_ms": 69.18,
+      "reranked_latency_ms": 82.54
+    },
+    {
+      "question_id": "dani-b6-036",
+      "ticker": "MSFT",
+      "fiscal_year": 2024,
+      "item": "8",
+      "char_start": 24522,
+      "char_end": 24820,
+      "relevant_chunk_ids": [
+        "MSFT-2024-8-0015"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "MSFT-2024-8-0015",
+          "score": 0.6581
+        },
+        {
+          "rank": 2,
+          "chunk_id": "MSFT-2024-8-0069",
+          "score": 0.6417
+        },
+        {
+          "rank": 3,
+          "chunk_id": "MSFT-2024-8-0065",
+          "score": 0.6358
+        },
+        {
+          "rank": 4,
+          "chunk_id": "MSFT-2024-8-0074",
+          "score": 0.6238
+        },
+        {
+          "rank": 5,
+          "chunk_id": "MSFT-2024-8-0039",
+          "score": 0.6228
+        },
+        {
+          "rank": 6,
+          "chunk_id": "MSFT-2024-8-0011",
+          "score": 0.6175
+        },
+        {
+          "rank": 7,
+          "chunk_id": "MSFT-2024-8-0014",
+          "score": 0.6113
+        },
+        {
+          "rank": 8,
+          "chunk_id": "MSFT-2024-8-0076",
+          "score": 0.6079
+        },
+        {
+          "rank": 9,
+          "chunk_id": "MSFT-2024-8-0022",
+          "score": 0.6063
+        },
+        {
+          "rank": 10,
+          "chunk_id": "MSFT-2024-8-0072",
+          "score": 0.601
+        },
+        {
+          "rank": 11,
+          "chunk_id": "MSFT-2024-8-0008",
+          "score": 0.5951
+        },
+        {
+          "rank": 12,
+          "chunk_id": "MSFT-2024-8-0040",
+          "score": 0.5943
+        },
+        {
+          "rank": 13,
+          "chunk_id": "MSFT-2024-8-0046",
+          "score": 0.594
+        },
+        {
+          "rank": 14,
+          "chunk_id": "MSFT-2024-8-0012",
+          "score": 0.5932
+        },
+        {
+          "rank": 15,
+          "chunk_id": "MSFT-2024-8-0010",
+          "score": 0.5932
+        },
+        {
+          "rank": 16,
+          "chunk_id": "MSFT-2024-8-0041",
+          "score": 0.5928
+        },
+        {
+          "rank": 17,
+          "chunk_id": "MSFT-2024-8-0071",
+          "score": 0.5894
+        },
+        {
+          "rank": 18,
+          "chunk_id": "MSFT-2024-8-0054",
+          "score": 0.5883
+        },
+        {
+          "rank": 19,
+          "chunk_id": "MSFT-2024-8-0009",
+          "score": 0.5879
+        },
+        {
+          "rank": 20,
+          "chunk_id": "MSFT-2024-8-0053",
+          "score": 0.5808
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "MSFT-2024-8-0015",
+          "score": -8.2358
+        },
+        {
+          "rank": 2,
+          "chunk_id": "MSFT-2024-8-0008",
+          "score": -8.4886
+        },
+        {
+          "rank": 3,
+          "chunk_id": "MSFT-2024-8-0071",
+          "score": -9.076
+        },
+        {
+          "rank": 4,
+          "chunk_id": "MSFT-2024-8-0065",
+          "score": -9.1543
+        },
+        {
+          "rank": 5,
+          "chunk_id": "MSFT-2024-8-0072",
+          "score": -9.7276
+        },
+        {
+          "rank": 6,
+          "chunk_id": "MSFT-2024-8-0012",
+          "score": -10.0818
+        },
+        {
+          "rank": 7,
+          "chunk_id": "MSFT-2024-8-0069",
+          "score": -10.1718
+        },
+        {
+          "rank": 8,
+          "chunk_id": "MSFT-2024-8-0046",
+          "score": -10.3469
+        },
+        {
+          "rank": 9,
+          "chunk_id": "MSFT-2024-8-0039",
+          "score": -10.4716
+        },
+        {
+          "rank": 10,
+          "chunk_id": "MSFT-2024-8-0054",
+          "score": -10.4741
+        },
+        {
+          "rank": 11,
+          "chunk_id": "MSFT-2024-8-0014",
+          "score": -10.7508
+        },
+        {
+          "rank": 12,
+          "chunk_id": "MSFT-2024-8-0010",
+          "score": -10.7942
+        },
+        {
+          "rank": 13,
+          "chunk_id": "MSFT-2024-8-0011",
+          "score": -10.9135
+        },
+        {
+          "rank": 14,
+          "chunk_id": "MSFT-2024-8-0074",
+          "score": -10.9156
+        },
+        {
+          "rank": 15,
+          "chunk_id": "MSFT-2024-8-0022",
+          "score": -11.0065
+        },
+        {
+          "rank": 16,
+          "chunk_id": "MSFT-2024-8-0076",
+          "score": -11.2024
+        },
+        {
+          "rank": 17,
+          "chunk_id": "MSFT-2024-8-0009",
+          "score": -11.2415
+        },
+        {
+          "rank": 18,
+          "chunk_id": "MSFT-2024-8-0040",
+          "score": -11.2504
+        },
+        {
+          "rank": 19,
+          "chunk_id": "MSFT-2024-8-0041",
+          "score": -11.3336
+        },
+        {
+          "rank": 20,
+          "chunk_id": "MSFT-2024-8-0053",
+          "score": -11.3755
+        }
+      ],
+      "dense_first_relevant_rank": 1,
+      "reranked_first_relevant_rank": 1,
+      "dense_latency_ms": 20.34,
+      "reranked_latency_ms": 462.67
+    },
+    {
+      "question_id": "dani-b6-037",
+      "ticker": "MSFT",
+      "fiscal_year": 2025,
+      "item": "1A",
+      "char_start": 41472,
+      "char_end": 41703,
+      "relevant_chunk_ids": [
+        "MSFT-2025-1A-0019"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "MSFT-2025-1A-0019",
+          "score": 0.6486
+        },
+        {
+          "rank": 2,
+          "chunk_id": "MSFT-2025-1A-0011",
+          "score": 0.6293
+        },
+        {
+          "rank": 3,
+          "chunk_id": "MSFT-2025-1A-0010",
+          "score": 0.6191
+        },
+        {
+          "rank": 4,
+          "chunk_id": "MSFT-2025-1A-0016",
+          "score": 0.6131
+        },
+        {
+          "rank": 5,
+          "chunk_id": "MSFT-2025-1A-0012",
+          "score": 0.6117
+        },
+        {
+          "rank": 6,
+          "chunk_id": "MSFT-2025-1A-0017",
+          "score": 0.6106
+        },
+        {
+          "rank": 7,
+          "chunk_id": "MSFT-2025-1A-0015",
+          "score": 0.6078
+        },
+        {
+          "rank": 8,
+          "chunk_id": "MSFT-2025-1A-0009",
+          "score": 0.5995
+        },
+        {
+          "rank": 9,
+          "chunk_id": "MSFT-2025-1A-0008",
+          "score": 0.5988
+        },
+        {
+          "rank": 10,
+          "chunk_id": "MSFT-2025-1A-0014",
+          "score": 0.5979
+        },
+        {
+          "rank": 11,
+          "chunk_id": "MSFT-2025-1A-0001",
+          "score": 0.5965
+        },
+        {
+          "rank": 12,
+          "chunk_id": "MSFT-2025-1A-0018",
+          "score": 0.5949
+        },
+        {
+          "rank": 13,
+          "chunk_id": "MSFT-2025-1A-0013",
+          "score": 0.5946
+        },
+        {
+          "rank": 14,
+          "chunk_id": "MSFT-2025-1A-0022",
+          "score": 0.5856
+        },
+        {
+          "rank": 15,
+          "chunk_id": "MSFT-2025-1A-0004",
+          "score": 0.5821
+        },
+        {
+          "rank": 16,
+          "chunk_id": "MSFT-2025-1A-0002",
+          "score": 0.5625
+        },
+        {
+          "rank": 17,
+          "chunk_id": "MSFT-2025-1A-0026",
+          "score": 0.5581
+        },
+        {
+          "rank": 18,
+          "chunk_id": "MSFT-2025-1A-0006",
+          "score": 0.5562
+        },
+        {
+          "rank": 19,
+          "chunk_id": "MSFT-2025-1A-0021",
+          "score": 0.5526
+        },
+        {
+          "rank": 20,
+          "chunk_id": "MSFT-2025-1A-0027",
+          "score": 0.552
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "MSFT-2025-1A-0019",
+          "score": -9.2868
+        },
+        {
+          "rank": 2,
+          "chunk_id": "MSFT-2025-1A-0017",
+          "score": -10.303
+        },
+        {
+          "rank": 3,
+          "chunk_id": "MSFT-2025-1A-0021",
+          "score": -10.491
+        },
+        {
+          "rank": 4,
+          "chunk_id": "MSFT-2025-1A-0016",
+          "score": -10.5851
+        },
+        {
+          "rank": 5,
+          "chunk_id": "MSFT-2025-1A-0010",
+          "score": -10.6813
+        },
+        {
+          "rank": 6,
+          "chunk_id": "MSFT-2025-1A-0012",
+          "score": -10.7182
+        },
+        {
+          "rank": 7,
+          "chunk_id": "MSFT-2025-1A-0022",
+          "score": -10.8293
+        },
+        {
+          "rank": 8,
+          "chunk_id": "MSFT-2025-1A-0011",
+          "score": -10.9039
+        },
+        {
+          "rank": 9,
+          "chunk_id": "MSFT-2025-1A-0018",
+          "score": -11.0094
+        },
+        {
+          "rank": 10,
+          "chunk_id": "MSFT-2025-1A-0013",
+          "score": -11.0308
+        },
+        {
+          "rank": 11,
+          "chunk_id": "MSFT-2025-1A-0008",
+          "score": -11.0397
+        },
+        {
+          "rank": 12,
+          "chunk_id": "MSFT-2025-1A-0001",
+          "score": -11.0512
+        },
+        {
+          "rank": 13,
+          "chunk_id": "MSFT-2025-1A-0014",
+          "score": -11.0522
+        },
+        {
+          "rank": 14,
+          "chunk_id": "MSFT-2025-1A-0026",
+          "score": -11.0935
+        },
+        {
+          "rank": 15,
+          "chunk_id": "MSFT-2025-1A-0027",
+          "score": -11.1018
+        },
+        {
+          "rank": 16,
+          "chunk_id": "MSFT-2025-1A-0006",
+          "score": -11.1391
+        },
+        {
+          "rank": 17,
+          "chunk_id": "MSFT-2025-1A-0004",
+          "score": -11.246
+        },
+        {
+          "rank": 18,
+          "chunk_id": "MSFT-2025-1A-0009",
+          "score": -11.3014
+        },
+        {
+          "rank": 19,
+          "chunk_id": "MSFT-2025-1A-0015",
+          "score": -11.3377
+        },
+        {
+          "rank": 20,
+          "chunk_id": "MSFT-2025-1A-0002",
+          "score": -11.4001
+        }
+      ],
+      "dense_first_relevant_rank": 1,
+      "reranked_first_relevant_rank": 1,
+      "dense_latency_ms": 21.71,
+      "reranked_latency_ms": 452.51
+    },
+    {
+      "question_id": "dani-b6-038",
+      "ticker": "MSFT",
+      "fiscal_year": 2025,
+      "item": "7",
+      "char_start": 2461,
+      "char_end": 2583,
+      "relevant_chunk_ids": [
+        "MSFT-2025-7-0001"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "MSFT-2025-7-0010",
+          "score": 0.6878
+        },
+        {
+          "rank": 2,
+          "chunk_id": "MSFT-2025-7-0003",
+          "score": 0.6773
+        },
+        {
+          "rank": 3,
+          "chunk_id": "MSFT-2025-7-0001",
+          "score": 0.6763
+        },
+        {
+          "rank": 4,
+          "chunk_id": "MSFT-2025-7-0021",
+          "score": 0.647
+        },
+        {
+          "rank": 5,
+          "chunk_id": "MSFT-2025-7-0006",
+          "score": 0.6422
+        },
+        {
+          "rank": 6,
+          "chunk_id": "MSFT-2025-7-0007",
+          "score": 0.6383
+        },
+        {
+          "rank": 7,
+          "chunk_id": "MSFT-2025-7-0009",
+          "score": 0.6181
+        },
+        {
+          "rank": 8,
+          "chunk_id": "MSFT-2025-7-0005",
+          "score": 0.5872
+        },
+        {
+          "rank": 9,
+          "chunk_id": "MSFT-2025-7-0002",
+          "score": 0.5774
+        },
+        {
+          "rank": 10,
+          "chunk_id": "MSFT-2025-7-0018",
+          "score": 0.5691
+        },
+        {
+          "rank": 11,
+          "chunk_id": "MSFT-2025-7-0013",
+          "score": 0.5677
+        },
+        {
+          "rank": 12,
+          "chunk_id": "MSFT-2025-7-0008",
+          "score": 0.5667
+        },
+        {
+          "rank": 13,
+          "chunk_id": "MSFT-2025-7-0000",
+          "score": 0.5541
+        },
+        {
+          "rank": 14,
+          "chunk_id": "MSFT-2025-7-0004",
+          "score": 0.5437
+        },
+        {
+          "rank": 15,
+          "chunk_id": "MSFT-2025-7-0016",
+          "score": 0.5314
+        },
+        {
+          "rank": 16,
+          "chunk_id": "MSFT-2025-7-0023",
+          "score": 0.5205
+        },
+        {
+          "rank": 17,
+          "chunk_id": "MSFT-2025-7-0011",
+          "score": 0.5197
+        },
+        {
+          "rank": 18,
+          "chunk_id": "MSFT-2025-7-0022",
+          "score": 0.5154
+        },
+        {
+          "rank": 19,
+          "chunk_id": "MSFT-2025-7-0019",
+          "score": 0.514
+        },
+        {
+          "rank": 20,
+          "chunk_id": "MSFT-2025-7-0017",
+          "score": 0.5035
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "MSFT-2025-7-0002",
+          "score": -9.5424
+        },
+        {
+          "rank": 2,
+          "chunk_id": "MSFT-2025-7-0006",
+          "score": -9.5969
+        },
+        {
+          "rank": 3,
+          "chunk_id": "MSFT-2025-7-0010",
+          "score": -9.7794
+        },
+        {
+          "rank": 4,
+          "chunk_id": "MSFT-2025-7-0001",
+          "score": -10.1438
+        },
+        {
+          "rank": 5,
+          "chunk_id": "MSFT-2025-7-0007",
+          "score": -10.3893
+        },
+        {
+          "rank": 6,
+          "chunk_id": "MSFT-2025-7-0021",
+          "score": -10.7412
+        },
+        {
+          "rank": 7,
+          "chunk_id": "MSFT-2025-7-0003",
+          "score": -10.7461
+        },
+        {
+          "rank": 8,
+          "chunk_id": "MSFT-2025-7-0019",
+          "score": -10.9089
+        },
+        {
+          "rank": 9,
+          "chunk_id": "MSFT-2025-7-0005",
+          "score": -10.9608
+        },
+        {
+          "rank": 10,
+          "chunk_id": "MSFT-2025-7-0009",
+          "score": -11.0179
+        },
+        {
+          "rank": 11,
+          "chunk_id": "MSFT-2025-7-0023",
+          "score": -11.094
+        },
+        {
+          "rank": 12,
+          "chunk_id": "MSFT-2025-7-0008",
+          "score": -11.1139
+        },
+        {
+          "rank": 13,
+          "chunk_id": "MSFT-2025-7-0013",
+          "score": -11.1367
+        },
+        {
+          "rank": 14,
+          "chunk_id": "MSFT-2025-7-0011",
+          "score": -11.1545
+        },
+        {
+          "rank": 15,
+          "chunk_id": "MSFT-2025-7-0018",
+          "score": -11.1726
+        },
+        {
+          "rank": 16,
+          "chunk_id": "MSFT-2025-7-0017",
+          "score": -11.2515
+        },
+        {
+          "rank": 17,
+          "chunk_id": "MSFT-2025-7-0022",
+          "score": -11.359
+        },
+        {
+          "rank": 18,
+          "chunk_id": "MSFT-2025-7-0016",
+          "score": -11.3736
+        },
+        {
+          "rank": 19,
+          "chunk_id": "MSFT-2025-7-0000",
+          "score": -11.4006
+        },
+        {
+          "rank": 20,
+          "chunk_id": "MSFT-2025-7-0004",
+          "score": -11.4635
+        }
+      ],
+      "dense_first_relevant_rank": 3,
+      "reranked_first_relevant_rank": 4,
+      "dense_latency_ms": 47.21,
+      "reranked_latency_ms": 488.17
+    },
+    {
+      "question_id": "dani-b6-039",
+      "ticker": "MSFT",
+      "fiscal_year": 2025,
+      "item": "7A",
+      "char_start": 682,
+      "char_end": 814,
+      "relevant_chunk_ids": [
+        "MSFT-2025-7A-0000"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "MSFT-2025-7A-0000",
+          "score": 0.5734
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "MSFT-2025-7A-0000",
+          "score": -11.3248
+        }
+      ],
+      "dense_first_relevant_rank": 1,
+      "reranked_first_relevant_rank": 1,
+      "dense_latency_ms": 68.15,
+      "reranked_latency_ms": 79.54
+    },
+    {
+      "question_id": "dani-b6-040",
+      "ticker": "MSFT",
+      "fiscal_year": 2025,
+      "item": "8",
+      "char_start": 20033,
+      "char_end": 20198,
+      "relevant_chunk_ids": [
+        "MSFT-2025-8-0013"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "MSFT-2025-8-0067",
+          "score": 0.6319
+        },
+        {
+          "rank": 2,
+          "chunk_id": "MSFT-2025-8-0011",
+          "score": 0.6206
+        },
+        {
+          "rank": 3,
+          "chunk_id": "MSFT-2025-8-0073",
+          "score": 0.6136
+        },
+        {
+          "rank": 4,
+          "chunk_id": "MSFT-2025-8-0070",
+          "score": 0.6099
+        },
+        {
+          "rank": 5,
+          "chunk_id": "MSFT-2025-8-0010",
+          "score": 0.6022
+        },
+        {
+          "rank": 6,
+          "chunk_id": "MSFT-2025-8-0009",
+          "score": 0.5995
+        },
+        {
+          "rank": 7,
+          "chunk_id": "MSFT-2025-8-0008",
+          "score": 0.5932
+        },
+        {
+          "rank": 8,
+          "chunk_id": "MSFT-2025-8-0057",
+          "score": 0.5899
+        },
+        {
+          "rank": 9,
+          "chunk_id": "MSFT-2025-8-0066",
+          "score": 0.5847
+        },
+        {
+          "rank": 10,
+          "chunk_id": "MSFT-2025-8-0012",
+          "score": 0.5745
+        },
+        {
+          "rank": 11,
+          "chunk_id": "MSFT-2025-8-0055",
+          "score": 0.5739
+        },
+        {
+          "rank": 12,
+          "chunk_id": "MSFT-2025-8-0014",
+          "score": 0.5704
+        },
+        {
+          "rank": 13,
+          "chunk_id": "MSFT-2025-8-0071",
+          "score": 0.5681
+        },
+        {
+          "rank": 14,
+          "chunk_id": "MSFT-2025-8-0039",
+          "score": 0.5653
+        },
+        {
+          "rank": 15,
+          "chunk_id": "MSFT-2025-8-0017",
+          "score": 0.5652
+        },
+        {
+          "rank": 16,
+          "chunk_id": "MSFT-2025-8-0018",
+          "score": 0.5541
+        },
+        {
+          "rank": 17,
+          "chunk_id": "MSFT-2025-8-0013",
+          "score": 0.5524
+        },
+        {
+          "rank": 18,
+          "chunk_id": "MSFT-2025-8-0068",
+          "score": 0.5503
+        },
+        {
+          "rank": 19,
+          "chunk_id": "MSFT-2025-8-0016",
+          "score": 0.5478
+        },
+        {
+          "rank": 20,
+          "chunk_id": "MSFT-2025-8-0063",
+          "score": 0.5477
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "MSFT-2025-8-0008",
+          "score": -10.3332
+        },
+        {
+          "rank": 2,
+          "chunk_id": "MSFT-2025-8-0071",
+          "score": -10.7374
+        },
+        {
+          "rank": 3,
+          "chunk_id": "MSFT-2025-8-0070",
+          "score": -10.8629
+        },
+        {
+          "rank": 4,
+          "chunk_id": "MSFT-2025-8-0066",
+          "score": -10.8906
+        },
+        {
+          "rank": 5,
+          "chunk_id": "MSFT-2025-8-0063",
+          "score": -11.0413
+        },
+        {
+          "rank": 6,
+          "chunk_id": "MSFT-2025-8-0067",
+          "score": -11.0564
+        },
+        {
+          "rank": 7,
+          "chunk_id": "MSFT-2025-8-0057",
+          "score": -11.0754
+        },
+        {
+          "rank": 8,
+          "chunk_id": "MSFT-2025-8-0010",
+          "score": -11.208
+        },
+        {
+          "rank": 9,
+          "chunk_id": "MSFT-2025-8-0009",
+          "score": -11.2665
+        },
+        {
+          "rank": 10,
+          "chunk_id": "MSFT-2025-8-0016",
+          "score": -11.2739
+        },
+        {
+          "rank": 11,
+          "chunk_id": "MSFT-2025-8-0055",
+          "score": -11.2943
+        },
+        {
+          "rank": 12,
+          "chunk_id": "MSFT-2025-8-0018",
+          "score": -11.306
+        },
+        {
+          "rank": 13,
+          "chunk_id": "MSFT-2025-8-0073",
+          "score": -11.3079
+        },
+        {
+          "rank": 14,
+          "chunk_id": "MSFT-2025-8-0012",
+          "score": -11.3167
+        },
+        {
+          "rank": 15,
+          "chunk_id": "MSFT-2025-8-0039",
+          "score": -11.3171
+        },
+        {
+          "rank": 16,
+          "chunk_id": "MSFT-2025-8-0011",
+          "score": -11.3202
+        },
+        {
+          "rank": 17,
+          "chunk_id": "MSFT-2025-8-0013",
+          "score": -11.3533
+        },
+        {
+          "rank": 18,
+          "chunk_id": "MSFT-2025-8-0068",
+          "score": -11.3786
+        },
+        {
+          "rank": 19,
+          "chunk_id": "MSFT-2025-8-0017",
+          "score": -11.3852
+        },
+        {
+          "rank": 20,
+          "chunk_id": "MSFT-2025-8-0014",
+          "score": -11.4188
+        }
+      ],
+      "dense_first_relevant_rank": 17,
+      "reranked_first_relevant_rank": 17,
+      "dense_latency_ms": 29.56,
+      "reranked_latency_ms": 445.07
+    },
+    {
+      "question_id": "dani-b6-041",
+      "ticker": "NVDA",
+      "fiscal_year": 2024,
+      "item": "1A",
+      "char_start": 28714,
+      "char_end": 29198,
+      "relevant_chunk_ids": [
+        "NVDA-2024-1A-0013"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "NVDA-2024-1A-0013",
+          "score": 0.71
+        },
+        {
+          "rank": 2,
+          "chunk_id": "NVDA-2024-1A-0012",
+          "score": 0.6914
+        },
+        {
+          "rank": 3,
+          "chunk_id": "NVDA-2024-1A-0003",
+          "score": 0.6828
+        },
+        {
+          "rank": 4,
+          "chunk_id": "NVDA-2024-1A-0011",
+          "score": 0.673
+        },
+        {
+          "rank": 5,
+          "chunk_id": "NVDA-2024-1A-0019",
+          "score": 0.6697
+        },
+        {
+          "rank": 6,
+          "chunk_id": "NVDA-2024-1A-0002",
+          "score": 0.6594
+        },
+        {
+          "rank": 7,
+          "chunk_id": "NVDA-2024-1A-0033",
+          "score": 0.6579
+        },
+        {
+          "rank": 8,
+          "chunk_id": "NVDA-2024-1A-0035",
+          "score": 0.6541
+        },
+        {
+          "rank": 9,
+          "chunk_id": "NVDA-2024-1A-0036",
+          "score": 0.6476
+        },
+        {
+          "rank": 10,
+          "chunk_id": "NVDA-2024-1A-0038",
+          "score": 0.6473
+        },
+        {
+          "rank": 11,
+          "chunk_id": "NVDA-2024-1A-0031",
+          "score": 0.6406
+        },
+        {
+          "rank": 12,
+          "chunk_id": "NVDA-2024-1A-0008",
+          "score": 0.6397
+        },
+        {
+          "rank": 13,
+          "chunk_id": "NVDA-2024-1A-0034",
+          "score": 0.6378
+        },
+        {
+          "rank": 14,
+          "chunk_id": "NVDA-2024-1A-0023",
+          "score": 0.6321
+        },
+        {
+          "rank": 15,
+          "chunk_id": "NVDA-2024-1A-0009",
+          "score": 0.63
+        },
+        {
+          "rank": 16,
+          "chunk_id": "NVDA-2024-1A-0040",
+          "score": 0.6272
+        },
+        {
+          "rank": 17,
+          "chunk_id": "NVDA-2024-1A-0032",
+          "score": 0.6242
+        },
+        {
+          "rank": 18,
+          "chunk_id": "NVDA-2024-1A-0026",
+          "score": 0.6239
+        },
+        {
+          "rank": 19,
+          "chunk_id": "NVDA-2024-1A-0030",
+          "score": 0.6234
+        },
+        {
+          "rank": 20,
+          "chunk_id": "NVDA-2024-1A-0037",
+          "score": 0.6219
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "NVDA-2024-1A-0013",
+          "score": -9.6871
+        },
+        {
+          "rank": 2,
+          "chunk_id": "NVDA-2024-1A-0012",
+          "score": -10.0819
+        },
+        {
+          "rank": 3,
+          "chunk_id": "NVDA-2024-1A-0040",
+          "score": -10.7703
+        },
+        {
+          "rank": 4,
+          "chunk_id": "NVDA-2024-1A-0019",
+          "score": -10.785
+        },
+        {
+          "rank": 5,
+          "chunk_id": "NVDA-2024-1A-0036",
+          "score": -10.8453
+        },
+        {
+          "rank": 6,
+          "chunk_id": "NVDA-2024-1A-0032",
+          "score": -10.8802
+        },
+        {
+          "rank": 7,
+          "chunk_id": "NVDA-2024-1A-0030",
+          "score": -10.8891
+        },
+        {
+          "rank": 8,
+          "chunk_id": "NVDA-2024-1A-0033",
+          "score": -10.8942
+        },
+        {
+          "rank": 9,
+          "chunk_id": "NVDA-2024-1A-0037",
+          "score": -10.9057
+        },
+        {
+          "rank": 10,
+          "chunk_id": "NVDA-2024-1A-0031",
+          "score": -10.9367
+        },
+        {
+          "rank": 11,
+          "chunk_id": "NVDA-2024-1A-0035",
+          "score": -10.9417
+        },
+        {
+          "rank": 12,
+          "chunk_id": "NVDA-2024-1A-0002",
+          "score": -10.9725
+        },
+        {
+          "rank": 13,
+          "chunk_id": "NVDA-2024-1A-0009",
+          "score": -11.0251
+        },
+        {
+          "rank": 14,
+          "chunk_id": "NVDA-2024-1A-0034",
+          "score": -11.0737
+        },
+        {
+          "rank": 15,
+          "chunk_id": "NVDA-2024-1A-0011",
+          "score": -11.0876
+        },
+        {
+          "rank": 16,
+          "chunk_id": "NVDA-2024-1A-0008",
+          "score": -11.1095
+        },
+        {
+          "rank": 17,
+          "chunk_id": "NVDA-2024-1A-0026",
+          "score": -11.1394
+        },
+        {
+          "rank": 18,
+          "chunk_id": "NVDA-2024-1A-0003",
+          "score": -11.1784
+        },
+        {
+          "rank": 19,
+          "chunk_id": "NVDA-2024-1A-0038",
+          "score": -11.1861
+        },
+        {
+          "rank": 20,
+          "chunk_id": "NVDA-2024-1A-0023",
+          "score": -11.2665
+        }
+      ],
+      "dense_first_relevant_rank": 1,
+      "reranked_first_relevant_rank": 1,
+      "dense_latency_ms": 17.29,
+      "reranked_latency_ms": 455.83
+    },
+    {
+      "question_id": "dani-b6-042",
+      "ticker": "NVDA",
+      "fiscal_year": 2024,
+      "item": "7",
+      "char_start": 12337,
+      "char_end": 12490,
+      "relevant_chunk_ids": [
+        "NVDA-2024-7-0006"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "NVDA-2024-7-0000",
+          "score": 0.6946
+        },
+        {
+          "rank": 2,
+          "chunk_id": "NVDA-2024-7-0007",
+          "score": 0.6492
+        },
+        {
+          "rank": 3,
+          "chunk_id": "NVDA-2024-7-0008",
+          "score": 0.6452
+        },
+        {
+          "rank": 4,
+          "chunk_id": "NVDA-2024-7-0005",
+          "score": 0.6393
+        },
+        {
+          "rank": 5,
+          "chunk_id": "NVDA-2024-7-0015",
+          "score": 0.6241
+        },
+        {
+          "rank": 6,
+          "chunk_id": "NVDA-2024-7-0002",
+          "score": 0.6072
+        },
+        {
+          "rank": 7,
+          "chunk_id": "NVDA-2024-7-0006",
+          "score": 0.6059
+        },
+        {
+          "rank": 8,
+          "chunk_id": "NVDA-2024-7-0012",
+          "score": 0.6038
+        },
+        {
+          "rank": 9,
+          "chunk_id": "NVDA-2024-7-0013",
+          "score": 0.5785
+        },
+        {
+          "rank": 10,
+          "chunk_id": "NVDA-2024-7-0001",
+          "score": 0.5728
+        },
+        {
+          "rank": 11,
+          "chunk_id": "NVDA-2024-7-0010",
+          "score": 0.56
+        },
+        {
+          "rank": 12,
+          "chunk_id": "NVDA-2024-7-0003",
+          "score": 0.5534
+        },
+        {
+          "rank": 13,
+          "chunk_id": "NVDA-2024-7-0025",
+          "score": 0.5443
+        },
+        {
+          "rank": 14,
+          "chunk_id": "NVDA-2024-7-0004",
+          "score": 0.5377
+        },
+        {
+          "rank": 15,
+          "chunk_id": "NVDA-2024-7-0016",
+          "score": 0.529
+        },
+        {
+          "rank": 16,
+          "chunk_id": "NVDA-2024-7-0017",
+          "score": 0.5168
+        },
+        {
+          "rank": 17,
+          "chunk_id": "NVDA-2024-7-0020",
+          "score": 0.5058
+        },
+        {
+          "rank": 18,
+          "chunk_id": "NVDA-2024-7-0022",
+          "score": 0.5045
+        },
+        {
+          "rank": 19,
+          "chunk_id": "NVDA-2024-7-0014",
+          "score": 0.4985
+        },
+        {
+          "rank": 20,
+          "chunk_id": "NVDA-2024-7-0011",
+          "score": 0.4976
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "NVDA-2024-7-0000",
+          "score": -7.8359
+        },
+        {
+          "rank": 2,
+          "chunk_id": "NVDA-2024-7-0007",
+          "score": -8.6915
+        },
+        {
+          "rank": 3,
+          "chunk_id": "NVDA-2024-7-0012",
+          "score": -9.8593
+        },
+        {
+          "rank": 4,
+          "chunk_id": "NVDA-2024-7-0008",
+          "score": -10.0475
+        },
+        {
+          "rank": 5,
+          "chunk_id": "NVDA-2024-7-0015",
+          "score": -10.1597
+        },
+        {
+          "rank": 6,
+          "chunk_id": "NVDA-2024-7-0006",
+          "score": -10.7368
+        },
+        {
+          "rank": 7,
+          "chunk_id": "NVDA-2024-7-0002",
+          "score": -10.7457
+        },
+        {
+          "rank": 8,
+          "chunk_id": "NVDA-2024-7-0013",
+          "score": -10.8239
+        },
+        {
+          "rank": 9,
+          "chunk_id": "NVDA-2024-7-0005",
+          "score": -11.0806
+        },
+        {
+          "rank": 10,
+          "chunk_id": "NVDA-2024-7-0003",
+          "score": -11.1309
+        },
+        {
+          "rank": 11,
+          "chunk_id": "NVDA-2024-7-0020",
+          "score": -11.1492
+        },
+        {
+          "rank": 12,
+          "chunk_id": "NVDA-2024-7-0001",
+          "score": -11.1699
+        },
+        {
+          "rank": 13,
+          "chunk_id": "NVDA-2024-7-0022",
+          "score": -11.2812
+        },
+        {
+          "rank": 14,
+          "chunk_id": "NVDA-2024-7-0014",
+          "score": -11.329
+        },
+        {
+          "rank": 15,
+          "chunk_id": "NVDA-2024-7-0010",
+          "score": -11.336
+        },
+        {
+          "rank": 16,
+          "chunk_id": "NVDA-2024-7-0017",
+          "score": -11.3485
+        },
+        {
+          "rank": 17,
+          "chunk_id": "NVDA-2024-7-0025",
+          "score": -11.3553
+        },
+        {
+          "rank": 18,
+          "chunk_id": "NVDA-2024-7-0016",
+          "score": -11.3786
+        },
+        {
+          "rank": 19,
+          "chunk_id": "NVDA-2024-7-0004",
+          "score": -11.3787
+        },
+        {
+          "rank": 20,
+          "chunk_id": "NVDA-2024-7-0011",
+          "score": -11.3885
+        }
+      ],
+      "dense_first_relevant_rank": 7,
+      "reranked_first_relevant_rank": 6,
+      "dense_latency_ms": 45.62,
+      "reranked_latency_ms": 458.8
+    },
+    {
+      "question_id": "dani-b6-043",
+      "ticker": "NVDA",
+      "fiscal_year": 2024,
+      "item": "7A",
+      "char_start": 465,
+      "char_end": 625,
+      "relevant_chunk_ids": [
+        "NVDA-2024-7A-0000"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "NVDA-2024-7A-0000",
+          "score": 0.5319
+        },
+        {
+          "rank": 2,
+          "chunk_id": "NVDA-2024-7A-0001",
+          "score": 0.4835
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "NVDA-2024-7A-0001",
+          "score": -11.4321
+        },
+        {
+          "rank": 2,
+          "chunk_id": "NVDA-2024-7A-0000",
+          "score": -11.4686
+        }
+      ],
+      "dense_first_relevant_rank": 1,
+      "reranked_first_relevant_rank": 2,
+      "dense_latency_ms": 65.22,
+      "reranked_latency_ms": 100.45
+    },
+    {
+      "question_id": "dani-b6-044",
+      "ticker": "NVDA",
+      "fiscal_year": 2024,
+      "item": "8",
+      "char_start": 67307,
+      "char_end": 67679,
+      "relevant_chunk_ids": [
+        "NVDA-2024-8-0042"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "NVDA-2024-8-0015",
+          "score": 0.6779
+        },
+        {
+          "rank": 2,
+          "chunk_id": "NVDA-2024-8-0069",
+          "score": 0.6687
+        },
+        {
+          "rank": 3,
+          "chunk_id": "NVDA-2024-8-0045",
+          "score": 0.6643
+        },
+        {
+          "rank": 4,
+          "chunk_id": "NVDA-2024-8-0050",
+          "score": 0.6599
+        },
+        {
+          "rank": 5,
+          "chunk_id": "NVDA-2024-8-0053",
+          "score": 0.6546
+        },
+        {
+          "rank": 6,
+          "chunk_id": "NVDA-2024-8-0065",
+          "score": 0.6438
+        },
+        {
+          "rank": 7,
+          "chunk_id": "NVDA-2024-8-0046",
+          "score": 0.6414
+        },
+        {
+          "rank": 8,
+          "chunk_id": "NVDA-2024-8-0007",
+          "score": 0.6332
+        },
+        {
+          "rank": 9,
+          "chunk_id": "NVDA-2024-8-0071",
+          "score": 0.6331
+        },
+        {
+          "rank": 10,
+          "chunk_id": "NVDA-2024-8-0000",
+          "score": 0.6282
+        },
+        {
+          "rank": 11,
+          "chunk_id": "NVDA-2024-8-0001",
+          "score": 0.6277
+        },
+        {
+          "rank": 12,
+          "chunk_id": "NVDA-2024-8-0006",
+          "score": 0.6251
+        },
+        {
+          "rank": 13,
+          "chunk_id": "NVDA-2024-8-0042",
+          "score": 0.6211
+        },
+        {
+          "rank": 14,
+          "chunk_id": "NVDA-2024-8-0028",
+          "score": 0.6199
+        },
+        {
+          "rank": 15,
+          "chunk_id": "NVDA-2024-8-0012",
+          "score": 0.6197
+        },
+        {
+          "rank": 16,
+          "chunk_id": "NVDA-2024-8-0052",
+          "score": 0.6196
+        },
+        {
+          "rank": 17,
+          "chunk_id": "NVDA-2024-8-0030",
+          "score": 0.6187
+        },
+        {
+          "rank": 18,
+          "chunk_id": "NVDA-2024-8-0066",
+          "score": 0.6176
+        },
+        {
+          "rank": 19,
+          "chunk_id": "NVDA-2024-8-0009",
+          "score": 0.6156
+        },
+        {
+          "rank": 20,
+          "chunk_id": "NVDA-2024-8-0055",
+          "score": 0.6145
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "NVDA-2024-8-0045",
+          "score": -6.0964
+        },
+        {
+          "rank": 2,
+          "chunk_id": "NVDA-2024-8-0053",
+          "score": -6.1289
+        },
+        {
+          "rank": 3,
+          "chunk_id": "NVDA-2024-8-0015",
+          "score": -6.6936
+        },
+        {
+          "rank": 4,
+          "chunk_id": "NVDA-2024-8-0006",
+          "score": -7.0792
+        },
+        {
+          "rank": 5,
+          "chunk_id": "NVDA-2024-8-0052",
+          "score": -7.5
+        },
+        {
+          "rank": 6,
+          "chunk_id": "NVDA-2024-8-0009",
+          "score": -7.8993
+        },
+        {
+          "rank": 7,
+          "chunk_id": "NVDA-2024-8-0071",
+          "score": -8.3418
+        },
+        {
+          "rank": 8,
+          "chunk_id": "NVDA-2024-8-0065",
+          "score": -8.3686
+        },
+        {
+          "rank": 9,
+          "chunk_id": "NVDA-2024-8-0028",
+          "score": -8.4917
+        },
+        {
+          "rank": 10,
+          "chunk_id": "NVDA-2024-8-0069",
+          "score": -8.7023
+        },
+        {
+          "rank": 11,
+          "chunk_id": "NVDA-2024-8-0001",
+          "score": -9.0274
+        },
+        {
+          "rank": 12,
+          "chunk_id": "NVDA-2024-8-0066",
+          "score": -9.2725
+        },
+        {
+          "rank": 13,
+          "chunk_id": "NVDA-2024-8-0042",
+          "score": -9.8223
+        },
+        {
+          "rank": 14,
+          "chunk_id": "NVDA-2024-8-0012",
+          "score": -9.8493
+        },
+        {
+          "rank": 15,
+          "chunk_id": "NVDA-2024-8-0055",
+          "score": -10.2445
+        },
+        {
+          "rank": 16,
+          "chunk_id": "NVDA-2024-8-0000",
+          "score": -10.4835
+        },
+        {
+          "rank": 17,
+          "chunk_id": "NVDA-2024-8-0050",
+          "score": -10.9026
+        },
+        {
+          "rank": 18,
+          "chunk_id": "NVDA-2024-8-0046",
+          "score": -11.0804
+        },
+        {
+          "rank": 19,
+          "chunk_id": "NVDA-2024-8-0030",
+          "score": -11.2756
+        },
+        {
+          "rank": 20,
+          "chunk_id": "NVDA-2024-8-0007",
+          "score": -11.3814
+        }
+      ],
+      "dense_first_relevant_rank": 13,
+      "reranked_first_relevant_rank": 13,
+      "dense_latency_ms": 14.5,
+      "reranked_latency_ms": 445.96
+    },
+    {
+      "question_id": "dani-b6-045",
+      "ticker": "NVDA",
+      "fiscal_year": 2025,
+      "item": "1A",
+      "char_start": 42621,
+      "char_end": 43038,
+      "relevant_chunk_ids": [
+        "NVDA-2025-1A-0018"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "NVDA-2025-1A-0018",
+          "score": 0.6108
+        },
+        {
+          "rank": 2,
+          "chunk_id": "NVDA-2025-1A-0031",
+          "score": 0.5901
+        },
+        {
+          "rank": 3,
+          "chunk_id": "NVDA-2025-1A-0003",
+          "score": 0.5886
+        },
+        {
+          "rank": 4,
+          "chunk_id": "NVDA-2025-1A-0029",
+          "score": 0.5823
+        },
+        {
+          "rank": 5,
+          "chunk_id": "NVDA-2025-1A-0006",
+          "score": 0.5781
+        },
+        {
+          "rank": 6,
+          "chunk_id": "NVDA-2025-1A-0036",
+          "score": 0.5721
+        },
+        {
+          "rank": 7,
+          "chunk_id": "NVDA-2025-1A-0030",
+          "score": 0.5719
+        },
+        {
+          "rank": 8,
+          "chunk_id": "NVDA-2025-1A-0007",
+          "score": 0.5654
+        },
+        {
+          "rank": 9,
+          "chunk_id": "NVDA-2025-1A-0037",
+          "score": 0.5651
+        },
+        {
+          "rank": 10,
+          "chunk_id": "NVDA-2025-1A-0034",
+          "score": 0.5575
+        },
+        {
+          "rank": 11,
+          "chunk_id": "NVDA-2025-1A-0028",
+          "score": 0.5569
+        },
+        {
+          "rank": 12,
+          "chunk_id": "NVDA-2025-1A-0020",
+          "score": 0.5516
+        },
+        {
+          "rank": 13,
+          "chunk_id": "NVDA-2025-1A-0008",
+          "score": 0.549
+        },
+        {
+          "rank": 14,
+          "chunk_id": "NVDA-2025-1A-0038",
+          "score": 0.5479
+        },
+        {
+          "rank": 15,
+          "chunk_id": "NVDA-2025-1A-0017",
+          "score": 0.5465
+        },
+        {
+          "rank": 16,
+          "chunk_id": "NVDA-2025-1A-0019",
+          "score": 0.5403
+        },
+        {
+          "rank": 17,
+          "chunk_id": "NVDA-2025-1A-0005",
+          "score": 0.5232
+        },
+        {
+          "rank": 18,
+          "chunk_id": "NVDA-2025-1A-0002",
+          "score": 0.5214
+        },
+        {
+          "rank": 19,
+          "chunk_id": "NVDA-2025-1A-0016",
+          "score": 0.5208
+        },
+        {
+          "rank": 20,
+          "chunk_id": "NVDA-2025-1A-0035",
+          "score": 0.5179
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "NVDA-2025-1A-0031",
+          "score": -8.9133
+        },
+        {
+          "rank": 2,
+          "chunk_id": "NVDA-2025-1A-0003",
+          "score": -9.4929
+        },
+        {
+          "rank": 3,
+          "chunk_id": "NVDA-2025-1A-0018",
+          "score": -9.6219
+        },
+        {
+          "rank": 4,
+          "chunk_id": "NVDA-2025-1A-0006",
+          "score": -10.131
+        },
+        {
+          "rank": 5,
+          "chunk_id": "NVDA-2025-1A-0036",
+          "score": -10.1783
+        },
+        {
+          "rank": 6,
+          "chunk_id": "NVDA-2025-1A-0034",
+          "score": -10.2287
+        },
+        {
+          "rank": 7,
+          "chunk_id": "NVDA-2025-1A-0029",
+          "score": -10.452
+        },
+        {
+          "rank": 8,
+          "chunk_id": "NVDA-2025-1A-0017",
+          "score": -10.5425
+        },
+        {
+          "rank": 9,
+          "chunk_id": "NVDA-2025-1A-0002",
+          "score": -10.5747
+        },
+        {
+          "rank": 10,
+          "chunk_id": "NVDA-2025-1A-0037",
+          "score": -10.6243
+        },
+        {
+          "rank": 11,
+          "chunk_id": "NVDA-2025-1A-0038",
+          "score": -10.7361
+        },
+        {
+          "rank": 12,
+          "chunk_id": "NVDA-2025-1A-0016",
+          "score": -11.0617
+        },
+        {
+          "rank": 13,
+          "chunk_id": "NVDA-2025-1A-0007",
+          "score": -11.2743
+        },
+        {
+          "rank": 14,
+          "chunk_id": "NVDA-2025-1A-0008",
+          "score": -11.3442
+        },
+        {
+          "rank": 15,
+          "chunk_id": "NVDA-2025-1A-0020",
+          "score": -11.352
+        },
+        {
+          "rank": 16,
+          "chunk_id": "NVDA-2025-1A-0035",
+          "score": -11.3665
+        },
+        {
+          "rank": 17,
+          "chunk_id": "NVDA-2025-1A-0028",
+          "score": -11.3732
+        },
+        {
+          "rank": 18,
+          "chunk_id": "NVDA-2025-1A-0019",
+          "score": -11.382
+        },
+        {
+          "rank": 19,
+          "chunk_id": "NVDA-2025-1A-0030",
+          "score": -11.3897
+        },
+        {
+          "rank": 20,
+          "chunk_id": "NVDA-2025-1A-0005",
+          "score": -11.3966
+        }
+      ],
+      "dense_first_relevant_rank": 1,
+      "reranked_first_relevant_rank": 3,
+      "dense_latency_ms": 24.06,
+      "reranked_latency_ms": 449.63
+    },
+    {
+      "question_id": "dani-b6-046",
+      "ticker": "NVDA",
+      "fiscal_year": 2025,
+      "item": "7",
+      "char_start": 13813,
+      "char_end": 14077,
+      "relevant_chunk_ids": [
+        "NVDA-2025-7-0007"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "NVDA-2025-7-0000",
+          "score": 0.698
+        },
+        {
+          "rank": 2,
+          "chunk_id": "NVDA-2025-7-0013",
+          "score": 0.6589
+        },
+        {
+          "rank": 3,
+          "chunk_id": "NVDA-2025-7-0007",
+          "score": 0.6201
+        },
+        {
+          "rank": 4,
+          "chunk_id": "NVDA-2025-7-0012",
+          "score": 0.6103
+        },
+        {
+          "rank": 5,
+          "chunk_id": "NVDA-2025-7-0011",
+          "score": 0.6048
+        },
+        {
+          "rank": 6,
+          "chunk_id": "NVDA-2025-7-0006",
+          "score": 0.6047
+        },
+        {
+          "rank": 7,
+          "chunk_id": "NVDA-2025-7-0004",
+          "score": 0.6033
+        },
+        {
+          "rank": 8,
+          "chunk_id": "NVDA-2025-7-0001",
+          "score": 0.5855
+        },
+        {
+          "rank": 9,
+          "chunk_id": "NVDA-2025-7-0002",
+          "score": 0.5843
+        },
+        {
+          "rank": 10,
+          "chunk_id": "NVDA-2025-7-0003",
+          "score": 0.5597
+        },
+        {
+          "rank": 11,
+          "chunk_id": "NVDA-2025-7-0009",
+          "score": 0.5502
+        },
+        {
+          "rank": 12,
+          "chunk_id": "NVDA-2025-7-0019",
+          "score": 0.5482
+        },
+        {
+          "rank": 13,
+          "chunk_id": "NVDA-2025-7-0014",
+          "score": 0.5317
+        },
+        {
+          "rank": 14,
+          "chunk_id": "NVDA-2025-7-0005",
+          "score": 0.5292
+        },
+        {
+          "rank": 15,
+          "chunk_id": "NVDA-2025-7-0022",
+          "score": 0.5207
+        },
+        {
+          "rank": 16,
+          "chunk_id": "NVDA-2025-7-0020",
+          "score": 0.5137
+        },
+        {
+          "rank": 17,
+          "chunk_id": "NVDA-2025-7-0015",
+          "score": 0.5106
+        },
+        {
+          "rank": 18,
+          "chunk_id": "NVDA-2025-7-0021",
+          "score": 0.5075
+        },
+        {
+          "rank": 19,
+          "chunk_id": "NVDA-2025-7-0016",
+          "score": 0.5035
+        },
+        {
+          "rank": 20,
+          "chunk_id": "NVDA-2025-7-0018",
+          "score": 0.4957
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "NVDA-2025-7-0000",
+          "score": -8.4283
+        },
+        {
+          "rank": 2,
+          "chunk_id": "NVDA-2025-7-0013",
+          "score": -9.0499
+        },
+        {
+          "rank": 3,
+          "chunk_id": "NVDA-2025-7-0004",
+          "score": -9.9807
+        },
+        {
+          "rank": 4,
+          "chunk_id": "NVDA-2025-7-0011",
+          "score": -10.5821
+        },
+        {
+          "rank": 5,
+          "chunk_id": "NVDA-2025-7-0003",
+          "score": -11.137
+        },
+        {
+          "rank": 6,
+          "chunk_id": "NVDA-2025-7-0007",
+          "score": -11.1498
+        },
+        {
+          "rank": 7,
+          "chunk_id": "NVDA-2025-7-0012",
+          "score": -11.1612
+        },
+        {
+          "rank": 8,
+          "chunk_id": "NVDA-2025-7-0006",
+          "score": -11.1655
+        },
+        {
+          "rank": 9,
+          "chunk_id": "NVDA-2025-7-0021",
+          "score": -11.301
+        },
+        {
+          "rank": 10,
+          "chunk_id": "NVDA-2025-7-0014",
+          "score": -11.333
+        },
+        {
+          "rank": 11,
+          "chunk_id": "NVDA-2025-7-0009",
+          "score": -11.3401
+        },
+        {
+          "rank": 12,
+          "chunk_id": "NVDA-2025-7-0005",
+          "score": -11.3428
+        },
+        {
+          "rank": 13,
+          "chunk_id": "NVDA-2025-7-0015",
+          "score": -11.3524
+        },
+        {
+          "rank": 14,
+          "chunk_id": "NVDA-2025-7-0016",
+          "score": -11.357
+        },
+        {
+          "rank": 15,
+          "chunk_id": "NVDA-2025-7-0001",
+          "score": -11.3605
+        },
+        {
+          "rank": 16,
+          "chunk_id": "NVDA-2025-7-0002",
+          "score": -11.3681
+        },
+        {
+          "rank": 17,
+          "chunk_id": "NVDA-2025-7-0020",
+          "score": -11.3813
+        },
+        {
+          "rank": 18,
+          "chunk_id": "NVDA-2025-7-0018",
+          "score": -11.3838
+        },
+        {
+          "rank": 19,
+          "chunk_id": "NVDA-2025-7-0019",
+          "score": -11.3872
+        },
+        {
+          "rank": 20,
+          "chunk_id": "NVDA-2025-7-0022",
+          "score": -11.4202
+        }
+      ],
+      "dense_first_relevant_rank": 3,
+      "reranked_first_relevant_rank": 6,
+      "dense_latency_ms": 50.44,
+      "reranked_latency_ms": 491.59
+    },
+    {
+      "question_id": "dani-b6-047",
+      "ticker": "NVDA",
+      "fiscal_year": 2025,
+      "item": "7A",
+      "char_start": 2581,
+      "char_end": 2837,
+      "relevant_chunk_ids": [
+        "NVDA-2025-7A-0001"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "NVDA-2025-7A-0000",
+          "score": 0.5994
+        },
+        {
+          "rank": 2,
+          "chunk_id": "NVDA-2025-7A-0001",
+          "score": 0.5855
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "NVDA-2025-7A-0001",
+          "score": -10.8688
+        },
+        {
+          "rank": 2,
+          "chunk_id": "NVDA-2025-7A-0000",
+          "score": -11.0713
+        }
+      ],
+      "dense_first_relevant_rank": 2,
+      "reranked_first_relevant_rank": 1,
+      "dense_latency_ms": 65.31,
+      "reranked_latency_ms": 98.58
+    },
+    {
+      "question_id": "dani-b6-048",
+      "ticker": "NVDA",
+      "fiscal_year": 2025,
+      "item": "8",
+      "char_start": 22340,
+      "char_end": 22564,
+      "relevant_chunk_ids": [
+        "NVDA-2025-8-0016"
+      ],
+      "dense_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "NVDA-2025-8-0041",
+          "score": 0.6723
+        },
+        {
+          "rank": 2,
+          "chunk_id": "NVDA-2025-8-0015",
+          "score": 0.6653
+        },
+        {
+          "rank": 3,
+          "chunk_id": "NVDA-2025-8-0016",
+          "score": 0.6633
+        },
+        {
+          "rank": 4,
+          "chunk_id": "NVDA-2025-8-0051",
+          "score": 0.6574
+        },
+        {
+          "rank": 5,
+          "chunk_id": "NVDA-2025-8-0068",
+          "score": 0.6574
+        },
+        {
+          "rank": 6,
+          "chunk_id": "NVDA-2025-8-0063",
+          "score": 0.6564
+        },
+        {
+          "rank": 7,
+          "chunk_id": "NVDA-2025-8-0044",
+          "score": 0.6506
+        },
+        {
+          "rank": 8,
+          "chunk_id": "NVDA-2025-8-0052",
+          "score": 0.6479
+        },
+        {
+          "rank": 9,
+          "chunk_id": "NVDA-2025-8-0049",
+          "score": 0.6436
+        },
+        {
+          "rank": 10,
+          "chunk_id": "NVDA-2025-8-0037",
+          "score": 0.6424
+        },
+        {
+          "rank": 11,
+          "chunk_id": "NVDA-2025-8-0064",
+          "score": 0.6405
+        },
+        {
+          "rank": 12,
+          "chunk_id": "NVDA-2025-8-0047",
+          "score": 0.6352
+        },
+        {
+          "rank": 13,
+          "chunk_id": "NVDA-2025-8-0006",
+          "score": 0.6318
+        },
+        {
+          "rank": 14,
+          "chunk_id": "NVDA-2025-8-0028",
+          "score": 0.6316
+        },
+        {
+          "rank": 15,
+          "chunk_id": "NVDA-2025-8-0040",
+          "score": 0.6306
+        },
+        {
+          "rank": 16,
+          "chunk_id": "NVDA-2025-8-0045",
+          "score": 0.6296
+        },
+        {
+          "rank": 17,
+          "chunk_id": "NVDA-2025-8-0065",
+          "score": 0.6293
+        },
+        {
+          "rank": 18,
+          "chunk_id": "NVDA-2025-8-0018",
+          "score": 0.6266
+        },
+        {
+          "rank": 19,
+          "chunk_id": "NVDA-2025-8-0060",
+          "score": 0.6237
+        },
+        {
+          "rank": 20,
+          "chunk_id": "NVDA-2025-8-0007",
+          "score": 0.6233
+        }
+      ],
+      "reranked_top20": [
+        {
+          "rank": 1,
+          "chunk_id": "NVDA-2025-8-0041",
+          "score": -7.102
+        },
+        {
+          "rank": 2,
+          "chunk_id": "NVDA-2025-8-0015",
+          "score": -7.3506
+        },
+        {
+          "rank": 3,
+          "chunk_id": "NVDA-2025-8-0051",
+          "score": -7.3982
+        },
+        {
+          "rank": 4,
+          "chunk_id": "NVDA-2025-8-0049",
+          "score": -7.9014
+        },
+        {
+          "rank": 5,
+          "chunk_id": "NVDA-2025-8-0063",
+          "score": -8.2814
+        },
+        {
+          "rank": 6,
+          "chunk_id": "NVDA-2025-8-0006",
+          "score": -8.805
+        },
+        {
+          "rank": 7,
+          "chunk_id": "NVDA-2025-8-0016",
+          "score": -9.2508
+        },
+        {
+          "rank": 8,
+          "chunk_id": "NVDA-2025-8-0064",
+          "score": -9.3446
+        },
+        {
+          "rank": 9,
+          "chunk_id": "NVDA-2025-8-0052",
+          "score": -9.5605
+        },
+        {
+          "rank": 10,
+          "chunk_id": "NVDA-2025-8-0044",
+          "score": -9.751
+        },
+        {
+          "rank": 11,
+          "chunk_id": "NVDA-2025-8-0040",
+          "score": -9.908
+        },
+        {
+          "rank": 12,
+          "chunk_id": "NVDA-2025-8-0018",
+          "score": -9.9543
+        },
+        {
+          "rank": 13,
+          "chunk_id": "NVDA-2025-8-0068",
+          "score": -9.9897
+        },
+        {
+          "rank": 14,
+          "chunk_id": "NVDA-2025-8-0047",
+          "score": -10.4503
+        },
+        {
+          "rank": 15,
+          "chunk_id": "NVDA-2025-8-0028",
+          "score": -10.5212
+        },
+        {
+          "rank": 16,
+          "chunk_id": "NVDA-2025-8-0037",
+          "score": -10.8177
+        },
+        {
+          "rank": 17,
+          "chunk_id": "NVDA-2025-8-0065",
+          "score": -10.8858
+        },
+        {
+          "rank": 18,
+          "chunk_id": "NVDA-2025-8-0045",
+          "score": -10.919
+        },
+        {
+          "rank": 19,
+          "chunk_id": "NVDA-2025-8-0060",
+          "score": -11.3825
+        },
+        {
+          "rank": 20,
+          "chunk_id": "NVDA-2025-8-0007",
+          "score": -11.4187
+        }
+      ],
+      "dense_first_relevant_rank": 3,
+      "reranked_first_relevant_rank": 7,
+      "dense_latency_ms": 17.32,
+      "reranked_latency_ms": 470.84
+    }
+  ]
+}
