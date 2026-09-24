@@ -16,7 +16,9 @@ Reglas:
 - Usa read_section solo como último recurso, después de search_filings en la
   misma compañía, ejercicio e item.
 - Si dudas de la cobertura, empieza por list_available.
-- El corpus está en inglés: formula las consultas de búsqueda en inglés.
+- En la PRIMERA llamada a search_filings, copia en query la pregunta original
+  del usuario exactamente: no la traduzcas, resumas ni reformules. Extrae
+  ticker, fiscal_year e item y pásalos en sus argumentos correspondientes.
 - Cita chunk_id y un fragmento literal; separa omisiones con "...".
 - Si el dato no está en el corpus, dilo. No lo estimes.
 - Tras 3 intentos de búsqueda sin evidencia suficiente, deja de buscar y
@@ -25,13 +27,24 @@ Reglas:
 """
 
 
+def _agent_middleware():
+    """Construye middleware nuevo; la deduplicación no comparte estado."""
+    from langchain.agents.middleware import ToolCallLimitMiddleware
+
+    from common.agent.middleware_tool_dedup import ToolCallDedupMiddleware
+
+    return [
+        ToolCallDedupMiddleware(),
+        ToolCallLimitMiddleware(run_limit=BENCHMARK.tool_call_run_limit),
+    ]
+
+
 def crear_agente():
     """Crea el agente; aquí, y no durante import, carga SDK y credenciales."""
     from pathlib import Path
 
     from dotenv import load_dotenv
     from langchain.agents import create_agent
-    from langchain.agents.middleware import ToolCallLimitMiddleware
     from langchain.chat_models import init_chat_model
     from langgraph.checkpoint.memory import InMemorySaver
 
@@ -51,6 +64,5 @@ def crear_agente():
         system_prompt=SYSTEM,
         response_format=RespuestaFinanciera,
         checkpointer=InMemorySaver(),
-        middleware=[ToolCallLimitMiddleware(
-            run_limit=BENCHMARK.tool_call_run_limit)],
+        middleware=_agent_middleware(),
     )

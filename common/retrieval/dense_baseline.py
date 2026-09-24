@@ -248,8 +248,8 @@ def _load_profile_resources(profile_name: str):
     return index, metadata, encoder, profile
 
 
-def _indice():
-    profile = get_embedding_profile()
+def _indice(profile_name: str | None = None):
+    profile = get_embedding_profile(profile_name)
     return _load_profile_resources(profile.name)
 
 
@@ -268,9 +268,9 @@ def get_last_query_embedding_metadata() -> dict[str, Any] | None:
 
 def buscar(query: str, ticker: str | None = None,
            fiscal_year: int | None = None, item: str | None = None,
-           k: int = 5) -> list[dict]:
+           k: int = 5, *, profile_name: str | None = None) -> list[dict]:
     """Ranking global denso seguido de filtros de metadata."""
-    index, metadata, encoder, profile = _indice()
+    index, metadata, encoder, profile = _indice(profile_name)
     vector = encoder.encode(
         [profile.format_query(query)],
         normalize_embeddings=True,

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import uuid
 
+from common.agent.middleware_tool_dedup import DUPLICATE_TOOL_CALL_TYPE
 from common.benchmark_config import BENCHMARK
 
 _agente = None
@@ -17,15 +18,38 @@ def _get_agente():
     return _agente
 
 
-def _extract_tool_calls(messages) -> list[dict]:
-    calls = []
+def _extract_tool_trajectory(messages) -> tuple[list[dict], list[dict]]:
+    blocked_ids = {}
+    for message in messages:
+        artifact = getattr(message, "artifact", None)
+        if (
+            isinstance(artifact, dict)
+            and artifact.get("type") == DUPLICATE_TOOL_CALL_TYPE
+        ):
+            blocked_ids[getattr(message, "tool_call_id", None)] = artifact
+
+    executed = []
+    blocked = []
     for message in messages:
         for call in (getattr(message, "tool_calls", None) or []):
             if call.get("name") == "RespuestaFinanciera":
                 continue
-            calls.append({"name": call.get("name"),
-                          "args": call.get("args") or {}})
-    return calls
+            value = {"name": call.get("name"), "args": call.get("args") or {}}
+            diagnostic = blocked_ids.get(call.get("id"))
+            if diagnostic is None:
+                executed.append(value)
+            else:
+                blocked.append({
+                    **value,
+                    "executed": False,
+                    "reason": DUPLICATE_TOOL_CALL_TYPE,
+                })
+    return executed, blocked
+
+
+def _extract_tool_calls(messages) -> list[dict]:
+    """Compatibilidad: devuelve ejecuciones reales, no duplicados."""
+    return _extract_tool_trajectory(messages)[0]
 
 
 def _extract_telemetry(messages) -> dict:
@@ -83,15 +107,18 @@ def responder(pregunta: str, max_reintentos: int | None = None,
         config={"configurable": {"thread_id": thread_id}},
     )
     messages = result.get("messages") or []
-    calls = _extract_tool_calls(messages)
+    calls, blocked_calls = _extract_tool_trajectory(messages)
     structured = result["structured_response"]
     answer = (structured.model_dump() if hasattr(structured, "model_dump")
               else dict(structured))
     answer["tool_calls_agente"] = [call["name"] for call in calls]
     answer["tool_calls_detallado"] = calls
+    answer["tool_calls_bloqueados"] = blocked_calls
     answer["thread_id"] = thread_id
     answer["guardrail_retry_count"] = _guardrail_retries
     answer["_telemetria"] = _extract_telemetry(messages)
+    answer["_telemetria"]["tool_calls_executed"] = len(calls)
+    answer["_telemetria"]["tool_calls_duplicate_blocked"] = len(blocked_calls)
 
     from common.agent.middleware_xbrl import verificar_respuesta_xbrl
 

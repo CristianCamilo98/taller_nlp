@@ -10,6 +10,7 @@ from functools import lru_cache
 
 from langchain.tools import tool
 
+from common.benchmark_config import BENCHMARK
 from common.config import get_dataset_paths
 from common.xbrl import format_xbrl_value, load_xbrl
 
@@ -84,15 +85,15 @@ def search_filings(query: str, ticker: str | None = None,
     """Busca fragmentos relevantes de los informes 10-K.
 
     Args:
-        query: Consulta semántica en inglés.
+        query: Pregunta original del usuario en la primera búsqueda.
         ticker: Filtro opcional por compañía.
         fiscal_year: Filtro opcional por ejercicio.
         item: Filtro opcional: ``1A``, ``7``, ``7A`` u ``8``.
         k: Número positivo de fragmentos solicitados; por defecto 5.
 
-    Úsala para evidencia narrativa, no para cifras. El baseline es búsqueda
-    densa BGE en el FAISS entregado y postfiltrado de metadata; sin rewriting,
-    BM25 ni reranking.
+    Úsala para evidencia narrativa, no para cifras. El pipeline final usa la
+    query original con Gemini Embedding 2, ranking FAISS global y postfiltrado
+    de metadata; sin rewriting obligatorio, BM25 ni reranking.
     """
     if int(k) <= 0:
         raise ValueError("k debe ser un entero positivo")
@@ -104,6 +105,7 @@ def search_filings(query: str, ticker: str | None = None,
         fiscal_year=int(fiscal_year) if fiscal_year is not None else None,
         item=str(item) if item is not None else None,
         k=int(k),
+        profile_name=BENCHMARK.retrieval_profile,
     )
     return formatear_fragmentos(fragments)
 

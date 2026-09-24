@@ -42,8 +42,32 @@ def _commit_sha() -> str | None:
 
 
 def _artifact_hashes() -> dict[str, str]:
-    paths = get_dataset_paths()
+    paths = get_dataset_paths(BENCHMARK.retrieval_profile)
     return {name: _sha256(path) for name, path in paths.required_files().items()}
+
+
+def _retrieval_final_provenance() -> dict:
+    artifact = (
+        Path(__file__).resolve().parent
+        / "results"
+        / "retrieval_final"
+        / "retrieval_final_48.json"
+    )
+    payload = json.loads(artifact.read_text(encoding="utf-8"))
+    manifest = payload["manifest"]
+    return {
+        "artifact": "common/results/retrieval_final/retrieval_final_48.json",
+        "artifact_sha256": _sha256(artifact),
+        "selected_pipeline": manifest["selected_pipeline"],
+        "benchmark_sha256": manifest["benchmark_sha256"],
+        "chunks_sha256": manifest["chunks_sha256"],
+        "chunks_meta_sha256": manifest["chunks_meta_sha256"],
+        "faiss_sha256": manifest["faiss_sha256"],
+        "gemini_model": manifest["gemini_model"],
+        "embedding_dimension": manifest["embedding_dimension"],
+        "ntotal": manifest["ntotal"],
+        "input_type_provenance": manifest["input_type_provenance"],
+    }
 
 
 def _is_rate_limit(error: Exception) -> bool:
@@ -120,6 +144,7 @@ def evaluar(ruta_jsonl: str, guardar_en: str | None = None,
     commit_sha = _commit_sha()
     golden_hash = _sha256(golden_path)
     artifact_hashes = _artifact_hashes()
+    retrieval_final_provenance = _retrieval_final_provenance()
     results = []
 
     for index, question in enumerate(questions):
@@ -168,6 +193,10 @@ def evaluar(ruta_jsonl: str, guardar_en: str | None = None,
             "tool_calls_agente": response.get("tool_calls_agente") or [],
             "tool_calls_detallado": response.get("tool_calls_detallado") or [],
             "tool_call_count": len(response.get("tool_calls_detallado") or []),
+            "tool_calls_bloqueados": response.get("tool_calls_bloqueados") or [],
+            "tool_call_duplicate_blocked_count": len(
+                response.get("tool_calls_bloqueados") or []
+            ),
             "latencia_s": round(wall_latency, 6),
             "latencia_activa_s": round(retry_meta["latencia_activa_s"], 6),
             "backoff_s": retry_meta["backoff_s"],
@@ -177,6 +206,7 @@ def evaluar(ruta_jsonl: str, guardar_en: str | None = None,
             "error": error,
             "provider_solicitado": BENCHMARK.provider,
             "model_solicitado": BENCHMARK.model,
+            "agent_model": BENCHMARK.model,
             "model_efectivo": telemetry.get("model_effective"),
             "provider_efectivo": telemetry.get("provider_effective"),
             "temperature": BENCHMARK.temperature,
@@ -187,6 +217,7 @@ def evaluar(ruta_jsonl: str, guardar_en: str | None = None,
             "coste": telemetry.get("coste"),
             "retrieval_config": {
                 "tipo": "dense_faiss_con_postfiltrado_metadata",
+                "profile": BENCHMARK.retrieval_profile,
                 "embedding": BENCHMARK.embedding_model,
                 "query_prefix": BENCHMARK.embedding_query_prefix,
                 "normalizado": BENCHMARK.embedding_normalize,
@@ -196,6 +227,12 @@ def evaluar(ruta_jsonl: str, guardar_en: str | None = None,
                 "bm25": False,
                 "reranking": False,
             },
+            "retrieval_profile": BENCHMARK.retrieval_profile,
+            "retrieval_pipeline": (
+                "original query + Gemini Embedding 2 + FAISS global + "
+                "metadata postfilter ticker/fiscal_year/item"
+            ),
+            "retrieval_final_provenance": retrieval_final_provenance,
             "embedding": BENCHMARK.embedding_model,
             "k": BENCHMARK.retrieval_k,
             "prompt_version": BENCHMARK.prompt_version,
