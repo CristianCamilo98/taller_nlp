@@ -63,10 +63,11 @@ class AgentSettings:
     )
     embedding_batch_size: int = 8
     provider: str = "openrouter"
-    # Rerank (etapa 2): pool denso → cross-encoder. None = desactivado en agente.
+    # Rerank (etapa 2): pool denso → cross-encoder en search_filings / agente.
+    use_reranking: bool = False
     reranker_model: str = "BAAI/bge-reranker-v2-m3"
-    rerank_pool_k: int = 20
-    rerank_max_length: int = 8192
+    rerank_pool_k: int = 10
+    rerank_max_length: int = 1024
 
 
 SETTINGS = AgentSettings()

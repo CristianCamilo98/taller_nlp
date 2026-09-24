@@ -249,6 +249,37 @@ def matriz_pregunta_run(
     }
 
 
+def _respuesta_estructurada(row: dict[str, Any]) -> dict[str, Any] | None:
+    """JSON estructurado del agente (schema Respuesta), no solo el texto."""
+    raw = row.get("respuesta")
+    if isinstance(raw, dict) and raw:
+        return raw
+    # Fallback: reconstruir desde campos planos del JSONL de evaluar.
+    mapping = {
+        "respuesta": "respuesta_agente",
+        "cifra": "cifra_agente",
+        "unidad": "unidad_agente",
+        "ticker": "ticker_agente",
+        "ejercicio": "ejercicio_agente",
+        "concepto_xbrl": "concepto_xbrl_agente",
+        "ejercicio_inicial": "ejercicio_inicial_agente",
+        "ejercicio_final": "ejercicio_final_agente",
+        "valor_inicial": "valor_inicial_agente",
+        "valor_final": "valor_final_agente",
+        "delta": "delta_agente",
+        "porcentaje": "porcentaje_agente",
+        "fuente": "fuente_agente",
+        "cita": "cita_agente",
+        "chunk_id": "chunk_id_agente",
+    }
+    built = {
+        key: row[flat]
+        for key, flat in mapping.items()
+        if flat in row and row[flat] is not None
+    }
+    return built or None
+
+
 def fila_drilldown(row: dict[str, Any]) -> dict[str, Any]:
     """Campos útiles para el panel side-by-side (sin volcar el JSON entero)."""
     metricas = row.get("metricas") or {}
@@ -286,6 +317,7 @@ def fila_drilldown(row: dict[str, Any]) -> dict[str, Any]:
         "acierto_cita": row.get("acierto_cita"),
         "acierto_trayectoria": row.get("acierto_trayectoria"),
         "respuesta_agente": row.get("respuesta_agente"),
+        "respuesta_estructurada": _respuesta_estructurada(row),
         "respuesta_esperada": row.get("respuesta_esperada"),
         "cifra_agente": row.get("cifra_agente"),
         "cifra_esperada": row.get("cifra_esperada"),

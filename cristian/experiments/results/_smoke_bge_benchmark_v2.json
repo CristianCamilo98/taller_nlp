@@ -1,0 +1,337 @@
+{
+  "manifest": {
+    "experiment": "cristian",
+    "benchmark_name": "retrieval_benchmark_v2",
+    "benchmark_sha256": "6BD044EF3135686942B42CC9A654019D43675C1ACB2629ACE4B11274FFD80B8C",
+    "benchmark_path": "cristian/experiments/benchmark/retrieval_benchmark_v2.jsonl",
+    "n_questions": 3,
+    "max_k": 10,
+    "embedding_model": "BAAI/bge-small-en-v1.5",
+    "embedding_model_id": "BAAI/bge-small-en-v1.5",
+    "faiss_index": "/home/cristian/miax/module_5/taller/taller_nlp/cristian/dataset/indice_faiss/corpus.faiss",
+    "faiss_index_sha256": "605CE725DE4604A3CD37A35EE61A03D52AA9351543D8CA98F53D5535DC9E8F5A",
+    "retrieval": {
+      "tipo": "dense_faiss_con_postfiltrado_metadata",
+      "policy": "ranking global + filtro ticker/año/item",
+      "query_rewriting": false,
+      "bm25": false,
+      "reranking": false
+    },
+    "evaluation_views": [
+      "ALL-48",
+      "ITEM-1A-12",
+      "ITEM-7-12",
+      "ITEM-7A-12",
+      "ITEM-8-12",
+      "NON-7A-36"
+    ],
+    "primary_metric": "NON-7A-36 Recall@5",
+    "secondary_metric": "NON-7A-36 MRR@10",
+    "timestamp": "2026-09-23T18:18:17.763838+00:00",
+    "commit_sha": "69f41396beffbdcd47799813037b2be6e821e113",
+    "comparable_to": "dani/experiments/results/*_benchmark_v2*.json (misma rúbrica de retrieval)"
+  },
+  "metrics": {
+    "ALL-48": {
+      "recall@1": 0.0,
+      "recall@3": 0.6666666666666666,
+      "recall@5": 0.6666666666666666,
+      "recall@10": 1.0,
+      "mrr@10": 0.38095238095238093,
+      "n_questions": 3
+    },
+    "ITEM-1A-12": {
+      "recall@1": 0.0,
+      "recall@3": 0.0,
+      "recall@5": 0.0,
+      "recall@10": 1.0,
+      "mrr@10": 0.14285714285714285,
+      "n_questions": 1
+    },
+    "ITEM-7-12": {
+      "recall@1": 0.0,
+      "recall@3": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "mrr@10": 0.5,
+      "n_questions": 1
+    },
+    "ITEM-7A-12": {
+      "recall@1": 0.0,
+      "recall@3": 1.0,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "mrr@10": 0.5,
+      "n_questions": 1
+    },
+    "ITEM-8-12": {
+      "recall@1": null,
+      "recall@3": null,
+      "recall@5": null,
+      "recall@10": null,
+      "mrr@10": null,
+      "n_questions": 0
+    },
+    "NON-7A-36": {
+      "recall@1": 0.0,
+      "recall@3": 0.5,
+      "recall@5": 0.5,
+      "recall@10": 1.0,
+      "mrr@10": 0.3214285714285714,
+      "n_questions": 2
+    }
+  },
+  "per_question": [
+    {
+      "question_id": "dani-b6-001",
+      "query": "¿Qué consecuencias contempla Apple si ocurre un accidente industrial en las instalaciones de uno de sus proveedores?",
+      "ticker": "AAPL",
+      "fiscal_year": 2024,
+      "item": "1A",
+      "evidence_type": "prose",
+      "evidence_span": {
+        "char_start": 7339,
+        "char_end": 7600,
+        "evidence_text": "While the Company’s suppliers are required to maintain safe working environments and operations, an industrial accident could occur and could result in serious injuries or loss of life, disruption to the Company’s business, and harm to the Company’s reputation.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 34,
+      "relevant_chunk_ids": [
+        "AAPL-2024-1A-0003"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "AAPL-2024-1A-0011",
+          "score": 0.676,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AAPL-2024-1A-0024",
+          "score": 0.6326,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AAPL-2024-1A-0008",
+          "score": 0.6284,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AAPL-2024-1A-0002",
+          "score": 0.6248,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AAPL-2024-1A-0027",
+          "score": 0.623,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "AAPL-2024-1A-0019",
+          "score": 0.6191,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "AAPL-2024-1A-0003",
+          "score": 0.5938,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "AAPL-2024-1A-0025",
+          "score": 0.5875,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "AAPL-2024-1A-0014",
+          "score": 0.5857,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "1A"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "AAPL-2024-1A-0020",
+          "score": 0.5772,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "1A"
+        }
+      ],
+      "first_relevant_rank": 7,
+      "latency_s": {
+        "total": 0.592661
+      }
+    },
+    {
+      "question_id": "dani-b6-002",
+      "query": "¿Qué combinación de modelos explicó principalmente la caída de las ventas de iPad de Apple en FY2024?",
+      "ticker": "AAPL",
+      "fiscal_year": 2024,
+      "item": "7",
+      "evidence_type": "prose",
+      "evidence_span": {
+        "char_start": 4480,
+        "char_end": 4667,
+        "evidence_text": "iPad\n\niPad net sales decreased during 2024 compared to 2023 due primarily to lower net sales of iPad Pro and the entry-level iPad models, partially offset by higher net sales of iPad Air.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 10,
+      "relevant_chunk_ids": [
+        "AAPL-2024-7-0002"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "AAPL-2024-7-0000",
+          "score": 0.6609,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AAPL-2024-7-0002",
+          "score": 0.6442,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 3,
+          "chunk_id": "AAPL-2024-7-0001",
+          "score": 0.6219,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 4,
+          "chunk_id": "AAPL-2024-7-0004",
+          "score": 0.584,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 5,
+          "chunk_id": "AAPL-2024-7-0006",
+          "score": 0.5792,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 6,
+          "chunk_id": "AAPL-2024-7-0009",
+          "score": 0.5555,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 7,
+          "chunk_id": "AAPL-2024-7-0008",
+          "score": 0.5006,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 8,
+          "chunk_id": "AAPL-2024-7-0007",
+          "score": 0.4826,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 9,
+          "chunk_id": "AAPL-2024-7-0003",
+          "score": 0.4758,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "7"
+        },
+        {
+          "rank": 10,
+          "chunk_id": "AAPL-2024-7-0005",
+          "score": 0.4593,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "7"
+        }
+      ],
+      "first_relevant_rank": 2,
+      "latency_s": {
+        "total": 0.688009
+      }
+    },
+    {
+      "question_id": "dani-b6-003",
+      "query": "¿Cómo afectaría una subida de los tipos de interés a la cartera de inversión y a la deuda a plazo de Apple?",
+      "ticker": "AAPL",
+      "fiscal_year": 2024,
+      "item": "7A",
+      "evidence_type": "prose",
+      "evidence_span": {
+        "char_start": 459,
+        "char_end": 624,
+        "evidence_text": "Increases in interest rates will negatively affect the fair value of the Company’s investment portfolio and increase the interest expense on the Company’s term debt.",
+        "matching_method": "exact_literal"
+      },
+      "candidate_pool_size": 2,
+      "relevant_chunk_ids": [
+        "AAPL-2024-7A-0000"
+      ],
+      "n_relevant_chunks": 1,
+      "ranking": [
+        {
+          "rank": 1,
+          "chunk_id": "AAPL-2024-7A-0001",
+          "score": 0.4595,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "7A"
+        },
+        {
+          "rank": 2,
+          "chunk_id": "AAPL-2024-7A-0000",
+          "score": 0.4252,
+          "ticker": "AAPL",
+          "fiscal_year": 2024,
+          "item": "7A"
+        }
+      ],
+      "first_relevant_rank": 2,
+      "latency_s": {
+        "total": 0.69742
+      }
+    }
+  ]
+}

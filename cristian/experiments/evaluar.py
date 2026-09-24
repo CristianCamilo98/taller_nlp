@@ -226,7 +226,11 @@ def _construir_fila(
         "llm_calls": telemetry.get("llm_calls"),
         "coste": telemetry.get("coste"),
         "retrieval_config": {
-            "tipo": "dense_faiss_con_postfiltrado_metadata",
+            "tipo": (
+                "dense_faiss_con_postfiltrado_metadata + cross_encoder"
+                if SETTINGS.use_reranking
+                else "dense_faiss_con_postfiltrado_metadata"
+            ),
             "embedding": SETTINGS.embedding_model,
             "backend": (
                 "openrouter" if is_openrouter_embedding() else "local"
@@ -235,7 +239,16 @@ def _construir_fila(
             "k": SETTINGS.retrieval_k,
             "query_rewriting": False,
             "bm25": False,
-            "reranking": False,
+            "reranking": SETTINGS.use_reranking,
+            "reranker_model": (
+                SETTINGS.reranker_model if SETTINGS.use_reranking else None
+            ),
+            "rerank_pool_k": (
+                SETTINGS.rerank_pool_k if SETTINGS.use_reranking else None
+            ),
+            "rerank_max_length": (
+                SETTINGS.rerank_max_length if SETTINGS.use_reranking else None
+            ),
         },
         "embedding": SETTINGS.embedding_model,
         "k": SETTINGS.retrieval_k,
@@ -324,14 +337,25 @@ def evaluar(
         f"modelo={SETTINGS.model}"
     )
 
-    # Una sola carga de BGE/FAISS en el hilo principal (evita 5× "Loading weights").
-    from cristian.experiments.miax_s1 import precargar_retrieval
+    # Una sola carga de FAISS/encoder (+ reranker) en el hilo principal.
+    from cristian.experiments.miax_s1 import (
+        precargar_retrieval,
+        precargar_reranker,
+    )
     from cristian.experiments.tools import _load_sections
     from cristian.experiments.xbrl import load_xbrl
 
     print("Precargando retrieval (FAISS + embeddings) y corpus/XBRL…")
     print(f"  embedding_model={SETTINGS.embedding_model}")
+    print(
+        f"  use_reranking={SETTINGS.use_reranking} "
+        f"pool_k={SETTINGS.rerank_pool_k} "
+        f"reranker={SETTINGS.reranker_model}"
+    )
     precargar_retrieval()
+    if SETTINGS.use_reranking:
+        print("Precargando cross-encoder reranker…")
+        precargar_reranker()
     load_xbrl()
     _load_sections()
 

@@ -35,8 +35,9 @@ comando: el dashboard se regenera desde disco (sin datos inventados).
   tools total/medios, errores, prompt, commit.
 - **Desglose por familia** (`numerica` / `extractiva` / `comparativa`).
 - **Heatmap pregunta × run** (✓ / ✗ / —) con selector de métrica.
-- **Drill-down**: clic en una fila → side-by-side `respuesta_agente` vs esperada,
-  tools, errores de métricas.
+- **Drill-down**: clic en una fila → JSON estructurado del agente (`respuesta`,
+  `cita`, `chunk_id`, …), texto `respuesta_agente` vs esperada, tools y detalle
+  de métricas (p. ej. flags de cita).
 
 ## Nota sobre Cursor Canvas
 

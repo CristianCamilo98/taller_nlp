@@ -223,15 +223,28 @@ def search_filings(
             "una vez y vuelve a buscar con ese item. "
             "No repitas esta llamada sin item."
         )
-    from cristian.experiments.miax_s1 import buscar, formatear_fragmentos
-
-    fragments = buscar(
-        query,
-        ticker=ticker.strip().upper() if ticker else None,
-        fiscal_year=int(fiscal_year) if fiscal_year is not None else None,
-        item=item_code,
-        k=int(k),
+    from cristian.experiments.config import SETTINGS
+    from cristian.experiments.miax_s1 import (
+        buscar,
+        buscar_con_rerank,
+        formatear_fragmentos,
     )
+
+    filters = {
+        "ticker": ticker.strip().upper() if ticker else None,
+        "fiscal_year": int(fiscal_year) if fiscal_year is not None else None,
+        "item": item_code,
+        "k": int(k),
+    }
+    if SETTINGS.use_reranking:
+        fragments = buscar_con_rerank(
+            query,
+            **filters,
+            pool_k=SETTINGS.rerank_pool_k,
+            reranker_model=SETTINGS.reranker_model,
+        )
+    else:
+        fragments = buscar(query, **filters)
     return formatear_fragmentos(fragments)
 
 

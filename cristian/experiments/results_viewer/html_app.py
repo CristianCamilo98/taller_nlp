@@ -511,7 +511,13 @@ function renderDrill() {{
         "<dt>coste</dt><dd>" + fmtCost(d.coste) + "</dd>" +
         "<dt>error</dt><dd>" + escapeHtml(d.error || "—") + "</dd>" +
         "</div>" +
-        "<div style='font-size:0.78rem;color:var(--muted)'>respuesta_agente</div>" +
+        "<div style='font-size:0.78rem;color:var(--muted)'>respuesta_estructurada (JSON agente)</div>" +
+        "<pre>" + escapeHtml(
+          d.respuesta_estructurada
+            ? JSON.stringify(d.respuesta_estructurada, null, 2)
+            : "—"
+        ) + "</pre>" +
+        "<div style='font-size:0.78rem;color:var(--muted)'>respuesta_agente (texto)</div>" +
         "<pre>" + escapeHtml(d.respuesta_agente || "—") + "</pre>" +
         "<div style='font-size:0.78rem;color:var(--muted)'>respuesta_esperada</div>" +
         "<pre>" + escapeHtml(d.respuesta_esperada || "—") + "</pre>";
