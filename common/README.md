@@ -13,15 +13,26 @@ $env:MIAX_DATASET_DIR = 'C:\ruta\al\dataset'
 ```
 
 Si no existe esa variable se prueban, en este orden, `repo/dataset` y
-`parent_del_repo/dataset`. Dentro deben existir:
+`parent_del_repo/dataset`. El runtime mínimo que usa el agente final
+(perfil `gemini-embedding-2`) ya viene incluido en el repo en `dataset/`, así
+que no hace falta configurar nada para el flujo normal — ver el README de
+la raíz. Dentro de `dataset/` deben existir:
 
 - `corpus_miax_2026/{secciones.jsonl,chunks.jsonl,xbrl_facts.parquet}`
-- `indice_faiss/{corpus.faiss,chunks_meta.parquet}`
+- `indice_faiss_gemini_embedding_2/{corpus.faiss,chunks_meta.parquet,index_manifest.json,source_manifest.json}`
+  (perfil final, incluido en el repo)
+- `indice_faiss/{corpus.faiss,chunks_meta.parquet}` (perfil BGE histórico;
+  solo necesario si se selecciona explícitamente vía `MIAX_RETRIEVAL_PROFILE`)
 
 ### Perfiles de retrieval denso
 
-El perfil por defecto sigue siendo el baseline BGE y no requiere ninguna
-variable nueva:
+`MIAX_RETRIEVAL_PROFILE` selecciona el perfil para scripts de
+experimentación/benchmark de retrieval en aislado. **No afecta al agente
+final**: `search_filings` fuerza siempre el perfil `gemini-embedding-2`
+desde código (`FINAL_RETRIEVAL_PROFILE` en `benchmark_config.py`),
+independientemente de esta variable — ver "Configuración congelada" más
+abajo. BGE small es el baseline histórico con el que arrancó el proyecto,
+no el retrieval del agente entregado:
 
 ```powershell
 $env:MIAX_RETRIEVAL_PROFILE = 'bge-small-baseline'

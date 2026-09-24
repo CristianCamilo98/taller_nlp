@@ -6,13 +6,11 @@ cubre solo lo necesario para ejecutar el proyecto desde un clon limpio.
 
 ## Ejecución desde un clon limpio
 
-1. **Clonar** (asegúrate de estar en la rama `integration/final-agent`,
-   donde vive el código final; `master` no la incluye):
+1. **Clonar** (la rama por defecto, `master`, ya contiene el código final):
 
    ```powershell
    git clone https://github.com/CristianCamilo98/taller_nlp.git
    cd taller_nlp
-   git checkout integration/final-agent
    ```
 
 2. **Crear y activar el entorno** (Python 3.11 o 3.12):
@@ -30,20 +28,24 @@ cubre solo lo necesario para ejecutar el proyecto desde un clon limpio.
    python -m pip install -r common\requirements-dev.txt
    ```
 
-4. **Colocar el dataset**. No está en Git (`.gitignore`). Debe existir,
-   con esta estructura, en `dataset/` junto al repo (o dentro de él), o en
-   cualquier ruta indicada con `MIAX_DATASET_DIR`:
+4. **Dataset**. El runtime mínimo necesario para el agente final ya viene
+   incluido en el repo, en `dataset/`:
+
+   - `dataset/corpus_miax_2026/` — `secciones.jsonl`, `chunks.jsonl`,
+     `xbrl_facts.parquet`
+   - `dataset/indice_faiss_gemini_embedding_2/` — `corpus.faiss`,
+     `chunks_meta.parquet`, `index_manifest.json`, `source_manifest.json`
+
+   No hace falta configurar nada para esto: `get_dataset_paths()` lo
+   resuelve automáticamente como `dataset/` junto al repo. `MIAX_DATASET_DIR`
+   solo es necesaria como **override opcional**, si quieres apuntar a otra
+   copia del dataset (por ejemplo, para probar otro perfil de retrieval
+   histórico no incluido en el repo — ver
+   [`common/README.md`](common/README.md#dataset)):
 
    ```powershell
-   $env:MIAX_DATASET_DIR = 'C:\ruta\a\tu\dataset'
+   $env:MIAX_DATASET_DIR = 'C:\ruta\a\otro\dataset'
    ```
-
-   Dentro de esa carpeta deben existir `corpus_miax_2026/` (con
-   `secciones.jsonl`, `chunks.jsonl`, `xbrl_facts.parquet`) y
-   `indice_faiss_gemini_embedding_2/` (con `corpus.faiss`,
-   `chunks_meta.parquet`, `index_manifest.json` — el índice usado por el
-   perfil de retrieval final). Ver [`common/README.md`](common/README.md#dataset)
-   para el resto de perfiles.
 
 5. **Configurar la API key de OpenRouter**. Copia la plantilla y rellena tu
    clave real (nunca se sube a Git; `.env` está en `.gitignore`):
