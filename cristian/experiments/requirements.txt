@@ -1,0 +1,12 @@
+langchain
+langchain-core
+langgraph
+langchain-openrouter
+pydantic
+python-dotenv
+pandas
+pyarrow
+sentence-transformers
+faiss-cpu
+huggingface_hub
+rank-bm25

@@ -1,0 +1,5 @@
+# Índices y artefactos regenerables — no versionar.
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
