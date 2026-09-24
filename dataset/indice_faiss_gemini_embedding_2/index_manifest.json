@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "profile": "gemini-embedding-2",
+  "provider": "openrouter",
+  "model_name": "google/gemini-embedding-2",
+  "model_revision": null,
+  "model_revision_policy": "provider_managed",
+  "embedding_dimension": 3072,
+  "normalize": true,
+  "document_format": "raw",
+  "input_type_documents_requested": "search_document",
+  "input_type_queries_requested": "search_query",
+  "input_type_historical_effective": "unknown",
+  "index_type": "IndexFlatIP",
+  "ntotal": 1749,
+  "faiss_sha256": "aa84a962a1b5a1c2ea3c75f87efa858687229335774d56416944356f3ee74a5a",
+  "chunks_sha256": "388ff3671742c2248e8f5cb1c75afbc786edfa0dc6f72a62d1fadf2310ec82b2",
+  "chunks_meta_sha256": "fbd22360e517e5da250b18f0c95dbc9ad704b41902cedb1154747fde0be16fd9"
+}
