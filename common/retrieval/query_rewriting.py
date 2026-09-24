@@ -1,60 +1,121 @@
-"""Query rewriting: traduce la pregunta al inglés antes de buscar.
+"""Query rewriting congelado mediante una única petición a OpenRouter."""
 
-El corpus está en inglés. Si la pregunta viene en español, la búsqueda
-densa funciona a medias (BGE es multilingüe) y BM25 no funciona en
-absoluto. Traducir la query al inglés mejora ambas.
-"""
+from __future__ import annotations
+
+import json
 import os
-from pathlib import Path
-
-from dotenv import load_dotenv
-from langchain.chat_models import init_chat_model
-
-# Cargar .env de la raíz
-_raiz = Path(__file__).resolve().parents[2]
-for ruta in [_raiz / ".env", _raiz / "marco" / ".env"]:
-    if ruta.is_file():
-        load_dotenv(ruta)
-        break
-
-_MODELO = "openrouter:google/gemini-3.5-flash-lite"  # baratísimo
-_modelo = None
+import time
+import urllib.error
+import urllib.request
+from typing import Any, Callable
 
 
-def _get_modelo():
-    global _modelo
-    if _modelo is None:
-        _modelo = init_chat_model(_MODELO, temperature=0)
-    return _modelo
+OPENROUTER_CHAT_COMPLETIONS_URL = (
+    "https://openrouter.ai/api/v1/chat/completions"
+)
+QUERY_REWRITER_MODEL = "openrouter:deepseek/deepseek-v4-flash"
+QUERY_REWRITER_MODEL_ID = "deepseek/deepseek-v4-flash"
+QUERY_REWRITER_PROMPT = (
+    "Rewrite the financial question into a concise English search query "
+    "optimized to retrieve relevant passages from SEC 10-K/10-Q filings. "
+    "Preserve the exact information need, company, fiscal year and filing "
+    "item when present. Do not answer the question. Do not invent facts. "
+    "Return only the rewritten search query."
+)
 
 
-PROMPT = """Translate the following question to English for use as a
-search query over English 10-K financial reports. Return ONLY the
-translation, no explanations, no quotes.
+class QueryRewriteError(RuntimeError):
+    """La petición o la respuesta del rewriter no cumple el contrato."""
 
-Question (in Spanish): {pregunta}
 
-English query:"""
+def _api_key() -> str:
+    key = os.getenv("OPENROUTER_API_KEY")
+    if not key:
+        raise QueryRewriteError("Falta OPENROUTER_API_KEY en el proceso")
+    return key
+
+
+def _post_openrouter(payload: dict[str, Any]) -> dict[str, Any]:
+    """Realiza exactamente un intento HTTP; el smoke no oculta reintentos."""
+    request = urllib.request.Request(
+        OPENROUTER_CHAT_COMPLETIONS_URL,
+        data=json.dumps(payload).encode("utf-8"),
+        headers={
+            "Authorization": f"Bearer {_api_key()}",
+            "Content-Type": "application/json",
+            "HTTP-Referer": "https://github.com/miax-taller-nlp",
+            "X-Title": "miax-common-query-rewriting",
+        },
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=120) as response:
+            return json.loads(response.read().decode("utf-8"))
+    except urllib.error.HTTPError as exc:
+        detail = exc.read().decode("utf-8", errors="replace")
+        raise QueryRewriteError(
+            f"OpenRouter chat completions HTTP {exc.code}: {detail[:500]}"
+        ) from exc
+    except urllib.error.URLError as exc:
+        raise QueryRewriteError(
+            f"OpenRouter chat completions network error: {exc.reason}"
+        ) from exc
+    except (json.JSONDecodeError, UnicodeDecodeError) as exc:
+        raise QueryRewriteError("Respuesta OpenRouter no es JSON válido") from exc
+
+
+def _usage(response: dict[str, Any]) -> dict[str, int | float | None]:
+    usage = response.get("usage")
+    usage = usage if isinstance(usage, dict) else {}
+    cost = usage.get("cost")
+    if not isinstance(cost, (int, float)):
+        cost = response.get("cost")
+    return {
+        "input_tokens": usage.get("prompt_tokens"),
+        "output_tokens": usage.get("completion_tokens"),
+        "total_tokens": usage.get("total_tokens"),
+        "cost": float(cost) if isinstance(cost, (int, float)) else None,
+    }
+
+
+def rewrite_query(
+    question: str,
+    *,
+    request_fn: Callable[[dict[str, Any]], dict[str, Any]] | None = None,
+) -> dict[str, Any]:
+    """Reescribe una query y devuelve texto más provenance del proveedor."""
+    if not isinstance(question, str) or not question.strip():
+        raise QueryRewriteError("La pregunta no puede estar vacía")
+    payload = {
+        "model": QUERY_REWRITER_MODEL_ID,
+        "temperature": 0.0,
+        "max_tokens": 128,
+        "messages": [
+            {"role": "system", "content": QUERY_REWRITER_PROMPT},
+            {"role": "user", "content": question},
+        ],
+    }
+    send = request_fn or _post_openrouter
+    started = time.perf_counter()
+    response = send(payload)
+    latency_s = time.perf_counter() - started
+    try:
+        rewritten = response["choices"][0]["message"]["content"].strip()
+    except (KeyError, IndexError, TypeError, AttributeError) as exc:
+        raise QueryRewriteError("Respuesta OpenRouter sin texto reescrito") from exc
+    if not rewritten:
+        raise QueryRewriteError("OpenRouter devolvió un rewrite vacío")
+    return {
+        "question": question,
+        "rewrite": rewritten,
+        "requested_model": QUERY_REWRITER_MODEL,
+        "effective_model": response.get("model"),
+        "provider_response_id": response.get("id"),
+        "latency_s": round(latency_s, 6),
+        "usage": _usage(response),
+    }
 
 
 def reescribir(pregunta: str) -> str:
-    """Traduce la pregunta al inglés para usarla como query de búsqueda."""
-    try:
-        modelo = _get_modelo()
-        respuesta = modelo.invoke(PROMPT.format(pregunta=pregunta))
-        return respuesta.text.strip().strip('"').strip("'")
-    except Exception as e:
-        print(f"⚠️ reescribir falló: {type(e).__name__}: {e}")
-        return pregunta  # fallback: usa la original
-
-
-if __name__ == "__main__":
-    ejemplos = [
-        "¿Qué políticas contables relevantes describe Amazon en sus estados financieros de FY2024?",
-        "¿Qué riesgo regulatorio relacionado con privacidad de datos menciona Meta en sus factores de riesgo de FY2024?",
-        "¿Qué dice Microsoft sobre su exposición al riesgo de tipo de cambio en el apartado de riesgo de mercado de FY2024?",
-    ]
-    for p in ejemplos:
-        print(f"ES: {p}")
-        print(f"EN: {reescribir(p)}")
-        print()
+    """Compatibilidad con experimentos anteriores; falla de forma explícita."""
+    return str(rewrite_query(pregunta)["rewrite"])
