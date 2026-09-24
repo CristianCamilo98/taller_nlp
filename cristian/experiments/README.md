@@ -41,6 +41,7 @@ python -m unittest discover -s common/tests -v
 | `responder.py` | `responder(pregunta)` → dict evaluable. |
 | `evaluar.py` | Corre golden + métricas cifra/cita/trayectoria. |
 | `eval_retrieval_benchmark_v2.py` | Retrieval vs benchmark Dani v2 (Recall@k / MRR). |
+| `reranker.py` | Cross-encoder `BAAI/bge-reranker-v2-m3` sobre pool denso. |
 | `benchmark/` | Copia congelada de `retrieval_benchmark_v2.jsonl`. |
 | `tools.py` | Las 4 tools; `search_filings` → `miax_s1`. |
 | `schema.py` / `config.py` / `xbrl.py` | Runtime experimental autónomo. |
@@ -57,6 +58,10 @@ python -m cristian.experiments.evaluar \
 
 # Benchmark retrieval Dani v2 (sin LLM; comparable a dani/*_benchmark_v2*)
 python -m cristian.experiments.eval_retrieval_benchmark_v2
+
+# Mismo benchmark + rerank BGE (pool Gemini 20 → cross-encoder)
+python -m cristian.experiments.eval_retrieval_benchmark_v2 --rerank \
+  --copy-to-comparisons
 
 # Comparar resultados agente (HTML local)
 python -m cristian.experiments.results_viewer

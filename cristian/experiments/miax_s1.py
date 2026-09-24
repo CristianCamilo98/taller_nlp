@@ -173,6 +173,51 @@ def buscar(
     return resultados
 
 
+def buscar_con_rerank(
+    query: str,
+    ticker: str | None = None,
+    fiscal_year: int | None = None,
+    item: str | None = None,
+    k: int = 5,
+    *,
+    pool_k: int | None = None,
+    reranker_model: str | None = None,
+) -> list[dict]:
+    """Dense (SETTINGS.embedding_model) → pool → cross-encoder → top-``k``.
+
+    El pool lo saca el mismo FAISS/encoder que ``buscar`` (p. ej. Gemini).
+    El reranker solo reordena esos candidatos.
+    """
+    from cristian.experiments.reranker import rerank_hits
+
+    pool_size = pool_k if pool_k is not None else config_mod.SETTINGS.rerank_pool_k
+    model = reranker_model or config_mod.SETTINGS.reranker_model
+    pool = buscar(
+        query,
+        ticker=ticker,
+        fiscal_year=fiscal_year,
+        item=item,
+        k=max(int(pool_size), int(k)),
+    )
+    return rerank_hits(
+        query,
+        pool,
+        top_k=k,
+        model_name=model,
+        max_length=config_mod.SETTINGS.rerank_max_length,
+    )
+
+
+def precargar_reranker(model_name: str | None = None) -> None:
+    """Precarga el cross-encoder en el hilo principal."""
+    from cristian.experiments.reranker import precargar_reranker as _precargar
+
+    _precargar(
+        model_name or config_mod.SETTINGS.reranker_model,
+        max_length=config_mod.SETTINGS.rerank_max_length,
+    )
+
+
 def formatear_fragmentos(fragmentos: list[dict]) -> str:
     """Los fragmentos, en el texto que ve el modelo.
 
